@@ -6,12 +6,12 @@
 :root {
     /* Color Palette */
     --color-primary: hsl(43, 80%, 38%);       /* Brand Gold (Contrast Optimized) */
-    --color-primary-light: hsl(43, 80%, 52%); /* Brand Golden Yellow (#e7b124) */
+    --color-primary-light: rgb(231, 177, 36); /* Brand Golden Yellow (#e7b124) */
     --color-primary-dark: hsl(43, 80%, 25%);  /* Deep Mustard Gold */
     
     --color-forest: hsl(0, 0%, 22%);          /* Brand Dark Charcoal Grey */
     --color-forest-dark: hsl(0, 0%, 16%);     /* Brand Dark Charcoal Grey (#2a2a2a) */
-    --color-accent: hsl(43, 80%, 52%);        /* Brand Golden Yellow Accent */
+    --color-accent: rgb(231, 177, 36);        /* Brand Golden Yellow Accent */
     
     --color-text-dark: hsl(0, 0%, 16%);       /* Main Text Color (#2a2a2a) */
     --color-text-muted: hsl(0, 0%, 48%);      /* Secondary Text */
@@ -183,7 +183,7 @@ ul {
 .btn-primary:hover {
     background-color: var(--color-primary-light);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px hsla(43, 80%, 52%, 0.3);
+    box-shadow: 0 8px 20px rgba(231, 177, 36, 0.3);
 }
 
 .btn-secondary {
@@ -226,7 +226,7 @@ ul {
 .section-badge {
     display: inline-block;
     padding: 0.4rem 1.2rem;
-    background-color: hsla(43, 80%, 52%, 0.1);
+    background-color: rgba(231, 177, 36, 0.1);
     color: var(--color-primary);
     font-family: var(--font-heading);
     font-size: 0.8rem;
@@ -494,7 +494,7 @@ ul {
 }
 
 .feature-icon {
-    background-color: hsla(43, 80%, 52%, 0.1);
+    background-color: rgba(231, 177, 36, 0.1);
     color: var(--color-primary);
     width: 50px;
     height: 50px;
@@ -530,7 +530,7 @@ ul {
     right: 0;
     width: 80%;
     height: 80%;
-    border: 3px solid hsla(43, 80%, 52%, 0.2);
+    border: 3px solid rgba(231, 177, 36, 0.2);
     border-radius: var(--border-radius-lg);
     z-index: -1;
     transition: var(--transition-smooth);
@@ -672,7 +672,7 @@ ul {
     background-color: var(--color-primary);
     color: var(--color-bg-white);
     border-color: var(--color-primary);
-    box-shadow: 0 4px 12px hsla(43, 80%, 52%, 0.2);
+    box-shadow: 0 4px 12px rgba(231, 177, 36, 0.2);
 }
 
 .product-card {
@@ -1047,7 +1047,7 @@ ul {
 }
 
 .detail-icon {
-    background-color: hsla(43, 80%, 52%, 0.1);
+    background-color: rgba(231, 177, 36, 0.1);
     color: var(--color-primary);
     width: 55px;
     height: 55px;
@@ -1135,7 +1135,7 @@ ul {
     border-color: var(--color-primary);
     background-color: var(--color-bg-white);
     outline: none;
-    box-shadow: 0 0 0 3px hsla(43, 80%, 52%, 0.15);
+    box-shadow: 0 0 0 3px rgba(231, 177, 36, 0.15);
 }
 
 .btn-block {
