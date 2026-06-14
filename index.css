@@ -2781,24 +2781,24 @@ ul {
 }
 
 /* ==========================================================================
-   17. Floating Hiring Stamp Styles
+   17. Hero Hiring Stamp Styles
    ========================================================================== */
-.hiring-stamp-floating {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    z-index: 2000;
-    width: 80px;
-    height: 80px;
+.hiring-stamp-hero {
+    position: absolute;
+    top: 130px; /* Positioned under the fixed header (approx 105px tall) */
+    right: 5%;  /* Aligns with header container padding */
+    z-index: 10;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-    border: 3px solid var(--color-forest);
+    border: 3px solid var(--color-primary);
     background-color: var(--color-bg-white);
 }
 
-.hiring-stamp-floating img {
+.hiring-stamp-hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -2806,16 +2806,17 @@ ul {
     transform: scale(1.02);
 }
 
-.hiring-stamp-floating:hover {
+.hiring-stamp-hero:hover {
     transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 8px 25px rgba(231, 177, 36, 0.45);
+    box-shadow: 0 10px 30px rgba(231, 177, 36, 0.6);
 }
 
 @media (max-width: 768px) {
-    .hiring-stamp-floating {
-        width: 70px;
-        height: 70px;
-        bottom: 20px;
-        left: 20px;
+    .hiring-stamp-hero {
+        width: 65px;
+        height: 65px;
+        top: 110px;
+        right: 15px;
+        border-width: 2.5px;
     }
 }
