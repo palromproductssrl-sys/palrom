@@ -806,6 +806,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const lblDiameter = document.getElementById('lblDiameter');
         const lblThickness = document.getElementById('lblThickness');
         const controlGroupThickness = document.getElementById('controlGroupThickness');
+        const dbSubCategorySpecials = document.getElementById('dbSubCategorySpecials');
+        const controlGroupSubCategorySpecials = document.getElementById('controlGroupSubCategorySpecials');
         
         const summaryProduct = document.getElementById('summaryProduct');
         const summaryDimensions = document.getElementById('summaryDimensions');
@@ -866,7 +868,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const cat = dbCategory.value;
             const data = categoryData[cat];
             
-            summaryProduct.textContent = data.name;
+            if (cat === 'specials' && dbSubCategorySpecials) {
+                const subCatText = dbSubCategorySpecials.options[dbSubCategorySpecials.selectedIndex].text;
+                summaryProduct.textContent = `${data.name} - ${subCatText}`;
+            } else {
+                summaryProduct.textContent = data.name;
+            }
             
             // Format dimensions summary based on category data properties
             if (cat === 'planed') {
@@ -911,10 +918,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 controlGroupThickness.classList.add('hidden');
             }
             
+            // Toggle Specials Subcategory Dropdown
+            if (cat === 'specials' && controlGroupSubCategorySpecials) {
+                controlGroupSubCategorySpecials.classList.remove('hidden');
+            } else if (controlGroupSubCategorySpecials) {
+                controlGroupSubCategorySpecials.classList.add('hidden');
+            }
+            
             updateSummary();
         }
 
         dbCategory.addEventListener('change', handleCategoryChange);
+        if (dbSubCategorySpecials) {
+            dbSubCategorySpecials.addEventListener('change', updateSummary);
+        }
         dbOplage.addEventListener('change', updateSummary);
         
         dbLength.addEventListener('input', updateSummary);
