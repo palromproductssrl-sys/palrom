@@ -820,13 +820,21 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const successOverlay = document.getElementById('configuratorSuccessOverlay');
         const successTicket = document.getElementById('successTicketNum');
-        const successGroup = document.getElementById('successProductGroup');
-        const successSpecs = document.getElementById('successProductSpecs');
-        const successQty = document.getElementById('successProductQty');
+        const successFinalInquiryList = document.getElementById('successFinalInquiryList');
         const successCompany = document.getElementById('successCompanyName');
         
         const restartBtn = document.getElementById('successRestartBtn');
         const downloadPdfBtn = document.getElementById('successDownloadPdf');
+
+        // New DOM variables for combine request flow
+        const combineRequestModal = document.getElementById('combineRequestModal');
+        const closeCombineModal = document.getElementById('closeCombineModal');
+        const btnConfigureAnother = document.getElementById('btnConfigureAnother');
+        const btnFinishAndSubmit = document.getElementById('btnFinishAndSubmit');
+        const controlGroupAddedItems = document.getElementById('controlGroupAddedItems');
+        const configuredItemsList = document.getElementById('configuredItemsList');
+        
+        let configuredItems = [];
 
         // B2B Configurator Sizing Rules
         const categoryData = {
@@ -949,23 +957,131 @@ document.addEventListener('DOMContentLoaded', () => {
         dbDiameter.addEventListener('input', updateSummary);
         dbThickness.addEventListener('input', updateSummary);
 
-        // Submit form opens B2B contact modal
+        // Helper: Get current form configuration details
+        function getCurrentConfiguration() {
+            const cat = dbCategory.value;
+            const data = categoryData[cat];
+            
+            let finalName = data.name;
+            if (cat === 'specials' && subCategorySpecialsRadios.length > 0) {
+                let subCatText = "Keeplat Spruce";
+                for (const radio of subCategorySpecialsRadios) {
+                    if (radio.checked) {
+                        const labelSpan = radio.parentElement.querySelector('.card-label');
+                        if (labelSpan) {
+                            subCatText = labelSpan.textContent;
+                        }
+                        break;
+                    }
+                }
+                finalName = `${data.name} - ${subCatText}`;
+            }
+            
+            let dimensions = '';
+            if (cat === 'planed') {
+                dimensions = `${dbThickness.value}mm x ${dbDiameter.value}mm x ${dbLength.value}mm`;
+            } else {
+                dimensions = `${dbLength.value}mm x ${dbDiameter.value}mm`;
+            }
+            
+            const qty = dbOplage.options[dbOplage.selectedIndex].text;
+            const finish = data.finish;
+            
+            return {
+                productName: finalName,
+                dimensions: dimensions,
+                qty: qty,
+                finish: finish
+            };
+        }
+
+        // Helper: Render added items list in configurator
+        function renderAddedItems() {
+            if (configuredItems.length === 0) {
+                controlGroupAddedItems.classList.add('hidden');
+                configuredItemsList.innerHTML = '';
+                return;
+            }
+            
+            controlGroupAddedItems.classList.remove('hidden');
+            configuredItemsList.innerHTML = configuredItems.map((item, index) => `
+                <div class="configured-item-row">
+                    <div>
+                        <span class="item-info">${item.productName}</span>
+                        <span class="item-specs">(${item.dimensions} | ${item.finish} | ${item.qty})</span>
+                    </div>
+                    <button type="button" class="remove-item-btn" data-index="${index}" aria-label="Verwijder product">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+            
+            // Add click handlers for delete buttons
+            configuredItemsList.querySelectorAll('.remove-item-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    configuredItems.splice(idx, 1);
+                    renderAddedItems();
+                });
+            });
+        }
+
+        // Submit form opens B2B combine request modal
         b2bConfigForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            contactModal.classList.remove('hidden');
+            combineRequestModal.classList.remove('hidden');
         });
+
+        // Close combine modal
+        if (closeCombineModal) {
+            closeCombineModal.addEventListener('click', () => {
+                combineRequestModal.classList.add('hidden');
+            });
+        }
+        
+        combineRequestModal.addEventListener('click', (e) => {
+            if (e.target === combineRequestModal) {
+                combineRequestModal.classList.add('hidden');
+            }
+        });
+
+        // Add configuration and reset for another
+        if (btnConfigureAnother) {
+            btnConfigureAnother.addEventListener('click', () => {
+                const currentItem = getCurrentConfiguration();
+                configuredItems.push(currentItem);
+                renderAddedItems();
+                
+                b2bConfigForm.reset();
+                handleCategoryChange();
+                
+                combineRequestModal.classList.add('hidden');
+            });
+        }
+
+        // Add configuration and open contact details form
+        if (btnFinishAndSubmit) {
+            btnFinishAndSubmit.addEventListener('click', () => {
+                const currentItem = getCurrentConfiguration();
+                configuredItems.push(currentItem);
+                renderAddedItems();
+                
+                combineRequestModal.classList.add('hidden');
+                contactModal.classList.remove('hidden');
+            });
+        }
 
         // Close modal
         closeContactModal.addEventListener('click', () => {
             contactModal.classList.add('hidden');
         });
-
+ 
         contactModal.addEventListener('click', (e) => {
             if (e.target === contactModal) {
                 contactModal.classList.add('hidden');
             }
         });
-
+ 
         // Handle B2B Inquiry Submission
         modalForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -979,12 +1095,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Vul a.u.b. alle verplichte contactvelden in.');
                 return;
             }
-
+ 
             const submitBtn = modalForm.querySelector('.dashboard-modal-submit-btn');
             const originalBtnHtml = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Verwerken...';
-
+ 
             setTimeout(() => {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHtml;
@@ -992,20 +1108,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 contactModal.classList.add('hidden');
                 
                 const randomTicket = 'PLR-2026-' + Math.floor(10000 + Math.random() * 90000);
-                
                 successTicket.textContent = randomTicket;
-                successGroup.textContent = summaryProduct.textContent;
-                successSpecs.textContent = `Afmetingen: ${summaryDimensions.textContent} | Afwerking: ${summaryFinish.textContent}`;
-                successQty.textContent = summaryOplage.textContent;
+                
+                // Set company details
                 successCompany.textContent = company;
+                
+                // Render consolidated list of items
+                if (successFinalInquiryList) {
+                    successFinalInquiryList.innerHTML = configuredItems.map(item => `
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                            <strong>${item.productName}</strong><br>
+                            <span style="font-size: 0.85rem; opacity: 0.85;">Dimensions: ${item.dimensions} | Finish: ${item.finish} | Aantal: ${item.qty}</span>
+                        </li>
+                    `).join('');
+                }
                 
                 successOverlay.classList.remove('hidden');
                 window.scrollTo({ top: b2bConfigForm.offsetTop - 120, behavior: 'smooth' });
             }, 1200);
         });
-
+ 
         // Reset Configurator
         restartBtn.addEventListener('click', () => {
+            configuredItems = [];
+            renderAddedItems();
             b2bConfigForm.reset();
             modalForm.reset();
             handleCategoryChange();

@@ -3832,6 +3832,57 @@ ul {
     }
 }
 
+/* Configured Items List Styling */
+.configured-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.configured-item-row {
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+}
+
+.configured-item-row .item-info {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+.configured-item-row .item-specs {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-left: 0.5rem;
+}
+
+.configured-item-row .remove-item-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    transition: color var(--transition-fast) ease;
+}
+
+.configured-item-row .remove-item-btn:hover {
+    color: #b91c1c;
+}
+
 /* Custom Sliders */
 .slider-header {
     display: flex;
