@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beechwood Dowels Pins & Rods - PALROM Products</title>
+    <title>Our Products Catalogue - PALROM Products</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore PALROM Products' range of steamed and unsteamed beechwood dowels, pins, and rods. Sizes from 3mm to 60mm in smooth and spiral-rilled finishes.">
-    <meta name="keywords" content="beech dowels, dowel pins, wood rods, rilled dowels, carpentry dowels, furniture dowels">
+    <meta name="description" content="Browse the complete catalogue of PALROM Products SRL. Steamed and unsteamed beechwood dowels, 4-sides planed lumber, architectural profiles, and custom specials.">
+    <meta name="keywords" content="beechwood catalogue, wood products Romania, beech dowels, planed lumber, wood mouldings, custom furniture components, Palrom Brad">
     <meta name="author" content="PALROM Products SRL">
     
     <!-- Google Fonts -->
@@ -53,76 +53,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .detail-grid {
-            margin-top: 4rem;
-        }
-        .detail-card {
-            background-color: var(--color-bg-white);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0, 0, 0, 0.02);
-            border-top: 4px solid transparent;
-            transition: var(--transition-smooth);
-            display: flex;
-            flex-direction: column;
-        }
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-top: 4px solid var(--color-primary-light);
-        }
-        .detail-img-wrapper {
-            position: relative;
-            height: 280px;
-            overflow: hidden;
-            background-color: #f5f5f5;
-        }
-        .detail-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-smooth);
-        }
-        .detail-card:hover .detail-img-wrapper img {
-            transform: scale(1.05);
-        }
-        .detail-info {
-            padding: 2.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .detail-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--color-forest);
-        }
-        .detail-info p {
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-        .detail-cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 0.85rem 1.5rem;
-            background-color: var(--color-forest-dark);
-            color: var(--color-bg-white);
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: var(--border-radius-md);
-            transition: var(--transition-smooth);
-        }
-        .detail-cta:hover {
-            background-color: var(--color-primary-light);
-            color: var(--color-forest-dark);
-        }
         .breadcrumb {
             padding: 2rem 0 0;
             font-family: var(--font-heading);
@@ -139,6 +69,9 @@
         .breadcrumb span {
             color: var(--color-primary-dark);
             font-weight: 700;
+        }
+        .products-grid-section {
+            padding-top: 2rem;
         }
     </style>
 </head>
@@ -159,7 +92,7 @@
                 <a href="index.html#contact" class="nav-link">Contact Us</a>
             </nav>
             <div class="header-actions">
-                <a href="index.html?product=dowels#contact" class="action-btn">Request Quote</a>
+                <a href="index.html#contact" class="action-btn">Request Quote</a>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -173,76 +106,99 @@
     <section class="product-detail-hero">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html#home">Home</a> / <a href="products.html">Our Products</a> / <span>Beechwood Dowels</span>
+                <a href="index.html#home">Home</a> / <span>Our Products</span>
             </div>
-            <h1 style="margin-top: 1.5rem;">Beechwood Dowels & Rods</h1>
-            <p>PALROM Products manufactures an extensive range of precision-calibrated beechwood dowels, rods, and pins. Steamed or unsteamed, our dowels are crafted directly from sustainable timber to meet the highest woodworking specifications.</p>
+            <h1 style="margin-top: 1.5rem;">Precision Wood Catalogue</h1>
+            <p>For more than 25 years, PALROM Products has delivered first-grade Romanian beechwood components to carpenters, furniture factories, and DIY retailers worldwide. Explore our directory below to view specific subcategories.</p>
             <span class="fsc-notice"><i class="fa-solid fa-tree icon-left"></i> FSC® Certified Available On Request</span>
         </div>
     </section>
 
-    <!-- Dowels Catalog Section -->
-    <section class="section-padding bg-light" style="padding-top: 4rem;">
+    <!-- Products Catalogue Section -->
+    <section class="section-padding bg-light products-grid-section">
         <div class="container">
-            <div class="grid grid-3 detail-grid">
+            
+            <!-- Category Filter Tabs -->
+            <div class="product-filters" style="margin-bottom: 3rem;">
+                <button class="filter-btn active" data-category="all">All Products</button>
+                <button class="filter-btn" data-category="dowels">Beech Dowels</button>
+                <button class="filter-btn" data-category="planed">4-Sides Planed</button>
+                <button class="filter-btn" data-category="profiles">Profiles & Mouldings</button>
+                <button class="filter-btn" data-category="specials">Special Components</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-3 product-grid">
                 
-                <!-- Card 1: Small Size -->
-                <div class="detail-card animate-on-scroll">
-                    <div class="detail-img-wrapper">
-                        <img src="images/dowelssmall-1.jpg" alt="Dowels small size (3 mm and up)">
+                <!-- Dowels Card -->
+                <div class="product-card" data-category="dowels">
+                    <div class="product-img-wrapper">
+                        <img src="images/dowels.png" alt="Beechwood Dowels">
+                        <span class="product-tag">Dowels</span>
                     </div>
-                    <div class="detail-info">
-                        <h3>Small Size (3 mm and up)</h3>
-                        <p>Our smallest calibrated dowel pins are designed for delicate joinery, architectural models, and craft projects. Despite their small diameter, they offer high structural density and stability.</p>
-                        <a href="index.html?product=dowels#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Card 2: Small to Medium Sticks -->
-                <div class="detail-card animate-on-scroll">
-                    <div class="detail-img-wrapper">
-                        <img src="images/dowelsmedium.jpg" alt="Dowels sticks small to medium">
-                    </div>
-                    <div class="detail-info">
-                        <h3>Sticks Small to Medium</h3>
-                        <p>Ideal dowel rods for standard carpentry applications, toys manufacturing, and general furniture assembly. Calibrated precisely to eliminate diameter variations.</p>
-                        <a href="index.html?product=dowels#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                    <div class="product-info">
+                        <h3>Beechwood Dowel Pins & Rods</h3>
+                        <p>Available in small sizes starting at 3 mm up to large dimensions of 60 mm. Options include smooth sticks and spiral-rilled finishes for optimal glue adhesion.</p>
+                        <ul class="product-specs">
+                            <li><strong>Diameter:</strong> 3mm to 60mm</li>
+                            <li><strong>Finishes:</strong> Smooth / Rilled (6mm to 20mm)</li>
+                            <li><strong>Wood Type:</strong> Steamed or unsteamed beech</li>
+                        </ul>
+                        <a href="dowels.html" class="product-link">Explore Beechwood Dowels <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
 
-                <!-- Card 3: Medium Size -->
-                <div class="detail-card animate-on-scroll">
-                    <div class="detail-img-wrapper">
-                        <img src="images/dowels-medium-2.jpg" alt="Dowels medium size">
+                <!-- Planed Card -->
+                <div class="product-card" data-category="planed">
+                    <div class="product-img-wrapper">
+                        <img src="images/planed_wood.png" alt="4-sides Planed Beech Wood">
+                        <span class="product-tag">Planed</span>
                     </div>
-                    <div class="detail-info">
-                        <h3>Medium Size Dowel Rods</h3>
-                        <p>Dowel rods engineered for heavy furniture joints, shelving supports, and framework connections. Steamed beech provides extra dimensional resistance against bending.</p>
-                        <a href="index.html?product=dowels#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
-                    </div>
-                </div>
-
-                <!-- Card 4: Big Size -->
-                <div class="detail-card animate-on-scroll">
-                    <div class="detail-img-wrapper">
-                        <img src="images/dowelsbig-300x300-1.jpg" alt="Dowels big size (up to 60 mm)">
-                    </div>
-                    <div class="detail-info">
-                        <h3>Big Size (up to 60 mm)</h3>
-                        <p>Large-format dowel rods for industrial handles, structural partition columns, and heavy-duty carpentry connections. Available in custom lengths and sizes up to 60 mm.</p>
-                        <a href="index.html?product=dowels#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                    <div class="product-info">
+                        <h3>4-Sides Planed Lumber</h3>
+                        <p>Planed to extreme tolerances, available in both rectangular and square sections. Sawn, dried, cut to size, and calibrated for DIY distribution and carpentry shops.</p>
+                        <ul class="product-specs">
+                            <li><strong>Sections:</strong> Square & Rectangular</li>
+                            <li><strong>Edges:</strong> Sharp edge, Radius 3, or Radius 6</li>
+                            <li><strong>Moisture:</strong> Kiln dried to 8-12%</li>
+                        </ul>
+                        <a href="four-sides-planed.html" class="product-link">Explore Planed Lumber <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
 
-                <!-- Card 5: Rilled -->
-                <div class="detail-card animate-on-scroll">
-                    <div class="detail-img-wrapper">
-                        <img src="images/dowelsrilled-300x300-1.jpg" alt="Dowels spiral rilled (6 to 20 mm)">
+                <!-- Profiles Card -->
+                <div class="product-card" data-category="profiles">
+                    <div class="product-img-wrapper">
+                        <img src="images/profiles.png" alt="Beechwood Profiles and Mouldings">
+                        <span class="product-tag">Profiles</span>
                     </div>
-                    <div class="detail-info">
-                        <h3>Spiral Rilled Pins (6 to 20 mm)</h3>
-                        <p>Specifically grooved for automated furniture production lines. The spiral rills allow for uniform glue distribution, venting compressed air, and ensuring a locked joint.</p>
-                        <a href="index.html?product=dowels#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                    <div class="product-info">
+                        <h3>Architectural Profiles & Mouldings</h3>
+                        <p>An extensive range of decorative mouldings for interior cladding, carpentry finishing, and furniture trims. Custom profile cutting is available for large runs.</p>
+                        <ul class="product-specs">
+                            <li><strong>Shapes:</strong> Semiround, Quarter round, Plinth</li>
+                            <li><strong>Customization:</strong> Corner profiles, Thread, Calbat</li>
+                            <li><strong>Retail:</strong> Pre-labeled with EAN codes</li>
+                        </ul>
+                        <a href="profiles.html" class="product-link">Explore Profiles & Mouldings <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Special components Card -->
+                <div class="product-card" data-category="specials">
+                    <div class="product-img-wrapper">
+                        <img src="images/sawmill.png" alt="Furniture and Food Industry Specials">
+                        <span class="product-tag">Specials</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Furniture & Food Industry Specials</h3>
+                        <p>Custom semi-finished and finished beech wood components for carpentry, cabinet making, children's toys, kitchen utensils, and the food packaging industry.</p>
+                        <ul class="product-specs">
+                            <li><strong>Applications:</strong> Carpentry / Food / DIY</li>
+                            <li><strong>FSC Certified:</strong> Available on demand</li>
+                            <li><strong>Packaging:</strong> Customized bulk or individual</li>
+                        </ul>
+                        <a href="specials.html" class="product-link">Explore Special Components <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
 
