@@ -567,7 +567,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
 
         if (cart.length === 0) {
-            container.innerHTML = '<div class="cart-empty-message">Your inquiry list is empty. Add products to request a quote.</div>';
+            container.innerHTML = `
+                <div class="cart-empty-message">
+                    <p>Your inquiry list is empty. Add products to request a quote.</p>
+                    <a href="products.html" class="cart-empty-action-btn">
+                        Go to Products <i class="fa-solid fa-arrow-right icon-right"></i>
+                    </a>
+                </div>
+            `;
             if (formSection) formSection.classList.add('hidden');
             return;
         }
