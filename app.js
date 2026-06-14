@@ -830,6 +830,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('active');
                 selectedGroup = card.getAttribute('data-group');
             });
+
+            // Double click to select and immediately proceed to Step 2
+            card.addEventListener('dblclick', () => {
+                groupCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                selectedGroup = card.getAttribute('data-group');
+                
+                if (currentStep === 1 && validateStep(1)) {
+                    currentStep = 2;
+                    updateWizardUI();
+                    window.scrollTo({ top: b2bConfigForm.offsetTop - 120, behavior: 'smooth' });
+                }
+            });
         });
 
         // Step Transitions & Logic
