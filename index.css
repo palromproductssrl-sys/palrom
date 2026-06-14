@@ -261,23 +261,16 @@ ul {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(248, 244, 240, 0.8);
-    backdrop-filter: blur(15px) saturate(160%);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: var(--transition-smooth);
-}
-
-.main-header.scrolled {
-    background-color: rgba(248, 244, 240, 0.95);
+    background-color: rgb(248, 244, 240);
     box-shadow: var(--shadow-sm);
-    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 0;
+    padding: 0.8rem 0;
     width: 90%;
     max-width: var(--max-width);
     margin: 0 auto;
