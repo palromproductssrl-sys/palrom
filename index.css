@@ -2151,6 +2151,13 @@ ul {
     background-color: #128C7E;
 }
 
+.phone-item {
+    background-color: #007bff;
+}
+.phone-item:hover {
+    background-color: #0056b3;
+}
+
 .email-item {
     background-color: #333333;
 }
