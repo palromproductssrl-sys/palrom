@@ -5,9 +5,9 @@
 /* 1. Design Tokens & CSS Custom Properties */
 :root {
     /* Color Palette */
-    --color-primary: hsl(43, 80%, 38%);       /* Brand Gold (Contrast Optimized) */
+    --color-primary: rgb(231, 177, 36);       /* Brand Golden Yellow (#e7b124) */
     --color-primary-light: rgb(231, 177, 36); /* Brand Golden Yellow (#e7b124) */
-    --color-primary-dark: hsl(43, 80%, 25%);  /* Deep Mustard Gold */
+    --color-primary-dark: hsl(43, 80%, 38%);  /* Brand Gold (Contrast Optimized) */
     
     --color-forest: hsl(0, 0%, 22%);          /* Brand Dark Charcoal Grey */
     --color-forest-dark: hsl(0, 0%, 16%);     /* Brand Dark Charcoal Grey (#2a2a2a) */
@@ -15,7 +15,7 @@
     
     --color-text-dark: hsl(0, 0%, 16%);       /* Main Text Color (#2a2a2a) */
     --color-text-muted: hsl(0, 0%, 48%);      /* Secondary Text */
-    --color-bg-light: hsl(43, 12%, 96%);      /* Warm Alabaster Cream background */
+    --color-bg-light: rgb(253, 247, 242);     /* Warm Peach-Cream background */
     --color-bg-white: hsl(0, 0%, 100%);
     
     --color-border: hsl(210, 10%, 90%);
@@ -75,13 +75,13 @@ p {
 }
 
 a {
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
     text-decoration: none;
     transition: var(--transition-fast);
 }
 
 a:hover {
-    color: var(--color-primary-light);
+    color: var(--color-primary);
 }
 
 img {
@@ -177,7 +177,7 @@ ul {
 
 .btn-primary {
     background-color: var(--color-primary);
-    color: var(--color-bg-white);
+    color: var(--color-forest-dark);
 }
 
 .btn-primary:hover {
@@ -227,8 +227,8 @@ ul {
 .section-badge {
     display: inline-block;
     padding: 0.4rem 1.2rem;
-    background-color: rgba(231, 177, 36, 0.1);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-forest-dark);
     font-family: var(--font-heading);
     font-size: 0.8rem;
     font-weight: 700;
@@ -495,8 +495,8 @@ ul {
 }
 
 .feature-icon {
-    background-color: rgba(231, 177, 36, 0.1);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-forest-dark);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -546,7 +546,7 @@ ul {
     bottom: -1rem;
     left: -1rem;
     background-color: var(--color-primary);
-    color: var(--color-bg-white);
+    color: var(--color-forest-dark);
     padding: 1.5rem 2rem;
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-md);
@@ -775,6 +775,10 @@ ul {
     font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
+    color: var(--color-primary-dark);
+}
+
+.product-link:hover {
     color: var(--color-primary);
 }
 
@@ -1048,8 +1052,8 @@ ul {
 }
 
 .detail-icon {
-    background-color: rgba(231, 177, 36, 0.1);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-forest-dark);
     width: 55px;
     height: 55px;
     border-radius: var(--border-radius-md);
@@ -1537,8 +1541,8 @@ ul {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: rgba(231, 177, 36, 0.1);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-forest-dark);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1562,8 +1566,8 @@ ul {
 
 .team-languages {
     display: inline-block;
-    background-color: rgba(231, 177, 36, 0.15);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-forest-dark);
     font-size: 0.75rem;
     font-weight: 700;
     padding: 0.3rem 1rem;
