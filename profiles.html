@@ -112,6 +112,8 @@
             flex-grow: 1;
         }
         .detail-cta {
+            border: none;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -166,6 +168,10 @@
                 <a href="#contact" class="nav-link" id="nav-contact">Contact Us</a>
             </nav>
             <div class="header-actions">
+                <button class="cart-toggle-btn" id="globalCartToggle" aria-label="View Inquiry Cart">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span class="cart-count-badge" id="cartCountBadge">0</span>
+                </button>
                 <a href="#contact" class="action-btn">Request Quote</a>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
                     <span class="bar"></span>
@@ -201,7 +207,7 @@
                     <div class="detail-info">
                         <h3>Semiround Profile</h3>
                         <p>Perfectly rounded convex mouldings used as decorative cover strips, cabinet edging, and custom furniture embellishments. Delivers a soft, clean border.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-semiround" data-product-name="Semiround Profile" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -213,7 +219,7 @@
                     <div class="detail-info">
                         <h3>Profile Strip</h3>
                         <p>Straight, thin flat wood strip profiles. Commonly utilized as cover mouldings, panel framing, or simple gap covers in interior finish carpentry.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-strip" data-product-name="Profile Strip" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -225,7 +231,7 @@
                     <div class="detail-info">
                         <h3>Profile Finishing (Variant 1)</h3>
                         <p>Specialty decorative finishing moulding with elegant curvature. Designed for transition joints between walls, ceilings, or furniture cabinets.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-finish-v1" data-product-name="Profile Finishing (Variant 1)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -237,7 +243,7 @@
                     <div class="detail-info">
                         <h3>Profile Quarter Round (Variant 1)</h3>
                         <p>Classic 90-degree curved quarter-round profile, perfect for baseboard floor gaps, inside corner joints, and decorative carpentry casing.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-quarter-v1" data-product-name="Profile Quarter Round (Variant 1)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -249,7 +255,7 @@
                     <div class="detail-info">
                         <h3>Profile Finishing (Variant 2)</h3>
                         <p>Alternate decorative border profile showing double-stepped details. Adds depth and a premium look to wood frames and door casings.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-finish-v2" data-product-name="Profile Finishing (Variant 2)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -261,7 +267,7 @@
                     <div class="detail-info">
                         <h3>Profile Plinth (Variant 1)</h3>
                         <p>Standard plinth profile used as a robust wall-to-floor baseboard trim. Protects walls while creating an elegant wood border accent.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-plinth-v1" data-product-name="Profile Plinth (Variant 1)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -273,7 +279,7 @@
                     <div class="detail-info">
                         <h3>Profile Corner (Variant 1)</h3>
                         <p>L-shaped outside corner moulding. Provides protective cover and high durability to vulnerable wall edges or cabinetry corners.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-corner-v1" data-product-name="Profile Corner (Variant 1)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -285,7 +291,7 @@
                     <div class="detail-info">
                         <h3>Profile Corner (Variant 2)</h3>
                         <p>L-shaped corner cover showcasing subtle edge rounding. Provides a smooth, safe external edge corner for wood claddings.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-corner-v2" data-product-name="Profile Corner (Variant 2)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -297,7 +303,7 @@
                     <div class="detail-info">
                         <h3>Profile Triangular</h3>
                         <p>Clean, triangular corner-block profiles. Typically used for internal support framing, concrete chamfering, or sharp inside corner decorations.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-triangular" data-product-name="Profile Triangular" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -309,7 +315,7 @@
                     <div class="detail-info">
                         <h3>Profile Quarter Round (Variant 2)</h3>
                         <p>Larger format quarter-round wood trim designed to cover flooring transitions and floor expansion gaps with a smooth radius look.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-quarter-v2" data-product-name="Profile Quarter Round (Variant 2)" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -321,7 +327,7 @@
                     <div class="detail-info">
                         <h3>Profile Thread</h3>
                         <p>Specialty grooved or threaded moulding strip profile. Tailored for decorative cabinetry rails and sliding track accents.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-thread" data-product-name="Profile Thread" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -333,7 +339,7 @@
                     <div class="detail-info">
                         <h3>Profile Calbat</h3>
                         <p>Unique concave-carved cove moulding profile. Replicates historic moldings to add classic styling to high-end furniture and ceiling transitions.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="profile-calbat" data-product-name="Profile Calbat" data-product-category="Profiles & Mouldings">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -609,5 +615,48 @@
     </div>
 
     <script src="app.js"></script>
+
+    <!-- Slide-out Quote Cart Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="quote-sidebar" id="quoteSidebar">
+        <div class="sidebar-header">
+            <h3>Your Quote Inquiry</h3>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-body">
+            <!-- Dynamic Cart Items Container -->
+            <div id="cartItemsContainer" class="cart-items-container">
+                <div class="cart-empty-message">Your inquiry list is empty. Add products to request a quote.</div>
+            </div>
+            
+            <!-- Quick Cart Submit Form (Shown only when cart is not empty) -->
+            <div id="cartFormSection" class="cart-form-section hidden">
+                <h4>Inquiry Contact Details</h4>
+                <form id="cartSubmitForm" class="cart-modern-form">
+                    <div class="form-group">
+                        <label for="cart_name">Name *</label>
+                        <input type="text" id="cart_name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_email">Email Address *</label>
+                        <input type="email" id="cart_email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_phone">Phone Number *</label>
+                        <input type="tel" id="cart_phone" required placeholder="+40 700 000 000">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_message">Additional Notes</label>
+                        <textarea id="cart_message" rows="3" placeholder="Sourcing schedules, certification needs..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Quote Request <i class="fa-solid fa-paper-plane icon-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

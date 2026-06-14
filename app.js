@@ -522,5 +522,266 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // 10. Interactive Quote Request Cart
+    // ==========================================
+    let cart = [];
+
+    // Load cart from localStorage
+    function loadCart() {
+        const storedCart = localStorage.getItem('palrom_quote_cart');
+        if (storedCart) {
+            try {
+                cart = JSON.parse(storedCart);
+            } catch (e) {
+                cart = [];
+            }
+        }
+        updateBadge();
+        renderCart();
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+        localStorage.setItem('palrom_quote_cart', JSON.stringify(cart));
+        updateBadge();
+    }
+
+    // Update cart badge count
+    function updateBadge() {
+        const badge = document.getElementById('cartCountBadge');
+        if (badge) {
+            badge.textContent = cart.length;
+            if (cart.length > 0) {
+                badge.classList.add('visible');
+            } else {
+                badge.classList.remove('visible');
+            }
+        }
+    }
+
+    // Render cart items in the sidebar
+    function renderCart() {
+        const container = document.getElementById('cartItemsContainer');
+        const formSection = document.getElementById('cartFormSection');
+        if (!container) return;
+
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="cart-empty-message">Your inquiry list is empty. Add products to request a quote.</div>';
+            if (formSection) formSection.classList.add('hidden');
+            return;
+        }
+
+        if (formSection) formSection.classList.remove('hidden');
+
+        container.innerHTML = cart.map((item, index) => `
+            <div class="cart-item" data-index="${index}">
+                <div class="cart-item-header">
+                    <div>
+                        <span class="cart-item-category">${item.category}</span>
+                        <h4 class="cart-item-name">${item.name}</h4>
+                    </div>
+                    <button class="cart-item-remove" data-index="${index}" aria-label="Remove Item">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+                <div class="cart-item-specs">
+                    <div class="cart-spec-row">
+                        <div class="cart-spec-group">
+                            <label>Quantity</label>
+                            <input type="number" class="cart-spec-qty" data-index="${index}" value="${item.qty}" min="1">
+                        </div>
+                        <div class="cart-spec-group">
+                            <label>Wood Grade</label>
+                            <select class="cart-spec-grade" data-index="${index}">
+                                <option value="grade_a" ${item.grade === 'grade_a' ? 'selected' : ''}>Class A (Clear)</option>
+                                <option value="grade_b" ${item.grade === 'grade_b' ? 'selected' : ''}>Class B (Cabinet)</option>
+                                <option value="grade_ab" ${item.grade === 'grade_ab' ? 'selected' : ''}>Class A/B Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cart-spec-group">
+                        <label>Dimensions / Special Instructions</label>
+                        <input type="text" class="cart-spec-dims" data-index="${index}" value="${item.dims || ''}" placeholder="e.g. Ø 12mm x 1000m, custom specs...">
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Attach event listeners to cart items
+        container.querySelectorAll('.cart-item-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-index'));
+                removeFromCart(idx);
+            });
+        });
+
+        container.querySelectorAll('.cart-spec-qty').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const idx = parseInt(input.getAttribute('data-index'));
+                let val = parseInt(input.value);
+                if (isNaN(val) || val < 1) val = 1;
+                input.value = val;
+                cart[idx].qty = val;
+                saveCart();
+            });
+        });
+
+        container.querySelectorAll('.cart-spec-grade').forEach(select => {
+            select.addEventListener('change', (e) => {
+                const idx = parseInt(select.getAttribute('data-index'));
+                cart[idx].grade = select.value;
+                saveCart();
+            });
+        });
+
+        container.querySelectorAll('.cart-spec-dims').forEach(input => {
+            input.addEventListener('input', (e) => {
+                const idx = parseInt(input.getAttribute('data-index'));
+                cart[idx].dims = input.value;
+                saveCart();
+            });
+        });
+    }
+
+    // Add to cart
+    function addToCart(id, name, category) {
+        const exists = cart.find(item => item.id === id);
+        if (exists) {
+            exists.qty += 1;
+        } else {
+            cart.push({
+                id: id,
+                name: name,
+                category: category,
+                qty: 1,
+                grade: 'grade_a',
+                dims: ''
+            });
+        }
+        saveCart();
+        renderCart();
+        openSidebar();
+        
+        // Visual badge pulse effect
+        const badge = document.getElementById('cartCountBadge');
+        if (badge) {
+            badge.classList.remove('pulse-animation');
+            void badge.offsetWidth; // Trigger reflow to restart animation
+            badge.classList.add('pulse-animation');
+        }
+    }
+
+    // Remove from cart
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        saveCart();
+        renderCart();
+    }
+
+    // Sidebar DOM Elements & Event Listeners
+    const quoteSidebar = document.getElementById('quoteSidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const globalCartToggle = document.getElementById('globalCartToggle');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+
+    function openSidebar() {
+        if (quoteSidebar && sidebarOverlay) {
+            quoteSidebar.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Disable page scrolling
+        }
+    }
+
+    function closeSidebar() {
+        if (quoteSidebar && sidebarOverlay) {
+            quoteSidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; // Restore page scrolling
+        }
+    }
+
+    if (globalCartToggle) {
+        globalCartToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            openSidebar();
+        });
+    }
+
+    if (sidebarCloseBtn) {
+        sidebarCloseBtn.addEventListener('click', closeSidebar);
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeSidebar);
+    }
+
+    // Event delegation for "Add to Inquiry" buttons
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('add-to-inquiry-btn')) {
+            e.preventDefault();
+            const btn = e.target;
+            const id = btn.getAttribute('data-product-id');
+            const name = btn.getAttribute('data-product-name');
+            const category = btn.getAttribute('data-product-category');
+            addToCart(id, name, category);
+        }
+    });
+
+    // Cart Submit Form Intercept
+    const cartSubmitForm = document.getElementById('cartSubmitForm');
+    if (cartSubmitForm) {
+        cartSubmitForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('cart_name').value.trim();
+            const email = document.getElementById('cart_email').value;
+            const phone = document.getElementById('cart_phone').value;
+            const notes = document.getElementById('cart_message').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('Please fill out all required contact fields.');
+                return;
+            }
+
+            // Simulate submission
+            const submitBtn = cartSubmitForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Submitting...';
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+
+                // Format item list for success message
+                const itemsList = cart.map(item => {
+                    const gradeNames = {
+                        'grade_a': 'Class A (Clear)',
+                        'grade_b': 'Class B (Cabinet)',
+                        'grade_ab': 'Class A/B Mixed'
+                    };
+                    const gradeName = gradeNames[item.grade] || item.grade;
+                    const dimDesc = item.dims ? ` [Size: ${item.dims}]` : '';
+                    return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc})`;
+                }).join('\n');
+
+                alert(
+                    `Thank you, ${name}! Your inquiry for the following product(s) has been successfully received by our Brad headquarters:\n\n${itemsList}\n\nWe will prepare detailed sizing sheets and pricing estimates and email you at ${email} within 24 hours.`
+                );
+
+                // Clear cart state
+                cart = [];
+                saveCart();
+                renderCart();
+                closeSidebar();
+                cartSubmitForm.reset();
+            }, 2000);
+        });
+    }
+
+    // Initialize cart state
+    loadCart();
+
     checkCookieConsent();
 });

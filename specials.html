@@ -112,6 +112,8 @@
             flex-grow: 1;
         }
         .detail-cta {
+            border: none;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -166,6 +168,10 @@
                 <a href="#contact" class="nav-link" id="nav-contact">Contact Us</a>
             </nav>
             <div class="header-actions">
+                <button class="cart-toggle-btn" id="globalCartToggle" aria-label="View Inquiry Cart">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span class="cart-count-badge" id="cartCountBadge">0</span>
+                </button>
                 <a href="#contact" class="action-btn">Request Quote</a>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
                     <span class="bar"></span>
@@ -201,7 +207,7 @@
                     <div class="detail-info">
                         <h3>Keeplat Spruce</h3>
                         <p>Specially grooved spruce mounting slats and components used in construction framing and high-end timber packaging grids. Highly stable and lightweight.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-keeplat-spruce" data-product-name="Keeplat Spruce" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -213,7 +219,7 @@
                     <div class="detail-info">
                         <h3>Keeplat Beech</h3>
                         <p>Durable, solid steamed beechwood keeplats. Offers extreme shear resistance and longevity for heavy-duty industrial framing and custom furniture mounts.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-keeplat-beech" data-product-name="Keeplat Beech" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -225,7 +231,7 @@
                     <div class="detail-info">
                         <h3>Distancers Color Mix</h3>
                         <p>Color-coded wooden separator and distance blocks designed for packaging lines, shipping crates, and organized stock management.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-distancer-mix" data-product-name="Distancers Color Mix" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -237,7 +243,7 @@
                     <div class="detail-info">
                         <h3>Wooden Threshold</h3>
                         <p>Calibrated door thresholds machined from dense beechwood. Provides structural protection and aesthetic transitions between flooring layouts.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-threshold" data-product-name="Wooden Threshold" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -249,7 +255,7 @@
                     <div class="detail-info">
                         <h3>Industrial Distancer</h3>
                         <p>Solid wood spacer bars and blocks designed for timber drying kilns, logistics stackers, and specialized packaging structures.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-distancer-ind" data-product-name="Industrial Distancer" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -261,7 +267,7 @@
                     <div class="detail-info">
                         <h3>Wood with Iron Component</h3>
                         <p>Composite structural blocks combining seasoned beechwood with integrated steel connectors. Tailored for heavy packaging and machinery mounting crates.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="special-wood-iron" data-product-name="Wood with Iron Component" data-product-category="Special Components">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -537,5 +543,48 @@
     </div>
 
     <script src="app.js"></script>
+
+    <!-- Slide-out Quote Cart Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="quote-sidebar" id="quoteSidebar">
+        <div class="sidebar-header">
+            <h3>Your Quote Inquiry</h3>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-body">
+            <!-- Dynamic Cart Items Container -->
+            <div id="cartItemsContainer" class="cart-items-container">
+                <div class="cart-empty-message">Your inquiry list is empty. Add products to request a quote.</div>
+            </div>
+            
+            <!-- Quick Cart Submit Form (Shown only when cart is not empty) -->
+            <div id="cartFormSection" class="cart-form-section hidden">
+                <h4>Inquiry Contact Details</h4>
+                <form id="cartSubmitForm" class="cart-modern-form">
+                    <div class="form-group">
+                        <label for="cart_name">Name *</label>
+                        <input type="text" id="cart_name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_email">Email Address *</label>
+                        <input type="email" id="cart_email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_phone">Phone Number *</label>
+                        <input type="tel" id="cart_phone" required placeholder="+40 700 000 000">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_message">Additional Notes</label>
+                        <textarea id="cart_message" rows="3" placeholder="Sourcing schedules, certification needs..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Quote Request <i class="fa-solid fa-paper-plane icon-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

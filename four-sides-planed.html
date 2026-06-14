@@ -112,6 +112,8 @@
             flex-grow: 1;
         }
         .detail-cta {
+            border: none;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -166,6 +168,10 @@
                 <a href="#contact" class="nav-link" id="nav-contact">Contact Us</a>
             </nav>
             <div class="header-actions">
+                <button class="cart-toggle-btn" id="globalCartToggle" aria-label="View Inquiry Cart">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span class="cart-count-badge" id="cartCountBadge">0</span>
+                </button>
                 <a href="#contact" class="action-btn">Request Quote</a>
                 <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
                     <span class="bar"></span>
@@ -201,7 +207,7 @@
                     <div class="detail-info">
                         <h3>Planed Rectangular (Variant 1)</h3>
                         <p>High-tolerance rectangular beech slats and slats, dried to 8-12% moisture. Ideal for manufacturing bed frames, furniture framing, and premium interior trim boards.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rect-v1" data-product-name="Planed Rectangular (Variant 1)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -213,7 +219,7 @@
                     <div class="detail-info">
                         <h3>Planed Rectangular (Variant 2)</h3>
                         <p>Calibrated beechwood components with sharp 90-degree corners. Tailored for industrial furniture assembly lines, cabinet rails, and architectural partition components.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rect-v2" data-product-name="Planed Rectangular (Variant 2)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -225,7 +231,7 @@
                     <div class="detail-info">
                         <h3>Planed Rectangular (Variant 3)</h3>
                         <p>Durable, solid beech planed planks prepared for shelving, furniture panels, and heavy-duty carpentry tasks. Completely smooth finish with no fiber tear-out.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rect-v3" data-product-name="Planed Rectangular (Variant 3)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -237,7 +243,7 @@
                     <div class="detail-info">
                         <h3>Planed Rectangular (Variant 4)</h3>
                         <p>Precisely thicknessed rectangular sections designed for high-end DIY retail packaging. Packaged in customized bundles with individual labeling options.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rect-v4" data-product-name="Planed Rectangular (Variant 4)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -249,7 +255,7 @@
                     <div class="detail-info">
                         <h3>Planed Square (Variant 1)</h3>
                         <p>Precision-milled square beech wood bars and rods. Designed as blanks for woodturning, stair balusters, table leg manufacturing, and children's toys.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-sq-v1" data-product-name="Planed Square (Variant 1)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -261,7 +267,7 @@
                     <div class="detail-info">
                         <h3>Planed Square (Variant 2)</h3>
                         <p>Dense, high-quality Carpathian beech square elements. Free of defects, knot-free quality options, engineered to withstand structural woodworking stresses.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-sq-v2" data-product-name="Planed Square (Variant 2)" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -273,7 +279,7 @@
                     <div class="detail-info">
                         <h3>Planed Elements with Radius 3</h3>
                         <p>Four-sides planed elements featuring a subtle 3 mm rounded edge radius. The soft edges decrease wood splitting risks and improve user handling safety in retail environments.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rad3" data-product-name="Planed Elements with Radius 3" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -285,7 +291,7 @@
                     <div class="detail-info">
                         <h3>Planed Elements with Radius 6</h3>
                         <p>Planed beech components displaying a distinct 6 mm rounded edge radius. Ideal for structural toys, child-friendly furniture components, and pre-finished carpentry parts.</p>
-                        <a href="#contact" class="detail-cta">Request Sizing & Quote <i class="fa-solid fa-paper-plane icon-right"></i></a>
+                        <button class="detail-cta add-to-inquiry-btn" data-product-id="planed-rad6" data-product-name="Planed Elements with Radius 6" data-product-category="Four-Sides Planed">Add to Inquiry <i class="fa-solid fa-plus icon-right"></i></button>
                     </div>
                 </div>
 
@@ -561,5 +567,48 @@
     </div>
 
     <script src="app.js"></script>
+
+    <!-- Slide-out Quote Cart Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="quote-sidebar" id="quoteSidebar">
+        <div class="sidebar-header">
+            <h3>Your Quote Inquiry</h3>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-body">
+            <!-- Dynamic Cart Items Container -->
+            <div id="cartItemsContainer" class="cart-items-container">
+                <div class="cart-empty-message">Your inquiry list is empty. Add products to request a quote.</div>
+            </div>
+            
+            <!-- Quick Cart Submit Form (Shown only when cart is not empty) -->
+            <div id="cartFormSection" class="cart-form-section hidden">
+                <h4>Inquiry Contact Details</h4>
+                <form id="cartSubmitForm" class="cart-modern-form">
+                    <div class="form-group">
+                        <label for="cart_name">Name *</label>
+                        <input type="text" id="cart_name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_email">Email Address *</label>
+                        <input type="email" id="cart_email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_phone">Phone Number *</label>
+                        <input type="tel" id="cart_phone" required placeholder="+40 700 000 000">
+                    </div>
+                    <div class="form-group">
+                        <label for="cart_message">Additional Notes</label>
+                        <textarea id="cart_message" rows="3" placeholder="Sourcing schedules, certification needs..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Quote Request <i class="fa-solid fa-paper-plane icon-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
