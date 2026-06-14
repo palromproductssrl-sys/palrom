@@ -1640,3 +1640,212 @@ ul {
     flex: 0 1 380px;
     width: 100%;
 }
+
+/* ==========================================================================
+   14. Careers / Recruitment Styles
+   ========================================================================== */
+.careers-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    margin-bottom: 5rem;
+}
+
+.careers-benefits-list {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.benefit-icon {
+    font-size: 1.75rem;
+    color: var(--color-primary-dark);
+    background: rgba(231, 177, 36, 0.1);
+    padding: 0.75rem;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.benefit-text h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+    color: var(--color-text-dark);
+}
+
+.benefit-text p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.jobs-section {
+    background-color: var(--color-bg-white);
+    padding: 6rem 0;
+}
+
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48%, 1fr));
+    gap: 2.5rem;
+}
+
+.job-card {
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-sm);
+}
+
+.job-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary-dark);
+}
+
+.job-header {
+    margin-bottom: 1.5rem;
+}
+
+.job-title-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.job-title-area h3 {
+    font-size: 1.35rem;
+    color: var(--color-text-dark);
+}
+
+.job-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.job-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag-dept {
+    background-color: var(--color-forest);
+    color: var(--color-bg-light);
+}
+
+.tag-loc {
+    background-color: rgba(231, 177, 36, 0.12);
+    color: var(--color-primary-dark);
+    border: 1px solid rgba(231, 177, 36, 0.25);
+}
+
+.tag-type {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--color-text-muted);
+}
+
+.job-description {
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.job-requirements {
+    margin-bottom: 2rem;
+}
+
+.job-requirements h4 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-dark);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+}
+
+.job-requirements ul {
+    list-style-type: none;
+}
+
+.job-requirements li {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.job-requirements li::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: var(--color-primary-dark);
+    font-size: 0.8rem;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+    margin-top: auto;
+}
+
+.job-salary {
+    font-weight: 700;
+    color: var(--color-forest);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 992px) {
+    .careers-info-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    .jobs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .careers-benefits-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .job-card {
+        padding: 1.75rem;
+    }
+    .job-title-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+

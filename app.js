@@ -214,7 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
                 
-                showFeedback(`Thank you, ${name}! Your inquiry regarding our "${product}" beechwood products has been sent to our Brad office. We will reply in 24 hours.`, 'success');
+                const productMsg = product === 'careers' 
+                    ? 'application has been received by our Human Resources department' 
+                    : `inquiry regarding our "${product}" beechwood products has been sent to our Brad office`;
+                
+                showFeedback(`Thank you, ${name}! Your ${productMsg}. We will reply in 24 hours.`, 'success');
                 contactForm.reset();
             }, 1800);
         });
@@ -281,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const contactSection = document.getElementById('contact');
         
         if (productSelect) {
-            const validParams = ['dowels', 'planed', 'profiles', 'specials'];
+            const validParams = ['dowels', 'planed', 'profiles', 'specials', 'careers'];
             if (validParams.includes(productParam)) {
                 productSelect.value = productParam;
             }
