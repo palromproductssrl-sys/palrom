@@ -46,34 +46,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 2. Active Link Highlighting via Scroll
+    // 2. Active Link Highlighting via Page Path & Scroll
     // ==========================================
-    const sections = document.querySelectorAll('section[id]');
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     
-    const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -60% 0px', // Trigger when section occupies the middle area
-        threshold: 0
-    };
+    // Determine which page should be highlighted as active
+    let activePage = currentPath;
+    if (['dowels.html', 'four-sides-planed.html', 'profiles.html', 'specials.html'].includes(currentPath)) {
+        activePage = 'products.html';
+    } else if (currentPath === '' || currentPath === '/') {
+        activePage = 'index.html';
+    }
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
+    function setPageActive() {
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Extract page name from href (e.g. "about.html#contact" -> "about.html", "#contact" -> "")
+            const linkPage = href.startsWith('#') ? 'index.html' : href.split('#')[0];
+            
+            if (linkPage === activePage && !href.startsWith('#')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
-    }, observerOptions);
+    }
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+    setPageActive();
+
+    // Scroll observer to highlight "Contact Us" when scrolled to contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        const contactObserverOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
+        const contactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const contactLink = Array.from(navLinks).find(link => {
+                    const href = link.getAttribute('href');
+                    return href === '#contact' || href.endsWith('#contact');
+                });
+                
+                if (entry.isIntersecting) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    if (contactLink) contactLink.classList.add('active');
+                } else {
+                    if (contactLink) contactLink.classList.remove('active');
+                    setPageActive();
+                }
+            });
+        }, contactObserverOptions);
+        contactObserver.observe(contactSection);
+    }
 
     // ==========================================
     // 3. Product Catalogue Filter
