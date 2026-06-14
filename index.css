@@ -2780,7 +2780,42 @@ ul {
     transform: translateX(3px);
 }
 
+/* ==========================================================================
+   17. Floating Hiring Stamp Styles
+   ========================================================================== */
+.hiring-stamp-floating {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 2000;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    border: 3px solid var(--color-forest);
+    background-color: var(--color-bg-white);
+}
 
+.hiring-stamp-floating img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.02);
+}
 
+.hiring-stamp-floating:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 8px 25px rgba(231, 177, 36, 0.45);
+}
 
-
+@media (max-width: 768px) {
+    .hiring-stamp-floating {
+        width: 70px;
+        height: 70px;
+        bottom: 20px;
+        left: 20px;
+    }
+}
