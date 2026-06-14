@@ -796,11 +796,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const dbOplage = document.getElementById('dbOplage');
         const dbLength = document.getElementById('dbLength');
         const dbDiameter = document.getElementById('dbDiameter');
+        const dbThickness = document.getElementById('dbThickness');
         
         const dbLengthVal = document.getElementById('dbLengthVal');
         const dbDiameterVal = document.getElementById('dbDiameterVal');
+        const dbThicknessVal = document.getElementById('dbThicknessVal');
+        
         const lblLength = document.getElementById('lblLength');
         const lblDiameter = document.getElementById('lblDiameter');
+        const lblThickness = document.getElementById('lblThickness');
+        const controlGroupThickness = document.getElementById('controlGroupThickness');
         
         const summaryProduct = document.getElementById('summaryProduct');
         const summaryDimensions = document.getElementById('summaryDimensions');
@@ -839,6 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: "4-Zijdig Geschaafd Beukenhout",
                 length: { min: 100, max: 4000, default: 2400, label: "Lengte (mm)" },
                 diameter: { min: 15, max: 300, default: 50, label: "Breedte (mm)" },
+                thickness: { min: 10, max: 100, default: 20, label: "Dikte/Hoogte (mm)" },
                 finish: "Vierzijdig geschaafd"
             },
             profiles: {
@@ -861,12 +867,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = categoryData[cat];
             
             summaryProduct.textContent = data.name;
-            summaryDimensions.textContent = `${dbLength.value}mm x ${dbDiameter.value}mm`;
+            
+            // Format dimensions summary based on category data properties
+            if (cat === 'planed') {
+                summaryDimensions.textContent = `${dbThickness.value}mm x ${dbDiameter.value}mm x ${dbLength.value}mm`;
+            } else {
+                summaryDimensions.textContent = `${dbLength.value}mm x ${dbDiameter.value}mm`;
+            }
+            
             summaryOplage.textContent = dbOplage.options[dbOplage.selectedIndex].text;
             summaryFinish.textContent = data.finish;
             
             dbLengthVal.textContent = dbLength.value;
             dbDiameterVal.textContent = dbDiameter.value;
+            dbThicknessVal.textContent = dbThickness.value;
         }
 
         // Adjust limits when category changes
@@ -886,6 +900,17 @@ document.addEventListener('DOMContentLoaded', () => {
             dbDiameter.value = data.diameter.default;
             lblDiameter.textContent = data.diameter.label;
             
+            // Conditional Thickness Slider for 4-sided planed beechwood
+            if (data.thickness) {
+                controlGroupThickness.classList.remove('hidden');
+                dbThickness.min = data.thickness.min;
+                dbThickness.max = data.thickness.max;
+                dbThickness.value = data.thickness.default;
+                lblThickness.textContent = data.thickness.label;
+            } else {
+                controlGroupThickness.classList.add('hidden');
+            }
+            
             updateSummary();
         }
 
@@ -894,6 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         dbLength.addEventListener('input', updateSummary);
         dbDiameter.addEventListener('input', updateSummary);
+        dbThickness.addEventListener('input', updateSummary);
 
         // Submit form opens B2B contact modal
         b2bConfigForm.addEventListener('submit', (e) => {

@@ -159,6 +159,17 @@
                             </div>
                         </div>
 
+                        <!-- Thickness / Height Slider (Only shown for 4-sided planed beech) -->
+                        <div class="control-group hidden" id="controlGroupThickness">
+                            <div class="slider-header">
+                                <label for="dbThickness" id="lblThickness">Dikte/Hoogte (mm)</label>
+                            </div>
+                            <div class="slider-wrapper">
+                                <input type="range" id="dbThickness" min="10" max="100" value="20" class="dashboard-slider">
+                                <span class="slider-value-display" id="dbThicknessVal">20</span>
+                            </div>
+                        </div>
+
                         <div class="control-group">
                             <label for="dbOplage">Oplage (stuks)</label>
                             <select id="dbOplage" class="dashboard-select">
