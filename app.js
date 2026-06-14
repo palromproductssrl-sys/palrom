@@ -298,5 +298,187 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ==========================================
+    // 8. Job Application Form Handler & File Upload
+    // ==========================================
+    const applyForm = document.getElementById('applyForm');
+    const cvDropzone = document.getElementById('cvDropzone');
+    const cvInput = document.getElementById('cvFile');
+    const fileInfo = document.getElementById('fileInfo');
+    const fileNameSpan = document.getElementById('fileName');
+    const removeFileBtn = document.getElementById('removeFile');
+    const applyFeedback = document.getElementById('applyFeedback');
+
+    // Job pre-selection via URL ?job=
+    const jobParam = urlParams.get('job');
+    if (jobParam) {
+        const jobSelect = document.getElementById('apply_job_type');
+        if (jobSelect) {
+            const validJobs = {
+                'planing': 'planing_operator',
+                'quality': 'quality_inspector',
+                'logistics': 'logistics_coordinator',
+                'maintenance': 'maintenance_mechanic'
+            };
+            if (validJobs[jobParam]) {
+                jobSelect.value = validJobs[jobParam];
+            }
+        }
+    }
+
+    if (cvDropzone && cvInput) {
+        // Drag events
+        ['dragenter', 'dragover'].forEach(eventName => {
+            cvDropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                cvDropzone.classList.add('dragover');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            cvDropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                cvDropzone.classList.remove('dragover');
+            }, false);
+        });
+
+        // Drop event
+        cvDropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                cvInput.files = files;
+                handleFileSelection(files[0]);
+            }
+        });
+
+        // Click on dropzone to trigger file input
+        cvDropzone.addEventListener('click', () => {
+            cvInput.click();
+        });
+
+        // File input change
+        cvInput.addEventListener('change', () => {
+            if (cvInput.files.length > 0) {
+                handleFileSelection(cvInput.files[0]);
+            }
+        });
+    }
+
+    function handleFileSelection(file) {
+        // Validation: PDF, DOC, DOCX, maximum 5MB
+        const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
+        // Fallback check based on extension
+        const ext = file.name.split('.').pop().toLowerCase();
+        const isAllowedExt = ['pdf', 'doc', 'docx'].includes(ext);
+
+        if (!allowedTypes.includes(file.type) && !isAllowedExt) {
+            showApplyFeedback('Invalid file type. Please upload a PDF, DOC, or DOCX document.', 'error');
+            clearFile();
+            return;
+        }
+
+        if (file.size > maxSizeBytes) {
+            showApplyFeedback('File size exceeds the 5MB limit.', 'error');
+            clearFile();
+            return;
+        }
+
+        // Show file details
+        fileNameSpan.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        fileInfo.classList.remove('hidden');
+        cvDropzone.classList.add('has-file');
+        
+        // Clear error class if any
+        if (applyFeedback.classList.contains('error')) {
+            applyFeedback.className = 'form-feedback hidden';
+        }
+    }
+
+    if (removeFileBtn) {
+        removeFileBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Avoid triggering dropzone click
+            clearFile();
+        });
+    }
+
+    function clearFile() {
+        cvInput.value = '';
+        fileInfo.classList.add('hidden');
+        fileNameSpan.textContent = '';
+        if (cvDropzone) {
+            cvDropzone.classList.remove('has-file');
+        }
+    }
+
+    if (applyForm) {
+        applyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('apply_name').value.trim();
+            const email = document.getElementById('apply_email').value;
+            const phone = document.getElementById('apply_phone').value;
+            const position = document.getElementById('apply_job_type').value;
+            const message = document.getElementById('apply_message').value.trim();
+            const fileSelected = cvInput.files.length > 0;
+
+            if (!name || !email || !phone || !position || !message) {
+                showApplyFeedback('Please fill out all required fields.', 'error');
+                return;
+            }
+
+            if (!fileSelected) {
+                showApplyFeedback('Please upload your CV / Resume to proceed.', 'error');
+                return;
+            }
+
+            // Simulate submission
+            const submitBtn = applyForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Submitting application...';
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+
+                const jobNames = {
+                    'planing_operator': 'Planing Machine Operator',
+                    'quality_inspector': 'Quality & Defect Inspector',
+                    'logistics_coordinator': 'Logistics & Inventory Coordinator',
+                    'maintenance_mechanic': 'Maintenance Mechanic / Millwright'
+                };
+                const formattedJobName = jobNames[position] || position;
+                const fileName = cvInput.files[0].name;
+
+                showApplyFeedback(
+                    `Thank you, ${name}! Your application for the "${formattedJobName}" position and your resume (${fileName}) have been successfully received by Anca Mihuț. We will review it and contact you at ${email} or ${phone} within 2 days.`, 
+                    'success'
+                );
+
+                applyForm.reset();
+                clearFile();
+            }, 1800);
+        });
+    }
+
+    function showApplyFeedback(msg, type) {
+        applyFeedback.textContent = msg;
+        applyFeedback.className = `form-feedback ${type}`;
+        applyFeedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        if (type === 'success') {
+            setTimeout(() => {
+                applyFeedback.className = 'form-feedback hidden';
+            }, 15000);
+        }
+    }
+
     checkCookieConsent();
 });

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application - Careers at PALROM</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Submit your job application to PALROM Products SRL. Meet our HR Coordinator Anca Mihuț, upload your CV, and join our team in Brad, Romania.">
+    <meta name="keywords" content="apply to Palrom, wood factory jobs, CV upload Brad, Romanian wood manufacturing careers, sawmill recruitment">
+    <meta name="author" content="PALROM Products SRL">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .product-detail-hero {
+            padding: 8rem 0 4rem;
+            background-color: var(--color-forest-dark);
+            color: var(--color-bg-light);
+            text-align: center;
+            position: relative;
+        }
+        .product-detail-hero h1 {
+            color: var(--color-bg-white);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .product-detail-hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+        .breadcrumb {
+            padding: 2rem 0 0;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+        }
+        .breadcrumb a {
+            color: var(--color-text-muted);
+        }
+        .breadcrumb a:hover {
+            color: var(--color-primary-dark);
+        }
+        .breadcrumb span {
+            color: var(--color-primary-dark);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-header scrolled">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="PALROM Products Logo" class="header-logo-img">
+            </a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="about.html" class="nav-link" id="nav-about">Company Profile</a>
+                <a href="history.html" class="nav-link" id="nav-timeline">History</a>
+                <a href="products.html" class="nav-link" id="nav-products">Our Products</a>
+                <a href="gallery.html" class="nav-link" id="nav-gallery">Gallery</a>
+                <a href="careers.html" class="nav-link active" id="nav-careers">Careers</a>
+                <a href="#contact" class="nav-link" id="nav-contact">Contact Us</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#contact" class="action-btn">Request Quote</a>
+                <button class="mobile-nav-toggle" aria-label="Toggle Navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail Hero Section -->
+    <section class="product-detail-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="careers.html">Careers</a> / <span>Apply Now</span>
+            </div>
+            <h1 style="margin-top: 1.5rem;">Solliciteer Nu</h1>
+            <p>Ready to join our team? Submit your application details and resume below.</p>
+        </div>
+    </section>
+
+    <!-- HR Welcome Section (Anca Mihuț) -->
+    <section class="hr-welcome-section section-padding">
+        <div class="container">
+            <div class="hr-welcome-grid">
+                <div class="hr-image-wrapper animate-on-scroll">
+                    <img src="images/anca_apply.png" alt="Anca Mihuț - PALROM Products HR Coordinator">
+                </div>
+                <div class="hr-welcome-text animate-on-scroll">
+                    <h2>Meet Your HR Representative</h2>
+                    <p class="quote-lead">"Welcome to PALROM Products! We believe that the key to our sustainable, premium woodworking is our dedicated team in Brad."</p>
+                    <p>I'm <strong>Anca Mihuț</strong>, HR Coordinator at PALROM. We are committed to providing a stable, high-safety, and supportive working environment for our machine operators, quality inspectors, mechanics, and logistics handlers.</p>
+                    <p>Please complete the application form below and upload your CV (PDF or Word format). Once submitted, I will personally review your profile and get back to you within 2 working days to schedule a chat.</p>
+                    
+                    <div class="hr-signoff">
+                        <strong>Anca Mihuț</strong>
+                        <span>Human Resources Coordinator, PALROM Products SRL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section class="apply-form-section section-padding">
+        <div class="container">
+            <div class="apply-form-container">
+                <div class="apply-form-card animate-on-scroll">
+                    <h3>Job Application Form</h3>
+                    
+                    <form id="applyForm" class="modern-form">
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="apply_name">Your Name *</label>
+                                <input type="text" id="apply_name" name="apply_name" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="apply_email">Email Address *</label>
+                                <input type="email" id="apply_email" name="apply_email" required placeholder="john@company.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-row">
+                            <div class="form-group">
+                                <label for="apply_phone">Phone Number *</label>
+                                <input type="tel" id="apply_phone" name="apply_phone" required placeholder="+40 700 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label for="apply_job_type">Position Applied For *</label>
+                                <select id="apply_job_type" name="apply_job_type" required>
+                                    <option value="" disabled selected>Select a position</option>
+                                    <option value="planing_operator">Planing Machine Operator</option>
+                                    <option value="quality_inspector">Quality & Defect Inspector</option>
+                                    <option value="logistics_coordinator">Logistics & Inventory Coordinator</option>
+                                    <option value="maintenance_mechanic">Maintenance Mechanic / Millwright</option>
+                                    <option value="general_application">General Job Application</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Resume/CV Upload Zone -->
+                        <div class="form-group">
+                            <label>Upload Your CV / Resume *</label>
+                            <input type="file" id="cvFile" name="cvFile" style="display: none;" accept=".pdf,.doc,.docx">
+                            <div id="cvDropzone" class="dropzone-area">
+                                <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                                <span class="dropzone-text">Drag & Drop your CV here, or click to browse</span>
+                                <span class="dropzone-subtext">Accepted formats: PDF, DOC, DOCX (Max size: 5MB)</span>
+                                
+                                <div id="fileInfo" class="file-info-badge hidden">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                    <span id="fileName"></span>
+                                    <button type="button" id="removeFile" class="remove-file-btn" title="Remove file">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apply_message">Cover Letter / Message Details *</label>
+                            <textarea id="apply_message" name="apply_message" rows="6" required placeholder="Tell us about your background, years of woodworking or industrial experience, and why you want to work at PALROM..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Submit Application <i class="fa-solid fa-paper-plane icon-right"></i></button>
+                    </form>
+                    <div id="applyFeedback" class="form-feedback hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-top container">
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="images/logo_white.png" alt="PALROM Products Logo" class="footer-logo-img">
+                </a>
+                <p>High-quality hardwood lumber sawmill and planing factory delivering customized, FSC® certified beechwood components globally.</p>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/profile.php?id=100004110856648" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">Company Profile</a></li>
+                    <li><a href="history.html">History Timeline</a></li>
+                    <li><a href="products.html">Our Products</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-products">
+                <h3>Our Offerings</h3>
+                <ul>
+                    <li><a href="dowels.html">Beechwood Dowels</a></li>
+                    <li><a href="four-sides-planed.html">4-Sides Planed Timber</a></li>
+                    <li><a href="profiles.html">Profiles & Mouldings</a></li>
+                    <li><a href="specials.html">Special Furniture Elements</a></li>
+                    <li><a href="products.html">FSC® Sustainable Beech</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <p>&copy; 2026 PALROM Products SRL. All rights reserved. Registered in Hunedoara, Romania.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" id="openCookieSettings">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookieModal" class="cookie-modal hidden">
+        <div class="cookie-content">
+            <div class="cookie-header">
+                <i class="fa-solid fa-cookie-bite cookie-icon"></i>
+                <h3>This website uses cookies</h3>
+            </div>
+            <p>We use cookies to personalise content, provide social media features, and analyze our traffic. We also share information about your use of our site with our social media, advertising, and analytics partners. By clicking "Allow all", you agree to our cookie policy.</p>
+            <div class="cookie-buttons">
+                <button id="denyCookies" class="btn btn-outlined">Deny</button>
+                <button id="allowCookies" class="btn btn-primary">Allow All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
