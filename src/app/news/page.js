@@ -164,7 +164,7 @@ export default function News() {
   const galleryItems = [
     {
       id: 1,
-      image: '/images/hero_bg.jpg',
+      image: '/images/1.png',
       title: lang === 'nl' ? 'Sortering Grondstoffen' : (lang === 'de' ? 'Rohstoffsortierung' : (lang === 'ro' ? 'Sortare Materii Prime' : 'Raw Materials Sorting')),
       desc: lang === 'nl' ? 'Lokaal ingekochte duurzame beukenhouten stammen.' : (lang === 'de' ? 'Nachhaltige Buchenholzstämme aus lokaler Beschaffung.' : (lang === 'ro' ? 'Bușteni din lemn de fag sustenabili din surse locale.' : 'Locally sourced sustainable beech wood logs.')),
     },
@@ -182,19 +182,19 @@ export default function News() {
     },
     {
       id: 4,
-      image: '/images/kilns.jpg',
+      image: '/images/4.png',
       title: lang === 'nl' ? 'Geautomatiseerde Droogkamers' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Cuptoare de Uscare Automatizate' : 'Automated Drying Kilns')),
       desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a cherestelei la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
     },
     {
       id: 5,
-      image: '/images/planed_wood.png',
+      image: '/images/5.png',
       title: lang === 'nl' ? 'Houtschaverij Werkplaats' : (lang === 'de' ? 'Hobelwerkstatt' : (lang === 'ro' ? 'Atelier de Rinduit Lemn' : 'Wood Planing Workshop')),
       desc: lang === 'nl' ? 'Kalibreren van houtprofielen tot de exacte toleranties van de klant.' : (lang === 'de' ? 'Kalibrierung von Holzprofilen nach exakten Kundentoleranzen.' : (lang === 'ro' ? 'Calibrarea profilelor din lemn conform toleranțelor exacte ale clienților.' : 'Calibrating timber profiles to exact customer tolerances.')),
     },
     {
       id: 6,
-      image: '/images/dowels.png',
+      image: '/images/6.png',
       title: lang === 'nl' ? 'Beukenhouten Deuvelproductie' : (lang === 'de' ? 'Buchenholzdübel-Produktion' : (lang === 'ro' ? 'Producție Dibluri din Lemn de Fag' : 'Beech Dowel Production')),
       desc: lang === 'nl' ? 'Hoge capaciteit gegroefde en gladde deuvelproductielijnen.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Dübel.' : (lang === 'ro' ? 'Linii de mare capacitate pentru dibluri canelate și netede.' : 'High capacity rilled and smooth dowel lines.')),
     },
