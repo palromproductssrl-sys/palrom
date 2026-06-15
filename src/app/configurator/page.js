@@ -8,36 +8,51 @@ import { useInquiry } from '@/components/InquiryContext';
 
 // Configurator Sizing Rules
 const categoryData = {
-  dowels: {
-    id: 'dowels',
-    name: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije din lemn de fag' },
-    length: { min: 30, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
-    diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
-    finish: { nl: 'Gladgeschaafd', en: 'Smooth planed', de: 'Glatt gehobelt', ro: 'Rinduit neted' },
+  sawn: {
+    id: 'sawn',
+    name: { nl: 'Gezaagd hout', en: 'Rough-sawn timber', de: 'Schnittholz', ro: 'Lemn tăiat' },
+    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
+    thickness: { min: 5, max: 200, default: 25, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
+    finish: { nl: 'Fijnbezaagd', en: 'Fine-sawn / Rough-sawn', de: 'Feinschnitt / Sägerau', ro: 'Tăiat brut' },
   },
   planed: {
     id: 'planed',
-    name: { nl: 'Beukenhouten latten', en: 'Beechwood slats', de: 'Buchenholzleisten', ro: 'Șipci din lemn de fag' },
-    length: { min: 100, max: 4000, default: 2400, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
-    diameter: { min: 15, max: 300, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
-    thickness: { min: 10, max: 100, default: 20, label: { nl: 'Dikte/Hoogte (mm)', en: 'Thickness/Height (mm)', de: 'Dicke/Höhe (mm)', ro: 'Grosime/Înălțime (mm)' } },
-    finish: { nl: 'Vierzijdig geschaafd', en: 'Four-sides planed', de: 'Vierseitig gehobelt', ro: 'Rinduit pe patru fețe' },
+    name: { nl: 'Vierkant geschaafd (S4S)', en: 'Square planed (S4S)', de: 'Vierkant gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
+    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
+    thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
+    finish: { nl: 'Vierzijdig geschaafd (S4S)', en: 'Four-sides planed (S4S)', de: 'Vierseitig gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
+  },
+  dowels: {
+    id: 'dowels',
+    name: { nl: 'Rond geschaafde stokken', en: 'Round planed sticks', de: 'Rund gehobelte Stäbe', ro: 'Tije rotunde rindeluite' },
+    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
+    finish: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
   },
   profiles: {
     id: 'profiles',
-    name: { nl: 'Beukenhouten profielen', en: 'Beechwood profiles', de: 'Buchenholzprofile', ro: 'Profile din lemn de fag' },
-    length: { min: 500, max: 3000, default: 2000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
-    diameter: { min: 10, max: 120, default: 18, label: { nl: 'Afmeting (mm)', en: 'Dimension (mm)', de: 'Abmessung (mm)', ro: 'Dimensiune (mm)' } },
+    name: { nl: 'Geschaafde plinten en profielen', en: 'Planed skirting & profiles', de: 'Gehobelte Leisten & Profile', ro: 'Plinte și profile rindeluite' },
+    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
+    thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
   },
   specials: {
     id: 'specials',
-    name: { nl: 'Beukenhouten bestekken', en: 'Beechwood blanks', de: 'Buchenholz-Zuschnitte', ro: 'Piese brute din lemn de fag' },
-    length: { min: 50, max: 2000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    name: { nl: 'Specials', en: 'Specials', de: 'Spezialteile', ro: 'Speciale' },
+    length: { min: 50, max: 3000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
+    thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Op specificatie', en: 'On custom specification', de: 'Nach Spezifikation', ro: 'Conform specificației' },
   },
 };
+
+const standardSawnThickness = [20, 25, 32, 36, 42, 47, 52, 57, 67];
+const standardSawnWidth = [45, 50, 60, 65, 70, 75, 95];
+const standardRodDiameters = [3, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 19, 20, 22, 25, 28, 30, 35, 40, 45, 50, 55, 60];
+const standardLengthRanges = ['200-250', '300-550', '600-900', '1000-1400', '1500-2000', '2100-3000'];
 
 // Specials prices
 const specialsPrices = {
@@ -218,28 +233,41 @@ export default function Configurator() {
   const [authError, setAuthError] = useState(false);
 
   // Configurator states
-  const [category, setCategory] = useState('planed');
+  const [category, setCategory] = useState('sawn');
   const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-small');
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
   const [subCategoryPlaned, setSubCategoryPlaned] = useState('planed-rect-v1');
   
-  const [length, setLength] = useState(500);
-  const [diameter, setDiameter] = useState(20);
-  const [thickness, setThickness] = useState(20);
-  const [quantity, setQuantity] = useState(10000);
-  const [grade, setGrade] = useState('AAA');
-  const [lengthType, setLengthType] = useState('standard');
+  const [woodType, setWoodType] = useState('beech');
+  const [steamed, setSteamed] = useState('no');
+  const [drying, setDrying] = useState('kd');
   const [fsc, setFsc] = useState(true);
+  const [grade, setGrade] = useState('A');
+  
+  const [thicknessType, setThicknessType] = useState('standard');
+  const [thickness, setThickness] = useState(25);
+  
+  const [widthType, setWidthType] = useState('standard');
+  const [diameter, setDiameter] = useState(50);
+  
+  const [lengthType, setLengthType] = useState('standard');
+  const [length, setLength] = useState('1000-1400');
+  
+  const [additionalInfo, setAdditionalInfo] = useState('');
+  const [quantity, setQuantity] = useState(10000);
 
   const getValidationError = () => {
-    if (category === 'planed' && grade === 'AAA') {
-      if (length >= 3000 && diameter >= 125) {
+    if (category === 'planed' && grade === 'A') {
+      const parsedLength = typeof length === 'string' && length.includes('-')
+        ? parseInt(length.split('-')[1])
+        : (parseInt(length) || 0);
+      if (parsedLength >= 3000 && diameter >= 125) {
         return {
-          nl: 'Productie-restrictie: Een lengte van 3000 mm of meer in AAA-kwaliteit is niet leverbaar in een breedte van 125 mm of meer.',
-          en: 'Production constraint: A length of 3000 mm or more in AAA quality is not available in a width of 125 mm or more.',
-          de: 'Produktionseinschränkung: Eine Länge von 3000 mm oder mehr in AAA-Qualität ist bei einer Breite von 125 mm of meer niet verfügbar.',
-          ro: 'Restricție de producție: O lungime de 3000 mm sau mai mare în calitate AAA nu este disponibilă la o lățime de 125 mm sau mai mare.'
+          nl: 'Productie-restrictie: Een lengte van 3000 mm of meer in A-kwaliteit is niet leverbaar in een breedte van 125 mm of meer.',
+          en: 'Production constraint: A length of 3000 mm or more in A quality is not available in a width of 125 mm or more.',
+          de: 'Produktionseinschränkung: Eine Länge von 3000 mm oder mehr in A-Qualität ist bei einer Breite von 125 mm oder mehr nicht verfügbar.',
+          ro: 'Restricție de producție: O lungime de 3000 mm sau mai mare în calitate A nu este disponibilă la o lățime de 125 mm sau mai mare.'
         };
       }
     }
@@ -247,8 +275,11 @@ export default function Configurator() {
   };
 
   const validationError = getValidationError();
-  const minQty = lengthType === 'custom' ? getMinQuantityForCustom(category, length, diameter) : 500;
-  const currentMaxWidth = category === 'planed' ? getPlanedMaxWidth(thickness) : categoryData[category].diameter.max;
+  const parsedLengthForMinQty = typeof length === 'string' && length.includes('-')
+    ? parseInt(length.split('-')[1])
+    : (parseInt(length) || 0);
+  const minQty = lengthType === 'custom' ? getMinQuantityForCustom(category, parsedLengthForMinQty, diameter) : 500;
+  const currentMaxWidth = category === 'planed' ? getPlanedMaxWidth(thickness) : categoryData[category]?.diameter?.max || 500;
 
   // Clamp diameter to currentMaxWidth if it exceeds it
   useEffect(() => {
@@ -293,21 +324,58 @@ export default function Configurator() {
     setIsLoading(false);
   }, []);
 
-  // Sync sliders default when category changes
+  // Sync state defaults when category changes
   useEffect(() => {
-    const data = categoryData[category];
-    if (data) {
-      if (lengthType === 'standard') {
-        setLength(standardLengths[category]?.[0] || data.length.default);
-      } else {
-        setLength(data.length.default);
+    if (categoryData[category]) {
+      if (category === 'sawn') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(25);
+        setWidthType('standard');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'planed') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'dowels') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(10);
+        setWidthType('standard');
+        setDiameter(10);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'profiles') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'specials') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('custom');
+        setLength(500);
       }
-      setDiameter(data.diameter.default);
-      if (data.thickness) {
-        setThickness(data.thickness.default);
-      }
+      setAdditionalInfo('');
     }
-  }, [category, lengthType]);
+  }, [category]);
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
@@ -322,9 +390,15 @@ export default function Configurator() {
   };
 
   // Pricing calculations
-  const calculatePriceDetails = (cat, len, diam, thick, qtyVal, specificSubcat, itemGrade = 'AAA', lenType = 'standard') => {
+  const calculatePriceDetails = (cat, len, diam, thick, qtyVal, specificSubcat, itemGrade = 'A', lenType = 'standard', itemDrying = 'kd') => {
     let unitPrice = 0.0;
     let subcatName = '';
+
+    const numericLen = typeof len === 'string' && len.includes('-')
+      ? parseInt(len.split('-')[1])
+      : (parseInt(len) || 0);
+    const numericDiam = parseInt(diam) || 0;
+    const numericThick = parseInt(thick) || 0;
 
     if (cat === 'specials') {
       const names = {
@@ -375,37 +449,49 @@ export default function Configurator() {
       subcatName = names[specificSubcat || subCategoryPlaned] || 'Planed Rectangular (Variant 1)';
     }
 
-    if (cat === 'dowels') {
+    if (cat === 'sawn') {
+      const volumeDm3 = (numericLen * numericDiam * numericThick) / 1000000.0;
+      unitPrice = 1.25 * volumeDm3; // Gezaagd is €1250/m3 base price
+      if (unitPrice < 0.20) unitPrice = 0.20;
+    } else if (cat === 'planed') {
+      const volumeDm3 = (numericLen * numericDiam * numericThick) / 1000000.0;
+      unitPrice = 1.65 * volumeDm3; // S4S is €1650/m3 base price
+      if (unitPrice < 0.25) unitPrice = 0.25;
+    } else if (cat === 'dowels') {
       const baseLength = 40.0;
       const baseDiameter = 8.0;
       const basePrice = 0.03;
 
-      const lengthFactor = len / baseLength;
-      const diameterFactor = Math.pow(diam / baseDiameter, 2);
+      const lengthFactor = numericLen / baseLength;
+      const diameterFactor = Math.pow(numericDiam / baseDiameter, 2);
 
       unitPrice = basePrice * lengthFactor * diameterFactor;
       if (unitPrice < 0.01) unitPrice = 0.01;
-    } else if (cat === 'planed') {
-      const volumeDm3 = (len * diam * thick) / 1000000.0;
-      unitPrice = 1.65 * volumeDm3;
-      if (unitPrice < 0.25) unitPrice = 0.25;
     } else if (cat === 'profiles') {
-      const lengthM = len / 1000.0;
-      const widthFactor = diam / 50.0;
-      unitPrice = 0.95 * lengthM * widthFactor;
+      const lengthM = numericLen / 1000.0;
+      const widthFactor = numericDiam / 50.0;
+      const thicknessFactor = numericThick / 20.0;
+      unitPrice = 0.95 * lengthM * widthFactor * thicknessFactor;
       if (unitPrice < 0.20) unitPrice = 0.20;
     } else if (cat === 'specials') {
       const basePrice = specialsPrices[subcatName] || 1.25;
-      const lengthFactor = len / 500.0;
+      const lengthFactor = numericLen / 500.0;
       unitPrice = basePrice * lengthFactor;
       if (unitPrice < 0.35) unitPrice = 0.35;
     }
 
     // Apply grade factor
-    const gradeFactor = itemGrade === 'CCC' ? 0.85 : 1.0;
+    let gradeFactor = 1.0;
+    if (itemGrade === 'B') gradeFactor = 0.9;
+    else if (itemGrade === 'C') gradeFactor = 0.7;
+
+    // Apply drying factor
+    const dryingFactor = itemDrying === 'luchtdroog' ? 0.95 : 1.0;
+
     // Apply custom length overhead factor
     const lenTypeFactor = lenType === 'custom' ? 1.15 : 1.0;
-    unitPrice = unitPrice * gradeFactor * lenTypeFactor;
+
+    unitPrice = unitPrice * gradeFactor * dryingFactor * lenTypeFactor;
 
     let discountPercent = 0;
     if (qtyVal >= 100000) {
@@ -435,39 +521,53 @@ export default function Configurator() {
 
   const getActiveSelectionDetails = () => {
     const data = categoryData[category];
-    
-    // Clamp values within category limits
-    const finalLength = Math.max(data.length.min, Math.min(data.length.max, parseInt(length) || data.length.default));
-    const finalDiameter = Math.max(data.diameter.min, Math.min(data.diameter.max, parseInt(diameter) || data.diameter.default));
-    const finalThickness = data.thickness
-      ? Math.max(data.thickness.min, Math.min(data.thickness.max, parseInt(thickness) || data.thickness.default))
-      : thickness;
+    if (!data) return {};
 
+    // Get final values
+    let finalLength = length;
+    let finalDiameter = diameter;
+    let finalThickness = thickness;
+
+    // Retrieve subcategory name if applicable
     const currentSubcat = category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '';
-    const details = calculatePriceDetails(category, finalLength, finalDiameter, finalThickness, quantity, currentSubcat, grade, lengthType);
     
+    // Invoke price details with additional drying state
+    const details = calculatePriceDetails(category, finalLength, finalDiameter, finalThickness, quantity, currentSubcat, grade, lengthType, drying);
+
+    // Dynamic productName
     let subName = data.name[lang] || data.name.nl;
-    if (details.subcatName) {
-      let locSubName = details.subcatName;
-      if (category === 'dowels') {
-        const item = dowelSubcategories.find(d => d.id === currentSubcat);
-        if (item) locSubName = item.name[lang] || item.name.nl;
-      } else if (category === 'profiles') {
-        const item = profileSubcategories.find(p => p.id === currentSubcat);
-        if (item) locSubName = item.name[lang] || item.name.nl;
-      } else if (category === 'specials') {
-        const item = specialsSubcategories.find(s => s.id === currentSubcat);
-        if (item) locSubName = item.name[lang] || item.name.nl;
-      } else if (category === 'planed') {
-        const item = planedSubcategories.find(p => p.id === currentSubcat);
-        if (item) locSubName = item.name[lang] || item.name.nl;
+    if (category === 'specials') {
+      const item = specialsSubcategories.find(s => s.id === currentSubcat);
+      if (item) {
+        subName = `${data.name[lang] || data.name.nl} - ${item.name[lang] || item.name.nl}`;
       }
-      subName = `${data.name[lang] || data.name.nl} - ${locSubName}`;
+    } else if (category === 'profiles') {
+      const item = profileSubcategories.find(p => p.id === currentSubcat);
+      if (item) {
+        subName = `${data.name[lang] || data.name.nl} - ${item.name[lang] || item.name.nl}`;
+      }
+    } else if (category === 'dowels') {
+      const item = dowelSubcategories.find(d => d.id === currentSubcat);
+      if (item) {
+        subName = `${data.name[lang] || data.name.nl} - ${item.name[lang] || item.name.nl}`;
+      }
+    } else if (category === 'planed') {
+      const item = planedSubcategories.find(p => p.id === currentSubcat);
+      if (item) {
+        subName = `${data.name[lang] || data.name.nl} - ${item.name[lang] || item.name.nl}`;
+      }
     }
 
-    let dims = `${finalLength}mm x ${finalDiameter}mm`;
-    if (category === 'planed') {
-      dims = `${finalThickness}mm x ${finalDiameter}mm x ${finalLength}mm`;
+    // Format dimensions string
+    let dims = '';
+    const lengthStr = typeof finalLength === 'string' ? `${finalLength} mm` : `${finalLength} mm`;
+    const widthStr = category === 'dowels' ? 'n.v.t.' : `${finalDiameter} mm`;
+    const thickStr = `${finalThickness} mm`;
+
+    if (category === 'sawn' || category === 'planed' || category === 'profiles' || category === 'specials') {
+      dims = `${thickStr} x ${widthStr} x ${lengthStr}`;
+    } else if (category === 'dowels') {
+      dims = `Ø ${finalDiameter} mm x ${lengthStr}`;
     }
 
     return {
@@ -488,6 +588,10 @@ export default function Configurator() {
       grade,
       lengthType,
       fsc,
+      drying,
+      additionalInfo,
+      woodType,
+      steamed
     };
   };
 
@@ -497,7 +601,7 @@ export default function Configurator() {
     const data = categoryData[item.category];
     if (!data) return item;
 
-    const details = calculatePriceDetails(item.category, item.length, item.diameter, item.thickness, item.quantity, item.subCategory, item.grade || 'AAA', item.lengthType || 'standard');
+    const details = calculatePriceDetails(item.category, item.length, item.diameter, item.thickness, item.quantity, item.subCategory, item.grade || 'A', item.lengthType || 'standard', item.drying || 'kd');
 
     let subName = data.name[l] || data.name.nl;
     if (item.subCategory) {
@@ -520,14 +624,20 @@ export default function Configurator() {
       }
     }
 
-    let dims = `${item.length}mm x ${item.diameter}mm`;
-    if (item.category === 'planed') {
-      dims = `${item.thickness}mm x ${item.diameter}mm x ${item.length}mm`;
+    let dims = '';
+    const lengthStr = typeof item.length === 'string' ? `${item.length} mm` : `${item.length} mm`;
+    const widthStr = item.category === 'dowels' ? 'n.v.t.' : `${item.diameter} mm`;
+    const thickStr = `${item.thickness} mm`;
+
+    if (item.category === 'sawn' || item.category === 'planed' || item.category === 'profiles' || item.category === 'specials') {
+      dims = `${thickStr} x ${widthStr} x ${lengthStr}`;
+    } else if (item.category === 'dowels') {
+      dims = `Ø ${item.diameter} mm x ${lengthStr}`;
     }
 
     return {
       ...item,
-      grade: item.grade || 'AAA',
+      grade: item.grade || 'A',
       lengthType: item.lengthType || 'standard',
       fsc: item.fsc !== undefined ? item.fsc : true,
       productName: subName,
@@ -547,30 +657,72 @@ export default function Configurator() {
     const rawItem = {
       category,
       subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '',
-      length: Math.max(categoryData[category].length.min, Math.min(categoryData[category].length.max, parseInt(length) || categoryData[category].length.default)),
-      diameter: Math.max(categoryData[category].diameter.min, Math.min(categoryData[category].diameter.max, parseInt(diameter) || categoryData[category].diameter.default)),
-      thickness: categoryData[category].thickness
-        ? Math.max(categoryData[category].thickness.min, Math.min(categoryData[category].thickness.max, parseInt(thickness) || categoryData[category].thickness.default))
-        : thickness,
+      length,
+      diameter,
+      thickness: categoryData[category].thickness ? thickness : 0,
       quantity,
       grade,
       lengthType,
       fsc,
+      drying,
+      additionalInfo,
+      woodType,
+      steamed
     };
     setConfiguredItems((prev) => [...prev, rawItem]);
 
     // Reset configurator fields
     const data = categoryData[category];
-    if (lengthType === 'standard') {
-      setLength(standardLengths[category]?.[0] || data.length.default);
-    } else {
-      setLength(data.length.default);
+    if (data) {
+      if (category === 'sawn') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(25);
+        setWidthType('standard');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'planed') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'dowels') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(10);
+        setWidthType('standard');
+        setDiameter(10);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'profiles') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'specials') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('custom');
+        setLength(500);
+      }
+      setAdditionalInfo('');
+      setFsc(true);
     }
-    setDiameter(data.diameter.default);
-    if (data.thickness) {
-      setThickness(data.thickness.default);
-    }
-    setFsc(true);
   };
 
   const handleRemoveItem = (index) => {
@@ -591,15 +743,17 @@ export default function Configurator() {
     const currentItem = {
       category,
       subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '',
-      length: Math.max(categoryData[category].length.min, Math.min(categoryData[category].length.max, parseInt(length) || categoryData[category].length.default)),
-      diameter: Math.max(categoryData[category].diameter.min, Math.min(categoryData[category].diameter.max, parseInt(diameter) || categoryData[category].diameter.default)),
-      thickness: categoryData[category].thickness
-        ? Math.max(categoryData[category].thickness.min, Math.min(categoryData[category].thickness.max, parseInt(thickness) || categoryData[category].thickness.default))
-        : thickness,
+      length,
+      diameter,
+      thickness: categoryData[category].thickness ? thickness : 0,
       quantity,
       grade,
       lengthType,
       fsc,
+      drying,
+      additionalInfo,
+      woodType,
+      steamed
     };
     setConfiguredItems((prev) => {
       const updated = [...prev, currentItem];
@@ -796,6 +950,7 @@ export default function Configurator() {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
+                    <option value="sawn">{categoryData.sawn.name[lang] || categoryData.sawn.name.nl}</option>
                     <option value="planed">{categoryData.planed.name[lang] || categoryData.planed.name.nl}</option>
                     <option value="dowels">{categoryData.dowels.name[lang] || categoryData.dowels.name.nl}</option>
                     <option value="profiles">{categoryData.profiles.name[lang] || categoryData.profiles.name.nl}</option>
@@ -911,7 +1066,54 @@ export default function Configurator() {
                   </div>
                 )}
 
-                {/* Wood Quality Grade Selector */}
+                {/* Houtsoort */}
+                <div className="control-group">
+                  <label htmlFor="dbWoodType">{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</label>
+                  <select id="dbWoodType" className="dashboard-select" value={woodType} disabled={true}>
+                    <option value="beech">{lang === 'nl' ? 'Beuken' : 'Beechwood'}</option>
+                  </select>
+                </div>
+
+                {/* Gestoomd */}
+                <div className="control-group">
+                  <label htmlFor="dbSteamed">{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</label>
+                  <select id="dbSteamed" className="dashboard-select" value={steamed} disabled={true}>
+                    <option value="no">{lang === 'nl' ? 'Nee' : 'No'}</option>
+                  </select>
+                </div>
+
+                {/* Droging */}
+                <div className="control-group">
+                  <label htmlFor="dbDrying">{lang === 'nl' ? 'Droging' : 'Drying'}</label>
+                  <select
+                    id="dbDrying"
+                    className="dashboard-select"
+                    value={drying}
+                    disabled={category !== 'sawn' && category !== 'specials'}
+                    onChange={(e) => setDrying(e.target.value)}
+                  >
+                    <option value="kd">{lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : 'Chamber-dried (KD 10-12%)'}</option>
+                    {(category === 'sawn' || category === 'specials') && (
+                      <option value="luchtdroog">{lang === 'nl' ? 'Luchtdroog' : 'Air-dried'}</option>
+                    )}
+                  </select>
+                </div>
+
+                {/* Certificering */}
+                <div className="control-group">
+                  <label htmlFor="dbFsc">{lang === 'nl' ? 'Certificering' : 'Certification'}</label>
+                  <select
+                    id="dbFsc"
+                    className="dashboard-select"
+                    value={fsc ? 'yes' : 'no'}
+                    onChange={(e) => setFsc(e.target.value === 'yes')}
+                  >
+                    <option value="yes">{lang === 'nl' ? 'FSC®-Gecertificeerd' : 'FSC®-Certified'}</option>
+                    <option value="no">{lang === 'nl' ? 'Geen FSC®' : 'No FSC®'}</option>
+                  </select>
+                </div>
+
+                {/* Kwaliteit */}
                 <div className="control-group" id="controlGroupGrade">
                   <label htmlFor="dbGrade">{getTranslation('gradeLabel')}</label>
                   <select
@@ -920,190 +1122,265 @@ export default function Configurator() {
                     value={grade}
                     onChange={(e) => setGrade(e.target.value)}
                   >
-                    <option value="AAA">{getTranslation('gradeAAA')}</option>
-                    <option value="CCC">{getTranslation('gradeCCC')}</option>
+                    <option value="A">
+                      {lang === 'nl' ? 'A = foutvrij, egaal van kleur' : 'A = defect-free, uniform color'}
+                    </option>
+                    <option value="B">
+                      {lang === 'nl' ? 'B = foutvrij, gezond kleurverschil toegestaan' : 'B = defect-free, healthy color difference allowed'}
+                    </option>
+                    {(category === 'sawn' || category === 'specials') && (
+                      <option value="C">
+                        {lang === 'nl' ? 'C = constructieve kwaliteit' : 'C = structural quality'}
+                      </option>
+                    )}
                   </select>
                 </div>
 
-                {/* Length Type Toggle */}
-                <div className="control-group" id="controlGroupLengthType">
-                  <label>{getTranslation('lengthTypeLabel')}</label>
-                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem' }}>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-dark)' }}>
-                      <input
-                        type="radio"
-                        name="lengthType"
-                        value="standard"
-                        checked={lengthType === 'standard'}
-                        onChange={() => setLengthType('standard')}
-                      />
-                      <span>{getTranslation('lengthTypeStandard')}</span>
-                    </label>
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-dark)' }}>
-                      <input
-                        type="radio"
-                        name="lengthType"
-                        value="custom"
-                        checked={lengthType === 'custom'}
-                        onChange={() => setLengthType('custom')}
-                      />
-                      <span>{getTranslation('lengthTypeCustom')}</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Certification & Treatment Options */}
-                <div className="control-group" style={{ gridColumn: 'span 2', marginBottom: '0.5rem' }}>
-                  <label>{getTranslation('optionsLabel')}</label>
-                  <div style={{ display: 'flex', gap: '2rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
-                    {/* FSC Checkbox */}
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-dark)', fontWeight: 500 }}>
-                      <input
-                        type="checkbox"
-                        checked={fsc}
-                        onChange={(e) => setFsc(e.target.checked)}
-                        style={{ width: '1.2rem', height: '1.2rem', accentColor: 'var(--color-primary)' }}
-                      />
-                      <span>{getTranslation('fscCertified')}</span>
-                    </label>
-
-                    {/* Unsteamed Checkbox (always checked & disabled) */}
-                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'not-allowed', color: '#94a3b8', fontWeight: 500 }}>
-                      <input
-                        type="checkbox"
-                        checked={true}
-                        disabled={true}
-                        style={{ width: '1.2rem', height: '1.2rem', cursor: 'not-allowed', accentColor: 'var(--color-primary)' }}
-                      />
-                      <span>{getTranslation('unsteamedOption')}</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Sizing: Length */}
+                {/* Dikte / Diameter */}
                 <div className="control-group">
-                  <div className="slider-header">
-                    <label htmlFor="dbLength">{categoryData[category].length.label[lang] || categoryData[category].length.label.nl}</label>
-                  </div>
-                  {lengthType === 'standard' ? (
-                    <select
-                      id="dbLength"
-                      className="dashboard-select"
-                      value={length}
-                      onChange={(e) => setLength(parseInt(e.target.value))}
-                    >
-                      {(standardLengths[category] || []).map((stdLen) => (
-                        <option key={stdLen} value={stdLen}>
-                          {stdLen} mm
-                        </option>
-                      ))}
-                    </select>
+                  <label htmlFor="dbThickness">
+                    {category === 'dowels'
+                      ? (lang === 'nl' ? 'Diameter (mm)' : 'Diameter (mm)')
+                      : (lang === 'nl' ? 'Dikte (mm)' : 'Thickness (mm)')}
+                  </label>
+                  {category === 'sawn' ? (
+                    <>
+                      {thicknessType === 'standard' ? (
+                        <select
+                          id="dbThickness"
+                          className="dashboard-select"
+                          value={thickness}
+                          onChange={(e) => {
+                            if (e.target.value === 'custom') {
+                              setThicknessType('custom');
+                              setThickness(25);
+                            } else {
+                              setThickness(parseInt(e.target.value));
+                            }
+                          }}
+                        >
+                          {standardSawnThickness.map((tVal) => (
+                            <option key={tVal} value={tVal}>
+                              {tVal} mm
+                            </option>
+                          ))}
+                          <option value="custom">{lang === 'nl' ? 'Maatwerk...' : 'Custom...'}</option>
+                        </select>
+                      ) : (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <input
+                            type="number"
+                            className="dashboard-input"
+                            value={thickness}
+                            onChange={(e) => setThickness(parseInt(e.target.value) || '')}
+                            placeholder="Custom thickness"
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              setThicknessType('standard');
+                              setThickness(25);
+                            }}
+                            style={{ padding: '0.25rem 0.75rem', fontSize: '0.85rem' }}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  ) : category === 'dowels' ? (
+                    <>
+                      {thicknessType === 'standard' ? (
+                        <select
+                          id="dbThickness"
+                          className="dashboard-select"
+                          value={thickness}
+                          onChange={(e) => {
+                            if (e.target.value === 'custom') {
+                              setThicknessType('custom');
+                              setThickness(10);
+                            } else {
+                              setThickness(parseInt(e.target.value));
+                            }
+                          }}
+                        >
+                          {standardRodDiameters.map((dVal) => (
+                            <option key={dVal} value={dVal}>
+                              Ø {dVal} mm
+                            </option>
+                          ))}
+                          <option value="custom">{lang === 'nl' ? 'Maatwerk...' : 'Custom...'}</option>
+                        </select>
+                      ) : (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <input
+                            type="number"
+                            className="dashboard-input"
+                            value={thickness}
+                            onChange={(e) => setThickness(parseInt(e.target.value) || '')}
+                            placeholder="Custom diameter"
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              setThicknessType('standard');
+                              setThickness(10);
+                            }}
+                            style={{ padding: '0.25rem 0.75rem', fontSize: '0.85rem' }}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                      )}
+                    </>
                   ) : (
-                    <div className="slider-wrapper">
-                      <input
-                        type="range"
-                        id="dbLength"
-                        min={categoryData[category].length.min}
-                        max={categoryData[category].length.max}
-                        value={length || categoryData[category].length.min}
-                        className="dashboard-slider"
-                        onChange={(e) => setLength(parseInt(e.target.value) || '')}
-                      />
-                      <input
-                        type="number"
-                        className="slider-value-display"
-                        value={length}
-                        min={categoryData[category].length.min}
-                        max={categoryData[category].length.max}
-                        onChange={(e) => {
-                          const val = parseInt(e.target.value);
-                          setLength(isNaN(val) ? '' : val);
-                        }}
-                        onBlur={() => {
-                          const min = categoryData[category].length.min;
-                          const max = categoryData[category].length.max;
-                          if (length === '' || length < min) setLength(min);
-                          else if (length > max) setLength(max);
-                        }}
-                        style={{ textAlign: 'center', outline: 'none' }}
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      className="dashboard-input"
+                      value={thickness}
+                      onChange={(e) => setThickness(parseInt(e.target.value) || '')}
+                      placeholder={lang === 'nl' ? 'Voer dikte in' : 'Enter thickness'}
+                    />
                   )}
                 </div>
 
-                {/* Sizing: Width / Diameter */}
+                {/* Breedte */}
                 <div className="control-group">
-                  <div className="slider-header">
-                    <label htmlFor="dbDiameter">{categoryData[category].diameter.label[lang] || categoryData[category].diameter.label.nl}</label>
-                  </div>
-                  <div className="slider-wrapper">
-                    <input
-                      type="range"
-                      id="dbDiameter"
-                      min={categoryData[category].diameter.min}
-                      max={currentMaxWidth}
-                      value={diameter || categoryData[category].diameter.min}
-                      className="dashboard-slider"
-                      onChange={(e) => setDiameter(parseInt(e.target.value) || '')}
-                    />
+                  <label htmlFor="dbDiameter">{lang === 'nl' ? 'Breedte (mm)' : 'Width (mm)'}</label>
+                  {category === 'dowels' ? (
+                    <input type="text" className="dashboard-input" value="n.v.t. (stokken)" disabled={true} />
+                  ) : category === 'sawn' ? (
+                    <>
+                      {widthType === 'standard' ? (
+                        <select
+                          id="dbDiameter"
+                          className="dashboard-select"
+                          value={diameter}
+                          onChange={(e) => {
+                            if (e.target.value === 'custom') {
+                              setWidthType('custom');
+                              setDiameter(50);
+                            } else {
+                              setDiameter(parseInt(e.target.value));
+                            }
+                          }}
+                        >
+                          {standardSawnWidth.map((wVal) => (
+                            <option key={wVal} value={wVal}>
+                              {wVal} mm
+                            </option>
+                          ))}
+                          <option value="custom">{lang === 'nl' ? 'Maatwerk...' : 'Custom...'}</option>
+                        </select>
+                      ) : (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <input
+                            type="number"
+                            className="dashboard-input"
+                            value={diameter}
+                            onChange={(e) => setDiameter(parseInt(e.target.value) || '')}
+                            placeholder="Custom width"
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              setWidthType('standard');
+                              setDiameter(50);
+                            }}
+                            style={{ padding: '0.25rem 0.75rem', fontSize: '0.85rem' }}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  ) : (
                     <input
                       type="number"
-                      className="slider-value-display"
+                      className="dashboard-input"
                       value={diameter}
-                      min={categoryData[category].diameter.min}
-                      max={currentMaxWidth}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value);
-                        setDiameter(isNaN(val) ? '' : val);
-                      }}
-                      onBlur={() => {
-                        const min = categoryData[category].diameter.min;
-                        const max = currentMaxWidth;
-                        if (diameter === '' || diameter < min) setDiameter(min);
-                        else if (diameter > max) setDiameter(max);
-                      }}
-                      style={{ textAlign: 'center', outline: 'none' }}
+                      onChange={(e) => setDiameter(parseInt(e.target.value) || '')}
+                      placeholder={lang === 'nl' ? 'Voer breedte in' : 'Enter width'}
                     />
-                  </div>
+                  )}
                 </div>
 
-                {/* Sizing: Thickness (conditional) */}
-                {categoryData[category].thickness && (
-                  <div className="control-group" id="controlGroupThickness">
-                    <div className="slider-header">
-                      <label htmlFor="dbThickness">{categoryData[category].thickness.label[lang] || categoryData[category].thickness.label.nl}</label>
-                    </div>
-                    <div className="slider-wrapper">
-                      <input
-                        type="range"
-                        id="dbThickness"
-                        min={categoryData[category].thickness.min}
-                        max={categoryData[category].thickness.max}
-                        value={thickness || categoryData[category].thickness.min}
-                        className="dashboard-slider"
-                        onChange={(e) => setThickness(parseInt(e.target.value) || '')}
-                      />
-                      <input
-                        type="number"
-                        className="slider-value-display"
-                        value={thickness}
-                        min={categoryData[category].thickness.min}
-                        max={categoryData[category].thickness.max}
-                        onChange={(e) => {
-                          const val = parseInt(e.target.value);
-                          setThickness(isNaN(val) ? '' : val);
-                        }}
-                        onBlur={() => {
-                          const min = categoryData[category].thickness.min;
-                          const max = categoryData[category].thickness.max;
-                          if (thickness === '' || thickness < min) setThickness(min);
-                          else if (thickness > max) setThickness(max);
-                        }}
-                        style={{ textAlign: 'center', outline: 'none' }}
-                      />
-                    </div>
-                  </div>
-                )}
+                {/* Lengte */}
+                <div className="control-group">
+                  <label htmlFor="dbLength">{lang === 'nl' ? 'Lengte (mm)' : 'Length (mm)'}</label>
+                  {category !== 'specials' ? (
+                    <>
+                      {lengthType === 'standard' ? (
+                        <select
+                          id="dbLength"
+                          className="dashboard-select"
+                          value={length}
+                          onChange={(e) => {
+                            if (e.target.value === 'custom') {
+                              setLengthType('custom');
+                              setLength(1000);
+                            } else {
+                              setLength(e.target.value);
+                            }
+                          }}
+                        >
+                          {standardLengthRanges.map((rVal) => (
+                            <option key={rVal} value={rVal}>
+                              {rVal} mm
+                            </option>
+                          ))}
+                          <option value="custom">{lang === 'nl' ? 'Maatwerk...' : 'Custom...'}</option>
+                        </select>
+                      ) : (
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                          <input
+                            type="number"
+                            className="dashboard-input"
+                            value={length}
+                            onChange={(e) => setLength(parseInt(e.target.value) || '')}
+                            placeholder="Custom length"
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                              setLengthType('standard');
+                              setLength('1000-1400');
+                            }}
+                            style={{ padding: '0.25rem 0.75rem', fontSize: '0.85rem' }}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <input
+                      type="number"
+                      className="dashboard-input"
+                      value={length}
+                      onChange={(e) => setLength(parseInt(e.target.value) || '')}
+                      placeholder={lang === 'nl' ? 'Voer lengte in' : 'Enter length'}
+                    />
+                  )}
+                </div>
+
+                {/* Aanvullende informatie */}
+                <div className="control-group" style={{ gridColumn: 'span 2' }}>
+                  <label htmlFor="dbAdditionalInfo">{lang === 'nl' ? 'Aanvullende informatie' : 'Additional information'}</label>
+                  <textarea
+                    id="dbAdditionalInfo"
+                    className="dashboard-input"
+                    rows="2"
+                    value={additionalInfo}
+                    onChange={(e) => setAdditionalInfo(e.target.value)}
+                    placeholder={lang === 'nl' ? 'Bijvoorbeeld schaaftoleranties of specifieke verpakkingseisen...' : 'For example planing tolerances or specific packaging requirements...'}
+                    style={{ resize: 'vertical', width: '100%', minHeight: '60px' }}
+                  />
+                </div>
 
                 {/* Quantity */}
                 <div className="control-group">
@@ -1205,9 +1482,19 @@ export default function Configurator() {
                       <td>{activeSelection.qtyText}</td>
                     </tr>
                     <tr>
-                      <td>{getTranslation('materialRow')}</td>
+                      <td>{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</td>
+                      <td>{lang === 'nl' ? 'Beuken' : 'Beechwood'}</td>
+                    </tr>
+                    <tr>
+                      <td>{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</td>
+                      <td>{lang === 'nl' ? 'Nee (Ongestoomd)' : 'No (Unsteamed)'}</td>
+                    </tr>
+                    <tr>
+                      <td>{lang === 'nl' ? 'Droging' : 'Drying'}</td>
                       <td>
-                        <span className="material-leaf">🌿</span> {activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc')}
+                        {activeSelection.drying === 'luchtdroog'
+                          ? (lang === 'nl' ? 'Luchtdroog' : 'Air-dried')
+                          : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : 'Chamber-dried (KD 10-12%)')}
                       </td>
                     </tr>
                     <tr>
@@ -1219,13 +1506,25 @@ export default function Configurator() {
                     <tr>
                       <td>{getTranslation('gradeRow')}</td>
                       <td>
-                        {activeSelection.grade === 'AAA' ? getTranslation('gradeAAA') : getTranslation('gradeCCC')}
+                        {activeSelection.grade === 'A'
+                          ? (lang === 'nl' ? 'A (foutvrij, egaal van kleur)' : 'A (defect-free, uniform color)')
+                          : activeSelection.grade === 'B'
+                          ? (lang === 'nl' ? 'B (foutvrij, gezond kleurverschil toegestaan)' : 'B (defect-free, healthy color difference allowed)')
+                          : activeSelection.grade === 'C'
+                          ? (lang === 'nl' ? 'C (constructieve kwaliteit)' : 'C (structural quality)')
+                          : activeSelection.grade}
                       </td>
                     </tr>
                     <tr>
                       <td>{getTranslation('finishRow')}</td>
                       <td>{activeSelection.finish}</td>
                     </tr>
+                    {activeSelection.additionalInfo && (
+                      <tr>
+                        <td>{lang === 'nl' ? 'Aanvullende informatie' : 'Additional information'}</td>
+                        <td style={{ fontStyle: 'italic', color: '#ffd700' }}>{activeSelection.additionalInfo}</td>
+                      </tr>
+                    )}
                     <tr>
                       <td>{getTranslation('targetPricePerPiece')}</td>
                       <td>€ {formatEuro(activeSelection.unitPrice, 4)}</td>
@@ -1357,7 +1656,7 @@ export default function Configurator() {
                                 <strong>{item.productName}</strong>
                                 <br />
                                 <span style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {getTranslation('fscRow')}: {item.fsc ? getTranslation('yes') : getTranslation('no')} | {getTranslation('finishRow')}: {item.finish} | {getTranslation('quantityRow')}:{' '}
+                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {lang === 'nl' ? 'Droging' : 'Drying'}: {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : 'Air-dried') : (lang === 'nl' ? 'KD 10-12%' : 'KD 10-12%')} | {getTranslation('fscRow')}: {item.fsc ? getTranslation('yes') : getTranslation('no')} | {getTranslation('quantityRow')}:{' '}
                                   {item.qtyText}
                                 </span>
                               </div>
