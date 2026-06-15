@@ -203,11 +203,12 @@ ul {
 
 .btn-dark {
     background-color: var(--color-text-dark);
-    color: var(--color-bg-white);
+    color: var(--color-bg-white) !important;
 }
 
 .btn-dark:hover {
     background-color: var(--color-primary);
+    color: var(--color-text-dark) !important;
     transform: translateY(-2px);
 }
 
