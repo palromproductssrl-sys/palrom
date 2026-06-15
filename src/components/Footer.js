@@ -39,7 +39,7 @@ export default function Footer() {
       de: "Unser Angebot",
       ro: "Oferta Noastră"
     },
-    dowels: { nl: "Beukenhouten Dowels", en: "Beechwood Dowels", de: "Buchenholzdübel", ro: "Dibluri din Lemn de Fag" },
+    dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije din lemn de fag" },
     planed: { nl: "4-Zijdig Geschaafd Hout", en: "4-Sides Planed Timber", de: "4-seitig gehobeltes Holz", ro: "Lemn Rinduit pe 4 Fețe" },
     profiles: { nl: "Houten Profielen & Lijsten", en: "Profiles & Mouldings", de: "Holzprofile & Leisten", ro: "Profile & Plinte din Lemn" },
     specials: { nl: "Speciale Componenten", en: "Special Furniture Elements", de: "Spezielle Möbelkomponenten", ro: "Elemente Speciale de Mobilier" },

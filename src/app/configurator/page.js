@@ -9,7 +9,7 @@ import { useInquiry } from '@/components/InquiryContext';
 const categoryData = {
   dowels: {
     id: 'dowels',
-    name: { nl: 'Beukenhouten Dowels & Staven', en: 'Beechwood Dowels & Rods', de: 'Buchenholzdübel & -stäbe', ro: 'Dibluri și Tije din Lemn de Fag' },
+    name: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije din lemn de fag' },
     length: { min: 30, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
     finish: { nl: 'Gladgeschaafd', en: 'Smooth planed', de: 'Glatt gehobelt', ro: 'Rinduit neted' },

@@ -14,10 +14,10 @@ export default function Products() {
       id: 'dowels',
       category: 'dowels',
       name: {
-        nl: 'Beukenhouten Deuvels & Staven',
-        en: 'Beechwood Dowel Pins & Rods',
-        de: 'Buchenholzdübel & -stäbe',
-        ro: 'Dibluri și Tije din Lemn de Fag',
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag',
       },
       description: {
         nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
@@ -196,10 +196,10 @@ export default function Products() {
       ro: 'Toate Produsele'
     },
     filterDowels: {
-      nl: 'Beukenhouten Deuvels',
-      en: 'Beech Dowels',
-      de: 'Buchenholzdübel',
-      ro: 'Dibluri din Fag'
+      nl: 'Beukenhouten stokken',
+      en: 'Beechwood sticks',
+      de: 'Buchenholzstäbe',
+      ro: 'Tije din lemn de fag'
     },
     filterPlaned: {
       nl: '4-Zijdig Geschaafd',

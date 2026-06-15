@@ -123,16 +123,16 @@ export default function Dowels() {
 
   const t = {
     breadcrumb: {
-      nl: 'Home / Producten / Beukenhouten Deuvels',
-      en: 'Home / Products / Beechwood Dowels',
-      de: 'Home / Produkte / Buchenholzdübel',
-      ro: 'Home / Produsele / Dibluri din Lemn de Fag'
+      nl: 'Home / Producten / Beukenhouten stokken',
+      en: 'Home / Products / Beechwood sticks',
+      de: 'Home / Produkte / Buchenholzstäbe',
+      ro: 'Home / Produsele / Tije din lemn de fag'
     },
     title: {
-      nl: 'Beukenhouten Deuvels & Staven',
-      en: 'Beechwood Dowels & Rods',
-      de: 'Buchenholzdübel & -stäbe',
-      ro: 'Dibluri și Tije din Lemn de Fag'
+      nl: 'Beukenhouten stokken',
+      en: 'Beechwood sticks',
+      de: 'Buchenholzstäbe',
+      ro: 'Tije din lemn de fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert een uitgebreid assortiment nauwkeurig gekalibreerde beukenhouten deuvels, staven en pennen. Gestoomd of ongestoomd, onze deuvels worden rechtstreeks gemaakt van duurzaam hout om aan de hoogste houtbewerkingsspecificaties te voldoen.',

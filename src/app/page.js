@@ -13,7 +13,7 @@ export default function Home() {
     {
       id: 'dowels',
       category: 'dowels',
-      name: lang === 'nl' ? 'Beukenhouten Deuvels & Pluggen' : (lang === 'de' ? 'Buchenholzdübel & Holzstifte' : (lang === 'ro' ? 'Dibluri & Știfturi din Lemn de Fag' : 'Beechwood Dowels & Pins')),
+      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Tije din lemn de fag' : 'Beechwood sticks')),
       description: lang === 'nl' 
         ? 'Verkrijgbaar in diameters van 3 mm tot 60 mm. Kies tussen gladde houten pennen of spiraalvormig gegroefde deuvels voor een optimale lijmhechting.'
         : (lang === 'de' ? 'Erhältlich in Durchmessern von 3 mm bis 60 mm. Wählen Sie zwischen glatten Holzstiften oder spiralförmig geriffelten Dübeln für eine optimale Leimhaftung.' : (lang === 'ro' ? 'Disponibile în diametre de la 3 mm până la 60 mm. Alegeți între știfturi din lemn netede sau dibluri cu caneluri spirale pentru o aderență optimă a lipiciului.' : 'Available in diameters from 3 mm to 60 mm. Choose between smooth wooden pins or spiral grooved dowels for optimal glue adhesion.')),
@@ -277,7 +277,7 @@ export default function Home() {
       ro: 'Descoperiți produsele noastre de bază, realizate cu o precizie extremă din lemn de fag românesc certificat FSC®.'
     },
     filterAll: { nl: 'Alles', en: 'All', de: 'Alle', ro: 'Toate' },
-    filterDowels: { nl: 'Beukenhouten Deuvels', en: 'Beechwood Dowels', de: 'Buchenholzdübel', ro: 'Dibluri din Fag' },
+    filterDowels: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije din lemn de fag' },
     filterPlaned: { nl: 'Vierzijdig Geschaafd', en: 'Four-Sides Planed', de: 'Vierseitig Gehobelt', ro: 'Rinduit pe 4 Fețe' },
     filterProfiles: { nl: 'Houten Profielen', en: 'Wooden Profiles', de: 'Holzprofile', ro: 'Profile din Lemn' },
     filterSpecials: { nl: 'Speciale Componenten', en: 'Special Components', de: 'Spezialkomponenten', ro: 'Componente Speciale' }
