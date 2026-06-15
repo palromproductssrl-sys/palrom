@@ -4778,3 +4778,44 @@ ul {
         font-size: 1.5rem;
     }
 }
+
+/* ==========================================================================
+   Product Detail Hero & Breadcrumb Styles
+   ========================================================================== */
+.product-detail-hero {
+    padding: 8rem 0 4rem;
+    background-color: var(--color-forest-dark);
+    color: var(--color-bg-light);
+    text-align: center;
+    position: relative;
+}
+.product-detail-hero h1 {
+    color: var(--color-bg-white);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.product-detail-hero p {
+    font-size: 1.15rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 300;
+}
+.breadcrumb {
+    padding: 2rem 0 0;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+.breadcrumb a {
+    color: var(--color-text-muted);
+}
+.breadcrumb a:hover {
+    color: var(--color-primary-dark);
+}
+.breadcrumb span {
+    color: var(--color-primary-dark);
+    font-weight: 700;
+}
+
