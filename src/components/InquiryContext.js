@@ -19,13 +19,19 @@ export function InquiryProvider({ children }) {
         setCartItems(JSON.parse(storedCart));
       }
       const storedLang = localStorage.getItem('palrom_lang');
-      if (storedLang) {
+      if (storedLang && ['nl', 'en', 'de', 'ro'].includes(storedLang)) {
         setLang(storedLang);
       } else {
         // Fallback to browser language if available
-        const browserLang = navigator.language || navigator.userLanguage;
-        if (browserLang && browserLang.startsWith('en')) {
+        const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        if (browserLang.startsWith('de')) {
+          setLang('de');
+        } else if (browserLang.startsWith('ro')) {
+          setLang('ro');
+        } else if (browserLang.startsWith('en')) {
           setLang('en');
+        } else {
+          setLang('nl');
         }
       }
     } catch (e) {

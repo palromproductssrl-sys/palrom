@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useInquiry } from './InquiryContext';
 
 const teamMemberData = {
@@ -12,15 +11,21 @@ const teamMemberData = {
     role: {
       nl: 'Algemeen Directeur',
       en: 'General Manager',
+      de: 'Geschäftsführerin',
+      ro: 'Director General'
     },
     avatar: '/images/gabriela.png',
     languages: {
       nl: 'Engels, Roemeens',
       en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
     },
     bio: {
       nl: 'Gabriela leidt PALROM Products met meer dan 20 jaar ervaring in de B2B-houtindustrie. Zij richt zich op strategische groei, kwaliteitsborging en het behoud van onze premium FSC®-gecertificeerde toeleveringsketen.',
       en: 'Gabriela leads PALROM Products with over 20 years of experience in the B2B wood industry. She focuses on strategic growth, quality assurance, and maintaining our premium FSC®-certified supply chain.',
+      de: 'Gabriela leitet PALROM Products mit über 20 Jahren Erfahrung in der B2B-Holzindustrie. Ihr Fokus liegt auf strategischem Wachstum, Qualitätssicherung und dem Erhalt unserer erstklassigen FSC®-zertifizierten Lieferkette.',
+      ro: 'Gabriela conduce PALROM Products cu o experiență de peste 20 de ani în industria lemnului B2B. Ea se concentrează pe creșterea strategică, asigurarea calității și menținerea lanțului nostru premium de aprovizionare certificat FSC®.'
     },
     email: 'office@palromproducts.ro',
     phone: '+40254606053',
@@ -32,15 +37,21 @@ const teamMemberData = {
     role: {
       nl: 'Inkoopmanager',
       en: 'Purchase Manager',
+      de: 'Einkaufsleiter',
+      ro: 'Manager Achiziții'
     },
     avatar: '/images/ciprian.png',
     languages: {
       nl: 'Engels, Roemeens',
       en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
     },
     bio: {
       nl: 'Ciprian beheert onze houtinkoop en logistiek. Hij zorgt ervoor dat al onze beukenhouten grondstoffen afkomstig zijn uit duurzaam beheerde lokale bossen in de regio Brad en Hunedoara.',
       en: 'Ciprian manages our timber procurement and logistics. He ensures all our beechwood raw materials are sourced sustainably from managed local forests in the Brad and Hunedoara regions.',
+      de: 'Ciprian leitet unseren Holzeinkauf und die Logistik. Er stellt sicher, dass alle unsere Buchenholz-Rohstoffe nachhaltig aus bewirtschafteten lokalen Wäldern in den Regionen Brad und Hunedoara bezogen werden.',
+      ro: 'Ciprian administrează achizițiile noastre de cherestea și logistica. El se asigură că toate materiile noastre prime din lemn de fag sunt obținute în mod durabil din păduri locale gestionate în regiunile Brad și Hunedoara.'
     },
     email: 'ciprian.jude@palromproducts.ro',
     phone: '+40254606053',
@@ -52,15 +63,21 @@ const teamMemberData = {
     role: {
       nl: 'Personeelszaken (HR)',
       en: 'Human Resources',
+      de: 'Personalwesen (HR)',
+      ro: 'Resurse Umane (HR)'
     },
     avatar: '/images/anca.png',
     languages: {
       nl: 'Engels, Roemeens',
       en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
     },
     bio: {
       nl: 'Anca coördineert recruitment en personeelswelzijn binnen de Palrom-zagerij en -schaverij. Zij is uw directe aanspreekpunt voor openstaande vacatures en sollicitaties in Brad.',
       en: 'Anca coordinates recruitment and employee welfare within the Palrom sawmill and planing mill. She is your direct point of contact for open vacancies and job applications in Brad.',
+      de: 'Anca koordiniert die Personalrekrutierung und das Wohlergehen der Mitarbeiter im Sägewerk und Hobelwerk in Brad. Sie ist Ihre direkte Ansprechpartnerin für offene Stellen und Bewerbungen.',
+      ro: 'Anca coordonează recrutarea și bunăstarea angajaților în cadrul fabricii de cherestea și rindeluire Palrom din Brad. Ea este punctul dumneavoastră direct de contact pentru posturile vacante și aplicațiile de angajare.'
     },
     email: 'anca.mihut@palromproducts.ro',
     phone: '+40254606053',
@@ -72,15 +89,21 @@ const teamMemberData = {
     role: {
       nl: 'Productiemanager',
       en: 'Production Manager',
+      de: 'Produktionsleiter',
+      ro: 'Manager Producție'
     },
     avatar: '/images/adi_cira.png',
     languages: {
       nl: 'Engels, Roemeens',
       en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
     },
     bio: {
       nl: 'Adi houdt toezicht op onze ultramoderne zagerij- en schaaflijnen. Hij vertaalt klantspecifieke millimetertekeningen naar efficiënte en foutloze massaproductie.',
       en: 'Adi oversees our state-of-the-art sawmill and planing lines. He translates client-specific millimeter drawings into efficient, defect-free bulk production runs.',
+      de: 'Adi beaufsichtigt unsere hochmodernen Sägewerks- und Hobellinien. Er setzt kundenspezifische Millimeter-Zeichnungen in effiziente und fehlerfreie Massenproduktionsserien um.',
+      ro: 'Adi supraveghează liniile noastre moderne de tăiere și rindeluire. El transpune desenele tehnice la nivel de milimetru ale clienților în loturi de producție în masă eficiente și fără defecte.'
     },
     email: 'production@palromproducts.ro',
     phone: '+40254606053',
@@ -92,15 +115,21 @@ const teamMemberData = {
     role: {
       nl: 'Orderverwerking',
       en: 'Order Intake',
+      de: 'Auftragsabwicklung',
+      ro: 'Preluare Comenzi'
     },
     avatar: '/images/bogdan_oprea.png',
     languages: {
       nl: 'Engels, Roemeens',
       en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
     },
     bio: {
       nl: 'Bogdan is verantwoordelijk voor B2B-orderinname, volume-offertes en leveringsplanning. Hij zorgt voor een snelle verwerking van aanvragen en stroomlijnt de administratieve flow.',
       en: 'Bogdan is responsible for B2B order intake, volume quotes, and delivery scheduling. He ensures fast processing of inquiries and streamlines the administrative flow.',
+      de: 'Bogdan ist verantwortlich für die B2B-Auftragsabwicklung, Volumenangebote und Lieferplanung. Er sorgt für eine schnelle Bearbeitung von Anfragen und optimiert den administrativen Ablauf.',
+      ro: 'Bogdan este responsabil de preluarea comenzilor B2B, ofertele de volum și programarea livrărilor. El asigură procesarea rapidă a cererilor și eficientizează fluxul administrativ.'
     },
     email: 'orders@palromproducts.ro',
     phone: '+40254606053',
@@ -109,9 +138,7 @@ const teamMemberData = {
 };
 
 export default function ContactSection() {
-  const pathname = usePathname();
   const { lang } = useInquiry();
-  const isNl = lang === 'nl';
 
   const [activeModalMember, setActiveModalMember] = useState(null);
   const [modalActiveState, setModalActiveState] = useState(false);
@@ -159,11 +186,246 @@ export default function ContactSection() {
     };
   }, [activeModalMember]);
 
+  const t = {
+    validationError: {
+      nl: 'Vul alstublieft alle verplichte velden in.',
+      en: 'Please fill out all required fields.',
+      de: 'Bitte füllen Sie alle Pflichtfelder aus.',
+      ro: 'Vă rugăm să completați toate câmpurile obligatorii.'
+    },
+    contactBadge: {
+      nl: 'Contact & Offerte',
+      en: 'Contact & Quote',
+      de: 'Kontakt & Angebot',
+      ro: 'Contact & Ofertă'
+    },
+    contactTitle: {
+      nl: 'Vraag direct een offerte aan',
+      en: 'Request a direct quote',
+      de: 'Fordern Sie ein direktes Angebot an',
+      ro: 'Solicitați o ofertă directă'
+    },
+    contactDesc: {
+      nl: 'Wij reageren binnen 24 uur. Neem direct contact op met ons hoofdkantoor in Brad of vul het contactformulier in voor een snelle, vrijblijvende prijsopgave.',
+      en: 'We reply within 24 hours. Contact our Brad headquarters directly or fill out the contact form for a quick, non-binding quote.',
+      de: 'Wir antworten innerhalb von 24 Stunden. Kontaktieren Sie unsere Zentrale in Brad direkt oder füllen Sie das Kontaktformular aus für ein schnelles, unverbindliches Angebot.',
+      ro: 'Răspundem în termen de 24 de ore. Contactați sediul nostru din Brad direct sau completați formularul de contact pentru o ofertă rapidă, fără obligații.'
+    },
+    configTitle: {
+      nl: 'Palrom Offerte Configurator',
+      en: 'Palrom Quote Configurator',
+      de: 'Palrom Angebotskonfigurator',
+      ro: 'Configurator de Oferte Palrom'
+    },
+    configDesc: {
+      nl: 'Bereken snel de benodigde volumes en specificaties voor uw beukenhouten pluggen of meubelcomponenten en ontvang direct een offerte op maat.',
+      en: 'Quickly calculate required volumes and specifications for your beechwood dowels or furniture components and request a tailored quote.',
+      de: 'Berechnen Sie schnell die benötigten Mengen und Spezifikationen für Ihre Buchenholzdübel oder Möbelkomponenten und fordern Sie ein maßgeschneidertes Angebot an.',
+      ro: 'Calculați rapid volumele și specificațiile necesare pentru diblurile de fag sau componentele de mobilier și solicitați o ofertă personalizată.'
+    },
+    configLink: {
+      nl: 'Start de Offerte Configurator',
+      en: 'Start the Quote Configurator',
+      de: 'Angebotskonfigurator starten',
+      ro: 'Start Configurator de Oferte'
+    },
+    hqSawmill: {
+      nl: 'Hoofdkantoor & Zagerij',
+      en: 'Headquarters & Sawmill',
+      de: 'Hauptsitz & Sägewerk',
+      ro: 'Sediu Central & Gater'
+    },
+    romania: {
+      nl: 'ROEMENIË',
+      en: 'ROMANIA',
+      de: 'RUMÄNIEN',
+      ro: 'ROMÂNIA'
+    },
+    phoneFax: {
+      nl: 'Telefoon & Fax',
+      en: 'Phone & Fax',
+      de: 'Telefon & Fax',
+      ro: 'Telefon & Fax'
+    },
+    emailAddr: {
+      nl: 'E-mailadres',
+      en: 'Email Address',
+      de: 'E-Mail-Adresse',
+      ro: 'Adresă de E-mail'
+    },
+    nlRep: {
+      nl: 'Vertegenwoordiging Nederland',
+      en: 'Netherlands Representation',
+      de: 'Vertretung in den Niederlanden',
+      ro: 'Reprezentanța în Olanda'
+    },
+    nlRepDesc: {
+      nl: 'Centrale Europese logistiek & opslagondersteuning',
+      en: 'Central European logistics & warehousing support',
+      de: 'Zentraleuropäische Logistik- und Lagerunterstützung',
+      ro: 'Suport logistic și de depozitare în Europa Centrală'
+    },
+    sendMsg: {
+      nl: 'Stuur ons een bericht',
+      en: 'Send us a message',
+      de: 'Schreiben Sie uns eine Nachricht',
+      ro: 'Trimiteți-ne un mesaj'
+    },
+    requiredFields: {
+      nl: 'Verplichte velden zijn gemarkeerd met *',
+      en: 'Required fields are marked with *',
+      de: 'Pflichtfelder sind mit * gekennzeichnet',
+      ro: 'Câmpurile obligatorii sunt marcate cu *'
+    },
+    yourName: {
+      nl: 'Uw Naam *',
+      en: 'Your Name *',
+      de: 'Ihr Name *',
+      ro: 'Numele Dvs. *'
+    },
+    emailAddressLabel: {
+      nl: 'E-mailadres *',
+      en: 'Email Address *',
+      de: 'E-Mail-Adresse *',
+      ro: 'Adresă de E-mail *'
+    },
+    phoneNumberLabel: {
+      nl: 'Telefoonnummer',
+      en: 'Phone Number',
+      de: 'Telefonnummer',
+      ro: 'Număr de Telefon'
+    },
+    companyNameLabel: {
+      nl: 'Bedrijfsnaam',
+      en: 'Company Name',
+      de: 'Firmenname',
+      ro: 'Numele Companiei'
+    },
+    productInterestLabel: {
+      nl: 'Productinteresse *',
+      en: 'Product Interest *',
+      de: 'Produktinteresse *',
+      ro: 'Interes Produs *'
+    },
+    selectCategory: {
+      nl: 'Selecteer een categorie',
+      en: 'Select a category',
+      de: 'Kategorie auswählen',
+      ro: 'Selectați o categorie'
+    },
+    interestDowels: {
+      nl: 'Beukenhouten Pluggen / Deuvels',
+      en: 'Beechwood Dowels / Pins',
+      de: 'Buchenholzdübel / Holzstifte',
+      ro: 'Dibluri / Știfturi din Lemn de Fag'
+    },
+    interestPlaned: {
+      nl: 'Vierzijdig Geschaafd Hout',
+      en: '4-Sides Planed Timber',
+      de: '4-seitig gehobeltes Holz',
+      ro: 'Lemn Rinduit pe 4 Fețe'
+    },
+    interestProfiles: {
+      nl: 'Houten Profielen & Sierlijsten',
+      en: 'Profiles & Mouldings',
+      de: 'Holzprofile & Leisten',
+      ro: 'Profile & Plinte din Lemn'
+    },
+    interestSpecials: {
+      nl: 'Speciale Componenten (Maatwerk)',
+      en: 'Special Components (Custom)',
+      de: 'Spezialkomponenten (Maßanfertigung)',
+      ro: 'Componente Speciale (La Comandă)'
+    },
+    interestGeneral: {
+      nl: 'Algemene Houtinkoop Aanvraag',
+      en: 'General Timber Sourcing',
+      de: 'Allgemeine Holzanfrage',
+      ro: 'Cerere Generală de Aprovizionare'
+    },
+    interestCareers: {
+      nl: 'Sollicitatie / Werken bij',
+      en: 'Careers / Job Application',
+      de: 'Karriere / Bewerbung',
+      ro: 'Cariere / Solicitare Job'
+    },
+    messageLabel: {
+      nl: 'Bericht details *',
+      en: 'Message details *',
+      de: 'Nachrichtendetails *',
+      ro: 'Detalii Mesaj *'
+    },
+    messagePlaceholder: {
+      nl: 'Beschrijf uw gewenste afmetingen, aantallen en specificaties...',
+      en: 'Describe your desired sizing, quantities, and specifications...',
+      de: 'Beschreiben Sie Ihre gewünschten Maße, Mengen und Spezifikationen...',
+      ro: 'Descrieți dimensiunile, cantitățile și specificațiile dorite...'
+    },
+    submitBtn: {
+      nl: 'Verzend Aanvraag',
+      en: 'Submit Inquiry',
+      de: 'Anfrage absenden',
+      ro: 'Trimite Solicitarea'
+    },
+    sendingBtn: {
+      nl: 'Verzenden...',
+      en: 'Sending...',
+      de: 'Wird gesendet...',
+      ro: 'Se trimite...'
+    },
+    directContactBadge: {
+      nl: 'Direct Contact',
+      en: 'Direct Contact',
+      de: 'Direkter Kontakt',
+      ro: 'Contact Direct'
+    },
+    directContactTitle: {
+      nl: 'Neem rechtstreeks contact op met ons team',
+      en: 'Contact our team directly',
+      de: 'Wenden Sie sich direkt an unser Team',
+      ro: 'Contactați direct echipa noastră'
+    },
+    directContactSub: {
+      nl: 'Neem contact op met onze afdelingshoofden voor specifieke vragen over bestellingen, inkoop en productie.',
+      en: 'Get in touch with our department heads for specific questions regarding orders, purchasing, and production.',
+      de: 'Wenden Sie sich an unsere Abteilungsleiter bei spezifischen Fragen zu Bestellungen, Einkauf und Produktion.',
+      ro: 'Contactați șefii noștri de departament pentru întrebări specifice referitoare la comenzi, achiziții și producție.'
+    },
+    whatsappBtn: {
+      nl: 'Direct WhatsApp-bericht',
+      en: 'Direct WhatsApp Chat',
+      de: 'Direkter WhatsApp-Chat',
+      ro: 'Chat Direct pe WhatsApp'
+    },
+    callOfficeBtn: {
+      nl: 'Bellen naar kantoor',
+      en: 'Call Office Phone',
+      de: 'Büronummer anrufen',
+      ro: 'Sunați la Birou'
+    },
+    emailBtn: {
+      nl: 'E-mail verzenden',
+      en: 'Send Direct Email',
+      de: 'E-Mail senden',
+      ro: 'Trimite E-mail Direct'
+    },
+    closeBtn: {
+      nl: 'Sluiten',
+      en: 'Close',
+      de: 'Schließen',
+      ro: 'Închide'
+    }
+  };
+
+  const getTranslation = (key) => {
+    return t[key]?.[lang] || t[key]?.nl || '';
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !productType || !message.trim()) {
       setFeedback({
-        text: isNl ? 'Vul alstublieft alle verplichte velden in.' : 'Please fill out all required fields.',
+        text: getTranslation('validationError'),
         type: 'error',
       });
       return;
@@ -177,17 +439,35 @@ export default function ContactSection() {
       setIsSubmitting(false);
 
       let feedbackMsg = '';
-      if (isNl) {
-        const productMsg =
-          productType === 'careers'
-            ? 'sollicitatie is ontvangen door onze afdeling Personeelszaken (HR)'
-            : `aanvraag voor onze "${productType}" beukenhouten producten is verzonden naar ons kantoor in Brad`;
+      const feedbackMsgs = {
+        nl: {
+          careers: 'sollicitatie is ontvangen door onze afdeling Personeelszaken (HR)',
+          general: `aanvraag voor onze "${productType}" beukenhouten producten is verzonden naar ons kantoor in Brad`
+        },
+        en: {
+          careers: 'application has been received by our Human Resources department',
+          general: `inquiry regarding our "${productType}" beechwood products has been sent to our Brad office`
+        },
+        de: {
+          careers: 'Bewerbung ist bei unserer Personalabteilung (HR) eingegangen',
+          general: `Anfrage bezüglich unserer "${productType}" Buchenholzprodukte wurde an unser Büro in Brad gesendet`
+        },
+        ro: {
+          careers: 'candidatura a fost primită de departamentul nostru de Resurse Umane (HR)',
+          general: `solicitarea pentru produsele noastre din lemn de fag "${productType}" a fost trimisă la biroul nostru din Brad`
+        }
+      };
+
+      const currentMsgs = feedbackMsgs[lang] || feedbackMsgs.nl;
+      const productMsg = productType === 'careers' ? currentMsgs.careers : currentMsgs.general;
+
+      if (lang === 'nl') {
         feedbackMsg = `Bedankt, ${name}! Uw ${productMsg}. We reageren binnen 24 uur.`;
+      } else if (lang === 'de') {
+        feedbackMsg = `Vielen Dank, ${name}! Ihre ${productMsg}. Wir werden innerhalb von 24 Stunden antworten.`;
+      } else if (lang === 'ro') {
+        feedbackMsg = `Vă mulțumim, ${name}! Solicitarea dvs. pentru ${productMsg}. Vom răspunde în termen de 24 de ore.`;
       } else {
-        const productMsg =
-          productType === 'careers'
-            ? 'application has been received by our Human Resources department'
-            : `inquiry regarding our "${productType}" beechwood products has been sent to our Brad office`;
         feedbackMsg = `Thank you, ${name}! Your ${productMsg}. We will reply in 24 hours.`;
       }
 
@@ -203,8 +483,6 @@ export default function ContactSection() {
     }, 1800);
   };
 
-  const currentLang = isNl ? 'nl' : 'en';
-
   return (
     <>
       <section id="contact" className="contact-section section-padding">
@@ -213,15 +491,13 @@ export default function ContactSection() {
             {/* Contact Info */}
             <div className="contact-info-column animate-on-scroll">
               <span className="section-badge">
-                {isNl ? 'Contact & Offerte' : 'Contact & Quote'}
+                {getTranslation('contactBadge')}
               </span>
               <h2 className="section-title">
-                {isNl ? 'Vraag direct een offerte aan' : 'Request a direct quote'}
+                {getTranslation('contactTitle')}
               </h2>
               <p className="section-description">
-                {isNl
-                  ? 'Wij reageren binnen 24 uur. Neem direct contact op met ons hoofdkantoor in Brad of vul het contactformulier in voor een snelle, vrijblijvende prijsopgave.'
-                  : 'We reply within 24 hours. Contact our Brad headquarters directly or fill out the contact form for a quick, non-binding quote.'}
+                {getTranslation('contactDesc')}
               </p>
 
               {/* B2B Configurator Box */}
@@ -231,15 +507,13 @@ export default function ContactSection() {
                 </div>
                 <div className="notice-content">
                   <h4>
-                    {isNl ? 'Palrom Offerte Configurator' : 'Palrom Quote Configurator'}
+                    {getTranslation('configTitle')}
                   </h4>
                   <p>
-                    {isNl
-                      ? 'Bereken snel de benodigde volumes en specificaties voor uw beukenhouten pluggen of meubelcomponenten en ontvang direct een offerte op maat.'
-                      : 'Quickly calculate required volumes and specifications for your beechwood dowels or furniture components and request a tailored quote.'}
+                    {getTranslation('configDesc')}
                   </p>
                   <Link href="/configurator" className="notice-link">
-                    {isNl ? 'Start de Offerte Configurator' : 'Start the Quote Configurator'}{' '}
+                    {getTranslation('configLink')}{' '}
                     <i className="fa-solid fa-arrow-right"></i>
                   </Link>
                 </div>
@@ -252,11 +526,11 @@ export default function ContactSection() {
                     <i className="fa-solid fa-location-dot"></i>
                   </div>
                   <div className="detail-content">
-                    <h3>{isNl ? 'Hoofdkantoor & Zagerij' : 'Headquarters & Sawmill'}</h3>
+                    <h3>{getTranslation('hqSawmill')}</h3>
                     <p>
                       PALROM Products SRL
                       <br />8 Poienita St, Brad City, Hunedoara
-                      <br />335200, {isNl ? 'ROEMENIË' : 'ROMANIA'}
+                      <br />335200, {getTranslation('romania')}
                     </p>
                   </div>
                 </div>
@@ -265,7 +539,7 @@ export default function ContactSection() {
                     <i className="fa-solid fa-phone"></i>
                   </div>
                   <div className="detail-content">
-                    <h3>{isNl ? 'Telefoon & Fax' : 'Phone & Fax'}</h3>
+                    <h3>{getTranslation('phoneFax')}</h3>
                     <p>
                       Tel: +40 254.60.60.53
                       <br />
@@ -278,7 +552,7 @@ export default function ContactSection() {
                     <i className="fa-solid fa-envelope"></i>
                   </div>
                   <div className="detail-content">
-                    <h3>{isNl ? 'E-mailadres' : 'Email Address'}</h3>
+                    <h3>{getTranslation('emailAddr')}</h3>
                     <p>
                       <a href="mailto:office@palromproducts.ro">office@palromproducts.ro</a>
                     </p>
@@ -289,15 +563,11 @@ export default function ContactSection() {
                     <i className="fa-solid fa-warehouse"></i>
                   </div>
                   <div className="detail-content">
-                    <h3>
-                      {isNl ? 'Vertegenwoordiging Nederland' : 'Netherlands Representation'}
-                    </h3>
+                    <h3>{getTranslation('nlRep')}</h3>
                     <p>
                       Van Soest International BV
                       <br />
-                      {isNl
-                        ? 'Centrale Europese logistiek & opslagondersteuning'
-                        : 'Central European logistics & warehousing support'}
+                      {getTranslation('nlRepDesc')}
                     </p>
                   </div>
                 </div>
@@ -307,16 +577,16 @@ export default function ContactSection() {
             {/* Contact Form */}
             <div className="contact-form-column animate-on-scroll">
               <div className="form-wrapper">
-                <h3>{isNl ? 'Stuur ons een bericht' : 'Send us a message'}</h3>
+                <h3>{getTranslation('sendMsg')}</h3>
                 <p className="form-note">
-                  {isNl ? 'Verplichte velden zijn gemarkeerd met *' : 'Required fields are marked with *'}
+                  {getTranslation('requiredFields')}
                 </p>
 
                 <form onSubmit={handleSubmit} className="modern-form">
                   <div className="form-group-row">
                     <div className="form-group">
                       <label htmlFor="form_name">
-                        {isNl ? 'Uw Naam *' : 'Your Name *'}
+                        {getTranslation('yourName')}
                       </label>
                       <input
                         type="text"
@@ -329,13 +599,13 @@ export default function ContactSection() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="form_email">
-                        {isNl ? 'E-mailadres *' : 'Email Address *'}
+                        {getTranslation('emailAddressLabel')}
                       </label>
                       <input
                         type="email"
                         id="form_email"
                         required
-                        placeholder={isNl ? 'john@bedrijf.nl' : 'john@company.com'}
+                        placeholder={lang === 'nl' ? 'john@bedrijf.nl' : 'john@company.com'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
@@ -345,7 +615,7 @@ export default function ContactSection() {
                   <div className="form-group-row">
                     <div className="form-group">
                       <label htmlFor="form_phone">
-                        {isNl ? 'Telefoonnummer' : 'Phone Number'}
+                        {getTranslation('phoneNumberLabel')}
                       </label>
                       <input
                         type="tel"
@@ -357,12 +627,12 @@ export default function ContactSection() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="form_company">
-                        {isNl ? 'Bedrijfsnaam' : 'Company Name'}
+                        {getTranslation('companyNameLabel')}
                       </label>
                       <input
                         type="text"
                         id="form_company"
-                        placeholder={isNl ? 'Meubelfabriek B.V.' : 'Furniture Company Ltd'}
+                        placeholder={lang === 'nl' ? 'Meubelfabriek B.V.' : 'Furniture Company Ltd'}
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                       />
@@ -371,7 +641,7 @@ export default function ContactSection() {
 
                   <div className="form-group">
                     <label htmlFor="form_product_type">
-                      {isNl ? 'Productinteresse *' : 'Product Interest *'}
+                      {getTranslation('productInterestLabel')}
                     </label>
                     <select
                       id="form_product_type"
@@ -380,42 +650,38 @@ export default function ContactSection() {
                       onChange={(e) => setProductType(e.target.value)}
                     >
                       <option value="" disabled>
-                        {isNl ? 'Selecteer een categorie' : 'Select a category'}
+                        {getTranslation('selectCategory')}
                       </option>
                       <option value="dowels">
-                        {isNl ? 'Beukenhouten Pluggen / Deuvels' : 'Beechwood Dowels / Pins'}
+                        {getTranslation('interestDowels')}
                       </option>
                       <option value="planed">
-                        {isNl ? 'Vierzijdig Geschaafd Hout' : '4-Sides Planed Timber'}
+                        {getTranslation('interestPlaned')}
                       </option>
                       <option value="profiles">
-                        {isNl ? 'Houten Profielen & Sierlijsten' : 'Profiles & Mouldings'}
+                        {getTranslation('interestProfiles')}
                       </option>
                       <option value="specials">
-                        {isNl ? 'Speciale Componenten (Maatwerk)' : 'Special Components (Custom)'}
+                        {getTranslation('interestSpecials')}
                       </option>
                       <option value="general">
-                        {isNl ? 'Algemene Houtinkoop Aanvraag' : 'General Timber Sourcing'}
+                        {getTranslation('interestGeneral')}
                       </option>
                       <option value="careers">
-                        {isNl ? 'Sollicitatie / Werken bij' : 'Careers / Job Application'}
+                        {getTranslation('interestCareers')}
                       </option>
                     </select>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="form_message">
-                      {isNl ? 'Bericht details *' : 'Message details *'}
+                      {getTranslation('messageLabel')}
                     </label>
                     <textarea
                       id="form_message"
                       rows="5"
                       required
-                      placeholder={
-                        isNl
-                          ? 'Beschrijf uw gewenste afmetingen, aantallen en specificaties...'
-                          : 'Describe your desired sizing, quantities, and specifications...'
-                      }
+                      placeholder={getTranslation('messagePlaceholder')}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                     />
@@ -427,23 +693,12 @@ export default function ContactSection() {
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
-                      isNl ? (
-                        <>
-                          <i className="fa-solid fa-spinner fa-spin icon-left"></i> Verzenden...
-                        </>
-                      ) : (
-                        <>
-                          <i className="fa-solid fa-spinner fa-spin icon-left"></i> Sending...
-                        </>
-                      )
-                    ) : isNl ? (
                       <>
-                        Verzend Aanvraag{' '}
-                        <i className="fa-solid fa-paper-plane icon-right"></i>
+                        <i className="fa-solid fa-spinner fa-spin icon-left"></i> {getTranslation('sendingBtn')}
                       </>
                     ) : (
                       <>
-                        Submit Inquiry{' '}
+                        {getTranslation('submitBtn')}{' '}
                         <i className="fa-solid fa-paper-plane icon-right"></i>
                       </>
                     )}
@@ -463,15 +718,13 @@ export default function ContactSection() {
           <div className="team-contacts-section animate-on-scroll">
             <div className="text-center max-w-xl mx-auto mb-4" style={{ marginTop: '4.5rem' }}>
               <span className="section-badge">
-                {isNl ? 'Direct Contact' : 'Direct Contact'}
+                {getTranslation('directContactBadge')}
               </span>
               <h3 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                {isNl ? 'Neem rechtstreeks contact op met ons team' : 'Contact our team directly'}
+                {getTranslation('directContactTitle')}
               </h3>
               <p className="section-subtitle">
-                {isNl
-                  ? 'Neem contact op met onze afdelingshoofden voor specifieke vragen over bestellingen, inkoop en productie.'
-                  : 'Get in touch with our department heads for specific questions regarding orders, purchasing, and production.'}
+                {getTranslation('directContactSub')}
               </p>
             </div>
 
@@ -487,8 +740,8 @@ export default function ContactSection() {
                     <img src={member.avatar} alt={member.name} />
                   </div>
                   <h3>{member.name}</h3>
-                  <div className="team-role">{member.role[currentLang]}</div>
-                  <span className="team-languages">{member.languages[currentLang]}</span>
+                  <div className="team-role">{member.role[lang] || member.role.nl}</div>
+                  <span className="team-languages">{member.languages[lang] || member.languages.nl}</span>
                   <a
                     href={`mailto:${member.email}`}
                     className="team-email-btn"
@@ -510,7 +763,7 @@ export default function ContactSection() {
           <div className="team-modal-container">
             <button
               className="team-modal-close"
-              aria-label={isNl ? 'Sluiten' : 'Close'}
+              aria-label={getTranslation('closeBtn')}
               onClick={handleCloseModal}
             >
               <i className="fa-solid fa-xmark"></i>
@@ -520,13 +773,13 @@ export default function ContactSection() {
             </div>
             <h2>{activeModalMember.name}</h2>
             <div className="team-modal-role">
-              {activeModalMember.role[currentLang]}
+              {activeModalMember.role[lang] || activeModalMember.role.nl}
             </div>
             <div className="team-modal-languages">
-              {activeModalMember.languages[currentLang]}
+              {activeModalMember.languages[lang] || activeModalMember.languages.nl}
             </div>
             <div className="team-modal-bio">
-              {activeModalMember.bio[currentLang]}
+              {activeModalMember.bio[lang] || activeModalMember.bio.nl}
             </div>
 
             <div className="team-modal-contacts">
@@ -537,15 +790,15 @@ export default function ContactSection() {
                 className="team-contact-btn whatsapp"
               >
                 <i className="fa-brands fa-whatsapp"></i>{' '}
-                {isNl ? 'Direct WhatsApp-bericht' : 'Direct WhatsApp Chat'}
+                {getTranslation('whatsappBtn')}
               </a>
               <a href={`tel:${activeModalMember.phone}`} className="team-contact-btn phone">
                 <i className="fa-solid fa-phone"></i>{' '}
-                {isNl ? 'Bellen naar kantoor' : 'Call Office Phone'}
+                {getTranslation('callOfficeBtn')}
               </a>
               <a href={`mailto:${activeModalMember.email}`} className="team-contact-btn email">
                 <i className="fa-solid fa-envelope"></i>{' '}
-                {isNl ? 'E-mail verzenden' : 'Send Direct Email'}
+                {getTranslation('emailBtn')}
               </a>
             </div>
           </div>

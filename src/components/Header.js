@@ -18,6 +18,20 @@ export default function Header() {
     (path) => pathname === path
   );
 
+  const t = {
+    home: { nl: 'Home', en: 'Home', de: 'Home', ro: 'Home' },
+    about: { nl: 'Bedrijfsprofiel', en: 'Company Profile', de: 'Unternehmensprofil', ro: 'Profilul Companiei' },
+    products: { nl: 'Onze Producten', en: 'Our Products', de: 'Unsere Produkte', ro: 'Produsele Noastre' },
+    careers: { nl: 'Vacatures', en: 'Careers', de: 'Karriere', ro: 'Cariere' },
+    news: { nl: 'Nieuws', en: 'News', de: 'Neuigkeiten', ro: 'Știri' },
+    contact: { nl: 'Contact', en: 'Contact Us', de: 'Kontakt', ro: 'Contact' },
+    requestQuote: { nl: 'Offerte Aanvragen', en: 'Request Quote', de: 'Angebot anfordern', ro: 'Solicită Ofertă' }
+  };
+
+  const getTranslation = (key) => {
+    return t[key]?.[lang] || t[key]?.nl || '';
+  };
+
   return (
     <header className="main-header scrolled">
       <div className="header-container">
@@ -26,26 +40,33 @@ export default function Header() {
         </Link>
         <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Home' : 'Home'}
+            {getTranslation('home')}
           </Link>
           <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Bedrijfsprofiel' : 'Company Profile'}
+            {getTranslation('about')}
           </Link>
           <Link href="/products" className={`nav-link ${isProductsActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Onze Producten' : 'Our Products'}
+            {getTranslation('products')}
           </Link>
           <Link href="/careers" className={`nav-link ${isCareersActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Vacatures' : 'Careers'}
+            {getTranslation('careers')}
           </Link>
           <Link href="/news" className={`nav-link ${pathname === '/news' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Nieuws' : 'News'}
+            {getTranslation('news')}
           </Link>
           <Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-            {lang === 'nl' ? 'Contact' : 'Contact Us'}
+            {getTranslation('contact')}
           </Link>
         </nav>
         <div className="header-actions">
-          <div className="language-switcher">
+          <button className="cart-toggle-btn" onClick={() => setIsCartOpen(true)} aria-label="View Inquiry Cart">
+            <i className="fa-solid fa-clipboard-list"></i>
+            <span className="cart-count-badge">{cartCount}</span>
+          </button>
+          <Link href="#contact" className="action-btn">
+            {getTranslation('requestQuote')}
+          </Link>
+          <div className="language-switcher-vertical">
             <button 
               className={`lang-btn ${lang === 'nl' ? 'active' : ''}`} 
               onClick={() => setLang('nl')}
@@ -53,7 +74,6 @@ export default function Header() {
             >
               NL
             </button>
-            <span className="lang-divider">|</span>
             <button 
               className={`lang-btn ${lang === 'en' ? 'active' : ''}`} 
               onClick={() => setLang('en')}
@@ -61,14 +81,21 @@ export default function Header() {
             >
               EN
             </button>
+            <button 
+              className={`lang-btn ${lang === 'de' ? 'active' : ''}`} 
+              onClick={() => setLang('de')}
+              aria-label="Deutsch"
+            >
+              DE
+            </button>
+            <button 
+              className={`lang-btn ${lang === 'ro' ? 'active' : ''}`} 
+              onClick={() => setLang('ro')}
+              aria-label="Română"
+            >
+              RO
+            </button>
           </div>
-          <button className="cart-toggle-btn" onClick={() => setIsCartOpen(true)} aria-label="View Inquiry Cart">
-            <i className="fa-solid fa-clipboard-list"></i>
-            <span className="cart-count-badge">{cartCount}</span>
-          </button>
-          <Link href="#contact" className="action-btn">
-            {lang === 'nl' ? 'Offerte Aanvragen' : 'Request Quote'}
-          </Link>
           <button 
             className={`mobile-nav-toggle ${isMobileMenuOpen ? 'open' : ''}`} 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
