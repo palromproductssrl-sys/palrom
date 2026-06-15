@@ -29,6 +29,9 @@ function ApplyFormContent() {
     if (jobParam) {
       const validJobs = {
         planing: 'planing_operator',
+        quality: 'quality_inspector',
+        logistics: 'logistics_coordinator',
+        maintenance: 'maintenance_mechanic',
       };
       if (validJobs[jobParam]) {
         setPosition(validJobs[jobParam]);
@@ -106,6 +109,24 @@ function ApplyFormContent() {
       en: 'Planing Machine Operator',
       de: 'Hobelmaschinenführer',
       ro: 'Operator Rindele'
+    },
+    optionQuality: {
+      nl: 'Inspecteur Kwaliteitscontrole & Sortering',
+      en: 'Quality & Defect Inspector',
+      de: 'Qualitäts- und Mängelprüfer',
+      ro: 'Inspector Calitate & Defecte'
+    },
+    optionLogistics: {
+      nl: 'Coördinator Logistiek & Inventaris',
+      en: 'Logistics & Inventory Coordinator',
+      de: 'Logistik- & Bestands-Koordinator',
+      ro: 'Coordonator Logistică & Inventar'
+    },
+    optionMaintenance: {
+      nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
+      en: 'Maintenance Mechanic / Millwright',
+      de: 'Wartungsmechaniker / Maschinenschlosser',
+      ro: 'Mecanic Întreținere'
     },
     optionGeneral: {
       nl: 'Open Sollicitatie',
@@ -411,6 +432,9 @@ function ApplyFormContent() {
                   {getTranslation('selectPositionDefault')}
                 </option>
                 <option value="planing_operator">{getTranslation('optionPlaning')}</option>
+                <option value="quality_inspector">{getTranslation('optionQuality')}</option>
+                <option value="logistics_coordinator">{getTranslation('optionLogistics')}</option>
+                <option value="maintenance_mechanic">{getTranslation('optionMaintenance')}</option>
                 <option value="general_application">{getTranslation('optionGeneral')}</option>
               </select>
             </div>
