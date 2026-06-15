@@ -224,16 +224,24 @@ export default function Configurator() {
 
   const getActiveSelectionDetails = () => {
     const data = categoryData[category];
-    const details = calculatePriceDetails(category, length, diameter, thickness, quantity);
+    
+    // Clamp values within category limits
+    const finalLength = Math.max(data.length.min, Math.min(data.length.max, parseInt(length) || data.length.default));
+    const finalDiameter = Math.max(data.diameter.min, Math.min(data.diameter.max, parseInt(diameter) || data.diameter.default));
+    const finalThickness = data.thickness
+      ? Math.max(data.thickness.min, Math.min(data.thickness.max, parseInt(thickness) || data.thickness.default))
+      : thickness;
+
+    const details = calculatePriceDetails(category, finalLength, finalDiameter, finalThickness, quantity);
     
     let subName = data.name;
     if (details.subcatName) {
       subName = `${data.name} - ${details.subcatName}`;
     }
 
-    let dims = `${length}mm x ${diameter}mm`;
+    let dims = `${finalLength}mm x ${finalDiameter}mm`;
     if (category === 'planed') {
-      dims = `${thickness}mm x ${diameter}mm x ${length}mm`;
+      dims = `${finalThickness}mm x ${finalDiameter}mm x ${finalLength}mm`;
     }
 
     return {
@@ -793,11 +801,28 @@ export default function Configurator() {
                       id="dbLength"
                       min={categoryData[category].length.min}
                       max={categoryData[category].length.max}
-                      value={length}
+                      value={length || categoryData[category].length.min}
                       className="dashboard-slider"
-                      onChange={(e) => setLength(parseInt(e.target.value))}
+                      onChange={(e) => setLength(parseInt(e.target.value) || '')}
                     />
-                    <span className="slider-value-display">{length}</span>
+                    <input
+                      type="number"
+                      className="slider-value-display"
+                      value={length}
+                      min={categoryData[category].length.min}
+                      max={categoryData[category].length.max}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value);
+                        setLength(isNaN(val) ? '' : val);
+                      }}
+                      onBlur={() => {
+                        const min = categoryData[category].length.min;
+                        const max = categoryData[category].length.max;
+                        if (length === '' || length < min) setLength(min);
+                        else if (length > max) setLength(max);
+                      }}
+                      style={{ textAlign: 'center', outline: 'none' }}
+                    />
                   </div>
                 </div>
 
@@ -812,11 +837,28 @@ export default function Configurator() {
                       id="dbDiameter"
                       min={categoryData[category].diameter.min}
                       max={categoryData[category].diameter.max}
-                      value={diameter}
+                      value={diameter || categoryData[category].diameter.min}
                       className="dashboard-slider"
-                      onChange={(e) => setDiameter(parseInt(e.target.value))}
+                      onChange={(e) => setDiameter(parseInt(e.target.value) || '')}
                     />
-                    <span className="slider-value-display">{diameter}</span>
+                    <input
+                      type="number"
+                      className="slider-value-display"
+                      value={diameter}
+                      min={categoryData[category].diameter.min}
+                      max={categoryData[category].diameter.max}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value);
+                        setDiameter(isNaN(val) ? '' : val);
+                      }}
+                      onBlur={() => {
+                        const min = categoryData[category].diameter.min;
+                        const max = categoryData[category].diameter.max;
+                        if (diameter === '' || diameter < min) setDiameter(min);
+                        else if (diameter > max) setDiameter(max);
+                      }}
+                      style={{ textAlign: 'center', outline: 'none' }}
+                    />
                   </div>
                 </div>
 
@@ -832,11 +874,28 @@ export default function Configurator() {
                         id="dbThickness"
                         min={categoryData[category].thickness.min}
                         max={categoryData[category].thickness.max}
-                        value={thickness}
+                        value={thickness || categoryData[category].thickness.min}
                         className="dashboard-slider"
-                        onChange={(e) => setThickness(parseInt(e.target.value))}
+                        onChange={(e) => setThickness(parseInt(e.target.value) || '')}
                       />
-                      <span className="slider-value-display">{thickness}</span>
+                      <input
+                        type="number"
+                        className="slider-value-display"
+                        value={thickness}
+                        min={categoryData[category].thickness.min}
+                        max={categoryData[category].thickness.max}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value);
+                          setThickness(isNaN(val) ? '' : val);
+                        }}
+                        onBlur={() => {
+                          const min = categoryData[category].thickness.min;
+                          const max = categoryData[category].thickness.max;
+                          if (thickness === '' || thickness < min) setThickness(min);
+                          else if (thickness > max) setThickness(max);
+                        }}
+                        style={{ textAlign: 'center', outline: 'none' }}
+                      />
                     </div>
                   </div>
                 )}

@@ -4128,6 +4128,16 @@ ul {
     flex-shrink: 0;
 }
 
+/* Hide number input spinners for cleaner B2B design */
+.slider-value-display::-webkit-outer-spin-button,
+.slider-value-display::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.slider-value-display[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* Conversion Submit Button (Palrom Yellow CTA) */
 .dashboard-submit-btn {
     background-color: var(--color-primary);
