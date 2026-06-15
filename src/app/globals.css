@@ -23,8 +23,8 @@
     --color-error: hsl(0, 75%, 50%);
 
     /* Typography */
-    --font-heading: var(--font-outfit), 'Outfit', 'Poppins', -apple-system, sans-serif;
-    --font-body: var(--font-body), 'Poppins', -apple-system, sans-serif;
+    --font-heading: var(--font-inter), 'Inter', -apple-system, sans-serif;
+    --font-body: var(--font-inter), 'Inter', -apple-system, sans-serif;
     
     /* Layout & Spacing */
     --max-width: 1200px;
