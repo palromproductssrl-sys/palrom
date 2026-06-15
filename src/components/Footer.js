@@ -16,10 +16,10 @@ export default function Footer() {
 
   const t = {
     brandDesc: {
-      nl: "Hoogwaardige hardhouten zagerij en schaafwerkindustrie die wereldwijd op maat gemaakte, FSC®-gecertificeerde beukenhouten componenten levert.",
-      en: "High-quality hardwood lumber sawmill and planing factory delivering customized, FSC® certified beechwood components globally.",
-      de: "Hochwertiges Laubholz-Sägewerk und Hobelwerk, das weltweit maßgeschneiderte, FSC®-zertifizierte Buchenholzkomponenten liefert.",
-      ro: "Fierăstrău de foioase de înaltă calitate și fabrică de rindeluire care livrează componente din lemn de fag certificate FSC® la nivel global."
+      nl: "Palrom Products is een hoogwaardige hardhoutzagerij en schaafbedrijf dat wereldwijd maatwerk levert in FSC®-gecertificeerde beukenhouten componenten, stokken, latten en profielen.",
+      en: "Palrom Products is a high-quality hardwood sawmill and planing company delivering globally customized, FSC®-certified beechwood components, sticks, slats, and profiles.",
+      de: "Palrom Products ist ein hochwertiges Laubholz-Sägewerk und Hobelwerk, das weltweit maßgeschneiderte, FSC®-zertifizierte Buchenholzkomponenten, Stäbe, Leisten und Profile liefert.",
+      ro: "Palrom Products este un gater și o fabrică de rindeluire de înaltă calitate, care oferă la nivel global piese personalizate din lemn de fag certificate FSC®, tije, șipci și profile."
     },
     quickLinks: {
       nl: "Snelle Links",
@@ -40,10 +40,10 @@ export default function Footer() {
       ro: "Oferta Noastră"
     },
     dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije din lemn de fag" },
-    planed: { nl: "4-Zijdig Geschaafd Hout", en: "4-Sides Planed Timber", de: "4-seitig gehobeltes Holz", ro: "Lemn Rinduit pe 4 Fețe" },
-    profiles: { nl: "Houten Profielen & Lijsten", en: "Profiles & Mouldings", de: "Holzprofile & Leisten", ro: "Profile & Plinte din Lemn" },
-    specials: { nl: "Speciale Componenten", en: "Special Furniture Elements", de: "Spezielle Möbelkomponenten", ro: "Elemente Speciale de Mobilier" },
-    fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Nachhaltige Buche", ro: "Fag Sustenabil FSC®" },
+    planed: { nl: "Beukenhouten latten", en: "Beechwood slats", de: "Buchenholzleisten", ro: "Șipci din lemn de fag" },
+    profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile din lemn de fag" },
+    specials: { nl: "Beukenhouten bestekken", en: "Beechwood blanks", de: "Buchenholz-Zuschnitte", ro: "Piese brute din lemn de fag" },
+    fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag Sustenabil FSC®" },
     copyright: {
       nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen.",
       en: "© 2026 PALROM Products SRL. All rights reserved. Sustainably harvested from local Romanian forests.",
@@ -70,17 +70,6 @@ export default function Footer() {
             <img src="/images/logo_white.png" alt="PALROM Products Logo" className="footer-logo-img" />
           </Link>
           <p>{getTranslation('brandDesc')}</p>
-          <div className="footer-socials">
-            <a href="https://www.facebook.com/profile.php?id=100004110856648" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <i className="fa-brands fa-facebook"></i>
-            </a>
-            <a href="#" aria-label="LinkedIn">
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="#" aria-label="Instagram">
-              <i className="fa-brands fa-instagram"></i>
-            </a>
-          </div>
         </div>
         <div className="footer-links">
           <h3>{getTranslation('quickLinks')}</h3>

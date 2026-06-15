@@ -25,10 +25,10 @@ export default function Dowels() {
       },
       image: '/images/dowelssmall-1.jpg',
       category: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag'
       },
     },
     {
@@ -47,10 +47,10 @@ export default function Dowels() {
       },
       image: '/images/dowelsmedium.jpg',
       category: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag'
       },
     },
     {
@@ -62,17 +62,17 @@ export default function Dowels() {
         ro: 'Tije din Fag de Dimensiuni Medii',
       },
       description: {
-        nl: 'Deuvelstaven ontworpen voor zware meubelverbindingen, plankdragers en raamwerkverbindingen. Gestoomd beukenhout biedt extra dimensionale weerstand tegen buigen.',
-        en: 'Dowel rods engineered for heavy furniture joints, shelving supports, and framework connections. Steamed beech provides extra dimensional resistance against bending.',
-        de: 'Dübelstangen für schwere Möbelverbindungen, Regalkonstruktionen und Rahmenverbindungen. Gedämpfte Buche bietet zusätzliche Formstabilität gegen Verbiegen.',
-        ro: 'Tije de dibluri proiectate pentru îmbinări grele de mobilier, suporturi de rafturi și conexiuni de cadre. Fagul aburit oferă rezistență dimensională suplimentară împotriva îndoirii.',
+        nl: 'Deuvelstaven ontworpen voor zware meubelverbindingen, plankdragers en raamwerkverbindingen. Beukenhout biedt extra dimensionale weerstand tegen buigen.',
+        en: 'Dowel rods engineered for heavy furniture joints, shelving supports, and framework connections. High-quality beechwood provides extra dimensional resistance against bending.',
+        de: 'Dübelstangen für schwere Möbelverbindungen, Regalkonstruktionen und Rahmenverbindungen. Buchenholz bietet zusätzliche Formstabilität gegen Verbiegen.',
+        ro: 'Tije de dibluri proiectate pentru îmbinări grele de mobilier, suporturi de rafturi și conexiuni de cadre. Lemnul de fag oferă rezistență dimensională suplimentară împotriva îndoirii.',
       },
       image: '/images/dowels-medium-2.jpg',
       category: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag'
       },
     },
     {
@@ -91,10 +91,10 @@ export default function Dowels() {
       },
       image: '/images/dowelsbig-300x300-1.jpg',
       category: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag'
       },
     },
     {
@@ -113,10 +113,10 @@ export default function Dowels() {
       },
       image: '/images/dowelsrilled-300x300-1.jpg',
       category: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Beukenhouten stokken',
+        en: 'Beechwood sticks',
+        de: 'Buchenholzstäbe',
+        ro: 'Tije din lemn de fag'
       },
     },
   ];
@@ -135,10 +135,10 @@ export default function Dowels() {
       ro: 'Tije din lemn de fag'
     },
     subtitle: {
-      nl: 'PALROM Products produceert een uitgebreid assortiment nauwkeurig gekalibreerde beukenhouten deuvels, staven en pennen. Gestoomd of ongestoomd, onze deuvels worden rechtstreeks gemaakt van duurzaam hout om aan de hoogste houtbewerkingsspecificaties te voldoen.',
-      en: 'PALROM Products manufactures an extensive range of precision-calibrated beechwood dowels, rods, and pins. Steamed or unsteamed, our dowels are crafted directly from sustainable timber to meet the highest woodworking specifications.',
-      de: 'PALROM Products stellt ein umfangreiches Sortiment an präzise kalibrierten Buchenholzdübeln, Stangen und Stiften her. Ob gedämpft oder ungedämpft – unsere Dübel werden direkt aus nachhaltigem Holz gefertigt, um höchste Anforderungen an die Holzverarbeitung zu erfüllen.',
-      ro: 'PALROM Products fabrică o gamă extinsă de dibluri, tije și știfturi din lemn de fag calibrate cu precizie. Aburit sau neaburit, diblurile noastre sunt realizate direct din lemn durabil pentru a îndeplini cele mai înalte specificații de prelucrare a lemnului.'
+      nl: 'PALROM Products produceert een uitgebreid assortiment nauwkeurig gekalibreerde beukenhouten deuvels, staven en pennen. Onze stokken worden rechtstreeks gemaakt van duurzaam hout om aan de hoogste houtbewerkingsspecificaties te voldoen.',
+      en: 'PALROM Products manufactures an extensive range of precision-calibrated beechwood dowels, rods, and pins. Our sticks are crafted directly from sustainable timber to meet the highest woodworking specifications.',
+      de: 'PALROM Products stellt ein umfangreiches Sortiment an präzise kalibrierten Buchenholzdübeln, Stangen und Stiften her. Unsere Stäbe werden direkt aus nachhaltigem Holz gefertigt, um höchste Anforderungen an die Holzverarbeitung zu erfüllen.',
+      ro: 'PALROM Products fabrică o gamă extinsă de dibluri, tije și știfturi din lemn de fag calibrate cu precizie. Tijele noastre sunt realizate direct din lemn durabil pentru a îndeplini cele mai înalte specificații de prelucrare a lemnului.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',

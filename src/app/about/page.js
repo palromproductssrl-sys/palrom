@@ -141,10 +141,10 @@ export default function About() {
       ro: 'Fie că furnizăm plinte de mobilier personalizate producătorilor de dulapuri din Germania, fie dibluri de fag etichetate pentru hypermarketuri DIY din Franța și Polonia, valoarea noastră de bază rămâne aceeași: precizie fără compromisuri și administrare ecologică.'
     },
     floatingCard: {
-      nl: 'Wij verwerken 100% FSC®-gecertificeerd hout uit respect voor ons milieu en toekomstige generaties.',
-      en: 'We process 100% FSC® certified timber out of respect for our environment and future generations.',
-      de: 'Wir verarbeiten 100% FSC®-zertifiziertes Holz aus Respekt vor unserer Umwelt und zukünftigen Generationen.',
-      ro: 'Procesăm lemn certificat 100% FSC® din respect pentru mediul nostru și generațiile viitoare.'
+      nl: 'Wij verwerken FSC®-gecertificeerd hout uit respect voor ons milieu en toekomstige generaties.',
+      en: 'We process FSC® certified timber out of respect for our environment and future generations.',
+      de: 'Wir verarbeiten FSC®-zertifiziertes Holz aus Respekt vor unserer Umwelt und zukünftigen Generationen.',
+      ro: 'Procesăm lemn certificat FSC® din respect pentru mediul nostru și generațiile viitoare.'
     },
     whyChooseTitle: {
       nl: 'Waarom Kiezen voor PALROM?',
@@ -195,10 +195,10 @@ export default function About() {
       ro: 'Prezență Multinațională'
     },
     reachDesc: {
-      nl: 'Wij leveren aan klanten in Duitsland, Frankrijk, Oostenrijk, Polen en Japan, met speciale en strategische opslagfaciliteiten in Nederland.',
-      en: 'Serving clients in Germany, France, Austria, Poland, and Japan, with dedicated and strategic warehousing facilities in the Netherlands.',
-      de: 'Wir bedienen Kunden in Deutschland, Frankreich, Österreich, Polen und Japan mit eigener Lagerhaltung und strategischen Logistikstandorten in den Niederlanden.',
-      ro: 'Servim clienți din Germania, Franța, Austria, Polonia și Japonia, cu facilități de depozitare dedicate și strategice în Olanda.'
+      nl: 'Wij leveren aan klanten in Duitsland, Frankrijk, Oostenrijk, Spanje, Portugal, Italië, Polen en Japan, met speciale en strategische opslagfaciliteiten in Nederland.',
+      en: 'Serving clients in Germany, France, Austria, Spain, Portugal, Italy, Poland, and Japan, with dedicated and strategic warehousing facilities in the Netherlands.',
+      de: 'Wir bedienen Kunden in Deutschland, Frankreich, Österreich, Spanien, Portugal, Italien, Polen und Japan mit eigener Lagerhaltung und strategischen Logistikstandorten in den Niederlanden.',
+      ro: 'Servim clienți din Germania, Franța, Austria, Spania, Portugalia, Italia, Polonia și Japonia, cu facilități de depozitare dedicate și strategice în Olanda.'
     },
     brochureTitle: {
       nl: 'Geïnteresseerd in onze technische afmetingen en specificaties?',

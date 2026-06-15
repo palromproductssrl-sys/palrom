@@ -31,6 +31,32 @@ const teamMemberData = {
     phone: '+40254606053',
     whatsapp: 'https://wa.me/40254606053?text=Hallo%20Gabriela,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten.',
   },
+  adi: {
+    id: 'adi',
+    name: 'Adi Cîra',
+    role: {
+      nl: 'Productiemanager',
+      en: 'Production Manager',
+      de: 'Produktionsleiter',
+      ro: 'Manager Producție'
+    },
+    avatar: '/images/adi_cira.png',
+    languages: {
+      nl: 'Engels, Roemeens',
+      en: 'English, Romanian',
+      de: 'Englisch, Rumänisch',
+      ro: 'Engleză, Română'
+    },
+    bio: {
+      nl: 'Adi houdt toezicht op onze ultramoderne zagerij- en schaaflijnen. Hij vertaalt klantspecifieke millimetertekeningen naar efficiënte en foutloze massaproductie.',
+      en: 'Adi oversees our state-of-the-art sawmill and planing lines. He translates client-specific millimeter drawings into efficient, defect-free bulk production runs.',
+      de: 'Adi beaufsichtigt unsere hochmodernen Sägewerks- und Hobellinien. Er setzt kundenspezifische Millimeter-Zeichnungen in effiziente und fehlerfreie Massenproduktionsserien um.',
+      ro: 'Adi supraveghează liniile noastre moderne de tăiere și rindeluire. El transpune desenele tehnice la nivel de milimetru ale clienților în loturi de producție în masă eficiente și fără defecte.'
+    },
+    email: 'production@palromproducts.ro',
+    phone: '+40254606053',
+    whatsapp: 'https://wa.me/40254606053?text=Hallo%20Adi,%20ik%20heb%20een%20technische%20vraag%20over%20de%20productie%20van%20houten%20componenten.',
+  },
   ciprian: {
     id: 'ciprian',
     name: 'Ciprian Jude',
@@ -82,32 +108,6 @@ const teamMemberData = {
     email: 'anca.mihut@palromproducts.ro',
     phone: '+40254606053',
     whatsapp: 'https://wa.me/40254606053?text=Hallo%20Anca,%20ik%20heb%20een%20vraag%20over%20carri%C3%A8remogelijkheden%20bij%20Palrom.',
-  },
-  adi: {
-    id: 'adi',
-    name: 'Adi Cîra',
-    role: {
-      nl: 'Productiemanager',
-      en: 'Production Manager',
-      de: 'Produktionsleiter',
-      ro: 'Manager Producție'
-    },
-    avatar: '/images/adi_cira.png',
-    languages: {
-      nl: 'Engels, Roemeens',
-      en: 'English, Romanian',
-      de: 'Englisch, Rumänisch',
-      ro: 'Engleză, Română'
-    },
-    bio: {
-      nl: 'Adi houdt toezicht op onze ultramoderne zagerij- en schaaflijnen. Hij vertaalt klantspecifieke millimetertekeningen naar efficiënte en foutloze massaproductie.',
-      en: 'Adi oversees our state-of-the-art sawmill and planing lines. He translates client-specific millimeter drawings into efficient, defect-free bulk production runs.',
-      de: 'Adi beaufsichtigt unsere hochmodernen Sägewerks- und Hobellinien. Er setzt kundenspezifische Millimeter-Zeichnungen in effiziente und fehlerfreie Massenproduktionsserien um.',
-      ro: 'Adi supraveghează liniile noastre moderne de tăiere și rindeluire. El transpune desenele tehnice la nivel de milimetru ale clienților în loturi de producție în masă eficiente și fără defecte.'
-    },
-    email: 'production@palromproducts.ro',
-    phone: '+40254606053',
-    whatsapp: 'https://wa.me/40254606053?text=Hallo%20Adi,%20ik%20heb%20een%20technische%20vraag%20over%20de%20productie%20van%20houten%20componenten.',
   },
   bogdan: {
     id: 'bogdan',
@@ -218,10 +218,10 @@ export default function ContactSection() {
       ro: 'Configurator de Oferte Palrom'
     },
     configDesc: {
-      nl: 'Bereken snel de benodigde volumes en specificaties voor uw beukenhouten pluggen of meubelcomponenten en ontvang direct een offerte op maat.',
-      en: 'Quickly calculate required volumes and specifications for your beechwood dowels or furniture components and request a tailored quote.',
-      de: 'Berechnen Sie schnell die benötigten Mengen und Spezifikationen für Ihre Buchenholzdübel oder Möbelkomponenten und fordern Sie ein maßgeschneidertes Angebot an.',
-      ro: 'Calculați rapid volumele și specificațiile necesare pentru diblurile de fag sau componentele de mobilier și solicitați o ofertă personalizată.'
+      nl: 'Bereken snel de benodigde volumes en specificaties voor uw beukenhouten bestekken, stokken, latten of profielen en ontvang direct een offerte op maat.',
+      en: 'Quickly calculate required volumes and specifications for your beechwood blanks, sticks, slats, or profiles and request a tailored quote.',
+      de: 'Berechnen Sie schnell die benötigten Mengen und Spezifikationen für Ihre Buchenholz-Zuschnitte, Stäbe, Leisten oder Profile und fordern Sie ein B2B-Angebot an.',
+      ro: 'Calculați rapid volumele și specificațiile necesare pentru piesele brute, tije, șipci sau profile din lemn de fag și solicitați o ofertă personalizată.'
     },
     configLink: {
       nl: 'Start de Offerte Configurator',
@@ -242,10 +242,10 @@ export default function ContactSection() {
       ro: 'ROMÂNIA'
     },
     phoneFax: {
-      nl: 'Telefoon & Fax',
-      en: 'Phone & Fax',
-      de: 'Telefon & Fax',
-      ro: 'Telefon & Fax'
+      nl: 'Telefoon',
+      en: 'Phone',
+      de: 'Telefon',
+      ro: 'Telefon'
     },
     emailAddr: {
       nl: 'E-mailadres',
@@ -314,28 +314,28 @@ export default function ContactSection() {
       ro: 'Selectați o categorie'
     },
     interestDowels: {
-      nl: 'Beukenhouten Pluggen / Deuvels',
-      en: 'Beechwood Dowels / Pins',
-      de: 'Buchenholzdübel / Holzstifte',
-      ro: 'Dibluri / Știfturi din Lemn de Fag'
+      nl: 'Beukenhouten stokken',
+      en: 'Beechwood sticks',
+      de: 'Buchenholzstäbe',
+      ro: 'Tije din lemn de fag'
     },
     interestPlaned: {
-      nl: 'Vierzijdig Geschaafd Hout',
-      en: '4-Sides Planed Timber',
-      de: '4-seitig gehobeltes Holz',
-      ro: 'Lemn Rinduit pe 4 Fețe'
+      nl: 'Beukenhouten latten',
+      en: 'Beechwood slats',
+      de: 'Buchenholzleisten',
+      ro: 'Șipci din lemn de fag'
     },
     interestProfiles: {
-      nl: 'Houten Profielen & Sierlijsten',
-      en: 'Profiles & Mouldings',
-      de: 'Holzprofile & Leisten',
-      ro: 'Profile & Plinte din Lemn'
+      nl: 'Beukenhouten profielen',
+      en: 'Beechwood profiles',
+      de: 'Buchenholzprofile',
+      ro: 'Profile din lemn de fag'
     },
     interestSpecials: {
-      nl: 'Speciale Componenten (Maatwerk)',
-      en: 'Special Components (Custom)',
-      de: 'Spezialkomponenten (Maßanfertigung)',
-      ro: 'Componente Speciale (La Comandă)'
+      nl: 'Beukenhouten bestekken',
+      en: 'Beechwood blanks',
+      de: 'Buchenholz-Zuschnitte',
+      ro: 'Piese brute din lemn de fag'
     },
     interestGeneral: {
       nl: 'Algemene Houtinkoop Aanvraag',
@@ -542,8 +542,6 @@ export default function ContactSection() {
                     <h3>{getTranslation('phoneFax')}</h3>
                     <p>
                       Tel: +40 254.60.60.53
-                      <br />
-                      Fax: +40 254.60.60.51
                     </p>
                   </div>
                 </div>

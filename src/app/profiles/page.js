@@ -25,10 +25,10 @@ export default function Profiles() {
       },
       image: '/images/profile1.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -47,10 +47,10 @@ export default function Profiles() {
       },
       image: '/images/profile2.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -69,10 +69,10 @@ export default function Profiles() {
       },
       image: '/images/profile3.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -91,10 +91,10 @@ export default function Profiles() {
       },
       image: '/images/profile4.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -113,10 +113,10 @@ export default function Profiles() {
       },
       image: '/images/profile5.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -135,10 +135,10 @@ export default function Profiles() {
       },
       image: '/images/profile6.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -157,10 +157,10 @@ export default function Profiles() {
       },
       image: '/images/profile7.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -179,10 +179,10 @@ export default function Profiles() {
       },
       image: '/images/profile8.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -201,10 +201,10 @@ export default function Profiles() {
       },
       image: '/images/profile9.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -223,10 +223,10 @@ export default function Profiles() {
       },
       image: '/images/profile10.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -245,10 +245,10 @@ export default function Profiles() {
       },
       image: '/images/profile11.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
     {
@@ -267,32 +267,32 @@ export default function Profiles() {
       },
       image: '/images/profile12.jpg',
       category: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Profiles & Mouldings',
-        de: 'Profile & Leisten',
-        ro: 'Profile & Șipci'
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag'
       },
     },
   ];
 
   const t = {
     breadcrumb: {
-      nl: 'Home / Producten / Profielen & Lijsten',
-      en: 'Home / Products / Profiles & Mouldings',
-      de: 'Home / Produkte / Profile & Leisten',
-      ro: 'Home / Produsele / Profile & Șipci'
+      nl: 'Home / Producten / Beukenhouten profielen',
+      en: 'Home / Products / Beechwood profiles',
+      de: 'Home / Produkte / Buchenholzprofile',
+      ro: 'Home / Produsele / Profile din lemn de fag'
     },
     title: {
-      nl: 'Profielen & Lijsten',
-      en: 'Profiles & Mouldings',
-      de: 'Profile & Leisten',
-      ro: 'Profile & Șipci Decorative'
+      nl: 'Beukenhouten profielen',
+      en: 'Beechwood profiles',
+      de: 'Buchenholzprofile',
+      ro: 'Profile din lemn de fag'
     },
     subtitle: {
-      nl: 'PALROM Products ontwerpt en produceert een uitgebreide catalogus van beukenhouten architecturale profielen en lijsten. Nauwkeurig gefreesd voor een perfect glad oppervlak, zijn onze lijsten ideaal voor kastafwerking, vloerafwerking en wanddecoratie.',
-      en: 'PALROM Products designs and manufactures an extensive catalogue of beechwood architectural profiles and mouldings. Precision-milled to achieve a perfect, smooth surface, our mouldings are ideal for cabinetry trim, flooring finishes, and wall decoration.',
-      de: 'PALROM Products entwirft und fertigt ein umfangreiches Sortiment an architektonischen Buchenholzprofilen und -leisten. Präzise gefräst für eine vollkommen glatte Oberfläche – unsere Leisten sind ideal für Schrankverkleidungen, Bodenabschlüsse und Wanddekorationen.',
-      ro: 'PALROM Products proiectează și produce un catalog extins de profile și șipci decorative din lemn de fag. Frezate cu precizie pentru a obține o suprafață perfectă și netedă, șipcile noastre sunt ideale pentru finisarea dulapurilor, finisarea podelelor și decorarea pereților.'
+      nl: 'PALROM Products ontwerpt en produceert een uitgebreide catalogus van beukenhouten profielen. Nauwkeurig gefreesd voor een perfect glad oppervlak, zijn onze profielen ideaal voor kastafwerking, vloerafwerking en wanddecoratie.',
+      en: 'PALROM Products designs and manufactures an extensive catalogue of beechwood profiles. Precision-milled to achieve a perfect, smooth surface, our profiles are ideal for cabinetry trim, flooring finishes, and wall decoration.',
+      de: 'PALROM Products entwirft und fertigt ein umfangreiches Sortiment an Buchenholzprofilen. Präzise gefräst für eine vollkommen glatte Oberfläche – unsere Leisten sind ideal für Schrankverkleidungen, Bodenabschlüsse und Wanddekorationen.',
+      ro: 'PALROM Products proiectează și produce un catalog extins de profile din lemn de fag. Frezate cu precizie pentru a obține o suprafață perfectă și netedă, șipcile noastre sunt ideale pentru finisarea dulapurilor, finisarea podelelor și decorarea pereților.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',

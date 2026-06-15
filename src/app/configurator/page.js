@@ -16,7 +16,7 @@ const categoryData = {
   },
   planed: {
     id: 'planed',
-    name: { nl: '4-Zijdig Geschaafd Beukenhout', en: '4-Sides Planed Beech Lumber', de: '4-seitig gehobeltes Buchenholz', ro: 'Lemn de Fag Rinduit pe 4 Fețe' },
+    name: { nl: 'Beukenhouten latten', en: 'Beechwood slats', de: 'Buchenholzleisten', ro: 'Șipci din lemn de fag' },
     length: { min: 100, max: 4000, default: 2400, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 15, max: 300, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 10, max: 100, default: 20, label: { nl: 'Dikte/Hoogte (mm)', en: 'Thickness/Height (mm)', de: 'Dicke/Höhe (mm)', ro: 'Grosime/Înălțime (mm)' } },
@@ -24,14 +24,14 @@ const categoryData = {
   },
   profiles: {
     id: 'profiles',
-    name: { nl: 'Houten Profielen & Lijsten', en: 'Profiles & Mouldings', de: 'Profile & Leisten', ro: 'Profile & Șipci Decorative' },
+    name: { nl: 'Beukenhouten profielen', en: 'Beechwood profiles', de: 'Buchenholzprofile', ro: 'Profile din lemn de fag' },
     length: { min: 500, max: 3000, default: 2000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 10, max: 120, default: 18, label: { nl: 'Afmeting (mm)', en: 'Dimension (mm)', de: 'Abmessung (mm)', ro: 'Dimensiune (mm)' } },
     finish: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
   },
   specials: {
     id: 'specials',
-    name: { nl: 'Speciale Houtcomponenten', en: 'Special Wood Components', de: 'Spezielle Holzkomponenten', ro: 'Componente Speciale din Lemn' },
+    name: { nl: 'Beukenhouten bestekken', en: 'Beechwood blanks', de: 'Buchenholz-Zuschnitte', ro: 'Piese brute din lemn de fag' },
     length: { min: 50, max: 2000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     finish: { nl: 'Op specificatie', en: 'On custom specification', de: 'Nach Spezifikation', ro: 'Conform specificației' },
@@ -43,9 +43,9 @@ const specialsPrices = {
   'Keeplat Spruce': 1.25,
   'Keeplat Beech': 1.55,
   'Distancers Color Mix': 0.85,
-  'Wooden Threshold': 3.55,
+  'Food Industry Components': 3.55,
   'Industrial Distancer': 2.15,
-  'Wood with Iron Component': 4.85,
+  'Rough-sawn Blanks': 4.85,
 };
 
 // Subcategory data
@@ -87,9 +87,9 @@ const specialsSubcategories = [
   { id: 'special-keeplat-spruce', name: { nl: 'Vuren keeplat (spie)', en: 'Keeplat Spruce', de: 'Keilleiste Fichte', ro: 'Pană din Lemn de Molid' }, img: '/images/special1.jpg' },
   { id: 'special-keeplat-beech', name: { nl: 'Beuken keeplat (spie)', en: 'Keeplat Beech', de: 'Keilleiste Buche', ro: 'Pană din Lemn de Fag' }, img: '/images/special2.jpg' },
   { id: 'special-distancer-mix', name: { nl: 'Afstandhouders kleurenmix', en: 'Distancers Color Mix', de: 'Abstandhalter Farbmix', ro: 'Distanțiere Mix de Culori' }, img: '/images/special3.jpg' },
-  { id: 'special-threshold', name: { nl: 'Houten drempel', en: 'Wooden Threshold', de: 'Holzschwelle', ro: 'Prag din Lemn' }, img: '/images/special4.jpg' },
+  { id: 'special-threshold', name: { nl: 'Componenten voedingsindustrie', en: 'Food industry components', de: 'Komponenten für Lebensmittelindustrie', ro: 'Componente pentru industria alimentară' }, img: '/images/special4.jpg' },
   { id: 'special-distancer-ind', name: { nl: 'Industriële afstandhouder', en: 'Industrial Distancer', de: 'Industrieller Abstandhalter', ro: 'Distanțier Industrial' }, img: '/images/special5.jpg' },
-  { id: 'special-wood-iron', name: { nl: 'Hout met ijzeren component', en: 'Wood with Iron Component', de: 'Holz mit Eisenkomponente', ro: 'Lemn cu Componentă din Fier' }, img: '/images/special6.jpg' },
+  { id: 'special-wood-iron', name: { nl: 'Gezaagde bestekken (fijnbezaagd)', en: 'Rough-sawn blanks (fine-sawn)', de: 'Sägerauhe Zuschnitte', ro: 'Piese brute netăiate' }, img: '/images/special6.jpg' },
 ];
 
 const t = {
@@ -103,10 +103,10 @@ const t = {
   heroTitle: { nl: 'Palrom Offerte Configurator', en: 'Palrom Quote Configurator', de: 'Palrom Angebotskonfigurator', ro: 'Configurator de Oferte Palrom' },
   heroSubtitle: { nl: 'Stel direct de gewenste specificaties, millimeter-afmetingen en bewerkingen in voor uw zakelijke volume-aanvraag.', en: 'Instantly configure desired specifications, millimeter dimensions, and treatments for your B2B volume inquiry.', de: 'Konfigurieren Sie sofort die gewünschten Spezifikationen, Millimetermaße und Bearbeitungen für Ihre B2B-Volumenanfrage.', ro: 'Configurați instantaneu specificațiile dorite, dimensiunile în milimetri și tratamentele pentru solicitarea dvs. de volum B2B.' },
   categoryLabel: { nl: 'Productcategorie', en: 'Product Category', de: 'Produktkategorie', ro: 'Categorie Produs' },
-  dowelSubcatLabel: { nl: 'Subcategorie Dowels *', en: 'Dowels Subcategory *', de: 'Dübel Unterkategorie *', ro: 'Subcategorie Dibluri *' },
-  profileSubcatLabel: { nl: 'Subcategorie Profiel *', en: 'Profile Subcategory *', de: 'Profil Unterkategorie *', ro: 'Subcategorie Profil *' },
-  planedSubcatLabel: { nl: 'Subcategorie Geschaafd *', en: 'Planed Subcategory *', de: 'Gehobelt Unterkategorie *', ro: 'Subcategorie Rinduit *' },
-  specialSubcatLabel: { nl: 'Subcategorie Specials *', en: 'Specials Subcategory *', de: 'Spezialkomponenten Unterkategorie *', ro: 'Subcategorie Speciale *' },
+  dowelSubcatLabel: { nl: 'Subcategorie Stokken *', en: 'Sticks Subcategory *', de: 'Stäbe Unterkategorie *', ro: 'Subcategorie Tije *' },
+  profileSubcatLabel: { nl: 'Subcategorie Profielen *', en: 'Profiles Subcategory *', de: 'Profile Unterkategorie *', ro: 'Subcategorie Profile *' },
+  planedSubcatLabel: { nl: 'Subcategorie Latten *', en: 'Slats Subcategory *', de: 'Leisten Unterkategorie *', ro: 'Subcategorie Șipci *' },
+  specialSubcatLabel: { nl: 'Subcategorie Bestekken *', en: 'Blanks Subcategory *', de: 'Zuschnitte Unterkategorie *', ro: 'Subcategorie Piese brute *' },
   quantityLabel: { nl: 'Oplage (stuks)', en: 'Quantity (pieces)', de: 'Auflage (Stück)', ro: 'Cantitate (bucăți)' },
   pieces: { nl: 'stuks', en: 'pieces', de: 'Stück', ro: 'bucăți' },
   addedConfigsTitle: { nl: 'Toegevoegde configuraties in deze offerteaanvraag', en: 'Added configurations in this quote request', de: 'Hinzugefügte Konfigurationen in dieser Angebotsanfrage', ro: 'Configurații adăugate în această solicitare de ofertă' },
@@ -156,7 +156,7 @@ const t = {
   contactAlert: { nl: 'Vul a.u.b. alle verplichte contactvelden in.', en: 'Please fill in all required contact fields.', de: 'Bitte füllen Sie alle erforderlichen Kontaktfelder aus.', ro: 'Vă rugăm să completați toate câmpurile de contact obligatorii.' },
   submitError: { nl: 'Er is een fout opgetreden bij het verwerken van uw aanvraag. Probeer het opnieuw.', en: 'An error occurred while processing your request. Please try again.', de: 'Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', ro: 'A apărut o eroare la procesarea solicitării dvs. Vă rugăm să încercați din nou.' },
   removeItemAria: { nl: 'Verwijder product', en: 'Remove product', de: 'Produkt entfernen', ro: 'Elimină produsul' },
-  materialValue: { nl: '100% FSC®-Gecertificeerd Beukenhout', en: '100% FSC®-Certified Beechwood', de: '100% FSC®-zertifiziertes Buchenholz', ro: 'Lemn de Fag 100% Certificat FSC®' },
+  materialValue: { nl: 'FSC®-Gecertificeerd Ongestoomd Beukenhout', en: 'FSC®-Certified Unsteamed Beechwood', de: 'FSC®-zertifiziertes ungedämpftes Buchenholz', ro: 'Lemn de Fag neaburit Certificat FSC®' },
   statusReady: { nl: 'Gereed', en: 'Ready', de: 'Bereit', ro: 'Pregătit' },
   showPasswordAria: { nl: 'Wachtwoord tonen', en: 'Show password', de: 'Passwort anzeigen', ro: 'Afișează parola' }
 };

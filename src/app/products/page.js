@@ -14,10 +14,10 @@ export default function Products() {
       id: 'planed',
       category: 'planed',
       name: {
-        nl: '4-Zijdig Geschaafd Beukenhout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Buchenholz',
-        ro: 'Lemn de Fag Rinduit pe 4 Laturi',
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag',
       },
       description: {
         nl: 'Geschaafd op extreem nauwe toleranties, verkrijgbaar in zowel rechthoekige als vierkante secties. Gezaagd, gedroogd, op maat gezaagd en gekalibreerd voor doe-het-zelf-distributie en timmerwerkplaatsen.',
@@ -34,7 +34,7 @@ export default function Products() {
         },
         {
           label: { nl: 'Randen', en: 'Edges', de: 'Kanten', ro: 'Margini' },
-          value: { nl: 'Scherpe rand, Radius 3, of Radius 6', en: 'Sharp edge, Radius 3, or Radius 6', de: 'Scharfe Kante, Radius 3 oder Radius 6', ro: 'Margine ascuțită, Rază 3 sau Rază 6' }
+          value: { nl: 'Scherp of met afgeronde kanten', en: 'Sharp or with rounded edges', de: 'Scharf oder mit abgerundeten Kanten', ro: 'Ascuțit sau cu margini rotunjite' }
         },
         {
           label: { nl: 'Vochtgehalte', en: 'Moisture', de: 'Feuchtigkeit', ro: 'Umiditate' },
@@ -42,10 +42,10 @@ export default function Products() {
         },
       ],
       tag: {
-        nl: 'Geschaafd',
-        en: 'Planed',
-        de: 'Gehobelt',
-        ro: 'Rinduit'
+        nl: 'Latten',
+        en: 'Slats',
+        de: 'Leisten',
+        ro: 'Șipci'
       },
     },
     {
@@ -60,7 +60,7 @@ export default function Products() {
       description: {
         nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
         en: 'Available in small sizes starting at 3 mm up to large dimensions of 60 mm. Options include smooth sticks and spiral-rilled finishes for optimal glue adhesion.',
-        de: 'Erhältlich in kleinen Größen ab 3 mm bis hin zu großen Dimensionen von 60 mm. Zu den Optionen gehören glatte Stäbe und spiralförmig geriffelte Ausführungen für optimale Leimhaftung.',
+        de: 'Erhältlich in kleinen Größen ab 3 mm bis hin zu großen Dimensionen von 60 mm. Zu den Optionen gehören glatte Stäbe und spiralförmig geriffelten Ausführungen für optimale Leimhaftung.',
         ro: 'Disponibile în dimensiuni mici începând de la 3 mm până la dimensiuni mari de 60 mm. Opțiunile includ tije netede și finisaje cu caneluri elicoidale pentru o aderență optimă a lipiciului.',
       },
       image: '/images/dowels.png',
@@ -76,7 +76,7 @@ export default function Products() {
         },
         {
           label: { nl: 'Houtsoort', en: 'Wood Type', de: 'Holzart', ro: 'Tip Lemn' },
-          value: { nl: 'Gestoomd of ongestoomd beukenhout', en: 'Steamed or unsteamed beech', de: 'Gedämpfte oder ungedämpfte Buche', ro: 'Fag aburit sau neaburit' }
+          value: { nl: 'Ongestoomd beukenhout', en: 'Unsteamed beech', de: 'Ungedämpfte Buche', ro: 'Fag neaburit' }
         },
       ],
       tag: {
@@ -90,10 +90,10 @@ export default function Products() {
       id: 'profiles',
       category: 'profiles',
       name: {
-        nl: 'Houten Profielen & Lijsten',
-        en: 'Architectural Profiles & Mouldings',
-        de: 'Holzprofile & Leisten',
-        ro: 'Profile & Șipci Decorative',
+        nl: 'Beukenhouten profielen',
+        en: 'Beechwood profiles',
+        de: 'Buchenholzprofile',
+        ro: 'Profile din lemn de fag',
       },
       description: {
         nl: 'Een uitgebreid assortiment decoratieve lijsten voor binnenbekleding, timmerwerkafwerking en meubelafwerking. Maatwerk profielen zijn beschikbaar voor grote series.',
@@ -128,10 +128,10 @@ export default function Products() {
       id: 'specials',
       category: 'specials',
       name: {
-        nl: 'Speciale Componenten (Maatwerk)',
-        en: 'Furniture & Food Industry Specials',
-        de: 'Spezialkomponenten für Möbel- & Lebensmittelindustrie',
-        ro: 'Componente Speciale pentru Mobilier și Alimentație',
+        nl: 'Beukenhouten bestekken',
+        en: 'Beechwood blanks',
+        de: 'Buchenholz-Zuschnitte',
+        ro: 'Piese brute din lemn de fag',
       },
       description: {
         nl: 'Op maat gemaakte halffabrikaten en afgewerkte beukenhouten componenten voor timmerwerk, kastenbouw, kinderspeelgoed, keukengerei en de voedingsmiddelenindustrie.',
@@ -156,10 +156,10 @@ export default function Products() {
         },
       ],
       tag: {
-        nl: 'Specials',
-        en: 'Specials',
-        de: 'Spezials',
-        ro: 'Speciale'
+        nl: 'Bestekken',
+        en: 'Blanks',
+        de: 'Zuschnitte',
+        ro: 'Piese brute'
       },
     },
   ];
@@ -196,28 +196,28 @@ export default function Products() {
       ro: 'Toate Produsele'
     },
     filterDowels: {
-      nl: 'Beukenhouten stokken',
-      en: 'Beechwood sticks',
-      de: 'Buchenholzstäbe',
-      ro: 'Tije din lemn de fag'
+      nl: 'Stokken',
+      en: 'Sticks',
+      de: 'Stäbe',
+      ro: 'Tije'
     },
     filterPlaned: {
-      nl: '4-Zijdig Geschaafd',
-      en: '4-Sides Planed',
-      de: '4-seitig gehobelt',
-      ro: 'Rinduit pe 4 Laturi'
+      nl: 'Latten',
+      en: 'Slats',
+      de: 'Leisten',
+      ro: 'Șipci'
     },
     filterProfiles: {
-      nl: 'Profielen & Lijsten',
-      en: 'Profiles & Mouldings',
-      de: 'Profile & Leisten',
-      ro: 'Profile & Șipci'
+      nl: 'Profielen',
+      en: 'Profiles',
+      de: 'Profile',
+      ro: 'Profile'
     },
     filterSpecials: {
-      nl: 'Speciale Componenten',
-      en: 'Special Components',
-      de: 'Spezialkomponenten',
-      ro: 'Componente Speciale'
+      nl: 'Bestekken',
+      en: 'Blanks',
+      de: 'Zuschnitte',
+      ro: 'Piese brute'
     },
     exploreDetails: {
       nl: 'Details Bekijken',

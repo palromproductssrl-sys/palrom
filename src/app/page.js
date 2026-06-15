@@ -13,7 +13,7 @@ export default function Home() {
     {
       id: 'planed',
       category: 'planed',
-      name: lang === 'nl' ? 'Vierzijdig Geschaafd Hout' : (lang === 'de' ? 'Vierseitig gehobeltes Buchenholz' : (lang === 'ro' ? 'Cherestea de Fag Rinduită pe 4 Fețe' : 'Four-Sides Planed Timber')),
+      name: lang === 'nl' ? 'Beukenhouten latten' : (lang === 'de' ? 'Buchenholzleisten' : (lang === 'ro' ? 'Șipci din lemn de fag' : 'Beechwood slats')),
       description: lang === 'nl'
         ? 'Geschaafd tot op de millimeter nauwkeurig. Verkrijgbaar in diverse rechthoekige en vierkante secties, gekalibreerd voor timmerfabrieken en de meubelindustrie.'
         : (lang === 'de' ? 'Auf den Millimeter genau gehobelt. Erhältlich in verschiedenen rechteckigen und quadratischen Querschnitten, kalibriert für Tischlereien und die Möbelindustrie.' : (lang === 'ro' ? 'Rinduit la precizie de milimetru. Disponibil în diverse secțiuni rectangulare și pătrate, calibrat pentru fabricile de tâmplărie și industria mobilei.' : 'Planed to millimeter precision. Available in various rectangular and square sections, calibrated for joinery factories and the furniture industry.')),
@@ -21,10 +21,10 @@ export default function Home() {
       link: '/four-sides-planed',
       specs: [
         { label: lang === 'nl' ? 'Secties' : (lang === 'de' ? 'Querschnitte' : (lang === 'ro' ? 'Secțiuni' : 'Sections')), value: lang === 'nl' ? 'Vierkant & Rechthoekig' : (lang === 'de' ? 'Quadratisch & Rechteckig' : (lang === 'ro' ? 'Pătrat & Rectangular' : 'Square & Rectangular')) },
-        { label: lang === 'nl' ? 'Randen' : (lang === 'de' ? 'Kanten' : (lang === 'ro' ? 'Margini' : 'Edges')), value: lang === 'nl' ? 'Scherp, Radius 3 of Radius 6' : (lang === 'de' ? 'Scharfkantig, Radius 3 oder Radius 6' : (lang === 'ro' ? 'Ascuțit, Rază 3 sau Rază 6' : 'Sharp, Radius 3 or Radius 6')) },
+        { label: lang === 'nl' ? 'Randen' : (lang === 'de' ? 'Kanten' : (lang === 'ro' ? 'Margini' : 'Edges')), value: lang === 'nl' ? 'Scherp of met afgeronde kanten' : (lang === 'de' ? 'Scharf oder mit abgerundeten Kanten' : (lang === 'ro' ? 'Ascuțit sau cu margini rotunjite' : 'Sharp or with rounded edges')) },
         { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd tot 8-12%' : (lang === 'de' ? 'Kammergetrocknet auf 8-12%' : (lang === 'ro' ? 'Uscat în camere de uscare la 8-12%' : 'Chamber-dried to 8-12%')) },
       ],
-      tag: lang === 'nl' ? 'Geschaafd' : (lang === 'de' ? 'Gehobelt' : (lang === 'ro' ? 'Rinduit' : 'Planed')),
+      tag: lang === 'nl' ? 'Latten' : (lang === 'de' ? 'Leisten' : (lang === 'ro' ? 'Șipci' : 'Slats')),
     },
     {
       id: 'dowels',
@@ -38,14 +38,14 @@ export default function Home() {
       specs: [
         { label: lang === 'nl' ? 'Diameter' : (lang === 'de' ? 'Durchmesser' : (lang === 'ro' ? 'Diametru' : 'Diameter')), value: lang === 'nl' ? '3mm tot 60mm' : (lang === 'de' ? '3mm bis 60mm' : (lang === 'ro' ? '3mm până la 60mm' : '3mm to 60mm')) },
         { label: lang === 'nl' ? 'Afwerking' : (lang === 'de' ? 'Ausführung' : (lang === 'ro' ? 'Finisaj' : 'Finish')), value: lang === 'nl' ? 'Glad / Gegroefd (6mm tot 20mm)' : (lang === 'de' ? 'Glatt / Geriffelt (6mm bis 20mm)' : (lang === 'ro' ? 'Neted / Canelat (6mm până la 20mm)' : 'Smooth / Grooved (6mm to 20mm)')) },
-        { label: lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Tip Lemn' : 'Wood Type')), value: lang === 'nl' ? 'Gestoomd of ongestoomd beuken' : (lang === 'de' ? 'Gedämpfte oder ungedämpfte Buche' : (lang === 'ro' ? 'Fag aburit sau neaburit' : 'Steamed or unsteamed beech')) },
+        { label: lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Tip Lemn' : 'Wood Type')), value: lang === 'nl' ? 'Ongestoomd beukenhout' : (lang === 'de' ? 'Ungedämpfte Buche' : (lang === 'ro' ? 'Fag neaburit' : 'Unsteamed beech')) },
       ],
       tag: lang === 'nl' ? 'Stokken' : (lang === 'de' ? 'Stäbe' : (lang === 'ro' ? 'Tije' : 'Sticks')),
     },
     {
       id: 'profiles',
       category: 'profiles',
-      name: lang === 'nl' ? 'Houten Profielen & Lijsten' : (lang === 'de' ? 'Holzprofile & Leisten' : (lang === 'ro' ? 'Profile & Plinte din Lemn' : 'Wooden Profiles & Mouldings')),
+      name: lang === 'nl' ? 'Beukenhouten profielen' : (lang === 'de' ? 'Buchenholzprofile' : (lang === 'ro' ? 'Profile din lemn de fag' : 'Beechwood profiles')),
       description: lang === 'nl'
         ? 'Groot assortiment decoratieve profielen, plinten en lijsten voor interieurafwerking en meubelproductie. Klantspecifieke profielen beschikbaar op aanvraag.'
         : (lang === 'de' ? 'Großes Sortiment an Zierleisten, Sockelleisten und Profilen für den Innenausbau und die Möbelproduktion. Sonderprofile auf Anfrage erhältlich.' : (lang === 'ro' ? 'Gamă largă de muluri decorative, plinte și profile pentru finisaje interioare și producția de mobilier. Profile personalizate disponibile la cerere.' : 'Large assortment of decorative mouldings, skirtings, and profiles for interior finishing and furniture production. Custom profiles available upon request.')),
@@ -61,7 +61,7 @@ export default function Home() {
     {
       id: 'specials',
       category: 'specials',
-      name: lang === 'nl' ? 'Speciale Componenten & Halffabrikaten' : (lang === 'de' ? 'Spezialkomponenten & Halbfabrikate' : (lang === 'ro' ? 'Componente Speciale & Produse Semifinite' : 'Special Components & Semi-Finished Products')),
+      name: lang === 'nl' ? 'Beukenhouten bestekken' : (lang === 'de' ? 'Buchenholz-Zuschnitte' : (lang === 'ro' ? 'Piese brute din lemn de fag' : 'Beechwood blanks')),
       description: lang === 'nl'
         ? 'Halffabrikaten en op maat gemaakte houten onderdelen voor meubels, keukengerei, speelgoed en specifieke industriële toepassingen.'
         : (lang === 'de' ? 'Halbfabrikate und maßgefertigte Holzteile für Möbel, Küchenutensilien, Spielzeug und spezifische industrielle Anwendungen.' : (lang === 'ro' ? 'Piese din lemn semifinite și realizate la comandă pentru mobilier, ustensile de bucătărie, jucării și aplicații industriale specifice.' : 'Semi-finished and custom-made wooden parts for furniture, kitchen utensils, toys, and specific industrial applications.')),
@@ -72,7 +72,7 @@ export default function Home() {
         { label: lang === 'nl' ? 'FSC® Gecertificeerd' : (lang === 'de' ? 'FSC®-zertifiziert' : (lang === 'ro' ? 'Certificat FSC®' : 'FSC® Certified')), value: lang === 'nl' ? 'Beschikbaar op aanvraag' : (lang === 'de' ? 'Auf Anfrage erhältlich' : (lang === 'ro' ? 'Disponibil la cerere' : 'Available upon request')) },
         { label: lang === 'nl' ? 'Verpakking' : (lang === 'de' ? 'Verpackung' : (lang === 'ro' ? 'Ambalare' : 'Packaging')), value: lang === 'nl' ? 'Bulk of op maat verpakt' : (lang === 'de' ? 'Bulk oder kundenspezifisch verpackt' : (lang === 'ro' ? 'Vrac sau ambalat la comandă' : 'Bulk or custom packaged')) },
       ],
-      tag: lang === 'nl' ? 'Specials' : (lang === 'de' ? 'Specials' : (lang === 'ro' ? 'Speciale' : 'Specials')),
+      tag: lang === 'nl' ? 'Bestekken' : (lang === 'de' ? 'Zuschnitte' : (lang === 'ro' ? 'Piese brute' : 'Blanks')),
     },
   ];
 
@@ -80,8 +80,6 @@ export default function Home() {
     activeFilter === 'all'
       ? products
       : products.filter((p) => p.category === activeFilter);
-
-
 
   const t = {
     heroBadge: {
@@ -91,16 +89,16 @@ export default function Home() {
       ro: 'Industria Lemnului Certificată FSC®'
     },
     heroTitle: {
-      nl: 'Fabrikant van Beukenhouten Deuvels en Profielen',
-      en: 'Manufacturer of Beechwood Dowels and Profiles',
-      de: 'Hersteller von Buchenholzdübeln und Profilen',
-      ro: 'Producător de Dibluri și Profile din Lemn de Fag'
+      nl: 'Fabrikant van Beukenhouten Stokken, Latten en Profielen',
+      en: 'Manufacturer of Beechwood Sticks, Slats and Profiles',
+      de: 'Hersteller von Buchenholzstäben, -leisten und -profilen',
+      ro: 'Producător de Tije, Șipci și Profile din Lemn de Fag'
     },
     heroSubtitle: {
-      nl: 'Palrom Products combineert decennia aan ervaring met een moderne zagerij en droogkamers. Wij leveren hoogwaardige beukenhouten deuvels, profielen en geschaafde meubelcomponenten rechtstreeks aan de internationale meubel- en houtindustrie.',
-      en: 'Palrom Products combines decades of experience with a modern sawmill and drying chambers. We supply high-quality beechwood dowels, profiles, and planed furniture components directly to the international furniture and wood industry.',
-      de: 'Palrom Products verbindet jahrzehntelange Erfahrung mit einem modernen Sägewerk und Trockenkammern. Wir liefern hochwertige Buchenholzdübel, Profile und gehobelte Möbelkomponenten direkt an die internationale Möbel- und Holzindustrie.',
-      ro: 'Palrom Products combină decenii de experiență cu un gater modern și camere de uscare. Furnizăm dibluri din lemn de fag, profile și componente de mobilier rinduite de înaltă calitate direct către industria internațională a mobilei și a lemnului.'
+      nl: 'Palrom Products combineert decennia aan ervaring met een moderne zagerij en drooginstallaties. Wij produceren beukenhouten gezaagde bestekken en geschaafde stokken, latten en profielen voor klanten in de internationale meubel- en houtindustrie. Kwaliteit, flexibiliteit en leverbetrouwbaarheid staan daarbij centraal.',
+      en: 'Palrom Products combines decades of experience with a modern sawmill and drying facilities. We produce beechwood rough-sawn lumber and planed sticks, slats, and profiles for clients in the international furniture and wood industry. Quality, flexibility, and delivery reliability are central to our work.',
+      de: 'Palrom Products verbindet jahrzehntelange Erfahrung mit einem modernen Sägewerk und Trocknungsanlagen. Wir produzieren Buchenholz-Zuschnitte sowie gehobelte Stäbe, Leisten und Profile für Kunden in der internationalen Möbel- und Holzindustrie. Qualität, Flexibilität und Liefertreue stehen dabei im Mittelpunkt.',
+      ro: 'Palrom Products îmbină decenii de experiență cu un gater modern și instalații de uscare. Producem elemente din fag tăiate brut, precum și tije, șipci și profile rinduite pentru clienți din industria internațională a mobilei și a lemnului. Calitatea, flexibilitatea și fiabilitatea livrărilor reprezintă prioritățile noastre.'
     },
     requestQuote: {
       nl: 'Offerte Aanvragen',
@@ -151,22 +149,22 @@ export default function Home() {
       ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, camere moderne de uscare și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
     },
     introDesc2: {
-      nl: 'Dankzij onze verticale integratie beheren we het gehele productieproces. We oogsten lokaal FSC®-gecertificeerd beukenhout, verwerken het met precisie, drogen het tot het optimale vochtgehalte en schaven het volgens de exacte specificaties van onze B2B-klanten in de Europese houtindustrie.',
-      en: 'Thanks to our vertical integration, we control the entire production process. We harvest local FSC®-certified beechwood, process it with precision, dry it to the optimal moisture content, and plane it according to the exact specifications of our B2B customers in the European wood industry.',
-      de: 'Dank unserer vertikalen Integration kontrollieren wir den gesamten Produktionsprozess. Wir ernten lokales, FSC®-zertifiziertes Buchenholz, verarbeiten es mit Präzision, trocknen es auf die optimale Feuchtigkeit und hobeln es genau nach den Spezifikationen unserer B2B-Kunden in der europäischen Holzindustrie.',
-      ro: 'Datorită integrării noastre verticale, controlăm întregul proces de producție. Recoltăm lemn de fag local certificat FSC®, îl procesăm cu precizie, îl uscăm la conținutul optim de umiditate și îl rinduit conform specificațiilor exacte ale clienților noștri B2B din industria europeană a lemnului.'
+      nl: 'Dankzij onze verticale integratie beheren we het gehele productieproces. We kopen FSC®-gecertificeerd beukenhout in bij lokale, gecertificeerde leveranciers, verwerken het met precisie, drogen het tot het optimale vochtgehalte en schaven het volgens de exacte specificaties van onze B2B-klanten in de Europese houtindustrie.',
+      en: 'Thanks to our vertical integration, we manage the entire production process. We source FSC®-certified beechwood from local, certified suppliers, process it with precision, dry it to the optimal moisture content, and plane it according to the exact specifications of our B2B customers in the European timber industry.',
+      de: 'Dank ihrer vertikalen Integration steuern wir den gesamten Produktionsprozess. Wir beziehen FSC®-zertifiziertes Buchenholz von lokalen, zertifizierten Lieferanten, verarbeiten es mit Präzision, trocknen es auf die optimale Holzfeuchte und hobeln es nach den exakten Spezifikationen unserer B2B-Kunden in der europäischen Holzindustrie.',
+      ro: 'Datorită integrării noastre verticale, gestionăm întregul proces de producție. Achiziționăm lemn de fag certificat FSC® de la furnizori locali certificați, îl procesăm cu precizie, îl uscăm la conținutul optim de umiditate și îl rindulim conform specificațiilor exacte ale clienților noștri B2B din industria europeană a lemnului.'
     },
     sustainableTitle: {
-      nl: '100% Duurzaam',
-      en: '100% Sustainable',
-      de: '100% Nachhaltig',
-      ro: '100% Sustenabil'
+      nl: 'Duurzaam',
+      en: 'Sustainable',
+      de: 'Nachhaltig',
+      ro: 'Sustenabil'
     },
     sustainableDesc: {
-      nl: 'Ons beukenhout is 100% FSC®-gecertificeerd en afkomstig uit verantwoord beheerde lokale bossen.',
-      en: 'Our beechwood is 100% FSC®-certified and sourced from responsibly managed local forests.',
-      de: 'Unser Buchenholz ist zu 100% FSC®-zertifiziert und stammt aus verantwortungsvoll bewirtschafteten lokalen Wäldern.',
-      ro: 'Lemnul nostru de fag este 100% certificat FSC® și provine din păduri locale gestionate în mod responsabil.'
+      nl: 'Ons beukenhout is FSC®-gecertificeerd en afkomstig uit verantwoord beheerde lokale bossen.',
+      en: 'Our beechwood is FSC®-certified and sourced from responsibly managed local forests.',
+      de: 'Unser Buchenholz ist FSC®-zertifiziert und stammt aus verantwortungsvoll bewirtschafteten lokalen Wäldern.',
+      ro: 'Lemnul nostru de fag este certificat FSC® și provine din păduri locale gestionate în mod responsabil.'
     },
     customTitle: {
       nl: 'Componenten op Maat',
@@ -235,10 +233,10 @@ export default function Home() {
       ro: 'Logistică Internațională'
     },
     logisticsDesc: {
-      nl: 'Export naar Duitsland, Frankrijk, Oostenrijk en Japan. Inclusief grootschalige B2B-distributie en geoptimaliseerde opslag in Nederland.',
-      en: 'Export to Germany, France, Austria, and Japan. Including large-scale B2B distribution and optimized warehousing in the Netherlands.',
-      de: 'Export nach Deutschland, Frankreich, Österreich und Japan. Inklusive großflächigem B2B-Vertrieb und optimierter Lagerhaltung in den Niederlanden.',
-      ro: 'Export în Germania, Franța, Austria și Japonia. Inclusiv distribuție B2B pe scară largă și depozitare optimizată în Olanda.'
+      nl: 'Export naar Duitsland, Frankrijk, Oostenrijk, Spanje, Portugal, Italië, Polen en Japan. Inclusief grootschalige B2B-distributie en geoptimaliseerde opslag in Nederland.',
+      en: 'Export to Germany, France, Austria, Spain, Portugal, Italy, Poland, and Japan. Including large-scale B2B distribution and optimized warehousing in the Netherlands.',
+      de: 'Export nach Deutschland, Frankreich, Österreich, Spanien, Portugal, Italien, Polen und Japan. Inklusive großflächigem B2B-Vertrieb und optimierter Lagerhaltung in den Niederlanden.',
+      ro: 'Export în Germania, Franța, Austria, Spania, Portugalia, Italia, Polonia și Japonia. Inclusiv distribuție B2B pe scară largă și depozitare optimizată în Olanda.'
     },
     brochureTitle: {
       nl: 'Wilt u technische afmetingen en specificaties bekijken?',
@@ -265,10 +263,10 @@ export default function Home() {
       ro: 'Gama de Produse'
     },
     rangeTitle: {
-      nl: 'Beukenhouten Deuvels & Meubelcomponenten',
-      en: 'Beech Dowels & Furniture Components',
-      de: 'Buchenholzdübel & Möbelkomponenten',
-      ro: 'Dibluri de Fag & Componente de Mobilier'
+      nl: 'Beukenhouten bestekken, stokken, latten en profielen',
+      en: 'Beechwood blanks, sticks, slats and profiles',
+      de: 'Buchenholz-Zuschnitte, Stäbe, Leisten und Profile',
+      ro: 'Piese brute, tije, șipci și profile din lemn de fag'
     },
     rangeSub: {
       nl: 'Ontdek onze kernproducten, met uiterste precisie vervaardigd uit FSC®-gecertificeerd Roemeens beukenhout.',
@@ -277,10 +275,10 @@ export default function Home() {
       ro: 'Descoperiți produsele noastre de bază, realizate cu o precizie extremă din lemn de fag românesc certificat FSC®.'
     },
     filterAll: { nl: 'Alles', en: 'All', de: 'Alle', ro: 'Toate' },
-    filterDowels: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije din lemn de fag' },
-    filterPlaned: { nl: 'Vierzijdig Geschaafd', en: 'Four-Sides Planed', de: 'Vierseitig Gehobelt', ro: 'Rinduit pe 4 Fețe' },
-    filterProfiles: { nl: 'Houten Profielen', en: 'Wooden Profiles', de: 'Holzprofile', ro: 'Profile din Lemn' },
-    filterSpecials: { nl: 'Speciale Componenten', en: 'Special Components', de: 'Spezialkomponenten', ro: 'Componente Speciale' }
+    filterDowels: { nl: 'Stokken', en: 'Sticks', de: 'Stäbe', ro: 'Tije' },
+    filterPlaned: { nl: 'Latten', en: 'Slats', de: 'Leisten', ro: 'Șipci' },
+    filterProfiles: { nl: 'Profielen', en: 'Profiles', de: 'Profile', ro: 'Profile' },
+    filterSpecials: { nl: 'Bestekken', en: 'Blanks', de: 'Zuschnitte', ro: 'Piese brute' }
   };
 
   const getTranslation = (key) => {

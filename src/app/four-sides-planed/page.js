@@ -25,10 +25,10 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides1.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
@@ -47,10 +47,10 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides2.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
@@ -69,10 +69,10 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides3.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
@@ -91,10 +91,10 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides4.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
@@ -113,10 +113,10 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides5.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
@@ -135,76 +135,76 @@ export default function FourSidesPlaned() {
       },
       image: '/images/4sides6.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
       id: 'planed-rad3',
       name: {
-        nl: 'Geschaafde elementen met Radius 3',
-        en: 'Planed Elements with Radius 3',
-        de: 'Gehobelte Elemente mit Radius 3',
-        ro: 'Elemente Rinduite cu Rază 3',
+        nl: 'Geschaafde elementen met afgeronde kanten (Variant 1)',
+        en: 'Planed elements with rounded edges (Variant 1)',
+        de: 'Gehobelte Elemente mit abgerundeten Kanten (Variante 1)',
+        ro: 'Elemente rinduite cu margini rotunjite (Varianta 1)',
       },
       description: {
-        nl: 'Vierzijdig geschaafde elementen met een subtiele afgeronde rand van 3 mm. De zachte randen verminderen het risico op houtsplijten en verbeteren de handlingveiligheid voor consumenten.',
-        en: 'Four-sides planed elements featuring a subtle 3 mm rounded edge radius. The soft edges decrease wood splitting risks and improve user handling safety in retail environments.',
-        de: 'Vierzifig gehobelte Elemente mit einem subtilen abgerundeten Kantenradius von 3 mm. Die weichen Kanten verringern das Risiko von Holzsplittern und verbessern die Handhabungssicherheit im Einzelhandel.',
-        ro: 'Elemente rinduite pe patru fețe având o rază subtilă de margine rotunjită de 3 mm. Marginile moi reduc riscurile de despicare a lemnului și îmbunătățesc siguranța manipulării de către utilizatori în medii de retail.',
+        nl: 'Vierzijdig geschaafde elementen met subtiele afgeronde randen. De zachte randen verminderen het risico op houtsplijten en verbeteren de handlingveiligheid voor consumenten.',
+        en: 'Four-sides planed elements featuring subtle rounded edges. The soft edges decrease wood splitting risks and improve user handling safety in retail environments.',
+        de: 'Vierseitig gehobelte Elemente mit subtil abgerundeten Kanten. Die weichen Kanten verringern das Risiko von Holzsplittern und verbessern die Handhabungssicherheit im Einzelhandel.',
+        ro: 'Elemente rinduite pe patru fețe având margini subtil rotunjite. Marginile moi reduc riscurile de despicare a lemnului și îmbunătățesc siguranța manipulării de către utilizatori în medii de retail.',
       },
       image: '/images/4sides7.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
     {
       id: 'planed-rad6',
       name: {
-        nl: 'Geschaafde elementen met Radius 6',
-        en: 'Planed Elements with Radius 6',
-        de: 'Gehobelte Elemente mit Radius 6',
-        ro: 'Elemente Rinduite cu Rază 6',
+        nl: 'Geschaafde elementen met afgeronde kanten (Variant 2)',
+        en: 'Planed elements with rounded edges (Variant 2)',
+        de: 'Gehobelte Elemente mit abgerundeten Kanten (Variante 2)',
+        ro: 'Elemente rinduite cu margini rotunjite (Varianta 2)',
       },
       description: {
-        nl: 'Geschaafde beuken componenten met een duidelijke afgeronde rand van 6 mm. Ideaal voor constructief speelgoed, kindvriendelijke meubelcomponenten en voorgefabriceerde timmerwerkonderdelen.',
-        en: 'Planed beech components displaying a distinct 6 mm rounded edge radius. Ideal for structural toys, child-friendly furniture components, and pre-finished carpentry parts.',
-        de: 'Gehobelte Buchenholzkomponenten mit einem ausgeprägten abgerundeten Kantenradius von 6 mm. Ideal für Konstruktionsspielzeug, kinderfreundliche Möbelkomponenten und vorgefertigte Schreinereiteile.',
-        ro: 'Componente din fag rinduit care prezintă o rază distinctă a marginii rotunjites de 6 mm. Ideale pentru jucării structurale, componente de mobilier prietenoase cu copiii și piese de tâmplărie pre-finisate.',
+        nl: 'Geschaafde beuken componenten met afgeronde randen. Ideaal voor constructief speelgoed, kindvriendelijke meubelcomponenten en voorgefabriceerde timmerwerkonderdelen.',
+        en: 'Planed beech components displaying rounded edge profiles. Ideal for structural toys, child-friendly furniture components, and pre-finished carpentry parts.',
+        de: 'Gehobelte Buchenholzkomponenten mit abgerundeten Kanten. Ideal für Konstruktionsspielzeug, kinderfreundliche Möbelkomponenten und vorgefertigte Schreinereiteile.',
+        ro: 'Componente din fag rinduit care prezintă margini rotunjite. Ideale pentru jucării structurale, componente de mobilier prietenoase cu copiii și piese de tâmplărie pre-finisate.',
       },
       image: '/images/4sides8.jpg',
       category: {
-        nl: '4-Zijdig Geschaafd Hout',
-        en: '4-Sides Planed Lumber',
-        de: '4-seitig gehobeltes Holz',
-        ro: 'Lemn Rinduit pe 4 Laturi'
+        nl: 'Beukenhouten latten',
+        en: 'Beechwood slats',
+        de: 'Buchenholzleisten',
+        ro: 'Șipci din lemn de fag'
       },
     },
   ];
 
   const t = {
     breadcrumb: {
-      nl: 'Home / Producten / 4-Zijdig Geschaafd Hout',
-      en: 'Home / Products / 4-Sides Planed Lumber',
-      de: 'Home / Produkte / 4-seitig gehobeltes Holz',
-      ro: 'Home / Produsele / Lemn Rinduit pe 4 Laturi'
+      nl: 'Home / Producten / Beukenhouten latten',
+      en: 'Home / Products / Beechwood slats',
+      de: 'Home / Produkte / Buchenholzleisten',
+      ro: 'Home / Produsele / Șipci din lemn de fag'
     },
     title: {
-      nl: '4-Zijdig Geschaafd Beukenhout',
-      en: '4-Sides Planed Beech Lumber',
-      de: '4-seitig gehobeltes Buchenholz',
-      ro: 'Lemn de Fag Rinduit pe 4 Laturi'
+      nl: 'Beukenhouten latten',
+      en: 'Beechwood slats',
+      de: 'Buchenholzleisten',
+      ro: 'Șipci din lemn de fag'
     },
     subtitle: {
-      nl: 'Onze vierzijdig geschaafde houtelementen worden met extreem nauwe toleranties geproduceerd. Afkomstig uit duurzaam bosbeheer in de Karpaten, worden ze gezaagd, kammergedroogd tot 8-12%, op lengte gezaagd en gekalibreerd voor meubelfabrikanten en doe-het-zelf-distributeurs.',
-      en: 'Our four-sides planed wood elements are processed to extreme tolerances. Sourced from sustainable forest management in the Carpathian region, they are sawn, chamber-dried to 8-12%, cut to length, and calibrated for furniture manufacturers and DIY distributors.',
-      de: 'Unsere vierseitig gehobelten Holzelemente werden mit extrem engen Toleranzen verarbeitet. Sie stammen aus nachhaltiger Forstwirtschaft in der Karpatenregion, werden gesägt, auf 8-12% kammergetrocknet, auf Länge geschnitten und für Möbelhersteller und DIY-Händler kalibriert.',
-      ro: 'Elementele noastre din lemn rinduit pe patru fețe sunt procesate la toleranțe extreme. Provenite din managementul forestier durabil din regiunea Carpaților, acestea sunt debitate, uscate în camere de uscare la 8-12%, tăiate la lungime și calibrate pentru producătorii de mobilă și distribuitorii DIY.'
+      nl: 'Onze beukenhouten latten worden met extreem nauwe toleranties geproduceerd. Afkomstig uit duurzaam bosbeheer in de Karpaten, worden ze gezaagd, kammergedroogd tot 8-12%, op lengte gezaagd en gekalibreerd voor meubelfabrikanten en doe-het-zelf-distributeurs.',
+      en: 'Our beechwood slats are processed to extreme tolerances. Sourced from sustainable forest management in the Carpathian region, they are sawn, chamber-dried to 8-12%, cut to length, and calibrated for furniture manufacturers and DIY distributors.',
+      de: 'Unsere Buchenholzleisten werden mit extrem engen Toleranzen verarbeitet. Sie stammen aus nachhaltiger Forstwirtschaft in der Karpatenregion, werden gesägt, auf 8-12% kammergetrocknet, auf Länge geschnitten und für Möbelhersteller und DIY-Händler kalibriert.',
+      ro: 'Șipcile noastre din lemn de fag sunt procesate la toleranțe extreme. Provenite din managementul forestier durabil din regiunea Carpaților, acestea sunt debitate, uscate în camere de uscare la 8-12%, tăiate la lungime și calibrate pentru producătorii de mobilă și distribuitorii DIY.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',

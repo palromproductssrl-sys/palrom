@@ -25,8 +25,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Palrom Products | Fabrikant van Beukenhouten Meubelcomponenten",
-  description: "B2B-fabrikant van beukenhouten pluggen, profielen en meubelcomponenten. 100% FSC®-gecertificeerd lokaal hout.",
+  title: "Palrom Products | Fabrikant van Beukenhouten Stokken, Latten en Profielen",
+  description: "B2B-fabrikant van beukenhouten bestekken, stokken, latten en profielen. FSC®-gecertificeerd lokaal beukenhout.",
 };
 
 export default function RootLayout({ children }) {

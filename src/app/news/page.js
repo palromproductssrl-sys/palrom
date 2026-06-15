@@ -150,22 +150,22 @@ export default function News() {
         <>
           {lang === 'nl' && (
             <p>
-              Na een uitgebreide audit is ons 100% FSC®-certificaat voor duurzaam bosbeheer en verwerking met succes verlengd. Wij garanderen een verantwoorde inkoop van al onze beukenhouten producten.
+              Na een uitgebreide audit is ons FSC®-certificaat voor duurzaam bosbeheer en verwerking met succes verlengd. Wij garanderen een verantwoorde inkoop van al onze beukenhouten producten.
             </p>
           )}
           {lang === 'de' && (
             <p>
-              Nach einem umfassenden Audit wurde unser 100 % FSC®-Zertifikat für nachhaltige Waldbewirtschaftung und -verarbeitung erfolgreich verlängert. Wir garantieren die verantwortungsvolle Beschaffung aller unserer Buchenholzprodukte.
+              Nach einem umfassenden Audit wurde unser FSC®-Zertifikat für nachhaltige Waldbewirtschaftung und -verarbeitung erfolgreich verlängert. Wir garantieren die verantwortungsvolle Beschaffung aller unserer Buchenholzprodukte.
             </p>
           )}
           {lang === 'ro' && (
             <p>
-              În urma unui audit cuprinzător, certificarea noastră 100% FSC® pentru managementul durabil al pădurilor și procesare a fost reînnoită cu succes. Garantăm aprovizionarea responsabilă cu toate produsele noastre din lemn de fag.
+              În urma unui audit cuprinzător, certificarea noastră FSC® pentru managementul durabil al pădurilor și procesare a fost reînnoită cu succes. Garantăm aprovizionarea responsabilă cu toate produsele noastre din lemn de fag.
             </p>
           )}
           {lang !== 'nl' && lang !== 'de' && lang !== 'ro' && (
             <p>
-              Following a comprehensive audit, our 100% FSC® certification for sustainable forest management and processing has been successfully renewed. We guarantee the responsible sourcing of all our beechwood products.
+              Following a comprehensive audit, our FSC® certification for sustainable forest management and processing has been successfully renewed. We guarantee the responsible sourcing of all our beechwood products.
             </p>
           )}
           <Link href="/products" className="news-link">
@@ -212,8 +212,8 @@ export default function News() {
     {
       id: 6,
       image: '/images/2.png',
-      title: lang === 'nl' ? 'Beukenhouten Deuvelproductie' : (lang === 'de' ? 'Buchenholzdübel-Produktion' : (lang === 'ro' ? 'Producție Dibluri din Lemn de Fag' : 'Beech Dowel Production')),
-      desc: lang === 'nl' ? 'Hoge capaciteit gegroefde en gladde deuvelproductielijnen.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Dübel.' : (lang === 'ro' ? 'Linii de mare capacitate pentru dibluri canelate și netede.' : 'High capacity rilled and smooth dowel lines.')),
+      title: lang === 'nl' ? 'Beukenhouten Stokkenproductie' : (lang === 'de' ? 'Buchenholzstäbe-Produktion' : (lang === 'ro' ? 'Producție Tije din Lemn de Fag' : 'Beech Stick Production')),
+      desc: lang === 'nl' ? 'Hoge capaciteit gegroefde en gladde stokkenproductielijnen.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Stäbe.' : (lang === 'ro' ? 'Linii de mare capacitate pentru tije canelate și netede.' : 'High capacity rilled and smooth stick production lines.')),
     },
     {
       id: 7,
