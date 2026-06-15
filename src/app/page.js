@@ -246,10 +246,10 @@ export default function Home() {
       ro: 'Logistică Internațională'
     },
     logisticsDesc: {
-      nl: 'Export naar Duitsland, Frankrijk, Oostenrijk en Japan. Inclusief B2B-distributie en opslag via Van Soest International in Nederland.',
-      en: 'Export to Germany, France, Austria, and Japan. Including B2B distribution and warehousing via Van Soest International in the Netherlands.',
-      de: 'Export nach Deutschland, Frankreich, Österreich und Japan. Inklusive B2B-Vertrieb und Lagerung über Van Soest International in den Niederlanden.',
-      ro: 'Export în Germania, Franța, Austria și Japonia. Inclusiv distribuție B2B și depozitare prin Van Soest International în Olanda.'
+      nl: 'Export naar Duitsland, Frankrijk, Oostenrijk en Japan. Inclusief grootschalige B2B-distributie en geoptimaliseerde opslag in Nederland.',
+      en: 'Export to Germany, France, Austria, and Japan. Including large-scale B2B distribution and optimized warehousing in the Netherlands.',
+      de: 'Export nach Deutschland, Frankreich, Österreich und Japan. Inklusive großflächigem B2B-Vertrieb und optimierter Lagerhaltung in den Niederlanden.',
+      ro: 'Export în Germania, Franța, Austria și Japonia. Inclusiv distribuție B2B pe scară largă și depozitare optimizată în Olanda.'
     },
     brochureTitle: {
       nl: 'Wilt u technische afmetingen en specificaties bekijken?',

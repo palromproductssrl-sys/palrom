@@ -82,10 +82,10 @@ export default function About() {
         ro: 'Un Partener Multinațional'
       },
       description: {
-        nl: 'Palrom opereert als een belangrijke leverancier voor grote Europese retailers van meubelcomponenten, met centraal logistiek beheer in samenwerking met Van Soest International in Nederland.',
-        en: 'Operating as a key vendor to major European furniture components retailers, with central logistics managed in collaboration with Van Soest International in the Netherlands.',
-        de: 'Tätig als Hauptlieferant für große europäische Händler von Möbelkomponenten, mit zentraler Logistiksteuerung in Zusammenarbeit mit Van Soest International in den Niederlanden.',
-        ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistica centrală gestionată în colaborare cu Van Soest International din Olanda.'
+        nl: 'Palrom opereert als een belangrijke leverancier voor grote Europese retailers van meubelcomponenten, met centraal logistiek beheer en distributiepunten in Nederland.',
+        en: 'Operating as a key vendor to major European furniture components retailers, with central logistics managed and distributed through points in the Netherlands.',
+        de: 'Tätig als Hauptlieferant für große europäische Händler von Möbelkomponenten, mit zentraler Logistiksteuerung und Vertrieb über Standorte in den Niederlanden.',
+        ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistica centrală gestionată și distribuită prin puncte din Olanda.'
       },
       align: 'left',
     },
@@ -195,10 +195,10 @@ export default function About() {
       ro: 'Prezență Multinațională'
     },
     reachDesc: {
-      nl: 'Wij leveren aan klanten in Duitsland, Frankrijk, Oostenrijk, Polen en Japan, met speciale opslag via Van Soest International in Nederland.',
-      en: 'Serving clients in Germany, France, Austria, Poland, and Japan, with dedicated warehousing via Van Soest International in the Netherlands.',
-      de: 'Wir bedienen Kunden in Deutschland, Frankreich, Österreich, Polen und Japan mit eigener Lagerhaltung über Van Soest International in den Niederlanden.',
-      ro: 'Servim clienți din Germania, Franța, Austria, Polonia și Japonia, cu depozitare dedicată prin Van Soest International în Olanda.'
+      nl: 'Wij leveren aan klanten in Duitsland, Frankrijk, Oostenrijk, Polen en Japan, met speciale en strategische opslagfaciliteiten in Nederland.',
+      en: 'Serving clients in Germany, France, Austria, Poland, and Japan, with dedicated and strategic warehousing facilities in the Netherlands.',
+      de: 'Wir bedienen Kunden in Deutschland, Frankreich, Österreich, Polen und Japan mit eigener Lagerhaltung und strategischen Logistikstandorten in den Niederlanden.',
+      ro: 'Servim clienți din Germania, Franța, Austria, Polonia și Japonia, cu facilități de depozitare dedicate și strategice în Olanda.'
     },
     brochureTitle: {
       nl: 'Geïnteresseerd in onze technische afmetingen en specificaties?',
