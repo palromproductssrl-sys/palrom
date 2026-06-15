@@ -59,10 +59,10 @@ export default function Careers() {
         ]
       },
       salary: {
-        nl: 'Concurrerend salaris + Bonus',
-        en: 'Competitive Pay + Bonus',
-        de: 'Wettbewerbsfähiges Gehalt + Bonus',
-        ro: 'Salariu Competitiv + Bonus'
+        nl: 'Concurrerend salaris',
+        en: 'Competitive Pay',
+        de: 'Wettbewerbsfähiges Gehalt',
+        ro: 'Salariu Competitiv'
       },
     },
     {
@@ -115,10 +115,10 @@ export default function Careers() {
         ]
       },
       salary: {
-        nl: 'Vast salaris + Veiligheidsbonus',
-        en: 'Stable Salary + Safety Bonus',
-        de: 'Festgehalt + Sicherheitsbonus',
-        ro: 'Salariu Stabil + Bonus de Siguranță'
+        nl: 'Vast salaris',
+        en: 'Stable Salary',
+        de: 'Festgehalt',
+        ro: 'Salariu Stabil'
       },
     },
     {
@@ -285,10 +285,10 @@ export default function Careers() {
       ro: 'Salariu Competitiv'
     },
     benefitSalaryDesc: {
-      nl: 'Eerlijke beloning die uw ervaring weerspiegelt, plus bonussen voor efficiëntie en veiligheid.',
-      en: 'Fair compensation reflecting your experience, plus bonuses for efficiency and safety.',
-      de: 'Faire Vergütung entsprechend Ihrer Erfahrung, zzgl. Leistungs- und Sicherheitsprämien.',
-      ro: 'Compensație echitabilă care reflectă experiența dvs., plus bonusuri pentru eficiență și siguranță.'
+      nl: 'Eerlijke beloning die uw ervaring weerspiegelt.',
+      en: 'Fair compensation reflecting your experience.',
+      de: 'Faire Vergütung entsprechend Ihrer Erfahrung.',
+      ro: 'Compensație echitabilă care reflectă experiența dvs.'
     },
     benefitSafetyTitle: {
       nl: 'Veilige Werkomgeving',
