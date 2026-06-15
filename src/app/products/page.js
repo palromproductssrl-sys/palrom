@@ -2,69 +2,234 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useInquiry } from '@/components/InquiryContext';
 import ContactSection from '@/components/ContactSection';
 
 export default function Products() {
+  const { lang } = useInquiry();
   const [activeFilter, setActiveFilter] = useState('all');
 
   const productsList = [
     {
       id: 'dowels',
       category: 'dowels',
-      name: 'Beechwood Dowel Pins & Rods',
-      description: 'Available in small sizes starting at 3 mm up to large dimensions of 60 mm. Options include smooth sticks and spiral-rilled finishes for optimal glue adhesion.',
+      name: {
+        nl: 'Beukenhouten Deuvels & Staven',
+        en: 'Beechwood Dowel Pins & Rods',
+        de: 'Buchenholzdübel & -stäbe',
+        ro: 'Dibluri și Tije din Lemn de Fag',
+      },
+      description: {
+        nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
+        en: 'Available in small sizes starting at 3 mm up to large dimensions of 60 mm. Options include smooth sticks and spiral-rilled finishes for optimal glue adhesion.',
+        de: 'Erhältlich in kleinen Größen ab 3 mm bis hin zu großen Dimensionen von 60 mm. Zu den Optionen gehören glatte Stäbe und spiralförmig geriffelte Ausführungen für optimale Leimhaftung.',
+        ro: 'Disponibile în dimensiuni mici începând de la 3 mm până la dimensiuni mari de 60 mm. Opțiunile includ tije netede și finisaje cu caneluri elicoidale pentru o aderență optimă a lipiciului.',
+      },
       image: '/images/dowels.png',
       link: '/dowels',
       specs: [
-        { label: 'Diameter', value: '3mm to 60mm' },
-        { label: 'Finishes', value: 'Smooth / Rilled (6mm to 20mm)' },
-        { label: 'Wood Type', value: 'Steamed or unsteamed beech' },
+        {
+          label: { nl: 'Diameter', en: 'Diameter', de: 'Durchmesser', ro: 'Diametru' },
+          value: { nl: '3mm tot 60mm', en: '3mm to 60mm', de: '3mm bis 60mm', ro: '3mm până la 60mm' }
+        },
+        {
+          label: { nl: 'Afwerkingen', en: 'Finishes', de: 'Ausführungen', ro: 'Finisaje' },
+          value: { nl: 'Glad / Gegroefd (6mm tot 20mm)', en: 'Smooth / Rilled (6mm to 20mm)', de: 'Glatt / Geriffelt (6mm bis 20mm)', ro: 'Netede / Canelate (6mm până la 20mm)' }
+        },
+        {
+          label: { nl: 'Houtsoort', en: 'Wood Type', de: 'Holzart', ro: 'Tip Lemn' },
+          value: { nl: 'Gestoomd of ongestoomd beukenhout', en: 'Steamed or unsteamed beech', de: 'Gedämpfte oder ungedämpfte Buche', ro: 'Fag aburit sau neaburit' }
+        },
       ],
-      tag: 'Dowels',
+      tag: {
+        nl: 'Deuvels',
+        en: 'Dowels',
+        de: 'Dübel',
+        ro: 'Dibluri'
+      },
     },
     {
       id: 'planed',
       category: 'planed',
-      name: '4-Sides Planed Lumber',
-      description: 'Planed to extreme tolerances, available in both rectangular and square sections. Sawn, dried, cut to size, and calibrated for DIY distribution and carpentry shops.',
+      name: {
+        nl: '4-Zijdig Geschaafd Beukenhout',
+        en: '4-Sides Planed Lumber',
+        de: '4-seitig gehobeltes Buchenholz',
+        ro: 'Lemn de Fag Rinduit pe 4 Laturi',
+      },
+      description: {
+        nl: 'Geschaafd op extreem nauwe toleranties, verkrijgbaar in zowel rechthoekige als vierkante secties. Gezaagd, gedroogd, op maat gezaagd en gekalibreerd voor doe-het-zelf-distributie en timmerwerkplaatsen.',
+        en: 'Planed to extreme tolerances, available in both rectangular and square sections. Sawn, dried, cut to size, and calibrated for DIY distribution and carpentry shops.',
+        de: 'Auf extreme Toleranzen gehobelt, sowohl in rechteckigen als auch in quadratischen Abschnitten erhältlich. Gesägt, getrocknet, zugeschnitten und kalibriert für den DIY-Vertrieb und Schreinereien.',
+        ro: 'Rinduit la toleranțe extreme, disponibil atât în secțiuni rectangulare, cât și pătrate. Debitata, uscată, tăiată la dimensiune și calibrată pentru distribuția DIY și atelierele de tâmplărie.',
+      },
       image: '/images/planed_wood.png',
       link: '/four-sides-planed',
       specs: [
-        { label: 'Sections', value: 'Square & Rectangular' },
-        { label: 'Edges', value: 'Sharp edge, Radius 3, or Radius 6' },
-        { label: 'Moisture', value: 'Kiln dried to 8-12%' },
+        {
+          label: { nl: 'Secties', en: 'Sections', de: 'Schnitte', ro: 'Secțiuni' },
+          value: { nl: 'Vierkant & Rechthoekig', en: 'Square & Rectangular', de: 'Quadratisch & Rechteckig', ro: 'Pătrate & Rectangulare' }
+        },
+        {
+          label: { nl: 'Randen', en: 'Edges', de: 'Kanten', ro: 'Margini' },
+          value: { nl: 'Scherpe rand, Radius 3, of Radius 6', en: 'Sharp edge, Radius 3, or Radius 6', de: 'Scharfe Kante, Radius 3 oder Radius 6', ro: 'Margine ascuțită, Rază 3 sau Rază 6' }
+        },
+        {
+          label: { nl: 'Vochtgehalte', en: 'Moisture', de: 'Feuchtigkeit', ro: 'Umiditate' },
+          value: { nl: 'Oven-gedroogd tot 8-12%', en: 'Kiln dried to 8-12%', de: 'Kammergetrocknet auf 8-12%', ro: 'Uscat în cuptor la 8-12%' }
+        },
       ],
-      tag: 'Planed',
+      tag: {
+        nl: 'Geschaafd',
+        en: 'Planed',
+        de: 'Gehobelt',
+        ro: 'Rinduit'
+      },
     },
     {
       id: 'profiles',
       category: 'profiles',
-      name: 'Architectural Profiles & Mouldings',
-      description: 'An extensive range of decorative mouldings for interior cladding, carpentry finishing, and furniture trims. Custom profile cutting is available for large runs.',
+      name: {
+        nl: 'Houten Profielen & Lijsten',
+        en: 'Architectural Profiles & Mouldings',
+        de: 'Holzprofile & Leisten',
+        ro: 'Profile & Șipci Decorative',
+      },
+      description: {
+        nl: 'Een uitgebreid assortiment decoratieve lijsten voor binnenbekleding, timmerwerkafwerking en meubelafwerking. Maatwerk profielen zijn beschikbaar voor grote series.',
+        en: 'An extensive range of decorative mouldings for interior cladding, carpentry finishing, and furniture trims. Custom profile cutting is available for large runs.',
+        de: 'Ein umfangreiches Sortiment an Zierleisten für Innenverkleidungen, Schreinerarbeiten und Möbelverzierungen. Kundenspezifischer Profilzuschnitt ist für Großserien möglich.',
+        ro: 'O gamă extinsă de șipci decorative pentru placări interioare, finisaje de tâmplărie și ornamente de mobilier. Tăierea personalizată a profilelor este disponibilă pentru serii mari.',
+      },
       image: '/images/profiles.png',
       link: '/profiles',
       specs: [
-        { label: 'Shapes', value: 'Semiround, Quarter round, Plinth' },
-        { label: 'Customization', value: 'Corner profiles, Thread, Calbat' },
-        { label: 'Retail', value: 'Pre-labeled with EAN codes' },
+        {
+          label: { nl: 'Vormen', en: 'Shapes', de: 'Formen', ro: 'Forme' },
+          value: { nl: 'Halfgrond, Kwartrond, Plint', en: 'Semiround, Quarter round, Plinth', de: 'Halbrunnd, Viertelrund, Sockelleiste', ro: 'Semirotund, Sfert de cerc, Plintă' }
+        },
+        {
+          label: { nl: 'Maatwerk', en: 'Customization', de: 'Anpassung', ro: 'Personalizare' },
+          value: { nl: 'Hoekprofielen, Draad, Calbat', en: 'Corner profiles, Thread, Calbat', de: 'Eckprofile, Gewinde, Calbat', ro: 'Profile de colț, Filet, Calbat' }
+        },
+        {
+          label: { nl: 'Retail', en: 'Retail', de: 'Einzelhandel', ro: 'Retail' },
+          value: { nl: 'Voorzien van EAN-barcodes', en: 'Pre-labeled with EAN codes', de: 'Voretikettiert mit EAN-Codes', ro: 'Pre-etichetate cu coduri EAN' }
+        },
       ],
-      tag: 'Profiles',
+      tag: {
+        nl: 'Profielen',
+        en: 'Profiles',
+        de: 'Profile',
+        ro: 'Profile'
+      },
     },
     {
       id: 'specials',
       category: 'specials',
-      name: 'Furniture & Food Industry Specials',
-      description: 'Custom semi-finished and finished beech wood components for carpentry, cabinet making, children\'s toys, kitchen utensils, and the food packaging industry.',
+      name: {
+        nl: 'Speciale Componenten (Maatwerk)',
+        en: 'Furniture & Food Industry Specials',
+        de: 'Spezialkomponenten für Möbel- & Lebensmittelindustrie',
+        ro: 'Componente Speciale pentru Mobilier și Alimentație',
+      },
+      description: {
+        nl: 'Op maat gemaakte halffabrikaten en afgewerkte beukenhouten componenten voor timmerwerk, kastenbouw, kinderspeelgoed, keukengerei en de voedingsmiddelenindustrie.',
+        en: 'Custom semi-finished and finished beech wood components for carpentry, cabinet making, children\'s toys, kitchen utensils, and the food packaging industry.',
+        de: 'Maßgeschneiderte Halbzeuge und Fertigteile aus Buchenholz für Zimmereien, Möbelbau, Kinderspielzeug, Küchenutensilien und die Lebensmittelverpackungsindustrie.',
+        ro: 'Componente personalizate semifinite și finite din lemn de fag pentru tâmplărie, fabricarea dulapurilor, jucării pentru copii, ustensile de bucătărie și industria ambalajelor alimentare.',
+      },
       image: '/images/specials.png',
       link: '/specials',
       specs: [
-        { label: 'Applications', value: 'Carpentry / Food / DIY' },
-        { label: 'FSC Certified', value: 'Available on demand' },
-        { label: 'Packaging', value: 'Customized bulk or individual' },
+        {
+          label: { nl: 'Toepassingen', en: 'Applications', de: 'Anwendungen', ro: 'Aplicații' },
+          value: { nl: 'Timmerwerk / Voeding / Doe-het-zelf', en: 'Carpentry / Food / DIY', de: 'Zimmerei / Lebensmittel / DIY', ro: 'Tâmplărie / Alimentație / DIY' }
+        },
+        {
+          label: { nl: 'FSC® Gecertificeerd', en: 'FSC Certified', de: 'FSC-zertifiziert', ro: 'Certificat FSC' },
+          value: { nl: 'Op aanvraag beschikbaar', en: 'Available on request', de: 'Auf Anfrage erhältlich', ro: 'Disponibil la cerere' }
+        },
+        {
+          label: { nl: 'Verpakking', en: 'Packaging', de: 'Verpackung', ro: 'Ambalare' },
+          value: { nl: 'Op maat gemaakte bulk of individueel', en: 'Customized bulk or individual', de: 'Kundenspezifische Großpackung oder Einzelverpackung', ro: 'Vrac personalizat sau individual' }
+        },
       ],
-      tag: 'Specials',
+      tag: {
+        nl: 'Specials',
+        en: 'Specials',
+        de: 'Spezials',
+        ro: 'Speciale'
+      },
     },
   ];
+
+  const t = {
+    breadcrumb: {
+      nl: 'Home / Producten',
+      en: 'Home / Our Products',
+      de: 'Home / Unsere Produkte',
+      ro: 'Home / Produsele Noastre'
+    },
+    title: {
+      nl: 'Precisie Houtcatalogus',
+      en: 'Precision Wood Catalogue',
+      de: 'Präzisions-Holzkatalog',
+      ro: 'Catalog Lemn de Precizie'
+    },
+    subtitle: {
+      nl: 'Al meer dan 25 jaar levert PALROM Products hoogwaardige Roemeense beukenhouten componenten aan timmerlieden, meubelfabrieken en doe-het-zelf-winkels wereldwijd. Ontdek onze catalogus hieronder om specifieke subcategorieën te bekijken.',
+      en: 'For more than 25 years, PALROM Products has delivered first-grade Romanian beechwood components to carpenters, furniture factories, and DIY retailers worldwide. Explore our directory below to view specific subcategories.',
+      de: 'Seit mehr als 25 Jahren liefert PALROM Products erstklassige rumänische Buchenholzkomponenten an Schreiner, Möbelfabriken und Baumärkte weltweit. Erkunden Sie unser Verzeichnis unten, um die einzelnen Unterkategorien anzuzeigen.',
+      ro: 'De peste 25 de ani, PALROM Products livrează componente din lemn de fag românesc de primă clasă tâmplarilor, fabricilor de mobilă și retailerilor DIY din întreaga lume. Explorați directorul de mai jos pentru a vizualiza subcategoriile specifice.'
+    },
+    fscNotice: {
+      nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',
+      en: 'FSC® Certified Available On Request',
+      de: 'FSC®-zertifiziert auf Anfrage erhältlich',
+      ro: 'Certificat FSC® disponibil la cerere'
+    },
+    filterAll: {
+      nl: 'Alle Producten',
+      en: 'All Products',
+      de: 'Alle Produkte',
+      ro: 'Toate Produsele'
+    },
+    filterDowels: {
+      nl: 'Beukenhouten Deuvels',
+      en: 'Beech Dowels',
+      de: 'Buchenholzdübel',
+      ro: 'Dibluri din Fag'
+    },
+    filterPlaned: {
+      nl: '4-Zijdig Geschaafd',
+      en: '4-Sides Planed',
+      de: '4-seitig gehobelt',
+      ro: 'Rinduit pe 4 Laturi'
+    },
+    filterProfiles: {
+      nl: 'Profielen & Lijsten',
+      en: 'Profiles & Mouldings',
+      de: 'Profile & Leisten',
+      ro: 'Profile & Șipci'
+    },
+    filterSpecials: {
+      nl: 'Speciale Componenten',
+      en: 'Special Components',
+      de: 'Spezialkomponenten',
+      ro: 'Componente Speciale'
+    },
+    exploreDetails: {
+      nl: 'Details Bekijken',
+      en: 'Explore Details',
+      de: 'Details anzeigen',
+      ro: 'Explorați Detalii'
+    }
+  };
+
+  const getTranslation = (key) => {
+    return t[key]?.[lang] || t[key]?.nl || '';
+  };
 
   const filteredProducts =
     activeFilter === 'all'
@@ -77,14 +242,12 @@ export default function Products() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">Home</Link> / <span>Our Products</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <span>{getTranslation('breadcrumb')}</span>
           </div>
-          <h1 style={{ marginTop: '1.5rem' }}>Precision Wood Catalogue</h1>
-          <p>
-            For more than 25 years, PALROM Products has delivered first-grade Romanian beechwood components to carpenters, furniture factories, and DIY retailers worldwide. Explore our directory below to view specific subcategories.
-          </p>
+          <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
+          <p>{getTranslation('subtitle')}</p>
           <span className="fsc-notice">
-            <i className="fa-solid fa-tree icon-left"></i> FSC® Certified Available On Request
+            <i className="fa-solid fa-tree icon-left"></i> {getTranslation('fscNotice')}
           </span>
         </div>
       </section>
@@ -98,31 +261,31 @@ export default function Products() {
               className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
               onClick={() => setActiveFilter('all')}
             >
-              All Products
+              {getTranslation('filterAll')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
               onClick={() => setActiveFilter('dowels')}
             >
-              Beech Dowels
+              {getTranslation('filterDowels')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}
               onClick={() => setActiveFilter('planed')}
             >
-              4-Sides Planed
+              {getTranslation('filterPlaned')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'profiles' ? 'active' : ''}`}
               onClick={() => setActiveFilter('profiles')}
             >
-              Profiles & Mouldings
+              {getTranslation('filterProfiles')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'specials' ? 'active' : ''}`}
               onClick={() => setActiveFilter('specials')}
             >
-              Special Components
+              {getTranslation('filterSpecials')}
             </button>
           </div>
 
@@ -132,22 +295,22 @@ export default function Products() {
               <div className="product-card" key={p.id} data-category={p.category}>
                 <div className="product-img-wrapper">
                   <Link href={p.link} className="product-img-link">
-                    <img src={p.image} alt={p.name} />
+                    <img src={p.image} alt={p.name[lang] || p.name.nl} />
                   </Link>
-                  <span className="product-tag">{p.tag}</span>
+                  <span className="product-tag">{p.tag[lang] || p.tag.nl}</span>
                 </div>
                 <div className="product-info">
-                  <h3>{p.name}</h3>
-                  <p>{p.description}</p>
+                  <h3>{p.name[lang] || p.name.nl}</h3>
+                  <p>{p.description[lang] || p.description.nl}</p>
                   <ul className="product-specs">
                     {p.specs.map((spec, idx) => (
                       <li key={idx}>
-                        <strong>{spec.label}:</strong> {spec.value}
+                        <strong>{spec.label[lang] || spec.label.nl}:</strong> {spec.value[lang] || spec.value.nl}
                       </li>
                     ))}
                   </ul>
                   <Link href={p.link} className="product-link">
-                    Explore Details <i className="fa-solid fa-arrow-right"></i>
+                    {getTranslation('exploreDetails')} <i className="fa-solid fa-arrow-right"></i>
                   </Link>
                 </div>
               </div>

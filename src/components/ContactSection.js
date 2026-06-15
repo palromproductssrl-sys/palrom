@@ -558,19 +558,6 @@ export default function ContactSection() {
                     </p>
                   </div>
                 </div>
-                <div className="contact-detail-item">
-                  <div className="detail-icon">
-                    <i className="fa-solid fa-warehouse"></i>
-                  </div>
-                  <div className="detail-content">
-                    <h3>{getTranslation('nlRep')}</h3>
-                    <p>
-                      Van Soest International BV
-                      <br />
-                      {getTranslation('nlRepDesc')}
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 

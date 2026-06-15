@@ -335,7 +335,7 @@ export default function News() {
             {/* Video Item */}
             <div className="gallery-item video-item animate-on-scroll">
               <video autoPlay muted loop playsInline controls className="gallery-video">
-                <source src="/images/production-video.mp4" type="video/mp4" />
+                <source src="/images/PALROM.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <div className="gallery-overlay">

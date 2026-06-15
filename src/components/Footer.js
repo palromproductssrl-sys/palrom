@@ -29,7 +29,7 @@ export default function Footer() {
     },
     home: { nl: "Home", en: "Home", de: "Home", ro: "Home" },
     about: { nl: "Bedrijfsprofiel", en: "Company Profile", de: "Unternehmensprofil", ro: "Profilul Companiei" },
-    products: { nl: "Onze Producten", en: "Our Products", de: "Unsere Produkte", ro: "Produsele Noastre" },
+    products: { nl: "Producten", en: "Our Products", de: "Unsere Produkte", ro: "Produsele Noastre" },
     timeline: { nl: "Geschiedenis tijdlijn", en: "History Timeline", de: "Geschichte Zeitleiste", ro: "Istoric Timeline" },
     news: { nl: "Nieuws", en: "News", de: "Neuigkeiten", ro: "Știri" },
     careers: { nl: "Vacatures", en: "Careers", de: "Karriere", ro: "Cariere" },

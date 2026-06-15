@@ -21,7 +21,7 @@ export default function Header() {
   const t = {
     home: { nl: 'Home', en: 'Home', de: 'Home', ro: 'Home' },
     about: { nl: 'Bedrijfsprofiel', en: 'Company Profile', de: 'Unternehmensprofil', ro: 'Profilul Companiei' },
-    products: { nl: 'Onze Producten', en: 'Our Products', de: 'Unsere Produkte', ro: 'Produsele Noastre' },
+    products: { nl: 'Producten', en: 'Our Products', de: 'Unsere Produkte', ro: 'Produsele Noastre' },
     careers: { nl: 'Vacatures', en: 'Careers', de: 'Karriere', ro: 'Cariere' },
     news: { nl: 'Nieuws', en: 'News', de: 'Neuigkeiten', ro: 'Știri' },
     contact: { nl: 'Contact', en: 'Contact Us', de: 'Kontakt', ro: 'Contact' },

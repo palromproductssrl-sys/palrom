@@ -3,66 +3,364 @@
 import React from 'react';
 import Link from 'next/link';
 import ContactSection from '@/components/ContactSection';
+import { useInquiry } from '@/components/InquiryContext';
 
 export default function Careers() {
+  const { lang } = useInquiry();
+
   const jobs = [
     {
       id: 'planing',
-      title: 'Planing Machine Operator',
-      department: 'Production',
+      title: {
+        nl: 'Operator Schaafmachine',
+        en: 'Planing Machine Operator',
+        de: 'Hobelmaschinenführer',
+        ro: 'Operator Rindele'
+      },
+      department: {
+        nl: 'Productie',
+        en: 'Production',
+        de: 'Produktion',
+        ro: 'Producție'
+      },
       location: 'Brad, RO',
-      type: 'Full-Time',
-      description: 'Responsible for setting up, calibrating, and feeding our high-speed profiling and wood planing machines to shape raw beechwood boards into premium dowels and architectural mouldings.',
-      requirements: [
-        'Prior experience in wood processing or sawmill machine operation is highly valued.',
-        'High attention to detail and dimensional accuracy (using calipers).',
-        'Understanding of industrial safety guidelines and equipment maintenance.',
-      ],
-      salary: 'Competitive Pay + Bonus',
+      type: {
+        nl: 'Fulltime',
+        en: 'Full-Time',
+        de: 'Vollzeit',
+        ro: 'Normă Întreagă'
+      },
+      description: {
+        nl: 'Verantwoordelijk voor het instellen, kalibreren en aanvoeren van onze hogesnelheids-profileer- en houtschaafmachines om ruwe beukenplanken om te zetten in hoogwaardige deuvels en houten profielen.',
+        en: 'Responsible for setting up, calibrating, and feeding our high-speed profiling and wood planing machines to shape raw beechwood boards into premium dowels and architectural mouldings.',
+        de: 'Verantwortlich für das Einrichten, Kalibrieren und Bestücken unserer Hochgeschwindigkeits-Profilierungs- und Holzhobelmaschinen, um rohe Buchenholzbretter in erstklassige Dübel und Profile zu verwandeln.',
+        ro: 'Responsabil pentru configurarea, calibrarea și alimentarea mașinilor noastre de profilat și rinduit de mare viteză, pentru a modela scândurile de fag brut în dibluri premium și profile decorative.'
+      },
+      requirements: {
+        nl: [
+          'Voorafgaande ervaring in houtbewerking of de bediening van zagerijmachines wordt zeer gewaardeerd.',
+          'Grote aandacht voor detail en maatzuiverheid (met behulp van schuifmaten).',
+          'Begrip van industriële veiligheidsrichtlijnen en onderhoud van apparatuur.',
+        ],
+        en: [
+          'Prior experience in wood processing or sawmill machine operation is highly valued.',
+          'High attention to detail and dimensional accuracy (using calipers).',
+          'Understanding of industrial safety guidelines and equipment maintenance.',
+        ],
+        de: [
+          'Vorherige Erfahrung in der Holzverarbeitung oder der Bedienung von Sägewerksmaschinen ist sehr erwünscht.',
+          'Hohe Liebe zum Detail und Maßgenauigkeit (unter Verwendung von Messschiebern).',
+          'Verständnis von industriellen Sicherheitsrichtlinien und Gerätewartung.',
+        ],
+        ro: [
+          'Experiența anterioară în prelucrarea lemnului sau operarea mașinilor de gater este foarte apreciată.',
+          'Atenție deosebită la detalii și precizie dimensională (folosind șublerul).',
+          'Înțelegerea normelor de siguranță industrială și a întreținerii echipamentelor.',
+        ]
+      },
+      salary: {
+        nl: 'Concurrerend salaris + Bonus',
+        en: 'Competitive Pay + Bonus',
+        de: 'Wettbewerbsfähiges Gehalt + Bonus',
+        ro: 'Salariu Competitiv + Bonus'
+      },
     },
     {
       id: 'quality',
-      title: 'Quality & Defect Inspector',
-      department: 'Quality Control',
+      title: {
+        nl: 'Inspecteur Kwaliteitscontrole & Sortering',
+        en: 'Quality & Defect Inspector',
+        de: 'Qualitäts- und Mängelprüfer',
+        ro: 'Inspector Calitate & Defecte'
+      },
+      department: {
+        nl: 'Kwaliteitscontrole',
+        en: 'Quality Control',
+        de: 'Qualitätskontrolle',
+        ro: 'Controlul Calității'
+      },
       location: 'Brad, RO',
-      type: 'Full-Time',
-      description: 'Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.',
-      requirements: [
-        'Strong observation skills and familiarity with standard timber grades (A, B, C).',
-        'Reliability, patience, and ability to document defect logs.',
-        'FSC® chain-of-custody documentation training is a plus (provided in-house).',
-      ],
-      salary: 'Stable Salary + Safety Bonus',
+      type: {
+        nl: 'Fulltime',
+        en: 'Full-Time',
+        de: 'Vollzeit',
+        ro: 'Normă Întreagă'
+      },
+      description: {
+        nl: 'Visuele en fysieke inspectie van afgewerkte houten deuvels, planken en op maat gemaakte meubelcomponenten. Sorteren van natuurlijke noesten, scheuren en sorteerafwijkingen om te garanderen dat aan de specificaties van de klant wordt voldaan.',
+        en: 'Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.',
+        de: 'Visuelle und physische Inspektion fertiger Holzdübel, Bretter und maßgeschneiderter Möbelelemente. Aussortieren natürlicher Äste, Risse und Sortieranomalien, um sicherzustellen, dass die Kundenspezifikationen erfüllt werden.',
+        ro: 'Inspecția vizuală și fizică a diblurilor finisate din lemn, scândurilor și elementelor de mobilier personalizate. Sortarea nodurilor naturale, a crăpăturilor și a anomaliilor de clasificare pentru a se asigura că specificațiile clientului sunt îndeplinite.'
+      },
+      requirements: {
+        nl: [
+          'Sterke observatievaardigheden en bekendheid met standaard houtklassen (A, B, C).',
+          'Betrouwbaarheid, geduld en het vermogen om defectenlogboeken bij te houden.',
+          'Ervaring met FSC® Chain of Custody-documentatie is een pluspunt (interne training aanwezig).',
+        ],
+        en: [
+          'Strong observation skills and familiarity with standard timber grades (A, B, C).',
+          'Reliability, patience, and ability to document defect logs.',
+          'FSC® chain-of-custody documentation training is a plus (provided in-house).',
+        ],
+        de: [
+          'Ausgeprägte Beobachtungsgabe und Vertrautheit mit den Standard-Holzqualitäten (A, B, C).',
+          'Zuverlässigkeit, Geduld und die Fähigkeit, Mängelprotokolle zu führen.',
+          'FSC® Chain-of-Custody-Dokumentationsschulung ist ein Plus (wird intern angeboten).',
+        ],
+        ro: [
+          'Abilități puternice de observare și familiaritate cu clasele standard de cherestea (A, B, C).',
+          'Fiabilitate, răbdare și capacitatea de a documenta jurnalele de defecte.',
+          'Instruirea în documentarea FSC® chain-of-custody reprezintă un avantaj (oferită intern).',
+        ]
+      },
+      salary: {
+        nl: 'Vast salaris + Veiligheidsbonus',
+        en: 'Stable Salary + Safety Bonus',
+        de: 'Festgehalt + Sicherheitsbonus',
+        ro: 'Salariu Stabil + Bonus de Siguranță'
+      },
     },
     {
       id: 'logistics',
-      title: 'Logistics & Inventory Coordinator',
-      department: 'Administration',
+      title: {
+        nl: 'Coördinator Logistiek & Inventaris',
+        en: 'Logistics & Inventory Coordinator',
+        de: 'Logistik- & Bestands-Koordinator',
+        ro: 'Coordonator Logistică & Inventar'
+      },
+      department: {
+        nl: 'Administratie',
+        en: 'Administration',
+        de: 'Verwaltung',
+        ro: 'Administrație'
+      },
       location: 'Brad, RO',
-      type: 'Full-Time',
-      description: 'Coordinate domestic transport and European export shipping (primarily to our central Dutch warehouse partner). Manage wood inventory levels, drying kiln records, and loading manifests.',
-      requirements: [
-        'Experience in warehouse management, shipping paperwork, or transportation planning.',
-        'Basic computer skills (Excel/Word) and familiarity with logistics software.',
-        'Conversational Romanian & basic English for international logistics communication.',
-      ],
-      salary: 'Attractive Salary Package',
+      type: {
+        nl: 'Fulltime',
+        en: 'Full-Time',
+        de: 'Vollzeit',
+        ro: 'Normă Întreagă'
+      },
+      description: {
+        nl: 'Coördineren van binnenlands transport en Europese exportzendingen (voornamelijk naar onze centrale Nederlandse logistieke partner). Beheren van houtvoorraden, droogkamerrapportages en laadlijsten.',
+        en: 'Coordinate domestic transport and European export shipping (primarily to our central Dutch warehouse partner). Manage wood inventory levels, drying kiln records, and loading manifests.',
+        de: 'Koordinierung des inländischen Transports und des europäischen Exportversands (hauptsächlich an unseren zentralen niederländischen Lagerpartner). Verwalten von Holzbeständen, Trockenkammerprotokollen und Ladelisten.',
+        ro: 'Coordonarea transportului intern și a transportului european de export (în principal către partenerul nostru central de depozitare din Olanda). Gestionarea nivelurilor stocurilor de lemn, a evidențelor cuptoarelor de uscare și a manifestelor de încărcare.'
+      },
+      requirements: {
+        nl: [
+          'Ervaring met magazijnbeheer, verzenddocumenten of transportplanning.',
+          'Basis computervaardigheden (Excel/Word) en bekendheid met logistieke software.',
+          'Goede communicatieve vaardigheden in het Roemeens en basis Engels voor logistieke contacten.',
+        ],
+        en: [
+          'Experience in warehouse management, shipping paperwork, or transportation planning.',
+          'Basic computer skills (Excel/Word) and familiarity with logistics software.',
+          'Conversational Romanian & basic English for international logistics communication.',
+        ],
+        de: [
+          'Erfahrung in der Lagerverwaltung, im Versandpapierkram oder in der Transportplanung.',
+          'Grundlegende Computerkenntnisse (Excel/Word) und Vertrautheit mit Logistiksoftware.',
+          'Konversationssicheres Rumänisch und Grundkenntnisse in Englisch für die internationale Logistikkommunikation.',
+        ],
+        ro: [
+          'Experiență în managementul depozitelor, documente de expediere sau planificarea transportului.',
+          'Abilități de bază de operare PC (Excel/Word) și familiaritate cu software-ul logistic.',
+          'Limba română la nivel conversațional și engleza de bază pentru comunicarea logistică internațională.',
+        ]
+      },
+      salary: {
+        nl: 'Aantrekkelijk salarispakket',
+        en: 'Attractive Salary Package',
+        de: 'Attraktives Gehaltspaket',
+        ro: 'Pachet Salarial Atractiv'
+      },
     },
     {
       id: 'maintenance',
-      title: 'Maintenance Mechanic / Millwright',
-      department: 'Maintenance',
+      title: {
+        nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
+        en: 'Maintenance Mechanic / Millwright',
+        de: 'Wartungsmechaniker / Maschinenschlosser',
+        ro: 'Mecanic Întreținere'
+      },
+      department: {
+        nl: 'Onderhoud',
+        en: 'Maintenance',
+        de: 'Instandhaltung',
+        ro: 'Întreținere'
+      },
       location: 'Brad, RO',
-      type: 'Full-Time',
-      description: 'Perform mechanical preventive maintenance and emergency troubleshooting on our automated kiln systems, sawmill blades, dust extraction blowers, and profiling machinery.',
-      requirements: [
-        'Professional qualification as a mechanical technician, fitter, or millwright.',
-        'Experience repairing bearings, gearboxes, belts, and hydraulic cylinders.',
-        'Ability to read technical layouts and troubleshoot machine breakdowns.',
-      ],
-      salary: 'Top-Tier Salary + Overtime',
+      type: {
+        nl: 'Fulltime',
+        en: 'Full-Time',
+        de: 'Vollzeit',
+        ro: 'Normă Întreagă'
+      },
+      description: {
+        nl: 'Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.',
+        en: 'Perform mechanical preventive maintenance and emergency troubleshooting on our automated kiln systems, sawmill blades, dust extraction blowers, and profiling machinery.',
+        de: 'Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.',
+        ro: 'Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat.'
+      },
+      requirements: {
+        nl: [
+          'Professionele kwalificatie als werktuigbouwkundige of onderhoudsmonteur.',
+          'Ervaring met het repareren van lagers, tandwielkasten, riemen en hydraulische cilinders.',
+          'Vermogen om technische lay-outs te lezen en machinestoringen snel op te lossen.',
+        ],
+        en: [
+          'Professional qualification as a mechanical technician, fitter, or millwright.',
+          'Experience repairing bearings, gearboxes, belts, and hydraulic cylinders.',
+          'Ability to read technical layouts and troubleshoot machine breakdowns.',
+        ],
+        de: [
+          'Berufsqualifikation als Maschinenschlosser, Industriemechaniker oder Instandhaltungsmechaniker.',
+          'Erfahrung bei der Reparatur von Lagern, Getrieben, Riemen und Hydraulikzylindern.',
+          'Fähigkeit, technische Layouts zu lesen und Maschinenstörungen zu beheben.',
+        ],
+        ro: [
+          'Calificare profesională de tehnician mecanic, montator sau lăcătuș mecanic.',
+          'Experiență în repararea rulmenților, cutiilor de viteze, curelelor și cilindrilor hidraulici.',
+          'Capacitatea de a citi scheme tehnice și de a depana defecțiunile utilajelor.',
+        ]
+      },
+      salary: {
+        nl: 'Top-salaris + Overuren',
+        en: 'Top-Tier Salary + Overtime',
+        de: 'Spitzengehalt + Überstunden',
+        ro: 'Salariu de Top + Ore Suplimentare'
+      },
     },
   ];
+
+  const t = {
+    breadcrumb: {
+      nl: 'Home / Vacatures',
+      en: 'Home / Careers',
+      de: 'Home / Karriere',
+      ro: 'Home / Cariere'
+    },
+    title: {
+      nl: 'Werken bij PALROM',
+      en: 'Careers at PALROM',
+      de: 'Karriere bei PALROM',
+      ro: 'Cariere la PALROM'
+    },
+    subtitle: {
+      nl: 'Bouw aan uw toekomst bij een stabiele, duurzame marktleider in loofhout en beukenhoutproductie in Brad, Roemenië.',
+      en: 'Shape your future with a stable, sustainable leader in hardwood lumber and beechwood manufacturing in Brad, Romania.',
+      de: 'Gestalten Sie Ihre Zukunft bei einem stabilen, nachhaltigen Marktführer in der Laubholz- und Buchenholzverarbeitung in Brad, Rumänien.',
+      ro: 'Modelati-vă viitorul alături de un lider stabil și durabil în producția de cherestea și produse din lemn de fag în Brad, România.'
+    },
+    badgeWork: {
+      nl: 'Werk Met Ons',
+      en: 'Work With Us',
+      de: 'Arbeiten Sie mit uns',
+      ro: 'Lucrează cu Noi'
+    },
+    whyJoinTitle: {
+      nl: 'Waarom Kiezen voor het PALROM Team?',
+      en: 'Why Join the PALROM Team?',
+      de: 'Warum Teil des PALROM-Teams werden?',
+      ro: 'De ce să te Alături Echipei PALROM?'
+    },
+    whyJoinLead: {
+      nl: 'Al meer dan 25 jaar is Palrom Products SRL een hoeksteen van stabiliteit in de productie-industrie in het district Hunedoara. We bieden meer dan alleen een baan – we bouwen aan levenslange carrières in de houtbewerking en industrie.',
+      en: 'For over 25 years, Palrom Products SRL has been a cornerstone of manufacturing stability in Hunedoara County. We offer more than just a job – we build lifelong carpentry and industrial professions.',
+      de: 'Seit über 25 Jahren ist Palrom Products SRL ein Eckpfeiler der Fertigungsstabilität im Kreis Hunedoara. Wir bieten mehr als nur einen Job – wir bauen lebenslange Tischler- und Industrieberufe auf.',
+      ro: 'De peste 25 de ani, Palrom Products SRL este o piatră de temelie a stabilității manufacturiere în județul Hunedoara. Oferim mai mult decât un simplu loc de muncă - construim cariere pe viață în tâmplărie și industrie.'
+    },
+    whyJoinDesc: {
+      nl: 'In onze zagerij en schaverij in Brad combineren we traditioneel houtvakmanschap met moderne automatisering. We werken onder strikte ecologische FSC®-principes, met respect voor de bossen om ons heen en de veiligheid van onze werknemers.',
+      en: 'At our sawmill and planing shop in Brad, we combine traditional wood craftsmanship with modern automation. We operate under strict FSC® ecological principles, respecting the forests around us and the safety of our operators.',
+      de: 'In unserem Sägewerk und Hobelwerk in Brad verbinden wir traditionelles Holzhandwerk mit moderner Automatisierung. Wir arbeiten nach strengen ökologischen FSC®-Richtlinien und achten auf die Wälder um uns herum sowie die Sicherheit unserer Mitarbeiter.',
+      ro: 'În gaterul și atelierul nostru de rindeluire din Brad, combinăm meșteșugul tradițional al lemnului cu automatizarea modernă. Operăm conform principiilor ecologice stricte FSC®, respectând pădurile din jur și siguranța operatorilor noștri.'
+    },
+    benefitSalaryTitle: {
+      nl: 'Concurrerend Salaris',
+      en: 'Competitive Salary',
+      de: 'Wettbewerbsfähiges Gehalt',
+      ro: 'Salariu Competitiv'
+    },
+    benefitSalaryDesc: {
+      nl: 'Eerlijke beloning die uw ervaring weerspiegelt, plus bonussen voor efficiëntie en veiligheid.',
+      en: 'Fair compensation reflecting your experience, plus bonuses for efficiency and safety.',
+      de: 'Faire Vergütung entsprechend Ihrer Erfahrung, zzgl. Leistungs- und Sicherheitsprämien.',
+      ro: 'Compensație echitabilă care reflectă experiența dvs., plus bonusuri pentru eficiență și siguranță.'
+    },
+    benefitSafetyTitle: {
+      nl: 'Veilige Werkomgeving',
+      en: 'Safe Work Environment',
+      de: 'Sichere Arbeitsumgebung',
+      ro: 'Mediu de Lucru Sigur'
+    },
+    benefitSafetyDesc: {
+      nl: 'Hoogwaardige machinebeveiliging, schone werkplaatsen en gecertificeerde beschermingsmiddelen.',
+      en: 'Top-tier machinery safeguards, clean workshops, and certified protective equipment.',
+      de: 'Erstklassige Maschinenschutzvorrichtungen, saubere Werkstätten und zertifizierte Schutzausrüstung.',
+      ro: 'Măsuri de siguranță de top pentru utilaje, ateliere curate și echipament de protecție certificat.'
+    },
+    benefitBusTitle: {
+      nl: 'Reiskostenondersteuning',
+      en: 'Transport Support',
+      de: 'Transport-Unterstützung',
+      ro: 'Suport Transport'
+    },
+    benefitBusDesc: {
+      nl: 'Dagelijkse reiskostenvergoedingen of georganiseerde shuttles voor werknemers uit omliggende gebieden.',
+      en: 'Daily transportation allowances or organized shuttle options for employees from surrounding areas.',
+      de: 'Tägliche Fahrtkostenzuschüsse oder organisierter Shuttle-Service für Mitarbeiter aus umliegenden Orten.',
+      ro: 'Alocații zilnice de transport sau opțiuni organizate de transport tip navetă pentru angajații din zonele limitrofe.'
+    },
+    benefitTrainTitle: {
+      nl: 'Professionele Opleiding',
+      en: 'Professional Training',
+      de: 'Berufliche Ausbildung',
+      ro: 'Instruire Profesională'
+    },
+    benefitTrainDesc: {
+      nl: 'Leer machinekalibratie, zagerijbediening en houtsortering van experts uit de houtindustrie.',
+      en: 'Learn machine calibration, sawmill operation, and timber grading from industry experts.',
+      de: 'Lernen Sie Maschinenkalibrierung, Sägewerksbetrieb und Holzsortierung von Branchenexperten.',
+      ro: 'Învățați calibrarea utilajelor, operarea gaterului și sortarea lemnului de la experți din industrie.'
+    },
+    activeOpeningsBadge: {
+      nl: 'Actieve Vacatures',
+      en: 'Active Openings',
+      de: 'Offene Stellen',
+      ro: 'Posturi Vacante'
+    },
+    activeOpeningsTitle: {
+      nl: 'Open Vacatures in onze Fabriek in Brad',
+      en: 'Open Positions at Brad Factory',
+      de: 'Offene Stellen im Werk Brad',
+      ro: 'Posturi Vacante la Fabrica din Brad'
+    },
+    activeOpeningsSub: {
+      nl: 'We zoeken gemotiveerde professionals voor onze productie-, kwaliteits- en verzendafdelingen. Solliciteer direct hieronder.',
+      en: 'We are looking for dedicated professionals to join our production, quality, and shipping departments. Apply directly below.',
+      de: 'Wir suchen engagierte Fachkräfte für unsere Produktions-, Qualitäts- und Versandabteilungen. Bewerben Sie sich direkt unten.',
+      ro: 'Căutăm profesioniști dedicați care să se alăture departamentelor noastre de producție, calitate și expediere. Aplicați direct mai jos.'
+    },
+    reqHeader: {
+      nl: 'Belangrijkste Eisen',
+      en: 'Key Requirements',
+      de: 'Wichtigste Anforderungen',
+      ro: 'Cerințe Cheie'
+    },
+    applyBtn: {
+      nl: 'Solliciteer Nu',
+      en: 'Apply Now',
+      de: 'Jetzt bewerben',
+      ro: 'Aplică Acum'
+    }
+  };
+
+  const getTranslation = (key) => {
+    return t[key]?.[lang] || t[key]?.nl || '';
+  };
 
   return (
     <>
@@ -70,16 +368,14 @@ export default function Careers() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">Home</Link> / <span>Careers</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <span>{getTranslation('breadcrumb')}</span>
           </div>
-          <h1 style={{ marginTop: '1.5rem' }}>Careers at PALROM</h1>
-          <p>
-            Shape your future with a stable, sustainable leader in hardwood lumber and beechwood manufacturing in Brad, Romania.
-          </p>
+          <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
+          <p>{getTranslation('subtitle')}</p>
         </div>
 
         {/* Hiring Stamp on Hero */}
-        <a href="#positions" className="hiring-stamp-hero" title="View our open positions!">
+        <a href="#positions" className="hiring-stamp-hero" title={lang === 'nl' ? 'Bekijk onze openstaande posities!' : 'View our open positions!'}>
           <img src="/images/hiring_stamp.png" alt="We are Hiring Stamp" />
         </a>
       </section>
@@ -89,14 +385,10 @@ export default function Careers() {
         <div className="container">
           <div className="careers-info-grid">
             <div className="animate-on-scroll">
-              <span className="section-badge badge-accent">Work With Us</span>
-              <h2 className="section-title text-white">Why Join the PALROM Team?</h2>
-              <p className="lead">
-                For over 25 years, Palrom Products SRL has been a cornerstone of manufacturing stability in Hunedoara County. We offer more than just a job – we build lifelong carpentry and industrial professions.
-              </p>
-              <p>
-                At our sawmill and planing shop in Brad, we combine traditional wood craftsmanship with modern automation. We operate under strict FSC® ecological principles, respecting the forests around us and the safety of our operators.
-              </p>
+              <span className="section-badge badge-accent">{getTranslation('badgeWork')}</span>
+              <h2 className="section-title text-white">{getTranslation('whyJoinTitle')}</h2>
+              <p className="lead">{getTranslation('whyJoinLead')}</p>
+              <p>{getTranslation('whyJoinDesc')}</p>
             </div>
             <div className="animate-on-scroll">
               <div className="careers-benefits-list">
@@ -105,10 +397,8 @@ export default function Careers() {
                     <i className="fa-solid fa-wallet"></i>
                   </div>
                   <div className="benefit-text">
-                    <h4>Competitive Salary</h4>
-                    <p>
-                      Fair compensation reflecting your experience, plus bonuses for efficiency and safety.
-                    </p>
+                    <h4>{getTranslation('benefitSalaryTitle')}</h4>
+                    <p>{getTranslation('benefitSalaryDesc')}</p>
                   </div>
                 </div>
                 <div className="benefit-item">
@@ -116,10 +406,8 @@ export default function Careers() {
                     <i className="fa-solid fa-shield-halved"></i>
                   </div>
                   <div className="benefit-text">
-                    <h4>Safe Work Environment</h4>
-                    <p>
-                      Top-tier machinery safeguards, clean workshops, and certified protective equipment.
-                    </p>
+                    <h4>{getTranslation('benefitSafetyTitle')}</h4>
+                    <p>{getTranslation('benefitSafetyDesc')}</p>
                   </div>
                 </div>
                 <div className="benefit-item">
@@ -127,10 +415,8 @@ export default function Careers() {
                     <i className="fa-solid fa-bus"></i>
                   </div>
                   <div className="benefit-text">
-                    <h4>Transport Support</h4>
-                    <p>
-                      Daily transportation allowances or organized shuttle options for employees from surrounding areas.
-                    </p>
+                    <h4>{getTranslation('benefitBusTitle')}</h4>
+                    <p>{getTranslation('benefitBusDesc')}</p>
                   </div>
                 </div>
                 <div className="benefit-item">
@@ -138,10 +424,8 @@ export default function Careers() {
                     <i className="fa-solid fa-graduation-cap"></i>
                   </div>
                   <div className="benefit-text">
-                    <h4>Professional Training</h4>
-                    <p>
-                      Learn machine calibration, sawmill operation, and timber grading from industry experts.
-                    </p>
+                    <h4>{getTranslation('benefitTrainTitle')}</h4>
+                    <p>{getTranslation('benefitTrainDesc')}</p>
                   </div>
                 </div>
               </div>
@@ -154,11 +438,9 @@ export default function Careers() {
       <section id="positions" className="jobs-section section-padding">
         <div className="container">
           <div className="text-center max-w-xl mx-auto mb-5 animate-on-scroll">
-            <span className="section-badge">Active Openings</span>
-            <h2 className="section-title">Open Positions at Brad Factory</h2>
-            <p className="section-subtitle">
-              We are looking for dedicated professionals to join our production, quality, and shipping departments. Apply directly below.
-            </p>
+            <span className="section-badge">{getTranslation('activeOpeningsBadge')}</span>
+            <h2 className="section-title">{getTranslation('activeOpeningsTitle')}</h2>
+            <p className="section-subtitle">{getTranslation('activeOpeningsSub')}</p>
           </div>
 
           <div className="jobs-grid">
@@ -166,27 +448,27 @@ export default function Careers() {
               <div className="job-card animate-on-scroll" key={job.id}>
                 <div className="job-header">
                   <div className="job-title-area">
-                    <h3>{job.title}</h3>
+                    <h3>{job.title[lang] || job.title.nl}</h3>
                     <div className="job-tags">
-                      <span className="job-tag tag-dept">{job.department}</span>
+                      <span className="job-tag tag-dept">{job.department[lang] || job.department.nl}</span>
                       <span className="job-tag tag-loc">{job.location}</span>
-                      <span className="job-tag tag-type">{job.type}</span>
+                      <span className="job-tag tag-type">{job.type[lang] || job.type.nl}</span>
                     </div>
                   </div>
                 </div>
-                <p className="job-description">{job.description}</p>
+                <p className="job-description">{job.description[lang] || job.description.nl}</p>
                 <div className="job-requirements">
-                  <h4>Key Requirements</h4>
+                  <h4>{getTranslation('reqHeader')}</h4>
                   <ul>
-                    {job.requirements.map((req, idx) => (
+                    {(job.requirements[lang] || job.requirements.nl).map((req, idx) => (
                       <li key={idx}>{req}</li>
                     ))}
                   </ul>
                 </div>
                 <div className="job-footer">
-                  <span className="job-salary">{job.salary}</span>
+                  <span className="job-salary">{job.salary[lang] || job.salary.nl}</span>
                   <Link href={`/apply?job=${job.id}`} className="btn btn-dark btn-sm">
-                    Apply Now
+                    {getTranslation('applyBtn')}
                   </Link>
                 </div>
               </div>
