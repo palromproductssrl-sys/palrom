@@ -3743,6 +3743,10 @@ ul {
     margin-bottom: 3rem;
 }
 
+#controlGroupCategory {
+    grid-column: span 2;
+}
+
 .control-group {
     display: flex;
     flex-direction: column;
@@ -4033,6 +4037,10 @@ ul {
 }
 
 /* Planed Subcategory Grid & Cards */
+#controlGroupSubCategoryPlaned {
+    grid-column: span 2;
+}
+
 .planed-subcat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

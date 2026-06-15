@@ -686,7 +686,7 @@ export default function Configurator() {
 
               {/* Wizard fields */}
               <div className="dashboard-controls-grid">
-                <div className="control-group">
+                <div className="control-group" id="controlGroupCategory">
                   <label htmlFor="dbCategory">{getTranslation('categoryLabel')}</label>
                   <select
                     id="dbCategory"
