@@ -135,30 +135,16 @@ export async function POST(request) {
 
     let emailSent = false;
     if (resendApiKey) {
-      // 1. Send internal notification email to sales office
+      // 1. Send internal notification email to sales office (always in Romanian)
       try {
         const itemsHtml = items.map(item => {
           const specsList = Object.entries(item).map(([k, v]) => {
             if (['id', 'isConfigured', 'name', 'category', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
             if (v === undefined || v === null || v === '') return null;
-            let label = k;
-            let val = v;
-            if (k === 'dims') label = 'Afmetingen';
-            else if (k === 'grade') {
-              label = 'Kwaliteit';
-              if (v === 'A') val = 'Klasse A (Foutvrij)';
-              else if (v === 'B') val = 'Klasse B (Meubelhout)';
-              else if (v === 'C') val = 'Klasse C (Constructief)';
-            }
-            else if (k === 'fsc') {
-              label = 'Certificering';
-              val = v ? 'FSC® 100%' : 'Geen FSC';
-            }
-            else if (k === 'drying') {
-              label = 'Droging';
-              val = v === 'luchtdroog' ? 'Luchtdroog' : 'Kamerdroog (KD 10-12%)';
-            }
-            else if (k === 'additionalInfo') label = 'Notities';
+            
+            // Render specifications in Romanian for sales office
+            const label = localizeSpecKey(k, 'ro');
+            const val = localizeSpecValue(k, v, 'ro');
             
             return `<strong>${label}</strong>: ${val}`;
           }).filter(Boolean).join(', ');
@@ -183,27 +169,27 @@ export async function POST(request) {
             <!-- Top brand bar -->
             <div style="margin-bottom: 32px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
               <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1e3a2b;">PALROM PRODUCTS</span>
-              <h2 style="margin: 6px 0 0; font-size: 1.5rem; font-weight: 600; color: #1a202c;">B2B Offerteaanvraag</h2>
+              <h2 style="margin: 6px 0 0; font-size: 1.5rem; font-weight: 600; color: #1a202c;">Cerere de ofertă B2B</h2>
             </div>
 
             <div style="margin-bottom: 32px;">
-              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Klantgegevens</h3>
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Date client</h3>
               <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 140px;">Naam</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 140px;">Nume</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${clientName}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">E-mailadres</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">E-mail</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc;"><a href="mailto:${clientEmail}" style="color: #1e3a2b; text-decoration: none; border-bottom: 1px dotted #1e3a2b;">${clientEmail}</a></td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Telefoonnummer</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Telefon</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${clientPhone}</td>
                 </tr>
                 ${clientNotes ? `
                 <tr>
-                  <td style="padding: 8px 0; vertical-align: top; color: #4a5568; font-weight: 500;">Opmerkingen</td>
+                  <td style="padding: 8px 0; vertical-align: top; color: #4a5568; font-weight: 500;">Observații</td>
                   <td style="padding: 8px 0; color: #2d3748; white-space: pre-line;">${clientNotes}</td>
                 </tr>
                 ` : ''}
@@ -211,12 +197,12 @@ export async function POST(request) {
             </div>
 
             <div style="margin-bottom: 40px;">
-              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Aangevraagde materialen</h3>
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Materiale solicitate</h3>
               <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
                 <thead>
                   <tr style="border-bottom: 2px solid #edf2f7;">
-                    <th style="padding: 12px 0; text-align: left; font-weight: 600; color: #4a5568;">Productomschrijving</th>
-                    <th style="padding: 12px 0; text-align: right; font-weight: 600; color: #4a5568; width: 80px;">Aantal</th>
+                    <th style="padding: 12px 0; text-align: left; font-weight: 600; color: #4a5568;">Descrierea produsului</th>
+                    <th style="padding: 12px 0; text-align: right; font-weight: 600; color: #4a5568; width: 80px;">Cantitate</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -226,7 +212,7 @@ export async function POST(request) {
             </div>
 
             <div style="border-top: 1px solid #edf2f7; padding-top: 24px; text-align: center; font-size: 0.8rem; color: #a0aec0;">
-              <p style="margin: 0 0 4px;">Dit is een geautomatiseerd bericht van de B2B Offerte Configurator.</p>
+              <p style="margin: 0 0 4px;">Acesta este un mesaj automat de la Configuratorul de oferte B2B.</p>
               <p style="margin: 0;">PALROM Products SRL • 8 Poienita St, Brad City, Hunedoara, Romania</p>
             </div>
           </div>
@@ -241,7 +227,7 @@ export async function POST(request) {
           body: JSON.stringify({
             from: emailFrom,
             to: emailTo,
-            subject: `Nieuwe B2B Offerteaanvraag van ${clientName}`,
+            subject: `Cerere nouă de ofertă B2B de la ${clientName}`,
             html: htmlContent
           })
         });
@@ -250,7 +236,7 @@ export async function POST(request) {
           const errText = await resendRes.text();
           console.error('Resend API error response (internal email):', errText);
         } else {
-          console.log('Email sent successfully via Resend');
+          console.log('Internal sales notification email sent successfully via Resend');
           emailSent = true;
         }
       } catch (err) {
@@ -259,7 +245,7 @@ export async function POST(request) {
 
       // 2. Send client confirmation email to clientEmail
       try {
-        const emailLang = 'ro'; // Always send in Romanian
+        const emailLang = lang; // Revert to dynamic language chosen by customer
         const clientSubject = {
           nl: 'Ontvangstbevestiging offerteaanvraag - Palrom Products',
           en: 'Inquiry confirmation - Palrom Products',

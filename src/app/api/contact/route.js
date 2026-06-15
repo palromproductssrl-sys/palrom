@@ -58,68 +58,68 @@ export async function POST(request) {
 
     let emailSent = false;
     if (resendApiKey) {
-      // 1. Send internal notification email to sales office
+      // 1. Send internal notification email to sales office (always in Romanian)
       try {
-        const productInterestLabels = {
-          dowels: 'Beukenhouten stokken',
-          planed: 'Beukenhouten latten',
-          profiles: 'Beukenhouten profielen',
-          specials: 'Beukenhouten bestekken',
-          general: 'Algemene Houtinkoop Aanvraag',
-          careers: 'Sollicitatie / Werken bij',
+        const productInterestLabelsInternal = {
+          dowels: 'Tije din lemn de fag',
+          planed: 'Șipci rindeluite din lemn de fag',
+          profiles: 'Profile din lemn de fag',
+          specials: 'Piese brute din lemn de fag',
+          general: 'Cerere Generală de Aprovizionare',
+          careers: 'Cariere / Solicitare Job',
         };
-        const interestLabel = productInterestLabels[productType] || productType;
+        const interestLabel = productInterestLabelsInternal[productType] || productType;
 
         const htmlContent = `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1a202c; line-height: 1.6;">
             <!-- Top brand bar -->
             <div style="margin-bottom: 32px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
               <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1e3a2b;">PALROM PRODUCTS</span>
-              <h2 style="margin: 6px 0 0; font-size: 1.5rem; font-weight: 600; color: #1a202c;">Nieuw Contactbericht</h2>
+              <h2 style="margin: 6px 0 0; font-size: 1.5rem; font-weight: 600; color: #1a202c;">Mesaj nou de contact</h2>
             </div>
 
             <div style="margin-bottom: 32px;">
               <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 140px;">Naam</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 140px;">Nume</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${name}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">E-mailadresse</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">E-mail</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc;"><a href="mailto:${email}" style="color: #1e3a2b; text-decoration: none; border-bottom: 1px dotted #1e3a2b;">${email}</a></td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Telefoonnummer</td>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${phone || 'Niet ingevuld'}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Telefon</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${phone || 'Nespecificat'}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Bedrijf</td>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${company || 'Niet ingevuld'}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Companie</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${company || 'Nespecificată'}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Interesse</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500;">Interes</td>
                   <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${interestLabel}</td>
                 </tr>
               </table>
             </div>
 
             <div style="margin-bottom: 40px;">
-              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 12px; margin-top: 0;">Bericht</h3>
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 12px; margin-top: 0;">Mesaj</h3>
               <div style="background-color: #f7fafc; padding: 24px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; color: #2d3748; white-space: pre-line; border: 1px solid #edf2f7;">
                 ${message}
               </div>
             </div>
 
             <div style="border-top: 1px solid #edf2f7; padding-top: 24px; text-align: center; font-size: 0.8rem; color: #a0aec0;">
-              <p style="margin: 0 0 4px;">Dit bericht is verzonden via het contactformulier op de Palrom Products website.</p>
+              <p style="margin: 0 0 4px;">Acest mesaj a fost trimis prin intermediul formularului de contact de pe site-ul Palrom Products.</p>
               <p style="margin: 0;">PALROM Products SRL • 8 Poienita St, Brad City, Hunedoara, Romania</p>
             </div>
           </div>
         `;
 
         const subjectLine = productType === 'careers'
-          ? `[Sollicitatie] Nieuwe inzending van ${name}`
-          : `[Contact] Bericht van ${name} (${interestLabel})`;
+          ? `[Candidatură] Mesaj nou de la ${name}`
+          : `[Contact] Mesaj de la ${name} (${interestLabel})`;
 
         const resendRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
@@ -146,7 +146,7 @@ export async function POST(request) {
         console.error('Failed to send internal email via Resend:', err);
       }      // 2. Send client confirmation email to customer
       try {
-        const emailLang = 'ro'; // Always send in Romanian
+        const emailLang = lang; // Revert to dynamic language chosen by customer
         const clientSubject = {
           nl: 'Ontvangstbevestiging contactformulier - Palrom Products',
           en: 'Contact form receipt - Palrom Products',
