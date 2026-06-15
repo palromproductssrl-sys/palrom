@@ -40,7 +40,7 @@ export default function Home() {
         { label: lang === 'nl' ? 'Afwerking' : (lang === 'de' ? 'Ausführung' : (lang === 'ro' ? 'Finisaj' : 'Finish')), value: lang === 'nl' ? 'Glad / Gegroefd (6mm tot 20mm)' : (lang === 'de' ? 'Glatt / Geriffelt (6mm bis 20mm)' : (lang === 'ro' ? 'Neted / Canelat (6mm până la 20mm)' : 'Smooth / Grooved (6mm to 20mm)')) },
         { label: lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Tip Lemn' : 'Wood Type')), value: lang === 'nl' ? 'Gestoomd of ongestoomd beuken' : (lang === 'de' ? 'Gedämpfte oder ungedämpfte Buche' : (lang === 'ro' ? 'Fag aburit sau neaburit' : 'Steamed or unsteamed beech')) },
       ],
-      tag: lang === 'nl' ? 'Deuvels' : (lang === 'de' ? 'Dübel' : (lang === 'ro' ? 'Dibluri' : 'Dowels')),
+      tag: lang === 'nl' ? 'Stokken' : (lang === 'de' ? 'Stäbe' : (lang === 'ro' ? 'Tije' : 'Sticks')),
     },
     {
       id: 'profiles',
@@ -456,16 +456,16 @@ export default function Home() {
               {getTranslation('filterAll')}
             </button>
             <button
-              className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('dowels')}
-            >
-              {getTranslation('filterDowels')}
-            </button>
-            <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}
               onClick={() => setActiveFilter('planed')}
             >
               {getTranslation('filterPlaned')}
+            </button>
+            <button
+              className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
+              onClick={() => setActiveFilter('dowels')}
+            >
+              {getTranslation('filterDowels')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'profiles' ? 'active' : ''}`}

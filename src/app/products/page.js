@@ -80,10 +80,10 @@ export default function Products() {
         },
       ],
       tag: {
-        nl: 'Deuvels',
-        en: 'Dowels',
-        de: 'Dübel',
-        ro: 'Dibluri'
+        nl: 'Stokken',
+        en: 'Sticks',
+        de: 'Stäbe',
+        ro: 'Tije'
       },
     },
     {
@@ -264,16 +264,16 @@ export default function Products() {
               {getTranslation('filterAll')}
             </button>
             <button
-              className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('dowels')}
-            >
-              {getTranslation('filterDowels')}
-            </button>
-            <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}
               onClick={() => setActiveFilter('planed')}
             >
               {getTranslation('filterPlaned')}
+            </button>
+            <button
+              className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
+              onClick={() => setActiveFilter('dowels')}
+            >
+              {getTranslation('filterDowels')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'profiles' ? 'active' : ''}`}
