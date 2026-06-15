@@ -834,6 +834,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const controlGroupThickness = document.getElementById('controlGroupThickness');
         const subCategorySpecialsRadios = document.getElementsByName('subCategorySpecials');
         const controlGroupSubCategorySpecials = document.getElementById('controlGroupSubCategorySpecials');
+        const dbSubCategoryProfiles = document.getElementById('dbSubCategoryProfiles');
+        const controlGroupSubCategoryProfiles = document.getElementById('controlGroupSubCategoryProfiles');
         
         const summaryProduct = document.getElementById('summaryProduct');
         const summaryDimensions = document.getElementById('summaryDimensions');
@@ -1000,6 +1002,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 summaryProduct.textContent = `${data.name} - ${subCatText}`;
                 specialsSubcat = subCatText;
+            } else if (cat === 'profiles' && dbSubCategoryProfiles) {
+                const subCatText = dbSubCategoryProfiles.value;
+                summaryProduct.textContent = `${data.name} - ${subCatText}`;
+                specialsSubcat = subCatText;
             } else {
                 summaryProduct.textContent = data.name;
             }
@@ -1072,6 +1078,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 controlGroupSubCategorySpecials.classList.add('hidden');
             }
             
+            // Toggle Profiles Subcategory Dropdown
+            if (cat === 'profiles' && controlGroupSubCategoryProfiles) {
+                controlGroupSubCategoryProfiles.classList.remove('hidden');
+            } else if (controlGroupSubCategoryProfiles) {
+                controlGroupSubCategoryProfiles.classList.add('hidden');
+            }
+            
             updateSummary();
         }
 
@@ -1080,6 +1093,9 @@ document.addEventListener('DOMContentLoaded', () => {
             subCategorySpecialsRadios.forEach(radio => {
                 radio.addEventListener('change', updateSummary);
             });
+        }
+        if (dbSubCategoryProfiles) {
+            dbSubCategoryProfiles.addEventListener('change', updateSummary);
         }
         dbOplage.addEventListener('change', updateSummary);
         
@@ -1105,6 +1121,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 finalName = `${data.name} - ${subCatText}`;
+            } else if (cat === 'profiles' && dbSubCategoryProfiles) {
+                finalName = `${data.name} - ${dbSubCategoryProfiles.value}`;
             }
             
             let dimensions = '';
