@@ -280,7 +280,7 @@ export default function About() {
                       color: 'var(--color-primary)',
                       fontWeight: 600,
                       fontSize: '0.9rem',
-                      marginTop: '0.25rem',
+                      marginTop: '1.25rem',
                       textDecoration: 'underline'
                     }}
                   >
