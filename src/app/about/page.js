@@ -269,6 +269,30 @@ export default function About() {
                 <div className="about-floating-card">
                   <i className="fa-solid fa-leaf text-accent"></i>
                   <p>{getTranslation('floatingCard')}</p>
+                  <a
+                    href="/palrom_fsc_certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      color: 'var(--color-primary)',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginTop: '0.25rem',
+                      textDecoration: 'underline'
+                    }}
+                  >
+                    <i className="fa-solid fa-file-pdf"></i>{' '}
+                    {lang === 'nl'
+                      ? 'Bekijk FSC® Certificaat'
+                      : (lang === 'de'
+                        ? 'FSC®-Zertifikat ansehen'
+                        : (lang === 'ro'
+                          ? 'Vezi Certificatul FSC®'
+                          : 'View FSC® Certificate'))}
+                  </a>
                 </div>
               </div>
             </div>
@@ -370,6 +394,24 @@ export default function About() {
                   <span className="timeline-year">{evt.year}</span>
                   <h3>{evt.title[lang] || evt.title.nl}</h3>
                   <p>{evt.description[lang] || evt.description.nl}</p>
+                  {evt.year === '2010' && (
+                    <a
+                      href="/palrom_fsc_certificate.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-dark btn-sm"
+                      style={{ marginTop: '1rem', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
+                    >
+                      <i className="fa-solid fa-file-pdf icon-left"></i>{' '}
+                      {lang === 'nl'
+                        ? 'Download FSC® Certificaat (PDF)'
+                        : (lang === 'de'
+                          ? 'FSC®-Zertifikat herunterladen (PDF)'
+                          : (lang === 'ro'
+                            ? 'Descarcă Certificatul FSC® (PDF)'
+                            : 'Download FSC® Certificate (PDF)'))}
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

@@ -108,6 +108,16 @@ export default function Footer() {
         <div className="container footer-bottom-flex">
           <p>{getTranslation('copyright')}</p>
           <div className="footer-meta-links">
+            <a href="/palrom_fsc_certificate.pdf" target="_blank" rel="noopener noreferrer">
+              {lang === 'nl'
+                ? 'FSC® Certificaat (PDF)'
+                : (lang === 'de'
+                  ? 'FSC®-Zertifikat (PDF)'
+                  : (lang === 'ro'
+                    ? 'Certificat FSC® (PDF)'
+                    : 'FSC® Certificate (PDF)'))}
+            </a>
+            <span className="divider">|</span>
             <a href="#" onClick={handleCookieClick}>
               {getTranslation('cookiePolicy')}
             </a>
