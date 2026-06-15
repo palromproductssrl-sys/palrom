@@ -466,64 +466,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Interactive History Timeline Section */}
-      <section id="timeline-details" className="timeline-section section-padding">
-        <div className="container">
-          <div className="text-center max-w-xl mx-auto mb-5 animate-on-scroll">
-            <span className="section-badge">{getTranslation('journeyBadge')}</span>
-            <h2 className="section-title">{getTranslation('journeyTitle')}</h2>
-            <p className="section-subtitle">{getTranslation('journeyDesc')}</p>
-          </div>
-
-          <div className="timeline-container">
-            <div className="timeline-line"></div>
-
-            {timelineEvents.map((evt, i) => (
-              <div key={i} className={`timeline-item animate-on-scroll ${evt.align}`}>
-                <div className="timeline-dot"></div>
-                <div className="timeline-content-card">
-                  {evt.year === '2010' && (
-                    <div className="fsc-timeline-logo-wrapper" style={{ marginBottom: '1.25rem' }}>
-                      <img
-                        src="/images/fsc_logo.png"
-                        alt="FSC Logo"
-                        style={{
-                          height: '75px',
-                          width: 'auto',
-                          objectFit: 'contain',
-                          display: 'block'
-                        }}
-                      />
-                    </div>
-                  )}
-                  <span className="timeline-year">{evt.year}</span>
-                  <h3>{evt.title[lang] || evt.title.nl}</h3>
-                  <p>{evt.description[lang] || evt.description.nl}</p>
-                  {evt.year === '2010' && (
-                    <a
-                      href="/palrom_fsc_certificate.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-dark btn-sm"
-                      style={{ marginTop: '1rem', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
-                    >
-                      <i className="fa-solid fa-file-pdf icon-left"></i>{' '}
-                      {lang === 'nl'
-                        ? 'Download FSC® Certificaat (PDF)'
-                        : (lang === 'de'
-                          ? 'FSC®-Zertifikat herunterladen (PDF)'
-                          : (lang === 'ro'
-                            ? 'Descarcă Certificatul FSC® (PDF)'
-                            : 'Download FSC® Certificate (PDF)'))}
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Photo Gallery Section */}
       <section id="gallery-details" className="gallery-section section-padding bg-white">
         <div className="container">
@@ -639,6 +581,64 @@ export default function About() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive History Timeline Section */}
+      <section id="timeline-details" className="timeline-section section-padding">
+        <div className="container">
+          <div className="text-center max-w-xl mx-auto mb-5 animate-on-scroll">
+            <span className="section-badge">{getTranslation('journeyBadge')}</span>
+            <h2 className="section-title">{getTranslation('journeyTitle')}</h2>
+            <p className="section-subtitle">{getTranslation('journeyDesc')}</p>
+          </div>
+
+          <div className="timeline-container">
+            <div className="timeline-line"></div>
+
+            {timelineEvents.map((evt, i) => (
+              <div key={i} className={`timeline-item animate-on-scroll ${evt.align}`}>
+                <div className="timeline-dot"></div>
+                <div className="timeline-content-card">
+                  {evt.year === '2010' && (
+                    <div className="fsc-timeline-logo-wrapper" style={{ marginBottom: '1.25rem' }}>
+                      <img
+                        src="/images/fsc_logo.png"
+                        alt="FSC Logo"
+                        style={{
+                          height: '75px',
+                          width: 'auto',
+                          objectFit: 'contain',
+                          display: 'block'
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="timeline-year">{evt.year}</span>
+                  <h3>{evt.title[lang] || evt.title.nl}</h3>
+                  <p>{evt.description[lang] || evt.description.nl}</p>
+                  {evt.year === '2010' && (
+                    <a
+                      href="/palrom_fsc_certificate.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-dark btn-sm"
+                      style={{ marginTop: '1rem', padding: '0.5rem 1.25rem', fontSize: '0.85rem' }}
+                    >
+                      <i className="fa-solid fa-file-pdf icon-left"></i>{' '}
+                      {lang === 'nl'
+                        ? 'Download FSC® Certificaat (PDF)'
+                        : (lang === 'de'
+                          ? 'FSC®-Zertifikat herunterladen (PDF)'
+                          : (lang === 'ro'
+                            ? 'Descarcă Certificatul FSC® (PDF)'
+                            : 'Download FSC® Certificate (PDF)'))}
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
