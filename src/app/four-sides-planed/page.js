@@ -201,10 +201,10 @@ export default function FourSidesPlaned() {
       ro: 'Lemn de Fag Rinduit pe 4 Laturi'
     },
     subtitle: {
-      nl: 'Onze vierzijdig geschaafde houtelementen worden met extreem nauwe toleranties geproduceerd. Afkomstig uit duurzaam bosbeheer in de Karpaten, worden ze gezaagd, in de oven gedroogd tot 8-12%, op lengte gezaagd en gekalibreerd voor meubelfabrikanten en doe-het-zelf-distributeurs.',
-      en: 'Our four-sides planed wood elements are processed to extreme tolerances. Sourced from sustainable forest management in the Carpathian region, they are sawn, kiln-dried to 8-12%, cut to length, and calibrated for furniture manufacturers and DIY distributors.',
+      nl: 'Onze vierzijdig geschaafde houtelementen worden met extreem nauwe toleranties geproduceerd. Afkomstig uit duurzaam bosbeheer in de Karpaten, worden ze gezaagd, kammergedroogd tot 8-12%, op lengte gezaagd en gekalibreerd voor meubelfabrikanten en doe-het-zelf-distributeurs.',
+      en: 'Our four-sides planed wood elements are processed to extreme tolerances. Sourced from sustainable forest management in the Carpathian region, they are sawn, chamber-dried to 8-12%, cut to length, and calibrated for furniture manufacturers and DIY distributors.',
       de: 'Unsere vierseitig gehobelten Holzelemente werden mit extrem engen Toleranzen verarbeitet. Sie stammen aus nachhaltiger Forstwirtschaft in der Karpatenregion, werden gesägt, auf 8-12% kammergetrocknet, auf Länge geschnitten und für Möbelhersteller und DIY-Händler kalibriert.',
-      ro: 'Elementele noastre din lemn rinduit pe patru fețe sunt procesate la toleranțe extreme. Provenite din managementul forestier durabil din regiunea Carpaților, acestea sunt debitate, uscate în cuptor la 8-12%, tăiate la lungime și calibrate pentru producătorii de mobilă și distribuitorii DIY.'
+      ro: 'Elementele noastre din lemn rinduit pe patru fețe sunt procesate la toleranțe extreme. Provenite din managementul forestier durabil din regiunea Carpaților, acestea sunt debitate, uscate în camere de uscare la 8-12%, tăiate la lungime și calibrate pentru producătorii de mobilă și distribuitorii DIY.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',

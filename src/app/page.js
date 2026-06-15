@@ -22,7 +22,7 @@ export default function Home() {
       specs: [
         { label: lang === 'nl' ? 'Secties' : (lang === 'de' ? 'Querschnitte' : (lang === 'ro' ? 'Secțiuni' : 'Sections')), value: lang === 'nl' ? 'Vierkant & Rechthoekig' : (lang === 'de' ? 'Quadratisch & Rechteckig' : (lang === 'ro' ? 'Pătrat & Rectangular' : 'Square & Rectangular')) },
         { label: lang === 'nl' ? 'Randen' : (lang === 'de' ? 'Kanten' : (lang === 'ro' ? 'Margini' : 'Edges')), value: lang === 'nl' ? 'Scherp, Radius 3 of Radius 6' : (lang === 'de' ? 'Scharfkantig, Radius 3 oder Radius 6' : (lang === 'ro' ? 'Ascuțit, Rază 3 sau Rază 6' : 'Sharp, Radius 3 or Radius 6')) },
-        { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Oven-gedroogd tot 8-12%' : (lang === 'de' ? 'Kammergetrocknet auf 8-12%' : (lang === 'ro' ? 'Uscat în cuptor la 8-12%' : 'Kiln-dried to 8-12%')) },
+        { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd tot 8-12%' : (lang === 'de' ? 'Kammergetrocknet auf 8-12%' : (lang === 'ro' ? 'Uscat în camere de uscare la 8-12%' : 'Chamber-dried to 8-12%')) },
       ],
       tag: lang === 'nl' ? 'Geschaafd' : (lang === 'de' ? 'Gehobelt' : (lang === 'ro' ? 'Rinduit' : 'Planed')),
     },
@@ -97,10 +97,10 @@ export default function Home() {
       ro: 'Producător de Dibluri și Profile din Lemn de Fag'
     },
     heroSubtitle: {
-      nl: 'Palrom Products combineert decennia aan ervaring met een moderne zagerij en droogovens. Wij leveren hoogwaardige beukenhouten deuvels, profielen en geschaafde meubelcomponenten rechtstreeks aan de internationale meubel- en houtindustrie.',
-      en: 'Palrom Products combines decades of experience with a modern sawmill and drying kilns. We supply high-quality beechwood dowels, profiles, and planed furniture components directly to the international furniture and wood industry.',
+      nl: 'Palrom Products combineert decennia aan ervaring met een moderne zagerij en droogkamers. Wij leveren hoogwaardige beukenhouten deuvels, profielen en geschaafde meubelcomponenten rechtstreeks aan de internationale meubel- en houtindustrie.',
+      en: 'Palrom Products combines decades of experience with a modern sawmill and drying chambers. We supply high-quality beechwood dowels, profiles, and planed furniture components directly to the international furniture and wood industry.',
       de: 'Palrom Products verbindet jahrzehntelange Erfahrung mit einem modernen Sägewerk und Trockenkammern. Wir liefern hochwertige Buchenholzdübel, Profile und gehobelte Möbelkomponenten direkt an die internationale Möbel- und Holzindustrie.',
-      ro: 'Palrom Products combină decenii de experiență cu un gater modern și cuptoare de uscare. Furnizăm dibluri din lemn de fag, profile și componente de mobilier rinduite de înaltă calitate direct către industria internațională a mobilei și a lemnului.'
+      ro: 'Palrom Products combină decenii de experiență cu un gater modern și camere de uscare. Furnizăm dibluri din lemn de fag, profile și componente de mobilier rinduite de înaltă calitate direct către industria internațională a mobilei și a lemnului.'
     },
     requestQuote: {
       nl: 'Offerte Aanvragen',
@@ -145,10 +145,10 @@ export default function Home() {
       ro: 'Lemn de Fag Certificat FSC®'
     },
     introDesc1: {
-      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, moderne droogovens en een professionele schaverij. Wij leveren hoogwaardig hout en meubelcomponenten rechtstreeks vanaf de bron.',
-      en: 'Based in the forested region of Brad (Hunedoara, Romania), Palrom Products SRL operates an advanced sawmill, modern drying kilns, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.',
+      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, moderne droogkamers en een professionele schaverij. Wij leveren hoogwaardig hout en meubelcomponenten rechtstreeks vanaf de bron.',
+      en: 'Based in the forested region of Brad (Hunedoara, Romania), Palrom Products SRL operates an advanced sawmill, modern drying chambers, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.',
       de: 'Mit Sitz in der waldreichen Region Brad (Hunedoara, Rumänien) betreibt Palrom Products SRL ein fortschrittliches Sägewerk, moderne Trockenkammern und ein professionelles Hobelwerk. Wir liefern hochwertiges Schnittholz und Möbelkomponenten direkt von der Quelle.',
-      ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, cuptoare moderne de uscare și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
+      ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, camere moderne de uscare și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
     },
     introDesc2: {
       nl: 'Dankzij onze verticale integratie beheren we het gehele productieproces. We oogsten lokaal FSC®-gecertificeerd beukenhout, verwerken het met precisie, drogen het tot het optimale vochtgehalte en schaven het volgens de exacte specificaties van onze B2B-klanten in de Europese houtindustrie.',
@@ -206,9 +206,9 @@ export default function Home() {
     },
     kilnsTitle: {
       nl: 'Moderne Droogkamers',
-      en: 'Modern Drying Kilns',
+      en: 'Modern Drying Chambers',
       de: 'Moderne Trockenkammern',
-      ro: 'Cuptoare Moderne de Uscare'
+      ro: 'Camere Moderne de Uscare'
     },
     kilnsDesc: {
       nl: 'Onze droogcapaciteit garandeert een stabiel vochtgehalte van 8-12%, wat kromtrekken of scheuren in uw meubelcomponenten voorkomt.',

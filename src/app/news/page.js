@@ -107,7 +107,7 @@ export default function News() {
       author: 'Sawmill Ops',
       title: lang === 'nl' 
         ? 'Uitbreiding van de droogkamercapaciteit in Brad' 
-        : (lang === 'de' ? 'Erweiterung der Trockenkammerkapazität in Brad' : (lang === 'ro' ? 'Extinderea capacității de uscare în cuptoare în Brad' : 'Expansion of Kiln Drying Capacity in Brad')),
+        : (lang === 'de' ? 'Erweiterung der Trockenkammerkapazität in Brad' : (lang === 'ro' ? 'Extinderea capacității camerelor de uscare în Brad' : 'Expansion of Drying Chamber Capacity in Brad')),
       content: (
         <>
           {lang === 'nl' && (
@@ -127,7 +127,7 @@ export default function News() {
           )}
           {lang !== 'nl' && lang !== 'de' && lang !== 'ro' && (
             <p>
-              To meet rising international demand for high-quality FSC®-certified beechwood, we have commissioned two new fully-automated drying chambers. This expansion increases our total kiln drying capacity by 15%.
+              To meet rising international demand for high-quality FSC®-certified beechwood, we have commissioned two new fully-automated drying chambers. This expansion increases our total drying chamber capacity by 15%.
             </p>
           )}
           <Link href="/about#timeline-details" className="news-link">
@@ -200,7 +200,7 @@ export default function News() {
     {
       id: 4,
       image: '/images/kilns.jpg',
-      title: lang === 'nl' ? 'Geautomatiseerde Droogkamers' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Cuptoare de Uscare Automatizate' : 'Automated Drying Kilns')),
+      title: lang === 'nl' ? 'Geautomatiseerde Droogkamers' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Camere de Uscare Automatizate' : 'Automated Drying Chambers')),
       desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a cherestelei la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
     },
     {

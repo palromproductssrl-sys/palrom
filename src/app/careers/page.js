@@ -144,9 +144,9 @@ export default function Careers() {
       },
       description: {
         nl: 'Coördineren van binnenlands transport en Europese exportzendingen (voornamelijk naar onze centrale Nederlandse logistieke partner). Beheren van houtvoorraden, droogkamerrapportages en laadlijsten.',
-        en: 'Coordinate domestic transport and European export shipping (primarily to our central Dutch warehouse partner). Manage wood inventory levels, drying kiln records, and loading manifests.',
+        en: 'Coordinate domestic transport and European export shipping (primarily to our central Dutch warehouse partner). Manage wood inventory levels, drying chamber records, and loading manifests.',
         de: 'Koordinierung des inländischen Transports und des europäischen Exportversands (hauptsächlich an unseren zentralen niederländischen Lagerpartner). Verwalten von Holzbeständen, Trockenkammerprotokollen und Ladelisten.',
-        ro: 'Coordonarea transportului intern și a transportului european de export (în principal către partenerul nostru central de depozitare din Olanda). Gestionarea nivelurilor stocurilor de lemn, a evidențelor cuptoarelor de uscare și a manifestelor de încărcare.'
+        ro: 'Coordonarea transportului intern și a transportului european de export (în principal către partenerul nostru central de depozitare din Olanda). Gestionarea nivelurilor stocurilor de lemn, a evidențelor camerelor de uscare și a manifestelor de încărcare.'
       },
       requirements: {
         nl: [
@@ -200,7 +200,7 @@ export default function Careers() {
       },
       description: {
         nl: 'Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.',
-        en: 'Perform mechanical preventive maintenance and emergency troubleshooting on our automated kiln systems, sawmill blades, dust extraction blowers, and profiling machinery.',
+        en: 'Perform mechanical preventive maintenance and emergency troubleshooting on our automated drying chamber systems, sawmill blades, dust extraction blowers, and profiling machinery.',
         de: 'Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.',
         ro: 'Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat.'
       },

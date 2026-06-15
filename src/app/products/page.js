@@ -38,7 +38,7 @@ export default function Products() {
         },
         {
           label: { nl: 'Vochtgehalte', en: 'Moisture', de: 'Feuchtigkeit', ro: 'Umiditate' },
-          value: { nl: 'Oven-gedroogd tot 8-12%', en: 'Kiln dried to 8-12%', de: 'Kammergetrocknet auf 8-12%', ro: 'Uscat în cuptor la 8-12%' }
+          value: { nl: 'Kammergedroogd tot 8-12%', en: 'Chamber-dried to 8-12%', de: 'Kammergetrocknet auf 8-12%', ro: 'Uscat în camere de uscare la 8-12%' }
         },
       ],
       tag: {

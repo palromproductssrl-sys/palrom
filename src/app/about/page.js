@@ -67,9 +67,9 @@ export default function About() {
       },
       description: {
         nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers. Een gloednieuw opslagdepot wordt gebouwd in Brad om de groeiende exportvolumes te ondersteunen.',
-        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying kiln software. A brand-new storage depot is developed in Brad to support growing export volumes.',
+        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying chamber software. A brand-new storage depot is developed in Brad to support growing export volumes.',
         de: 'Palrom modernisiert seinen Betriebshof, fügt 7.000 Quadratmeter betonierte Sortierflächen hinzu und aktualisiert die Software der Trockenkammern. Ein brandneues Lagerdepot wird in Brad gebaut, um das wachsende Exportvolumen zu unterstützen.',
-        ro: 'Palrom își modernizează curtea, adăugând 7.000 de metri pătrați de zone betonate de sortare și actualizând software-ul cuptoarelor de uscare. Un nou depozit de stocare este dezvoltat în Brad pentru a sprijini volumele în creștere de export.'
+        ro: 'Palrom își modernizează curtea, adăugând 7.000 de metri pătrați de zone betonate de sortare și actualizând software-ul camerelor de uscare. Un nou depozit de stocare este dezvoltat în Brad pentru a sprijini volumele în creștere de export.'
       },
       align: 'right',
     },
@@ -172,9 +172,9 @@ export default function About() {
     },
     dryingDesc: {
       nl: 'Onze moderne droogkamers garanderen stabiele vochtgehaltes, wat kromtrekken of splijten bij de meubelproductie voorkomt.',
-      en: 'Our modern kiln drying facilities guarantee stable moisture levels, preventing warping or splitting in furniture manufacturing.',
+      en: 'Our modern drying chamber facilities guarantee stable moisture levels, preventing warping or splitting in furniture manufacturing.',
       de: 'Unsere modernen Trocknungsanlagen garantieren stabile Feuchtigkeitswerte und verhindern Verzug oder Rissbildung bei der Möbelherstellung.',
-      ro: 'Instalațiile noastre moderne de uscare în cuptoare garantează niveluri stabile de umiditate, prevenind deformarea sau despicarea în producția de mobilier.'
+      ro: 'Instalațiile noastre moderne de uscare în camere garantează niveluri stabile de umiditate, prevenind deformarea sau despicarea în producția de mobilier.'
     },
     retailTitle: {
       nl: 'Winkelklare Opties',

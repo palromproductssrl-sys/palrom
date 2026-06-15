@@ -107,9 +107,9 @@ export default function Specials() {
       },
       description: {
         nl: 'Massief houten afstandslatten en -blokken ontworpen voor houtdroogkamers, logistieke stapelaars en gespecialiseerde verpakkingsstructuren.',
-        en: 'Solid wood spacer bars and blocks designed for timber drying kilns, logistics stackers, and specialized packaging structures.',
+        en: 'Solid wood spacer bars and blocks designed for timber drying chambers, logistics stackers, and specialized packaging structures.',
         de: 'Distanzleisten und -blöcke aus Massivholz für Holztrockenkammern, Logistikstapler und spezielle Verpackungsstrukturen.',
-        ro: 'Bare și blocuri distanțiere din lemn masiv concepute pentru cuptoarele de uscare a lemnului, stivuitoarele logistice și structurile de ambalare specializate.',
+        ro: 'Bare și blocuri distanțiere din lemn masiv concepute pentru camerele de uscare a lemnului, stivuitoarele logistice și structurile de ambalare specializate.',
       },
       image: '/images/special5.jpg',
       category: {
