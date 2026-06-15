@@ -840,6 +840,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const summaryOplage = document.getElementById('summaryOplage');
         const summaryFinish = document.getElementById('summaryFinish');
         
+        const summaryUnitPrice = document.getElementById('summaryUnitPrice');
+        const summaryDiscount = document.getElementById('summaryDiscount');
+        const summaryTotalPrice = document.getElementById('summaryTotalPrice');
+        const configuredCumulativeTotal = document.getElementById('configuredCumulativeTotal');
+        const successTotalPrice = document.getElementById('successTotalPrice');
+        
         const contactModal = document.getElementById('dashboardContactModal');
         const closeContactModal = document.getElementById('closeContactModal');
         const modalForm = document.getElementById('dashboardSubmitForm');
@@ -897,10 +903,81 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        // Pricing logic function
+        function calculatePriceDetails(cat, length, width_or_diameter, thickness, qty_num, specials_subcat) {
+            let unitPrice = 0.0;
+            
+            if (cat === 'pluggen' || cat === 'dowels') {
+                // Base price: €0.03 for a standard 40mm x 8mm dowel
+                const baseLength = 40.0;
+                const baseDiameter = 8.0;
+                const basePrice = 0.03;
+                
+                const lengthFactor = length / baseLength;
+                const diameterFactor = (width_or_diameter / baseDiameter) ** 2;
+                
+                unitPrice = basePrice * lengthFactor * diameterFactor;
+                if (unitPrice < 0.01) unitPrice = 0.01;
+            } else if (cat === 'planed') {
+                // Volume in dm3
+                const volumeDm3 = (length * width_or_diameter * thickness) / 1000000.0;
+                unitPrice = 1.65 * volumeDm3;
+                if (unitPrice < 0.25) unitPrice = 0.25;
+            } else if (cat === 'profiles') {
+                const lengthM = length / 1000.0;
+                const widthFactor = width_or_diameter / 50.0;
+                unitPrice = 0.95 * lengthM * widthFactor;
+                if (unitPrice < 0.20) unitPrice = 0.20;
+            } else if (cat === 'specials') {
+                const specialsPrices = {
+                    'Keeplat Spruce': 1.25,
+                    'Keeplat Beech': 1.55,
+                    'Distancers Color Mix': 0.85,
+                    'Wooden Threshold': 3.55,
+                    'Wood Threshold': 3.55,
+                    'Industrial Distancer': 2.15,
+                    'Wood with Iron': 4.85,
+                    'Wood with Iron Component': 4.85
+                };
+                let cleanSub = 'Keeplat Spruce';
+                for (const k in specialsPrices) {
+                    if (specials_subcat.includes(k)) {
+                        cleanSub = k;
+                        break;
+                    }
+                }
+                const basePrice = specialsPrices[cleanSub] || 1.25;
+                const lengthFactor = length / 500.0;
+                unitPrice = basePrice * lengthFactor;
+                if (unitPrice < 0.35) unitPrice = 0.35;
+            }
+            
+            let discountPercent = 0;
+            if (qty_num >= 100000) {
+                discountPercent = 15;
+            } else if (qty_num >= 50000) {
+                discountPercent = 10;
+            } else if (qty_num >= 10000) {
+                discountPercent = 5;
+            }
+            
+            const discountFactor = (100 - discountPercent) / 100.0;
+            const discountedUnitPrice = unitPrice * discountFactor;
+            const totalPrice = discountedUnitPrice * qty_num;
+            
+            return {
+                unitPrice: unitPrice,
+                discountPercent: discountPercent,
+                discountedUnitPrice: discountedUnitPrice,
+                totalPrice: totalPrice
+            };
+        }
+
         // Update values in summary table
         function updateSummary() {
             const cat = dbCategory.value;
             const data = categoryData[cat];
+            let specialsSubcat = "";
             
             if (cat === 'specials' && subCategorySpecialsRadios.length > 0) {
                 let subCatText = "Keeplat Spruce";
@@ -914,6 +991,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 summaryProduct.textContent = `${data.name} - ${subCatText}`;
+                specialsSubcat = subCatText;
             } else {
                 summaryProduct.textContent = data.name;
             }
@@ -931,6 +1009,24 @@ document.addEventListener('DOMContentLoaded', () => {
             dbLengthVal.textContent = dbLength.value;
             dbDiameterVal.textContent = dbDiameter.value;
             dbThicknessVal.textContent = dbThickness.value;
+
+            // Price Calculations
+            const length = parseFloat(dbLength.value);
+            const width_or_diameter = parseFloat(dbDiameter.value);
+            const thickness = parseFloat(dbThickness.value);
+            const qty_num = parseInt(dbOplage.value);
+
+            const priceDetails = calculatePriceDetails(cat, length, width_or_diameter, thickness, qty_num, specialsSubcat);
+
+            if (summaryUnitPrice) summaryUnitPrice.textContent = `€ ${priceDetails.unitPrice.toFixed(4).replace('.', ',')}`;
+            if (summaryDiscount) {
+                if (priceDetails.discountPercent > 0) {
+                    summaryDiscount.innerHTML = `<span class="discount-badge" style="background: rgba(231,177,36,0.15); color: var(--color-primary-dark); padding: 0.15rem 0.45rem; border-radius: var(--border-radius-sm); font-weight: 600;">${priceDetails.discountPercent}% B2B Staffelkorting</span>`;
+                } else {
+                    summaryDiscount.textContent = `Geen (min. 10.000 voor 5%)`;
+                }
+            }
+            if (summaryTotalPrice) summaryTotalPrice.textContent = `€ ${priceDetails.totalPrice.toFixed(2).replace('.', ',')}`;
         }
 
         // Adjust limits when category changes
@@ -1011,13 +1107,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             const qty = dbOplage.options[dbOplage.selectedIndex].text;
+            const qty_num = parseInt(dbOplage.value);
             const finish = data.finish;
+            
+            const length = parseFloat(dbLength.value);
+            const width_or_diameter = parseFloat(dbDiameter.value);
+            const thickness = parseFloat(dbThickness.value);
+            
+            const priceDetails = calculatePriceDetails(cat, length, width_or_diameter, thickness, qty_num, finalName);
             
             return {
                 productName: finalName,
                 dimensions: dimensions,
                 qty: qty,
-                finish: finish
+                qty_num: qty_num,
+                finish: finish,
+                price: priceDetails.totalPrice,
+                unitPrice: priceDetails.unitPrice,
+                discountPercent: priceDetails.discountPercent
             };
         }
 
@@ -1030,17 +1137,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             controlGroupAddedItems.classList.remove('hidden');
-            configuredItemsList.innerHTML = configuredItems.map((item, index) => `
+            configuredItemsList.innerHTML = configuredItems.map((item, index) => {
+                const formattedPrice = item.price.toFixed(2).replace('.', ',');
+                return `
                 <div class="configured-item-row">
                     <div>
                         <span class="item-info">${item.productName}</span>
-                        <span class="item-specs">(${item.dimensions} | ${item.finish} | ${item.qty})</span>
+                        <span class="item-specs">(${item.dimensions} | ${item.finish} | ${item.qty} | € ${formattedPrice})</span>
                     </div>
                     <button type="button" class="remove-item-btn" data-index="${index}" aria-label="Verwijder product">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-            `).join('');
+                `;
+            }).join('');
+            
+            // Calculate cumulative total price
+            let cumulativeTotal = 0;
+            configuredItems.forEach(item => {
+                cumulativeTotal += item.price;
+            });
+            if (configuredCumulativeTotal) {
+                configuredCumulativeTotal.textContent = `€ ${cumulativeTotal.toFixed(2).replace('.', ',')}`;
+            }
             
             // Add click handlers for delete buttons
             configuredItemsList.querySelectorAll('.remove-item-btn').forEach(btn => {
@@ -1141,12 +1260,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Render consolidated list of items
                 if (successFinalInquiryList) {
-                    successFinalInquiryList.innerHTML = configuredItems.map(item => `
-                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);">
-                            <strong>${item.productName}</strong><br>
-                            <span style="font-size: 0.85rem; opacity: 0.85;">Dimensions: ${item.dimensions} | Finish: ${item.finish} | Aantal: ${item.qty}</span>
+                    successFinalInquiryList.innerHTML = configuredItems.map(item => {
+                        const formattedPrice = item.price.toFixed(2).replace('.', ',');
+                        return `
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>${item.productName}</strong><br>
+                                <span style="font-size: 0.85rem; opacity: 0.85;">Dimensions: ${item.dimensions} | Finish: ${item.finish} | Aantal: ${item.qty}</span>
+                            </div>
+                            <strong style="white-space: nowrap; color: var(--color-primary);">€ ${formattedPrice}</strong>
                         </li>
-                    `).join('');
+                        `;
+                    }).join('');
+                }
+                
+                // Set final total price
+                let finalTotal = 0;
+                configuredItems.forEach(item => {
+                    finalTotal += item.price;
+                });
+                if (successTotalPrice) {
+                    successTotalPrice.textContent = `€ ${finalTotal.toFixed(2).replace('.', ',')}`;
                 }
                 
                 successOverlay.classList.remove('hidden');
