@@ -167,9 +167,9 @@ export default function Products() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten',
-      en: 'Home / Our Products',
-      de: 'Home / Unsere Produkte',
-      ro: 'Home / Produsele Noastre'
+      en: 'Home / Products',
+      de: 'Home / Produkte',
+      ro: 'Home / Produsele'
     },
     title: {
       nl: 'Precisie Houtcatalogus',

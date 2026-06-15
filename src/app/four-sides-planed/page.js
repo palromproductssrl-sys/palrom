@@ -190,9 +190,9 @@ export default function FourSidesPlaned() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / 4-Zijdig Geschaafd Hout',
-      en: 'Home / Our Products / 4-Sides Planed Lumber',
-      de: 'Home / Unsere Produkte / 4-seitig gehobeltes Holz',
-      ro: 'Home / Produsele Noastre / Lemn Rinduit pe 4 Laturi'
+      en: 'Home / Products / 4-Sides Planed Lumber',
+      de: 'Home / Produkte / 4-seitig gehobeltes Holz',
+      ro: 'Home / Produsele / Lemn Rinduit pe 4 Laturi'
     },
     title: {
       nl: '4-Zijdig Geschaafd Beukenhout',
@@ -244,7 +244,7 @@ export default function FourSidesPlaned() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Unsere Produkte' : (lang === 'ro' ? 'Produsele Noastre' : 'Our Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Produkte' : (lang === 'ro' ? 'Produsele' : 'Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
           </div>
           <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
           <p>{getTranslation('subtitle')}</p>

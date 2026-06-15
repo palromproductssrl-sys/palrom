@@ -124,9 +124,9 @@ export default function Dowels() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / Beukenhouten Deuvels',
-      en: 'Home / Our Products / Beechwood Dowels',
-      de: 'Home / Unsere Produkte / Buchenholzdübel',
-      ro: 'Home / Produsele Noastre / Dibluri din Lemn de Fag'
+      en: 'Home / Products / Beechwood Dowels',
+      de: 'Home / Produkte / Buchenholzdübel',
+      ro: 'Home / Produsele / Dibluri din Lemn de Fag'
     },
     title: {
       nl: 'Beukenhouten Deuvels & Staven',
@@ -178,7 +178,7 @@ export default function Dowels() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Unsere Produkte' : (lang === 'ro' ? 'Produsele Noastre' : 'Our Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Produkte' : (lang === 'ro' ? 'Produsele' : 'Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
           </div>
           <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
           <p>{getTranslation('subtitle')}</p>

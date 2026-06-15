@@ -278,9 +278,9 @@ export default function Profiles() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / Profielen & Lijsten',
-      en: 'Home / Our Products / Profiles & Mouldings',
-      de: 'Home / Unsere Produkte / Profile & Leisten',
-      ro: 'Home / Produsele Noastre / Profile & Șipci'
+      en: 'Home / Products / Profiles & Mouldings',
+      de: 'Home / Produkte / Profile & Leisten',
+      ro: 'Home / Produsele / Profile & Șipci'
     },
     title: {
       nl: 'Profielen & Lijsten',
@@ -332,7 +332,7 @@ export default function Profiles() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Unsere Produkte' : (lang === 'ro' ? 'Produsele Noastre' : 'Our Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Produkte' : (lang === 'ro' ? 'Produsele' : 'Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
           </div>
           <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
           <p>{getTranslation('subtitle')}</p>

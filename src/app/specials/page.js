@@ -146,9 +146,9 @@ export default function Specials() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / Speciale Componenten',
-      en: 'Home / Our Products / Special Components',
-      de: 'Home / Unsere Produkte / Spezialkomponenten',
-      ro: 'Home / Produsele Noastre / Componente Speciale'
+      en: 'Home / Products / Special Components',
+      de: 'Home / Produkte / Spezialkomponenten',
+      ro: 'Home / Produsele / Componente Speciale'
     },
     title: {
       nl: 'Speciale meubel- & houtcomponenten',
@@ -200,7 +200,7 @@ export default function Specials() {
       <section className="product-detail-hero">
         <div className="container">
           <div className="breadcrumb">
-            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Unsere Produkte' : (lang === 'ro' ? 'Produsele Noastre' : 'Our Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
+            <Link href="/">{lang === 'nl' ? 'Home' : 'Home'}</Link> / <Link href="/products">{lang === 'nl' ? 'Producten' : (lang === 'de' ? 'Produkte' : (lang === 'ro' ? 'Produsele' : 'Products'))}</Link> / <span>{getTranslation('breadcrumb').split(' / ').pop()}</span>
           </div>
           <h1 style={{ marginTop: '1.5rem' }}>{getTranslation('title')}</h1>
           <p>{getTranslation('subtitle')}</p>
