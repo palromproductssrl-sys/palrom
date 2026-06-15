@@ -9,6 +9,16 @@ const YOUTUBE_VIDEO_ID = '9c08nP2sCS8';
 
 export default function About() {
   const { lang } = useInquiry();
+  const [activeSlide, setActiveSlide] = React.useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % 9);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPlaying]);
 
   const timelineEvents = [
     {
@@ -529,30 +539,80 @@ export default function About() {
             </p>
           </div>
 
-          <div className="gallery-grid">
-            {galleryItems.map((item) => (
-              <div className="gallery-item animate-on-scroll" key={item.id}>
-                <img src={item.image} alt={item.title} />
+          <div className="gallery-split-layout">
+            {/* Video Column */}
+            <div className="gallery-video-column animate-on-scroll">
+              <div className="gallery-video-wrapper">
+                <iframe
+                  className="gallery-video"
+                  src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`}
+                  title={getTranslation('videoTitle')}
+                  style={{ border: 'none' }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
                 <div className="gallery-overlay">
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
+                  <h3>{getTranslation('videoTitle')}</h3>
+                  <p>{getTranslation('videoDesc')}</p>
                 </div>
               </div>
-            ))}
+            </div>
 
-            {/* Video Item */}
-            <div className="gallery-item video-item animate-on-scroll">
-              <iframe
-                className="gallery-video"
-                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`}
-                title={getTranslation('videoTitle')}
-                style={{ border: 'none' }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-              <div className="gallery-overlay">
-                <h3>{getTranslation('videoTitle')}</h3>
-                <p>{getTranslation('videoDesc')}</p>
+            {/* Slideshow Column */}
+            <div 
+              className="gallery-slideshow-column animate-on-scroll"
+              onMouseEnter={() => setIsPlaying(false)}
+              onMouseLeave={() => setIsPlaying(true)}
+            >
+              <div className="slideshow-container">
+                <span className="slideshow-counter">
+                  {activeSlide + 1} / {galleryItems.length}
+                </span>
+                
+                <button 
+                  className="slideshow-arrow slideshow-arrow-left" 
+                  onClick={() => setActiveSlide((prev) => (prev - 1 + galleryItems.length) % galleryItems.length)}
+                  aria-label="Previous slide"
+                >
+                  <i className="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <button 
+                  className="slideshow-arrow slideshow-arrow-right" 
+                  onClick={() => setActiveSlide((prev) => (prev + 1) % galleryItems.length)}
+                  aria-label="Next slide"
+                >
+                  <i className="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <div className="slideshow-slides">
+                  {galleryItems.map((item, idx) => (
+                    <div 
+                      className={`slideshow-slide ${idx === activeSlide ? 'active' : ''}`} 
+                      key={item.id}
+                      onClick={() => setActiveSlide((prev) => (prev + 1) % galleryItems.length)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <img src={item.image} alt={item.title} />
+                      <div className="gallery-overlay">
+                        <h3>{item.title}</h3>
+                        <p>{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Dots Indicator */}
+              <div className="slideshow-dots">
+                {galleryItems.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`slideshow-dot ${idx === activeSlide ? 'active' : ''}`}
+                    onClick={() => setActiveSlide(idx)}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
