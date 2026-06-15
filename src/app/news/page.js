@@ -181,25 +181,25 @@ export default function News() {
   const galleryItems = [
     {
       id: 1,
-      image: '/images/1.png',
+      image: '/images/7.png',
       title: lang === 'nl' ? 'Sortering Grondstoffen' : (lang === 'de' ? 'Rohstoffsortierung' : (lang === 'ro' ? 'Sortare Materii Prime' : 'Raw Materials Sorting')),
       desc: lang === 'nl' ? 'Lokaal ingekochte duurzame beukenhouten stammen.' : (lang === 'de' ? 'Nachhaltige Buchenholzstämme aus lokaler Beschaffung.' : (lang === 'ro' ? 'Bușteni din lemn de fag sustenabili din surse locale.' : 'Locally sourced sustainable beech wood logs.')),
     },
     {
       id: 2,
-      image: '/images/2.png',
+      image: '/images/8.png',
       title: lang === 'nl' ? 'Eerste Zaagbewerkingen' : (lang === 'de' ? 'Primäre Sägearbeiten' : (lang === 'ro' ? 'Operațiuni de Tăiere Primară' : 'Primary Sawing Operations')),
       desc: lang === 'nl' ? 'Geavanceerde zaaglijnen en het zagen van planken.' : (lang === 'de' ? 'High-Tech-Stammzerlegung und Zuschnitt von Schnittholz.' : (lang === 'ro' ? 'Debitarea buștenilor și tăierea cherestelei cu tehnologie avansată.' : 'High-tech log breakdown and sawn timber cutting.')),
     },
     {
       id: 3,
-      image: '/images/3.png',
+      image: '/images/1.png',
       title: lang === 'nl' ? 'Stomen & Conditioneren' : (lang === 'de' ? 'Dämpfen & Bewittern' : (lang === 'ro' ? 'Aburire & Tratare' : 'Steaming & Weathering')),
       desc: lang === 'nl' ? 'Gecontroleerd stomen van het hout voor kleur en stabiliteit.' : (lang === 'de' ? 'Kontrolliertes Holzdämpfen für Farbe und Stabilität.' : (lang === 'ro' ? 'Aburirea controlată a lemnului pentru culoare și stabilitate.' : 'Controlled wood steaming for color and stability.')),
     },
     {
       id: 4,
-      image: '/images/4.png',
+      image: '/images/kilns.jpg',
       title: lang === 'nl' ? 'Geautomatiseerde Droogkamers' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Cuptoare de Uscare Automatizate' : 'Automated Drying Kilns')),
       desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a cherestelei la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
     },
@@ -211,19 +211,19 @@ export default function News() {
     },
     {
       id: 6,
-      image: '/images/6.png',
+      image: '/images/2.png',
       title: lang === 'nl' ? 'Beukenhouten Deuvelproductie' : (lang === 'de' ? 'Buchenholzdübel-Produktion' : (lang === 'ro' ? 'Producție Dibluri din Lemn de Fag' : 'Beech Dowel Production')),
       desc: lang === 'nl' ? 'Hoge capaciteit gegroefde en gladde deuvelproductielijnen.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Dübel.' : (lang === 'ro' ? 'Linii de mare capacitate pentru dibluri canelate și netede.' : 'High capacity rilled and smooth dowel lines.')),
     },
     {
       id: 7,
-      image: '/images/7.png',
+      image: '/images/3.png',
       title: lang === 'nl' ? 'Kwaliteitsinspectie & Sortering' : (lang === 'de' ? 'Qualitätsprüfung & Sortierung' : (lang === 'ro' ? 'Inspecție de Calitate & Sortare' : 'Quality Inspection & Sorting')),
       desc: lang === 'nl' ? 'Strenge visuele controle om premium houtklassen te garanderen.' : (lang === 'de' ? 'Strenge visuelle Prüfung zur Gewährleistung erstklassiger Holzqualitäten.' : (lang === 'ro' ? 'Control vizual riguros pentru a garanta clase de lemn premium.' : 'Rigorous visual check to guarantee premium wood grades.')),
     },
     {
       id: 8,
-      image: '/images/8.png',
+      image: '/images/6.png',
       title: lang === 'nl' ? 'Logistieke Ondersteuning' : (lang === 'de' ? 'Globale Logistik-Unterstützung' : (lang === 'ro' ? 'Suport Logistic Global' : 'Global Logistics Support')),
       desc: lang === 'nl' ? 'Exportklare verpakking en bundeling voor doe-het-zelf-bouwmarkten.' : (lang === 'de' ? 'Exportfertige Verpackung und Bündelung für Baumärkte.' : (lang === 'ro' ? 'Ambalare pregătită pentru export și ambalare în pachete pentru hypermarketuri DIY.' : 'Export-ready packaging and DIY hypermarket bundling.')),
     },
