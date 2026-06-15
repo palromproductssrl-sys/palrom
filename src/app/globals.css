@@ -23,8 +23,8 @@
     --color-error: hsl(0, 75%, 50%);
 
     /* Typography */
-    --font-heading: 'Outfit', 'Poppins', -apple-system, sans-serif;
-    --font-body: 'Poppins', -apple-system, sans-serif;
+    --font-heading: var(--font-outfit), 'Outfit', 'Poppins', -apple-system, sans-serif;
+    --font-body: var(--font-body), 'Poppins', -apple-system, sans-serif;
     
     /* Layout & Spacing */
     --max-width: 1200px;
@@ -375,7 +375,7 @@ ul {
     min-height: 600px;
     display: flex;
     align-items: center;
-    background-image: url('images/hero_bg.jpg');
+    background-image: url('/images/hero_bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
