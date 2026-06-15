@@ -458,7 +458,7 @@ export default function About() {
             <a
               href="/palrom_brochure.pdf"
               download="palrom_brochure.pdf"
-              className="btn btn-dark"
+              className="btn btn-primary"
             >
               <i className="fa-solid fa-download icon-left"></i> {getTranslation('brochureBtn')}
             </a>
