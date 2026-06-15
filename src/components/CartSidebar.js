@@ -205,6 +205,7 @@ export default function CartSidebar() {
           clientPhone: phone,
           clientNotes: notes,
           items: cartItems,
+          lang,
         }),
       });
 

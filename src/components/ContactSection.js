@@ -427,6 +427,7 @@ export default function ContactSection() {
           company: company.trim(),
           productType: productType,
           message: message.trim(),
+          lang,
         }),
       });
 

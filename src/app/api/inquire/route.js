@@ -16,10 +16,48 @@ if (supabaseUrl && supabaseKey) {
   }
 }
 
+const localizeSpecKey = (key, lang = 'nl') => {
+  const dict = {
+    dims: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
+    grade: { nl: 'Kwaliteit', en: 'Grade', de: 'Qualität', ro: 'Calitate' },
+    fsc: { nl: 'Certificering', en: 'Certification', de: 'Zertifizierung', ro: 'Certificare' },
+    drying: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
+    additionalInfo: { nl: 'Notities', en: 'Notes', de: 'Notizen', ro: 'Note' }
+  };
+  return dict[key]?.[lang] || dict[key]?.nl || key;
+};
+
+const localizeSpecValue = (key, val, lang = 'nl') => {
+  if (key === 'grade') {
+    const grades = {
+      A: { nl: 'Klasse A (Foutvrij)', en: 'Class A (Clear)', de: 'Klasse A (Astfrei)', ro: 'Clasa A (Fără noduri)' },
+      B: { nl: 'Klasse B (Meubelhout)', en: 'Class B (Cabinet)', de: 'Klasse B (Möbelholz)', ro: 'Clasa B (Lemn pentru mobilă)' },
+      C: { nl: 'Klasse C (Constructief)', en: 'Class C (Structural)', de: 'Klasse C (Konstruktive Qualität)', ro: 'Clasa C (Calitate constructivă)' }
+    };
+    return grades[val]?.[lang] || grades[val]?.nl || val;
+  }
+  if (key === 'fsc') {
+    const fscVals = {
+      true: { nl: 'FSC® 100%', en: 'FSC® 100%', de: 'FSC® 100%', ro: 'FSC® 100%' },
+      false: { nl: 'Geen FSC', en: 'No FSC', de: 'Kein FSC', ro: 'Fără FSC' }
+    };
+    const fscKey = val ? 'true' : 'false';
+    return fscVals[fscKey]?.[lang] || fscVals[fscKey]?.nl || (val ? 'FSC® 100%' : 'No FSC');
+  }
+  if (key === 'drying') {
+    const dryingVals = {
+      luchtdroog: { nl: 'Luchtdroog', en: 'Air-dried', de: 'Luftgetrocknet', ro: 'Uscat la aer' },
+      kd: { nl: 'Kamerdroog (KD 10-12%)', en: 'Kiln-dried (KD 10-12%)', de: 'Kammergetrocknet (KD 10-12%)', ro: 'Uscat în cuptor (KD 10-12%)' }
+    };
+    return dryingVals[val]?.[lang] || dryingVals[val]?.nl || val;
+  }
+  return val;
+};
+
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { clientName, clientEmail, clientPhone, clientNotes, items } = body;
+    const { clientName, clientEmail, clientPhone, clientNotes, items, lang = 'nl' } = body;
 
     // Validation
     if (!clientName?.trim() || !clientEmail?.trim() || !clientPhone?.trim()) {
@@ -97,6 +135,7 @@ export async function POST(request) {
 
     let emailSent = false;
     if (resendApiKey) {
+      // 1. Send internal notification email to sales office
       try {
         const itemsHtml = items.map(item => {
           const specsList = Object.entries(item).map(([k, v]) => {
@@ -209,13 +248,160 @@ export async function POST(request) {
 
         if (!resendRes.ok) {
           const errText = await resendRes.text();
-          console.error('Resend API error response:', errText);
+          console.error('Resend API error response (internal email):', errText);
         } else {
           console.log('Email sent successfully via Resend');
           emailSent = true;
         }
       } catch (err) {
         console.error('Failed to send email via Resend:', err);
+      }
+
+      // 2. Send client confirmation email to clientEmail
+      try {
+        const clientSubject = {
+          nl: 'Ontvangstbevestiging offerteaanvraag - Palrom Products',
+          en: 'Inquiry confirmation - Palrom Products',
+          de: 'Bestätigung Ihrer Angebotsanfrage - Palrom Products',
+          ro: 'Confirmare primire cerere de ofertă - Palrom Products'
+        }[lang] || 'Ontvangstbevestiging offerteaanvraag - Palrom Products';
+
+        const clientGreeting = {
+          nl: `Beste ${clientName},`,
+          en: `Dear ${clientName},`,
+          de: `Sehr geehrte(r) ${clientName},`,
+          ro: `Stimate ${clientName},`
+        }[lang] || `Beste ${clientName},`;
+
+        const clientThankYou = {
+          nl: 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.',
+          en: 'Thank you for your quote request. We have successfully received your specifications.',
+          de: 'Vielen Dank für Ihre Angebotsanfrage. Wir haben Ihre Spezifikationen erhalten.',
+          ro: 'Vă mulțumim pentru cererea de ofertă. Am primit specificațiile dumneavoastră în condiții bune.'
+        }[lang] || 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.';
+
+        const clientReassurance = {
+          nl: 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.',
+          en: 'A team member from our headquarters in Brad (Romania) will review your request. You will receive a detailed B2B price quote within 24 hours.',
+          de: 'Ein Mitarbeiter unserer Zentrale in Brad (Rumänien) wird Ihre Anfrage prüfen. Sie erhalten innerhalb von 24 Stunden ein detailliertes B2B-Preisangebot.',
+          ro: 'Un membru al echipei de la sediul nostru central din Brad (România) va analiza solicitarea. Veți primi o ofertă de preț detaliată B2B în termen de 24 de ore.'
+        }[lang] || 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.';
+
+        const clientTitleItems = {
+          nl: 'Aangevraagde Materialen',
+          en: 'Requested Materials',
+          de: 'Angeforderte Materialien',
+          ro: 'Materiale Solicitate'
+        }[lang] || 'Aangevraagde Materialen';
+
+        const clientHeaderDesc = {
+          nl: 'Productomschrijving',
+          en: 'Product Description',
+          de: 'Produktbeschreibung',
+          ro: 'Descrierea Produsului'
+        }[lang] || 'Productomschrijving';
+
+        const clientHeaderQty = {
+          nl: 'Aantal',
+          en: 'Quantity',
+          de: 'Menge',
+          ro: 'Cantitate'
+        }[lang] || 'Aantal';
+
+        const clientFooterNote = {
+          nl: 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.',
+          en: 'This is an automated confirmation of your request. We will contact you as soon as possible.',
+          de: 'Dies ist eine automatische Bestätigung Ihrer Anfrage. Wir werden uns so schnell wie möglich mit Ihnen in Verbindung setzen.',
+          ro: 'Aceasta este o confirmare automată a solicitării dumneavoastră. Vă vom contacta în cel mai scurt timp posibil.'
+        }[lang] || 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.';
+
+        const clientItemsHtml = items.map(item => {
+          const specsList = Object.entries(item).map(([k, v]) => {
+            if (['id', 'isConfigured', 'name', 'category', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
+            if (v === undefined || v === null || v === '') return null;
+            
+            const label = localizeSpecKey(k, lang);
+            const val = localizeSpecValue(k, v, lang);
+            
+            return `<strong>${label}</strong>: ${val}`;
+          }).filter(Boolean).join(', ');
+
+          return `
+            <tr style="border-bottom: 1px solid #edf2f7;">
+              <td style="padding: 16px 0; vertical-align: top; font-family: sans-serif;">
+                <span style="font-weight: 600; color: #1a202c; display: block; margin-bottom: 4px;">${item.name}</span>
+                <span style="font-size: 0.85rem; color: #718096; display: block; line-height: 1.4;">
+                  Categorie: ${item.category} ${specsList ? ` | ${specsList}` : ''}
+                </span>
+              </td>
+              <td style="padding: 16px 0; text-align: right; vertical-align: top; font-family: sans-serif; font-weight: 600; color: #1a202c;">
+                ${item.qty}
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        const clientHtmlContent = `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid #e2e8f0; border-top: 4px solid #e7b124; border-radius: 8px; background-color: #ffffff; color: #1a202c; line-height: 1.6;">
+            <!-- Header -->
+            <div style="margin-bottom: 32px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
+              <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1e3a2b; display: block; margin-bottom: 4px;">PALROM PRODUCTS</span>
+              <h2 style="margin: 0; font-size: 1.4rem; font-weight: 600; color: #1a202c;">${clientSubject}</h2>
+            </div>
+            
+            <!-- Greeting & Text -->
+            <p style="font-size: 1rem; color: #1a202c; margin-top: 0; margin-bottom: 12px; font-weight: 600;">${clientGreeting}</p>
+            <p style="font-size: 0.95rem; color: #2d3748; margin-top: 0; margin-bottom: 16px;">${clientThankYou}</p>
+            <div style="font-size: 0.95rem; color: #2d3748; margin-top: 0; margin-bottom: 32px; padding: 12px 16px; background-color: #f7fafc; border-left: 3px solid #1e3a2b; border-radius: 4px; font-style: italic;">
+              ${clientReassurance}
+            </div>
+
+            <!-- Items list -->
+            <div style="margin-bottom: 40px;">
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">${clientTitleItems}</h3>
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                <thead>
+                  <tr style="border-bottom: 2px solid #edf2f7;">
+                    <th style="padding: 12px 0; text-align: left; font-weight: 600; color: #4a5568;">${clientHeaderDesc}</th>
+                    <th style="padding: 12px 0; text-align: right; font-weight: 600; color: #4a5568; width: 80px;">${clientHeaderQty}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${clientItemsHtml}
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- Footer -->
+            <div style="border-top: 1px solid #edf2f7; padding-top: 24px; text-align: center; font-size: 0.8rem; color: #a0aec0;">
+              <p style="margin: 0 0 8px;">${clientFooterNote}</p>
+              <p style="margin: 0; font-weight: 500;">PALROM Products SRL • 8 Poienita St, Brad City, Hunedoara, Romania</p>
+            </div>
+          </div>
+        `;
+
+        const clientRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`
+          },
+          body: JSON.stringify({
+            from: emailFrom,
+            to: clientEmail,
+            subject: clientSubject,
+            html: clientHtmlContent
+          })
+        });
+
+        if (!clientRes.ok) {
+          const errText = await clientRes.text();
+          console.warn('Resend client confirmation warning (normal in sandbox mode):', errText);
+        } else {
+          console.log('Client confirmation email sent successfully via Resend');
+        }
+      } catch (clientErr) {
+        console.warn('Failed to send client confirmation email:', clientErr);
       }
     } else {
       console.log('Resend API key not configured, skipping email delivery');

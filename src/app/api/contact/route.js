@@ -5,7 +5,7 @@ import path from 'path';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, email, phone, company, productType, message } = body;
+    const { name, email, phone, company, productType, message, lang = 'nl' } = body;
 
     // Validation
     if (!name?.trim() || !email?.trim() || !productType || !message?.trim()) {
@@ -58,6 +58,7 @@ export async function POST(request) {
 
     let emailSent = false;
     if (resendApiKey) {
+      // 1. Send internal notification email to sales office
       try {
         const productInterestLabels = {
           dowels: 'Beukenhouten stokken',
@@ -136,13 +137,200 @@ export async function POST(request) {
 
         if (!resendRes.ok) {
           const errText = await resendRes.text();
-          console.error('Resend API error response:', errText);
+          console.error('Resend API error response (internal email):', errText);
         } else {
-          console.log('Email sent successfully via Resend');
+          console.log('Internal sales notification email sent successfully via Resend');
           emailSent = true;
         }
       } catch (err) {
-        console.error('Failed to send email via Resend:', err);
+        console.error('Failed to send internal email via Resend:', err);
+      }
+
+      // 2. Send client confirmation email to customer
+      try {
+        const clientSubject = {
+          nl: 'Ontvangstbevestiging contactformulier - Palrom Products',
+          en: 'Contact form receipt - Palrom Products',
+          de: 'Bestätigung Ihres Kontaktformulars - Palrom Products',
+          ro: 'Confirmare primire formular de contact - Palrom Products'
+        }[lang] || 'Ontvangstbevestiging contactformulier - Palrom Products';
+
+        const clientGreeting = {
+          nl: `Beste ${name},`,
+          en: `Dear ${name},`,
+          de: `Sehr geehrte(r) ${name},`,
+          ro: `Stimate ${name},`
+        }[lang] || `Beste ${name},`;
+
+        const clientThankYou = {
+          nl: 'Bedankt voor uw bericht aan Palrom Products. We hebben uw aanvraag in goede orde ontvangen.',
+          en: 'Thank you for contacting Palrom Products. We have successfully received your request.',
+          de: 'Vielen Dank für Ihre Nachricht an Palrom Products. Wir haben Ihre Anfrage erhalten.',
+          ro: 'Vă mulțumim pentru mesajul trimis către Palrom Products. Am primit solicitarea dumneavoastră.'
+        }[lang] || 'Bedankt voor uw bericht aan Palrom Products. We hebben uw aanvraag in goede orde ontvangen.';
+
+        const clientReassurance = {
+          nl: 'We streven ernaar om alle vragen binnen 24 uur te beantwoorden.',
+          en: 'We aim to respond to all inquiries within 24 hours.',
+          de: 'Wir sind bestrebt, alle Anfragen innerhalb von 24 Stunden zu beantworten.',
+          ro: 'Ne propunem să răspundem la toate solicitările în termen de 24 de ore.'
+        }[lang] || 'We streven ernaar om alle vragen binnen 24 uur te beantwoorden.';
+
+        const clientTitleDetails = {
+          nl: 'Ingezonden details',
+          en: 'Submitted details',
+          de: 'Übermittelte Details',
+          ro: 'Detalii trimise'
+        }[lang] || 'Ingezonden details';
+
+        const clientLabelPhone = {
+          nl: 'Telefoonnummer',
+          en: 'Phone Number',
+          de: 'Telefonnummer',
+          ro: 'Număr de Telefon'
+        }[lang] || 'Telefoonnummer';
+
+        const clientLabelCompany = {
+          nl: 'Bedrijf',
+          en: 'Company',
+          de: 'Unternehmen',
+          ro: 'Companie'
+        }[lang] || 'Bedrijf';
+
+        const clientLabelCategory = {
+          nl: 'Geselecteerde productcategorie',
+          en: 'Selected product category',
+          de: 'Ausgewählte Produktkategorie',
+          ro: 'Categoria de produse selectată'
+        }[lang] || 'Geselecteerde productcategorie';
+
+        const clientTitleMsg = {
+          nl: 'Uw bericht',
+          en: 'Your message',
+          de: 'Ihre Nachricht',
+          ro: 'Mesajul dumneavoastră'
+        }[lang] || 'Uw bericht';
+
+        const clientFooterNote = {
+          nl: 'Dit is een geautomatiseerde bevestiging van uw contactaanvraag.',
+          en: 'This is an automated confirmation of your contact request.',
+          de: 'Dies ist eine automatische Bestätigung Ihrer Kontaktanfrage.',
+          ro: 'Aceasta este o confirmare automată a solicitării dumneavoastră de contact.'
+        }[lang] || 'Dit is een geautomatiseerde bevestiging van uw contactaanvraag.';
+
+        const productInterestLabelsLocalized = {
+          nl: {
+            dowels: 'Beukenhouten stokken',
+            planed: 'Beukenhouten latten',
+            profiles: 'Beukenhouten profielen',
+            specials: 'Beukenhouten bestekken',
+            general: 'Algemene Houtinkoop Aanvraag',
+            careers: 'Sollicitatie / Werken bij',
+          },
+          en: {
+            dowels: 'Beechwood dowels / sticks',
+            planed: 'Beechwood planed slats',
+            profiles: 'Beechwood profiles',
+            specials: 'Beechwood special blanks',
+            general: 'General Timber Sourcing',
+            careers: 'Careers / Job Application',
+          },
+          de: {
+            dowels: 'Buchenholzstäbe / Rundstäbe',
+            planed: 'Buchenholzleisten / Gehobelt',
+            profiles: 'Buchenholzprofile',
+            specials: 'Buchenholz-Zuschnitte',
+            general: 'Allgemeine Holzanfrage',
+            careers: 'Karriere / Bewerbung',
+          },
+          ro: {
+            dowels: 'Tije din lemn de fag',
+            planed: 'Șipci rindeluite din lemn de fag',
+            profiles: 'Profile din lemn de fag',
+            specials: 'Piese brute din lemn de fag',
+            general: 'Cerere Generală de Aprovizionare',
+            careers: 'Cariere / Solicitare Job',
+          }
+        };
+
+        const clientInterestLabel = productInterestLabelsLocalized[lang]?.[productType] || productInterestLabelsLocalized.nl[productType] || productType;
+
+        const clientHtmlContent = `
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid #e2e8f0; border-top: 4px solid #e7b124; border-radius: 8px; background-color: #ffffff; color: #1a202c; line-height: 1.6;">
+            <!-- Header -->
+            <div style="margin-bottom: 32px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
+              <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1e3a2b; display: block; margin-bottom: 4px;">PALROM PRODUCTS</span>
+              <h2 style="margin: 0; font-size: 1.4rem; font-weight: 600; color: #1a202c;">${clientSubject}</h2>
+            </div>
+            
+            <!-- Greeting & Text -->
+            <p style="font-size: 1rem; color: #1a202c; margin-top: 0; margin-bottom: 12px; font-weight: 600;">${clientGreeting}</p>
+            <p style="font-size: 0.95rem; color: #2d3748; margin-top: 0; margin-bottom: 16px;">${clientThankYou}</p>
+            <div style="font-size: 0.95rem; color: #2d3748; margin-top: 0; margin-bottom: 32px; padding: 12px 16px; background-color: #f7fafc; border-left: 3px solid #1e3a2b; border-radius: 4px; font-style: italic;">
+              ${clientReassurance}
+            </div>
+
+            <!-- Submission Details -->
+            <div style="margin-bottom: 32px; background-color: #ffffff; border: 1px solid #edf2f7; border-radius: 8px; padding: 20px;">
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">${clientTitleDetails}</h3>
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                ${phone ? `
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 180px;">${clientLabelPhone}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${phone}</td>
+                </tr>
+                ` : ''}
+                ${company ? `
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 180px;">${clientLabelCompany}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${company}</td>
+                </tr>
+                ` : ''}
+                <tr>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #4a5568; font-weight: 500; width: 180px;">${clientLabelCategory}</td>
+                  <td style="padding: 8px 0; border-bottom: 1px solid #f7fafc; color: #1a202c;">${clientInterestLabel}</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- Message Box -->
+            <div style="margin-bottom: 40px;">
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 12px; margin-top: 0;">${clientTitleMsg}</h3>
+              <div style="background-color: #f7fafc; padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; color: #2d3748; white-space: pre-line; border: 1px solid #edf2f7; border-left: 3px solid #e7b124;">
+                ${message}
+              </div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="border-top: 1px solid #edf2f7; padding-top: 24px; text-align: center; font-size: 0.8rem; color: #a0aec0;">
+              <p style="margin: 0 0 8px;">${clientFooterNote}</p>
+              <p style="margin: 0; font-weight: 500;">PALROM Products SRL • 8 Poienita St, Brad City, Hunedoara, Romania</p>
+            </div>
+          </div>
+        `;
+
+        const clientRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`
+          },
+          body: JSON.stringify({
+            from: emailFrom,
+            to: email,
+            subject: clientSubject,
+            html: clientHtmlContent
+          })
+        });
+
+        if (!clientRes.ok) {
+          const errText = await clientRes.text();
+          console.warn('Resend client contact confirmation warning (normal in sandbox mode):', errText);
+        } else {
+          console.log('Client contact confirmation email sent successfully via Resend');
+        }
+      } catch (clientErr) {
+        console.warn('Failed to send client contact confirmation email:', clientErr);
       }
     } else {
       console.log('Resend API key not configured, skipping email delivery');

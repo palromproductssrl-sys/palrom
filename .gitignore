@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Large media files
 public/images/PALROM.mp4
+
+# Local audit/db files
+contacts.json
+inquiries.json
