@@ -4180,16 +4180,60 @@ ul {
 }
 
 .dowels-subcat-card .card-content {
-    background-color: #ffffff;
+    position: relative;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius-md);
+    height: 140px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-fast) ease;
+}
+
+.dowels-subcat-card .card-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform var(--transition-smooth);
+}
+
+.dowels-subcat-card:hover .card-bg-image {
+    transform: scale(1.08);
+}
+
+.dowels-subcat-card .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.75) 100%);
+    z-index: 2;
+    transition: background var(--transition-fast) ease;
+}
+
+.dowels-subcat-card:hover .card-overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.dowels-subcat-card input[type="radio"]:checked + .card-content .card-overlay {
+    background: linear-gradient(180deg, rgba(231, 177, 36, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.dowels-subcat-card .card-info-overlay {
+    position: relative;
+    z-index: 3;
     padding: 1rem 0.5rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
-    transition: all var(--transition-fast) ease;
-    height: 100%;
 }
 
 .dowels-subcat-card:hover .card-content {
@@ -4200,36 +4244,15 @@ ul {
 
 .dowels-subcat-card input[type="radio"]:checked + .card-content {
     border-color: var(--color-primary);
-    background-color: rgba(231, 177, 36, 0.05);
-    box-shadow: 0 0 0 2px rgba(231, 177, 36, 0.2);
-}
-
-.dowels-subcat-card .card-icon {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dowels-subcat-card .card-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-.dowels-subcat-card .card-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--border-radius-sm);
+    box-shadow: 0 0 0 2px rgba(231, 177, 36, 0.4);
 }
 
 .dowels-subcat-card .card-label {
     font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-dark);
-    line-height: 1.2;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    line-height: 1.25;
 }
 
 @media (max-width: 992px) {

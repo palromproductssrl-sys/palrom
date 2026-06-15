@@ -724,10 +724,11 @@ export default function Configurator() {
                             onChange={() => setSubCategoryDowels(d.id)}
                           />
                           <div className="card-content">
-                            <div className="card-icon">
-                              <img src={d.img} alt={d.name[lang] || d.name.nl} />
+                            <img src={d.img} alt="" className="card-bg-image" />
+                            <div className="card-overlay"></div>
+                            <div className="card-info-overlay">
+                              <span className="card-label">{d.name[lang] || d.name.nl}</span>
                             </div>
-                            <span className="card-label">{d.name[lang] || d.name.nl}</span>
                           </div>
                         </label>
                       ))}
@@ -740,86 +741,24 @@ export default function Configurator() {
                   <div className="control-group" id="controlGroupSubCategoryPlaned">
                     <label>{getTranslation('planedSubcatLabel')}</label>
                     <div className="planed-subcat-grid">
-                      {planedSubcategories.map((p) => {
-                        const svgMap = {
-                          'planed-rect-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,46 L 30,50 L 54,38 L 34,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,50 L 54,38 L 54,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,52 L 30,56 L 30,50 L 10,46 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-rect-v2': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,46 L 30,50 L 54,38 L 34,34 Z" fill="#ffedd5" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,50 L 54,38 L 54,44 Z" fill="#d97706" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                              <path d="M 10,52 L 30,56 L 30,50 L 10,46 Z" fill="#fbbf24" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-rect-v3': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,49 L 34,52 L 54,40 L 30,37 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 34,56 L 34,52 L 54,40 L 54,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,53 L 34,56 L 34,52 L 10,49 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-rect-v4': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,42 L 30,46 L 54,34 L 34,30 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 30,48 L 30,42 L 54,34 L 54,40 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 10,48 L 30,52 L 54,40 L 34,36 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 30,54 L 30,48 L 54,40 L 54,46 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.2" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-sq-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 15,38 L 30,41 L 49,32 L 34,29 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,41 L 49,32 L 49,47 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 15,53 L 30,56 L 30,41 L 15,38 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-sq-v2': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 15,38 L 30,41 L 49,32 L 34,29 Z" fill="#ffedd5" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,41 L 49,32 L 49,47 Z" fill="#d97706" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                              <path d="M 15,53 L 30,56 L 30,41 L 15,38 Z" fill="#fbbf24" stroke="#b45309" strokeWidth="2.0" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-rad3': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,48 C 10,44 14,46 30,50 L 54,38 L 34,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,50 L 54,38 L 54,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,52 L 30,56 L 30,50 C 14,46 10,44 10,52 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'planed-rad6': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,48 C 10,40 16,44 30,50 L 54,38 L 34,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 30,56 L 30,50 L 54,38 L 54,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,52 L 30,56 L 30,50 C 16,44 10,40 10,52 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                        };
-                        return (
-                          <label key={p.id} className="planed-subcat-card">
-                            <input
-                              type="radio"
-                              name="subCategoryPlaned"
-                              value={p.id}
-                              checked={subCategoryPlaned === p.id}
-                              onChange={() => setSubCategoryPlaned(p.id)}
-                            />
-                            <div className="card-content">
-                              <img src={p.img} alt="" className="card-bg-image" />
-                              <div className="card-overlay"></div>
-                              <div className="card-info-overlay">
-                                <div className="card-icon">{svgMap[p.id]}</div>
-                                <span className="card-label">{p.name[lang] || p.name.nl}</span>
-                              </div>
+                      {planedSubcategories.map((p) => (
+                        <label key={p.id} className="planed-subcat-card">
+                          <input
+                            type="radio"
+                            name="subCategoryPlaned"
+                            value={p.id}
+                            checked={subCategoryPlaned === p.id}
+                            onChange={() => setSubCategoryPlaned(p.id)}
+                          />
+                          <div className="card-content">
+                            <img src={p.img} alt="" className="card-bg-image" />
+                            <div className="card-overlay"></div>
+                            <div className="card-info-overlay">
+                              <span className="card-label">{p.name[lang] || p.name.nl}</span>
                             </div>
-                          </label>
-                        );
-                      })}
+                          </div>
+                        </label>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -829,127 +768,24 @@ export default function Configurator() {
                   <div className="control-group" id="controlGroupSubCategoryProfiles">
                     <label>{getTranslation('profileSubcatLabel')}</label>
                     <div className="profiles-subcat-grid">
-                      {profileSubcategories.map((p) => {
-                        const svgMap = {
-                          'profile-semiround': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,48 C 10,38 26,46 26,56 L 50,32 C 50,22 34,14 34,24 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 26,56 C 26,46 10,38 10,48 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-strip': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,49 L 26,52 L 50,40 L 34,37 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 26,56 L 26,52 L 50,40 L 50,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,53 L 26,56 L 26,52 L 10,49 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-finish-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,36 L 14,38 L 38,26 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 22,54 L 26,56 L 50,44 L 46,42 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 C 16,44 18,50 22,54 L 46,42 C 42,38 40,32 38,26 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 14,38 C 16,44 18,50 22,54 L 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-quarter-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,36 C 22,38 26,46 26,56 L 50,44 C 50,34 46,26 34,24 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 C 22,38 26,46 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-finish-v2': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,36 L 14,38 L 38,26 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,41 L 18,43 L 42,31 L 38,29 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 18,46 L 22,48 L 46,36 L 42,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 22,51 L 26,53 L 50,41 L 46,39 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 L 14,41 L 38,29 L 38,26 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 18,43 L 18,46 L 42,34 L 42,31 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 22,48 L 22,51 L 46,39 L 46,36 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 26,53 L 26,56 L 50,44 L 50,41 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 14,38 L 14,41 L 18,43 L 18,46 L 22,48 L 22,51 L 26,53 L 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-plinth-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 16,57 L 16,39 L 46,24 L 46,42 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 16,39 C 16,36 13,36 13,38 L 10,39.5 L 40,24.5 L 43,23 C 43,21 46,21 46,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,54 L 16,57 L 16,39 C 16,36 13,36 13,38 L 10,39.5 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-corner-v1': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,36 L 14,38 L 38,26 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 34,24 L 34,36 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 L 14,46 L 38,34 L 38,26 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,46 L 26,52 L 50,40 L 38,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 26,52 L 26,56 L 50,44 L 50,40 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 14,38 L 14,46 L 26,52 L 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-corner-v2': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 12,36 C 10,38 10,44 12,48 L 36,36 C 34,32 34,26 36,24 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 L 14,46 L 38,34 L 38,26 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,46 L 26,52 L 50,40 L 38,34 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 26,52 L 26,56 L 50,44 L 50,40 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 12,48 C 10,44 10,38 12,36 L 15,38 L 14,44 L 26,50 L 26,54 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-triangular': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,48 L 10,36 L 34,24 L 34,36 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 26,56 L 50,44 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 26,56 L 10,36 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-quarter-v2': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 13,37.5 C 21,41.5 24,49.5 24,53 L 48,41 C 48,37.5 45,29.5 37,25.5 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 13,37.5 L 37,25.5 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 24,53 L 26,56 L 50,44 L 48,41 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 13,37.5 C 21,41.5 24,49.5 24,53 L 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-thread': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 26,56 L 26,44 L 50,32 L 50,44 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 26,44 L 50,32 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 L 38,26" stroke="#c2410c" strokeWidth="1.2" />
-                              <path d="M 18,40 L 42,28" stroke="#c2410c" strokeWidth="1.2" />
-                              <path d="M 22,42 L 46,30" stroke="#c2410c" strokeWidth="1.2" />
-                              <path d="M 10,48 L 26,56 L 26,44 L 10,36 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'profile-calbat': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 10,36 L 14,38 L 38,26 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,38 C 18,46 22,52 26,56 L 50,44 C 46,40 42,34 38,26 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 10,36 L 14,38 C 18,46 22,52 26,56 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                        };
-                        return (
-                          <label key={p.id} className="profiles-subcat-card">
-                            <input
-                              type="radio"
-                              name="subCategoryProfiles"
-                              value={p.id}
-                              checked={subCategoryProfiles === p.id}
-                              onChange={() => setSubCategoryProfiles(p.id)}
-                            />
-                            <div className="card-content">
-                              <img src={p.img} alt="" className="card-bg-image" />
-                              <div className="card-overlay"></div>
-                              <div className="card-info-overlay">
-                                <div className="card-icon">{svgMap[p.id]}</div>
-                                <span className="card-label">{p.name[lang] || p.name.nl}</span>
-                              </div>
+                      {profileSubcategories.map((p) => (
+                        <label key={p.id} className="profiles-subcat-card">
+                          <input
+                            type="radio"
+                            name="subCategoryProfiles"
+                            value={p.id}
+                            checked={subCategoryProfiles === p.id}
+                            onChange={() => setSubCategoryProfiles(p.id)}
+                          />
+                          <div className="card-content">
+                            <img src={p.img} alt="" className="card-bg-image" />
+                            <div className="card-overlay"></div>
+                            <div className="card-info-overlay">
+                              <span className="card-label">{p.name[lang] || p.name.nl}</span>
                             </div>
-                          </label>
-                        );
-                      })}
+                          </div>
+                        </label>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -959,86 +795,24 @@ export default function Configurator() {
                   <div className="control-group" id="controlGroupSubCategorySpecials">
                     <label>{getTranslation('specialSubcatLabel')}</label>
                     <div className="specials-subcat-grid">
-                      {specialsSubcategories.map((s) => {
-                        const svgMap = {
-                          'special-keeplat-spruce': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 26,56 L 26,44 L 50,32 L 50,44 Z" fill="#fde047" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 15,38.5 L 15,43.5 L 39,31.5 L 39,26.5 Z" fill="#eab308" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 15,43.5 L 21,46.5 L 45,34.5 L 39,31.5 Z" fill="#ca8a04" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 15,38.5 L 39,26.5 L 34,24 Z" fill="#fef9c3" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 21,41.5 L 26,44 L 50,32 L 45,29.5 Z" fill="#fef9c3" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 26,56 L 26,44 L 21,41.5 L 21,46.5 L 15,43.5 L 15,38.5 L 10,36 Z" fill="#fef08a" stroke="#ca8a04" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'special-keeplat-beech': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 26,56 L 26,44 L 50,32 L 50,44 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 26,44 L 50,32 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 26,56 L 26,44 L 10,36 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'special-distancer-mix': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 44,41 L 54,36 L 54,26 L 44,31 Z" fill="#dc2626" stroke="#991b1b" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 34,26 L 44,31 L 54,26 L 44,21 Z" fill="#f87171" stroke="#991b1b" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 34,36 L 44,41 L 44,31 L 34,26 Z" fill="#ef4444" stroke="#991b1b" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 32,46 L 42,41 L 42,31 L 32,36 Z" fill="#2563eb" stroke="#1e3a8a" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 22,31 L 32,36 L 42,31 L 32,26 Z" fill="#60a5fa" stroke="#1e3a8a" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 22,41 L 32,46 L 32,36 L 22,31 Z" fill="#3b82f6" stroke="#1e3a8a" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 20,51 L 30,46 L 30,36 L 20,41 Z" fill="#059669" stroke="#065f46" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 10,36 L 20,41 L 30,36 L 20,31 Z" fill="#34d399" stroke="#065f46" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 10,46 L 20,51 L 20,41 L 10,36 Z" fill="#10b981" stroke="#065f46" strokeWidth="1.2" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'special-threshold': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 30,60 L 30,55 L 50,45 L 50,50 Z" fill="#ea580c" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 26,51 L 30,55 L 50,45 L 46,41 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 14,45 L 26,51 L 46,41 L 34,35 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,47 L 14,45 L 34,35 L 30,37 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,50 L 30,60 L 30,55 L 26,51 L 14,45 L 10,47 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                          'special-distancer-ind': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 26,56 L 26,44 L 50,32 L 50,44 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 26,44 L 50,32 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,48 L 26,56 L 26,44 L 10,36 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <ellipse cx="18" cy="46" rx="3.5" ry="4.5" fill="#451a03" stroke="#c2410c" strokeWidth="1" />
-                            </svg>
-                          ),
-                          'special-wood-iron': (
-                            <svg viewBox="0 0 64 64" fill="none">
-                              <path d="M 26,56 L 26,44 L 50,32 L 50,44 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 10,36 L 26,44 L 50,32 L 34,24 Z" fill="#ffedd5" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                              <path d="M 20,35 L 28,39 L 40,33 L 32,29 Z" fill="#94a3b8" stroke="#475569" strokeWidth="1.2" strokeLinejoin="round" />
-                              <path d="M 28,34 L 28,26 L 32,24 L 32,32 Z" fill="#64748b" stroke="#475569" strokeWidth="1" strokeLinejoin="round" />
-                              <ellipse cx="30" cy="24" rx="2" ry="1.2" fill="#cbd5e1" stroke="#475569" strokeWidth="1" />
-                              <path d="M 10,48 L 26,56 L 26,44 L 10,36 Z" fill="#f8a170" stroke="#c2410c" strokeWidth="1.5" strokeLinejoin="round" />
-                            </svg>
-                          ),
-                        };
-                        return (
-                          <label key={s.id} className="specials-subcat-card">
-                            <input
-                              type="radio"
-                              name="subCategorySpecials"
-                              value={s.id}
-                              checked={subCategorySpecials === s.id}
-                              onChange={() => setSubCategorySpecials(s.id)}
-                            />
-                            <div className="card-content">
-                              <img src={s.img} alt="" className="card-bg-image" />
-                              <div className="card-overlay"></div>
-                              <div className="card-info-overlay">
-                                <div className="card-icon">{svgMap[s.id]}</div>
-                                <span className="card-label">{s.name[lang] || s.name.nl}</span>
-                              </div>
+                      {specialsSubcategories.map((s) => (
+                        <label key={s.id} className="specials-subcat-card">
+                          <input
+                            type="radio"
+                            name="subCategorySpecials"
+                            value={s.id}
+                            checked={subCategorySpecials === s.id}
+                            onChange={() => setSubCategorySpecials(s.id)}
+                          />
+                          <div className="card-content">
+                            <img src={s.img} alt="" className="card-bg-image" />
+                            <div className="card-overlay"></div>
+                            <div className="card-info-overlay">
+                              <span className="card-label">{s.name[lang] || s.name.nl}</span>
                             </div>
-                          </label>
-                        );
-                      })}
+                          </div>
+                        </label>
+                      ))}
                     </div>
                   </div>
                 )}
