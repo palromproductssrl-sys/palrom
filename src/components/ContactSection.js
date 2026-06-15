@@ -403,7 +403,7 @@ export default function ContactSection() {
     return t[key]?.[lang] || t[key]?.nl || '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !productType || !message.trim()) {
       setFeedback({
@@ -416,9 +416,23 @@ export default function ContactSection() {
     setIsSubmitting(true);
     setFeedback(null);
 
-    // Simulate server request (1.8s)
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          company: company.trim(),
+          productType: productType,
+          message: message.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Contact submission failed');
+      }
 
       let feedbackMsg = '';
       const feedbackMsgs = {
@@ -462,7 +476,21 @@ export default function ContactSection() {
       setCompany('');
       setProductType('');
       setMessage('');
-    }, 1800);
+    } catch (err) {
+      console.error(err);
+      const errorMsgs = {
+        nl: 'Er is een fout opgetreden bij het verzenden. Probeer het later opnieuw.',
+        en: 'Something went wrong while submitting. Please try again later.',
+        de: 'Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.',
+        ro: 'A apărut o eroare la trimitere. Vă rugăm să încercați din nou mai târziu.'
+      };
+      setFeedback({
+        text: errorMsgs[lang] || errorMsgs.nl,
+        type: 'error',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
