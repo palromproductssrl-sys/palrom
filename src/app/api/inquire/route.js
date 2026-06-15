@@ -259,69 +259,70 @@ export async function POST(request) {
 
       // 2. Send client confirmation email to clientEmail
       try {
+        const emailLang = 'ro'; // Always send in Romanian
         const clientSubject = {
           nl: 'Ontvangstbevestiging offerteaanvraag - Palrom Products',
           en: 'Inquiry confirmation - Palrom Products',
           de: 'Bestätigung Ihrer Angebotsanfrage - Palrom Products',
           ro: 'Confirmare primire cerere de ofertă - Palrom Products'
-        }[lang] || 'Ontvangstbevestiging offerteaanvraag - Palrom Products';
+        }[emailLang] || 'Ontvangstbevestiging offerteaanvraag - Palrom Products';
 
         const clientGreeting = {
           nl: `Beste ${clientName},`,
           en: `Dear ${clientName},`,
           de: `Sehr geehrte(r) ${clientName},`,
           ro: `Stimate ${clientName},`
-        }[lang] || `Beste ${clientName},`;
+        }[emailLang] || `Beste ${clientName},`;
 
         const clientThankYou = {
           nl: 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.',
           en: 'Thank you for your quote request. We have successfully received your specifications.',
           de: 'Vielen Dank für Ihre Angebotsanfrage. Wir haben Ihre Spezifikationen erhalten.',
           ro: 'Vă mulțumim pentru cererea de ofertă. Am primit specificațiile dumneavoastră în condiții bune.'
-        }[lang] || 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.';
+        }[emailLang] || 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.';
 
         const clientReassurance = {
           nl: 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.',
           en: 'A team member from our headquarters in Brad (Romania) will review your request. You will receive a detailed B2B price quote within 24 hours.',
-          de: 'Ein Mitarbeiter unserer Zentrale in Brad (Rumänien) wird Ihre Anfrage prüfen. Sie erhalten innerhalb von 24 Stunden ein detailliertes B2B-Preisangebot.',
+          de: 'Ein Mitarbeiter unserer Zentrale in Brad (Rumänien) will Ihre Anfrage prüfen. Sie erhalten innerhalb von 24 Stunden ein detailliertes B2B-Preisangebot.',
           ro: 'Un membru al echipei de la sediul nostru central din Brad (România) va analiza solicitarea. Veți primi o ofertă de preț detaliată B2B în termen de 24 de ore.'
-        }[lang] || 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.';
+        }[emailLang] || 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.';
 
         const clientTitleItems = {
           nl: 'Aangevraagde Materialen',
           en: 'Requested Materials',
           de: 'Angeforderte Materialien',
           ro: 'Materiale Solicitate'
-        }[lang] || 'Aangevraagde Materialen';
+        }[emailLang] || 'Aangevraagde Materialen';
 
         const clientHeaderDesc = {
           nl: 'Productomschrijving',
           en: 'Product Description',
           de: 'Produktbeschreibung',
           ro: 'Descrierea Produsului'
-        }[lang] || 'Productomschrijving';
+        }[emailLang] || 'Productomschrijving';
 
         const clientHeaderQty = {
           nl: 'Aantal',
           en: 'Quantity',
           de: 'Menge',
           ro: 'Cantitate'
-        }[lang] || 'Aantal';
+        }[emailLang] || 'Aantal';
 
         const clientFooterNote = {
           nl: 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.',
           en: 'This is an automated confirmation of your request. We will contact you as soon as possible.',
           de: 'Dies ist eine automatische Bestätigung Ihrer Anfrage. Wir werden uns so schnell wie möglich mit Ihnen in Verbindung setzen.',
           ro: 'Aceasta este o confirmare automată a solicitării dumneavoastră. Vă vom contacta în cel mai scurt timp posibil.'
-        }[lang] || 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.';
+        }[emailLang] || 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.';
 
         const clientItemsHtml = items.map(item => {
           const specsList = Object.entries(item).map(([k, v]) => {
             if (['id', 'isConfigured', 'name', 'category', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
             if (v === undefined || v === null || v === '') return null;
             
-            const label = localizeSpecKey(k, lang);
-            const val = localizeSpecValue(k, v, lang);
+            const label = localizeSpecKey(k, emailLang);
+            const val = localizeSpecValue(k, v, emailLang);
             
             return `<strong>${label}</strong>: ${val}`;
           }).filter(Boolean).join(', ');

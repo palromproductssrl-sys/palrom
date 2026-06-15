@@ -144,79 +144,78 @@ export async function POST(request) {
         }
       } catch (err) {
         console.error('Failed to send internal email via Resend:', err);
-      }
-
-      // 2. Send client confirmation email to customer
+      }      // 2. Send client confirmation email to customer
       try {
+        const emailLang = 'ro'; // Always send in Romanian
         const clientSubject = {
           nl: 'Ontvangstbevestiging contactformulier - Palrom Products',
           en: 'Contact form receipt - Palrom Products',
           de: 'Bestätigung Ihres Kontaktformulars - Palrom Products',
           ro: 'Confirmare primire formular de contact - Palrom Products'
-        }[lang] || 'Ontvangstbevestiging contactformulier - Palrom Products';
+        }[emailLang] || 'Ontvangstbevestiging contactformulier - Palrom Products';
 
         const clientGreeting = {
           nl: `Beste ${name},`,
           en: `Dear ${name},`,
           de: `Sehr geehrte(r) ${name},`,
           ro: `Stimate ${name},`
-        }[lang] || `Beste ${name},`;
+        }[emailLang] || `Beste ${name},`;
 
         const clientThankYou = {
           nl: 'Bedankt voor uw bericht aan Palrom Products. We hebben uw aanvraag in goede orde ontvangen.',
           en: 'Thank you for contacting Palrom Products. We have successfully received your request.',
           de: 'Vielen Dank für Ihre Nachricht an Palrom Products. Wir haben Ihre Anfrage erhalten.',
           ro: 'Vă mulțumim pentru mesajul trimis către Palrom Products. Am primit solicitarea dumneavoastră.'
-        }[lang] || 'Bedankt voor uw bericht aan Palrom Products. We hebben uw aanvraag in goede orde ontvangen.';
+        }[emailLang] || 'Bedankt voor uw bericht aan Palrom Products. We hebben uw aanvraag in goede orde ontvangen.';
 
         const clientReassurance = {
           nl: 'We streven ernaar om alle vragen binnen 24 uur te beantwoorden.',
           en: 'We aim to respond to all inquiries within 24 hours.',
           de: 'Wir sind bestrebt, alle Anfragen innerhalb von 24 Stunden zu beantworten.',
           ro: 'Ne propunem să răspundem la toate solicitările în termen de 24 de ore.'
-        }[lang] || 'We streven ernaar om alle vragen binnen 24 uur te beantwoorden.';
+        }[emailLang] || 'We streven ernaar om alle vragen binnen 24 uur te beantwoorden.';
 
         const clientTitleDetails = {
           nl: 'Ingezonden details',
           en: 'Submitted details',
           de: 'Übermittelte Details',
           ro: 'Detalii trimise'
-        }[lang] || 'Ingezonden details';
+        }[emailLang] || 'Ingezonden details';
 
         const clientLabelPhone = {
           nl: 'Telefoonnummer',
           en: 'Phone Number',
           de: 'Telefonnummer',
           ro: 'Număr de Telefon'
-        }[lang] || 'Telefoonnummer';
+        }[emailLang] || 'Telefoonnummer';
 
         const clientLabelCompany = {
           nl: 'Bedrijf',
           en: 'Company',
           de: 'Unternehmen',
           ro: 'Companie'
-        }[lang] || 'Bedrijf';
+        }[emailLang] || 'Bedrijf';
 
         const clientLabelCategory = {
           nl: 'Geselecteerde productcategorie',
           en: 'Selected product category',
           de: 'Ausgewählte Produktkategorie',
           ro: 'Categoria de produse selectată'
-        }[lang] || 'Geselecteerde productcategorie';
+        }[emailLang] || 'Geselecteerde productcategorie';
 
         const clientTitleMsg = {
           nl: 'Uw bericht',
           en: 'Your message',
           de: 'Ihre Nachricht',
           ro: 'Mesajul dumneavoastră'
-        }[lang] || 'Uw bericht';
+        }[emailLang] || 'Uw bericht';
 
         const clientFooterNote = {
           nl: 'Dit is een geautomatiseerde bevestiging van uw contactaanvraag.',
           en: 'This is an automated confirmation of your contact request.',
           de: 'Dies ist eine automatische Bestätigung Ihrer Kontaktanfrage.',
           ro: 'Aceasta este o confirmare automată a solicitării dumneavoastră de contact.'
-        }[lang] || 'Dit is een geautomatiseerde bevestiging van uw contactaanvraag.';
+        }[emailLang] || 'Dit is een geautomatiseerde bevestiging van uw contactaanvraag.';
 
         const productInterestLabelsLocalized = {
           nl: {
@@ -253,7 +252,7 @@ export async function POST(request) {
           }
         };
 
-        const clientInterestLabel = productInterestLabelsLocalized[lang]?.[productType] || productInterestLabelsLocalized.nl[productType] || productType;
+        const clientInterestLabel = productInterestLabelsLocalized[emailLang]?.[productType] || productInterestLabelsLocalized.nl[productType] || productType;
 
         const clientHtmlContent = `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid #e2e8f0; border-top: 4px solid #e7b124; border-radius: 8px; background-color: #ffffff; color: #1a202c; line-height: 1.6;">
