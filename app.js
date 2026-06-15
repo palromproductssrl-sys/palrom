@@ -836,6 +836,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const controlGroupSubCategorySpecials = document.getElementById('controlGroupSubCategorySpecials');
         const subCategoryProfilesRadios = document.getElementsByName('subCategoryProfiles');
         const controlGroupSubCategoryProfiles = document.getElementById('controlGroupSubCategoryProfiles');
+        const subCategoryDowelsRadios = document.getElementsByName('subCategoryDowels');
+        const controlGroupSubCategoryDowels = document.getElementById('controlGroupSubCategoryDowels');
         
         const summaryProduct = document.getElementById('summaryProduct');
         const summaryDimensions = document.getElementById('summaryDimensions');
@@ -1015,6 +1017,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 summaryProduct.textContent = `${data.name} - ${subCatText}`;
                 specialsSubcat = subCatText;
+            } else if (cat === 'dowels' && subCategoryDowelsRadios.length > 0) {
+                let subCatText = "Small Size (3 mm and up)";
+                for (const radio of subCategoryDowelsRadios) {
+                    if (radio.checked) {
+                        const labelSpan = radio.parentElement.querySelector('.card-label');
+                        if (labelSpan) {
+                            subCatText = labelSpan.textContent;
+                        }
+                        break;
+                    }
+                }
+                summaryProduct.textContent = `${data.name} - ${subCatText}`;
+                specialsSubcat = subCatText;
             } else {
                 summaryProduct.textContent = data.name;
             }
@@ -1094,6 +1109,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 controlGroupSubCategoryProfiles.classList.add('hidden');
             }
             
+            // Toggle Dowels Subcategory Dropdown
+            if (cat === 'dowels' && controlGroupSubCategoryDowels) {
+                controlGroupSubCategoryDowels.classList.remove('hidden');
+            } else if (controlGroupSubCategoryDowels) {
+                controlGroupSubCategoryDowels.classList.add('hidden');
+            }
+            
             updateSummary();
         }
 
@@ -1105,6 +1127,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (subCategoryProfilesRadios.length > 0) {
             subCategoryProfilesRadios.forEach(radio => {
+                radio.addEventListener('change', updateSummary);
+            });
+        }
+        if (subCategoryDowelsRadios.length > 0) {
+            subCategoryDowelsRadios.forEach(radio => {
                 radio.addEventListener('change', updateSummary);
             });
         }
@@ -1135,6 +1162,18 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (cat === 'profiles' && subCategoryProfilesRadios.length > 0) {
                 let subCatText = "Semiround Profile";
                 for (const radio of subCategoryProfilesRadios) {
+                    if (radio.checked) {
+                        const labelSpan = radio.parentElement.querySelector('.card-label');
+                        if (labelSpan) {
+                            subCatText = labelSpan.textContent;
+                        }
+                        break;
+                    }
+                }
+                finalName = `${data.name} - ${subCatText}`;
+            } else if (cat === 'dowels' && subCategoryDowelsRadios.length > 0) {
+                let subCatText = "Small Size (3 mm and up)";
+                for (const radio of subCategoryDowelsRadios) {
                     if (radio.checked) {
                         const labelSpan = radio.parentElement.querySelector('.card-label');
                         if (labelSpan) {
