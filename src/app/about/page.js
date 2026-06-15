@@ -78,12 +78,28 @@ export default function About() {
         ro: 'Extinderea Unității'
       },
       description: {
-        nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers. Een gloednieuw opslagdepot wordt gebouwd in Brad om de groeiende exportvolumes te ondersteunen.',
-        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying chamber software. A brand-new storage depot is developed in Brad to support growing export volumes.',
-        de: 'Palrom modernisiert seinen Betriebshof, fügt 7.000 Quadratmeter betonierte Sortierflächen hinzu und aktualisiert die Software der Trockenkammern. Ein brandneues Lagerdepot wird in Brad gebaut, um das wachsende Exportvolumen zu unterstützen.',
-        ro: 'Palrom își modernizează curtea, adăugând 7.000 de metri pătrați de zone betonate de sortare și actualizând software-ul camerelor de uscare. Un nou depozit de stocare este dezvoltat în Brad pentru a sprijini volumele în creștere de export.'
+        nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers.',
+        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying chamber software.',
+        de: 'Palrom modernisiert seinen Betriebshof, fügt 7.000 Quadratmeter betonierte Sortierflächen hinzu und aktualisiert die Software der Trockenkammern.',
+        ro: 'Palrom își modernizează curtea, adăugând 7.000 de metri pătrați de zone betonate de sortare și actualizând software-ul camerelor de uscare.'
       },
       align: 'right',
+    },
+    {
+      year: '2025',
+      title: {
+        nl: 'Nieuw Opslagdepot',
+        en: 'New Storage Depot',
+        de: 'Neues Lagerdepot',
+        ro: 'Depozit Nou de Stocare'
+      },
+      description: {
+        nl: 'Een gloednieuw opslagdepot wordt opgeleverd in Brad om de groeiende exportvolumes te ondersteunen.',
+        en: 'A brand-new storage depot is completed in Brad to support growing export volumes.',
+        de: 'Ein brandneues Lagerdepot wird in Brad fertiggestellt, um die wachsenden Exportmengen zu unterstützen.',
+        ro: 'Un depozit nou de stocare este finalizat în Brad pentru a sprijini volumele în creștere de export.'
+      },
+      align: 'left',
     },
     {
       year: {
@@ -104,7 +120,7 @@ export default function About() {
         de: 'Tätig als Hauptlieferant für große europäische Händler von Möbelkomponenten, mit zentraler Logistiksteuerung und Vertrieb über Standorte in den Niederlanden.',
         ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistica centrală gestionată și distribuită prin puncte din Olanda.'
       },
-      align: 'left',
+      align: 'right',
     },
   ];
 
