@@ -568,22 +568,6 @@ export default function About() {
                 <span className="slideshow-counter">
                   {activeSlide + 1} / {galleryItems.length}
                 </span>
-                
-                <button 
-                  className="slideshow-arrow slideshow-arrow-left" 
-                  onClick={() => setActiveSlide((prev) => (prev - 1 + galleryItems.length) % galleryItems.length)}
-                  aria-label="Previous slide"
-                >
-                  <i className="fa-solid fa-chevron-left"></i>
-                </button>
-
-                <button 
-                  className="slideshow-arrow slideshow-arrow-right" 
-                  onClick={() => setActiveSlide((prev) => (prev + 1) % galleryItems.length)}
-                  aria-label="Next slide"
-                >
-                  <i className="fa-solid fa-chevron-right"></i>
-                </button>
 
                 <div className="slideshow-slides">
                   {galleryItems.map((item, idx) => (
@@ -603,16 +587,34 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Dots Indicator */}
-              <div className="slideshow-dots">
-                {galleryItems.map((_, idx) => (
-                  <button
-                    key={idx}
-                    className={`slideshow-dot ${idx === activeSlide ? 'active' : ''}`}
-                    onClick={() => setActiveSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
+              {/* Consolidated Navigation & Dots Row */}
+              <div className="slideshow-controls-dots-row">
+                <button 
+                  className="slideshow-dots-arrow" 
+                  onClick={() => setActiveSlide((prev) => (prev - 1 + galleryItems.length) % galleryItems.length)}
+                  aria-label="Previous slide"
+                >
+                  <i className="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div className="slideshow-dots">
+                  {galleryItems.map((_, idx) => (
+                    <button
+                      key={idx}
+                      className={`slideshow-dot ${idx === activeSlide ? 'active' : ''}`}
+                      onClick={() => setActiveSlide(idx)}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button 
+                  className="slideshow-dots-arrow" 
+                  onClick={() => setActiveSlide((prev) => (prev + 1) % galleryItems.length)}
+                  aria-label="Next slide"
+                >
+                  <i className="fa-solid fa-chevron-right"></i>
+                </button>
               </div>
             </div>
           </div>
