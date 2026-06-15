@@ -1511,7 +1511,202 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     authError.classList.remove('shake');
                 }, 400);
-            }
         });
+    }
+
+    // ==========================================
+    // 8. Team Member Detail Popups
+    // ==========================================
+    const teamMemberData = {
+        gabriela: {
+            name: "Gabriela Cioara",
+            role: {
+                nl: "Algemeen Directeur",
+                en: "General Manager"
+            },
+            avatar: "images/gabriela.png",
+            languages: {
+                nl: "Engels, Roemeens",
+                en: "English, Romanian"
+            },
+            bio: {
+                nl: "Gabriela leidt PALROM Products met meer dan 20 jaar ervaring in de B2B-houtindustrie. Zij richt zich op strategische groei, kwaliteitsborging en het behoud van onze premium FSC®-gecertificeerde toeleveringsketen.",
+                en: "Gabriela leads PALROM Products with over 20 years of experience in the B2B wood industry. She focuses on strategic growth, quality assurance, and maintaining our premium FSC®-certified supply chain."
+            },
+            email: "office@palromproducts.ro",
+            phone: "+40254606053",
+            whatsapp: "https://wa.me/40254606053?text=Hallo%20Gabriela,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten."
+        },
+        ciprian: {
+            name: "Ciprian Jude",
+            role: {
+                nl: "Inkoopmanager",
+                en: "Purchase Manager"
+            },
+            avatar: "images/ciprian.png",
+            languages: {
+                nl: "Engels, Roemeens",
+                en: "English, Romanian"
+            },
+            bio: {
+                nl: "Ciprian beheert onze houtinkoop en logistiek. Hij zorgt ervoor dat al onze beukenhouten grondstoffen afkomstig zijn uit duurzaam beheerde lokale bossen in de regio Brad en Hunedoara.",
+                en: "Ciprian manages our timber procurement and logistics. He ensures all our beechwood raw materials are sourced sustainably from managed local forests in the Brad and Hunedoara regions."
+            },
+            email: "ciprian.jude@palromproducts.ro",
+            phone: "+40254606053",
+            whatsapp: "https://wa.me/40254606053?text=Hallo%20Ciprian,%20ik%20wil%20graag%20de%20beschikbaarheid%20en%20inkoop%20van%20hout%20bespreken."
+        },
+        anca: {
+            name: "Anca Mihuț",
+            role: {
+                nl: "Personeelszaken (HR)",
+                en: "Human Resources"
+            },
+            avatar: "images/anca.png",
+            languages: {
+                nl: "Engels, Roemeens",
+                en: "English, Romanian"
+            },
+            bio: {
+                nl: "Anca coördineert recruitment en personeelswelzijn binnen de Palrom-zagerij en -schaverij. Zij is uw directe aanspreekpunt voor openstaande vacatures en sollicitaties in Brad.",
+                en: "Anca coordinates recruitment and employee welfare within the Palrom sawmill and planing mill. She is your direct point of contact for open vacancies and job applications in Brad."
+            },
+            email: "anca.mihut@palromproducts.ro",
+            phone: "+40254606053",
+            whatsapp: "https://wa.me/40254606053?text=Hallo%20Anca,%20ik%20heb%20een%20vraag%20over%20carri%C3%A8remogelijkheden%20bij%20Palrom."
+        },
+        adi: {
+            name: "Adi Cîra",
+            role: {
+                nl: "Productiemanager",
+                en: "Production Manager"
+            },
+            avatar: "images/adi_cira.png",
+            languages: {
+                nl: "Engels, Roemeens",
+                en: "English, Romanian"
+            },
+            bio: {
+                nl: "Adi houdt toezicht op onze ultramoderne zagerij- en schaaflijnen. Hij vertaalt klantspecifieke millimetertekeningen naar efficiënte en foutloze massaproductie.",
+                en: "Adi oversees our state-of-the-art sawmill and planing lines. He translates client-specific millimeter drawings into efficient, defect-free bulk production runs."
+            },
+            email: "production@palromproducts.ro",
+            phone: "+40254606053",
+            whatsapp: "https://wa.me/40254606053?text=Hallo%20Adi,%20ik%20heb%20een%20technische%20vraag%20over%20de%20productie%20van%20houten%20componenten."
+        },
+        bogdan: {
+            name: "Bogdan Oprea",
+            role: {
+                nl: "Orderverwerking",
+                en: "Order Intake"
+            },
+            avatar: "images/bogdan_oprea.png",
+            languages: {
+                nl: "Engels, Roemeens",
+                en: "English, Romanian"
+            },
+            bio: {
+                nl: "Bogdan is verantwoordelijk voor B2B-orderinname, volume-offertes en leveringsplanning. Hij zorgt voor een snelle verwerking van aanvragen en stroomlijnt de administratieve flow.",
+                en: "Bogdan is responsible for B2B order intake, volume quotes, and delivery scheduling. He ensures fast processing of inquiries and streamlines the administrative flow."
+            },
+            email: "orders@palromproducts.ro",
+            phone: "+40254606053",
+            whatsapp: "https://wa.me/40254606053?text=Hallo%20Bogdan,%20ik%20wil%20graag%20de%20status%20van%20een%20order%20of%20een%20offerteaanvraag%20bespreken."
+        }
+    };
+
+    const teamCards = document.querySelectorAll('.team-card');
+    
+    if (teamCards.length > 0) {
+        teamCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Ignore clicks on direct mailto links/buttons inside card
+                if (e.target.closest('.team-email-btn')) {
+                    return;
+                }
+                
+                const memberId = card.getAttribute('data-member-id');
+                if (memberId && teamMemberData[memberId]) {
+                    showTeamModal(teamMemberData[memberId]);
+                }
+            });
+        });
+    }
+
+    function showTeamModal(data) {
+        const lang = document.documentElement.lang === 'nl' ? 'nl' : 'en';
+        
+        const existingModal = document.getElementById('teamModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        const labels = {
+            whatsapp: lang === 'nl' ? 'Direct WhatsApp-bericht' : 'Direct WhatsApp Chat',
+            phone: lang === 'nl' ? 'Bellen naar kantoor' : 'Call Office Phone',
+            email: lang === 'nl' ? 'E-mail verzenden' : 'Send Direct Email',
+            close: lang === 'nl' ? 'Sluiten' : 'Close'
+        };
+        
+        const modal = document.createElement('div');
+        modal.id = 'teamModal';
+        modal.className = 'team-modal';
+        
+        modal.innerHTML = `
+            <div class="team-modal-overlay"></div>
+            <div class="team-modal-container">
+                <button class="team-modal-close" aria-label="${labels.close}">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="team-modal-avatar">
+                    <img src="${data.avatar}" alt="${data.name}">
+                </div>
+                <h2>${data.name}</h2>
+                <div class="team-modal-role">${data.role[lang]}</div>
+                <div class="team-modal-languages">${data.languages[lang]}</div>
+                <div class="team-modal-bio">${data.bio[lang]}</div>
+                
+                <div class="team-modal-contacts">
+                    <a href="${data.whatsapp}" target="_blank" rel="noopener noreferrer" class="team-contact-btn whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> ${labels.whatsapp}
+                    </a>
+                    <a href="tel:${data.phone}" class="team-contact-btn phone">
+                        <i class="fa-solid fa-phone"></i> ${labels.phone}
+                    </a>
+                    <a href="mailto:${data.email}" class="team-contact-btn email">
+                        <i class="fa-solid fa-envelope"></i> ${labels.email}
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        setTimeout(() => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }, 10);
+        
+        const closeBtn = modal.querySelector('.team-modal-close');
+        const overlay = modal.querySelector('.team-modal-overlay');
+        
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
+            document.removeEventListener('keydown', handleEsc);
+        };
+        
+        const handleEsc = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        };
+        
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+        document.addEventListener('keydown', handleEsc);
     }
 });
