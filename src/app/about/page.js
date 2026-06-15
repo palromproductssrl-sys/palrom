@@ -400,10 +400,7 @@ export default function About() {
                           height: '75px',
                           width: 'auto',
                           objectFit: 'contain',
-                          display: 'block',
-                          backgroundColor: '#fff',
-                          padding: '8px',
-                          borderRadius: '6px'
+                          display: 'block'
                         }}
                       />
                     </div>
