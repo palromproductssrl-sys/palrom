@@ -155,9 +155,11 @@ const t = {
   submitButtonText: { nl: 'Verstuur Aanvraag', en: 'Send Request', de: 'Anfrage absenden', ro: 'Trimite Solicitarea' },
   submittingText: { nl: 'Verzenden...', en: 'Sending...', de: 'Wird gesendet...', ro: 'Se trimite...' },
   contactAlert: { nl: 'Vul a.u.b. alle verplichte contactvelden in.', en: 'Please fill in all required contact fields.', de: 'Bitte füllen Sie alle erforderlichen Kontaktfelder aus.', ro: 'Vă rugăm să completați toate câmpurile de contact obligatorii.' },
-  submitError: { nl: 'Er is een fout opgetreden bij het verwerken van uw aanvraag. Probeer het opnieuw.', en: 'An error occurred while processing your request. Please try again.', de: 'Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', ro: 'A apărut o eroare la procesarea solicitării dvs. Vă rugăm să încercați din nou.' },
+  submitError: { nl: 'Er is een fout opgetreden bij het verwerken van uw aanvraag. Probeer het opnieuw.', en: 'An error occurred while processing your request. Please try again.', de: 'Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Probeer het opnieuw.', ro: 'A apărut o eroare la procesarea solicitării dvs. Vă rugăm să încercați din nou.' },
   removeItemAria: { nl: 'Verwijder product', en: 'Remove product', de: 'Produkt entfernen', ro: 'Elimină produsul' },
   materialValue: { nl: 'FSC®-Gecertificeerd Ongestoomd Beukenhout (natuurlijke kleur)', en: 'FSC®-Certified Unsteamed Beechwood (natural color)', de: 'FSC®-zertifiziertes ungedämpftes Buchenholz (natürliche Farbe)', ro: 'Lemn de Fag neaburit Certificat FSC® (culoare naturală)' },
+  materialValueFsc: { nl: 'FSC®-Gecertificeerd Ongestoomd Beukenhout (natuurlijke kleur)', en: 'FSC®-Certified Unsteamed Beechwood (natural color)', de: 'FSC®-zertifiziertes ungedämpftes Buchenholz (natürliche Farbe)', ro: 'Lemn de Fag neaburit Certificat FSC® (culoare naturală)' },
+  materialValueNonFsc: { nl: 'Ongestoomd Beukenhout (natuurlijke kleur)', en: 'Unsteamed Beechwood (natural color)', de: 'Ungedämpftes Buchenholz (natürliche Farbe)', ro: 'Lemn de Fag neaburit (culoare naturală)' },
   statusReady: { nl: 'Gereed', en: 'Ready', de: 'Bereit', ro: 'Pregătit' },
   showPasswordAria: { nl: 'Wachtwoord tonen', en: 'Show password', de: 'Passwort anzeigen', ro: 'Afișează parola' },
   gradeLabel: { nl: 'Houtkwaliteit', en: 'Wood Quality', de: 'Holzqualität', ro: 'Calitatea lemnului' },
@@ -166,8 +168,16 @@ const t = {
   lengthTypeLabel: { nl: 'Lengte categorie', en: 'Length Category', de: 'Längenkategorie', ro: 'Categorie lungime' },
   lengthTypeStandard: { nl: 'Standaard lengtes (snelle levering)', en: 'Standard lengths (fast shipping)', de: 'Standardlängen (schnelle Lieferung)', ro: 'Lungimi standard (livrare rapidă)' },
   lengthTypeCustom: { nl: 'Maatwerk lengte', en: 'Custom length', de: 'Sondermaß-Länge', ro: 'Lungime personalizată' },
-  moqNotice: { nl: 'MOQ voor maatwerk is 18 m² (min. {minQty} stuks voor deze afmeting)', en: 'MOQ for custom size is 18 m² (min. {minQty} pcs for this dimension)', de: 'MOQ für Sondermaß ist 18 m² (mind. {minQty} Stk. für dieses Maß)', ro: 'MOQ pentru dimensiuni personalizate este 18 m² (min. {minQty} buc pentru această dimensiune)' },
-  gradeRow: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' }
+  moqNotice: { nl: 'MOQ voor maatwerk is 18 m² (min. {minQty} stuks voor deze afmeting)', en: 'MOQ for custom size is 18 m² (min. {minQty} pcs for this dimension)', de: 'MOQ für Sondermaß is 18 m² (mind. {minQty} Stk. für dieses Maß)', ro: 'MOQ pentru dimensiuni personalizate este 18 m² (min. {minQty} buc pentru această dimensiune)' },
+  gradeRow: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
+  optionsLabel: { nl: 'Specificaties & Opties', en: 'Specifications & Options', de: 'Spezifikationen & Optionen', ro: 'Specificații și Opțiuni' },
+  fscCertified: { nl: 'FSC®-Gecertificeerd hout leveren', en: 'Deliver FSC®-Certified wood', de: 'FSC®-zertifiziertes Holz liefern', ro: 'Livrare lemn certificat FSC®' },
+  unsteamedOption: { nl: 'Ongestoomd hout (natuurlijke kleur)', en: 'Unsteamed wood (natural color)', de: 'Ungedämpftes Holz (natürliche Farbe)', ro: 'Lemn neaburit (culoare naturală)' },
+  fscRow: { nl: 'FSC® Certificering', en: 'FSC® Certification', de: 'FSC®-Zertifizierung', ro: 'Certificare FSC®' },
+  yes: { nl: 'Ja', en: 'Yes', de: 'Ja', ro: 'Da' },
+  no: { nl: 'Nee', en: 'No', de: 'Nein', ro: 'Nu' },
+  fscLabelFsc: { nl: 'FSC®', en: 'FSC®', de: 'FSC®', ro: 'FSC®' },
+  fscLabelNonFsc: { nl: 'Geen FSC®', en: 'No FSC®', de: 'Kein FSC®', ro: 'Fără FSC®' }
 };
 
 const standardLengths = {
@@ -220,6 +230,7 @@ export default function Configurator() {
   const [quantity, setQuantity] = useState(10000);
   const [grade, setGrade] = useState('AAA');
   const [lengthType, setLengthType] = useState('standard');
+  const [fsc, setFsc] = useState(true);
 
   const getValidationError = () => {
     if (category === 'planed' && grade === 'AAA') {
@@ -476,6 +487,7 @@ export default function Configurator() {
       discountPercent: details.discountPercent,
       grade,
       lengthType,
+      fsc,
     };
   };
 
@@ -517,6 +529,7 @@ export default function Configurator() {
       ...item,
       grade: item.grade || 'AAA',
       lengthType: item.lengthType || 'standard',
+      fsc: item.fsc !== undefined ? item.fsc : true,
       productName: subName,
       dimensions: dims,
       qtyText: `${item.quantity.toLocaleString(l === 'nl' ? 'nl-NL' : 'en-US')} ${t['pieces']?.[l] || t['pieces']?.nl}`,
@@ -542,6 +555,7 @@ export default function Configurator() {
       quantity,
       grade,
       lengthType,
+      fsc,
     };
     setConfiguredItems((prev) => [...prev, rawItem]);
 
@@ -556,6 +570,7 @@ export default function Configurator() {
     if (data.thickness) {
       setThickness(data.thickness.default);
     }
+    setFsc(true);
   };
 
   const handleRemoveItem = (index) => {
@@ -584,6 +599,7 @@ export default function Configurator() {
       quantity,
       grade,
       lengthType,
+      fsc,
     };
     setConfiguredItems((prev) => {
       const updated = [...prev, currentItem];
@@ -622,7 +638,7 @@ export default function Configurator() {
               qty: locItem.qtyVal,
               grade: item.grade || 'AAA',
               dims: locItem.dimensions,
-              notes: `Grade: ${item.grade || 'AAA'}, Type: ${item.lengthType || 'standard'}, Finish: ${locItem.finish}, Richtprijs: € ${formatEuro(locItem.price)}`,
+              notes: `Grade: ${item.grade || 'AAA'}, Type: ${item.lengthType || 'standard'}, FSC: ${item.fsc ? 'Yes' : 'No'}, Finish: ${locItem.finish}, Richtprijs: € ${formatEuro(locItem.price)}`,
             };
           }),
         }),
@@ -936,6 +952,34 @@ export default function Configurator() {
                   </div>
                 </div>
 
+                {/* Certification & Treatment Options */}
+                <div className="control-group" style={{ gridColumn: 'span 2', marginBottom: '0.5rem' }}>
+                  <label>{getTranslation('optionsLabel')}</label>
+                  <div style={{ display: 'flex', gap: '2rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                    {/* FSC Checkbox */}
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-dark)', fontWeight: 500 }}>
+                      <input
+                        type="checkbox"
+                        checked={fsc}
+                        onChange={(e) => setFsc(e.target.checked)}
+                        style={{ width: '1.2rem', height: '1.2rem', accentColor: 'var(--color-primary)' }}
+                      />
+                      <span>{getTranslation('fscCertified')}</span>
+                    </label>
+
+                    {/* Unsteamed Checkbox (always checked & disabled) */}
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'not-allowed', color: '#94a3b8', fontWeight: 500 }}>
+                      <input
+                        type="checkbox"
+                        checked={true}
+                        disabled={true}
+                        style={{ width: '1.2rem', height: '1.2rem', cursor: 'not-allowed', accentColor: 'var(--color-primary)' }}
+                      />
+                      <span>{getTranslation('unsteamedOption')}</span>
+                    </label>
+                  </div>
+                </div>
+
                 {/* Sizing: Length */}
                 <div className="control-group">
                   <div className="slider-header">
@@ -1104,7 +1148,7 @@ export default function Configurator() {
                           <div>
                             <span className="item-info">{item.productName}</span>
                             <span className="item-specs">
-                              ({item.dimensions} | {item.grade} | {item.finish} | {item.qtyText} | € {formatEuro(item.price)})
+                              ({item.dimensions} | {item.grade} | {item.fsc ? getTranslation('fscLabelFsc') : getTranslation('fscLabelNonFsc')} | {item.finish} | {item.qtyText} | € {formatEuro(item.price)})
                             </span>
                           </div>
                           <button
@@ -1163,7 +1207,13 @@ export default function Configurator() {
                     <tr>
                       <td>{getTranslation('materialRow')}</td>
                       <td>
-                        <span className="material-leaf">🌿</span> {getTranslation('materialValue')}
+                        <span className="material-leaf">🌿</span> {activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc')}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{getTranslation('fscRow')}</td>
+                      <td>
+                        {activeSelection.fsc ? getTranslation('yes') : getTranslation('no')}
                       </td>
                     </tr>
                     <tr>
@@ -1237,7 +1287,7 @@ export default function Configurator() {
               <div className="dashboard-status-bar">
                 <div className="status-col">
                   <span className="status-label">{getTranslation('certificationLabel')}</span>
-                  <span className="status-value">{getTranslation('materialValue')}</span>
+                  <span className="status-value">{activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc')}</span>
                 </div>
                 <div className="status-col">
                   <span className="status-label">{getTranslation('statusLabel')}</span>
@@ -1307,7 +1357,7 @@ export default function Configurator() {
                                 <strong>{item.productName}</strong>
                                 <br />
                                 <span style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {getTranslation('finishRow')}: {item.finish} | {getTranslation('quantityRow')}:{' '}
+                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {getTranslation('fscRow')}: {item.fsc ? getTranslation('yes') : getTranslation('no')} | {getTranslation('finishRow')}: {item.finish} | {getTranslation('quantityRow')}:{' '}
                                   {item.qtyText}
                                 </span>
                               </div>
