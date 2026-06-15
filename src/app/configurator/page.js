@@ -49,6 +49,14 @@ const categoryData = {
   },
 };
 
+const mainCategories = [
+  { id: 'planed', name: categoryData.planed.name, img: '/images/config_planed.png' },
+  { id: 'dowels', name: categoryData.dowels.name, img: '/images/config_dowels.png' },
+  { id: 'profiles', name: categoryData.profiles.name, img: '/images/config_profiles.png' },
+  { id: 'specials', name: categoryData.specials.name, img: '/images/config_specials.png' },
+  { id: 'sawn', name: categoryData.sawn.name, img: '/images/sawmill.png' },
+];
+
 const standardSawnThickness = [20, 25, 32, 36, 42, 47, 52, 57, 67];
 const standardSawnWidth = [45, 50, 60, 65, 70, 75, 95];
 const standardRodDiameters = [3, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 19, 20, 22, 25, 28, 30, 35, 40, 45, 50, 55, 60];
@@ -884,19 +892,27 @@ export default function Configurator() {
               {/* Wizard fields */}
               <div className="dashboard-controls-grid">
                 <div className="control-group" id="controlGroupCategory">
-                  <label htmlFor="dbCategory">{getTranslation('categoryLabel')}</label>
-                  <select
-                    id="dbCategory"
-                    className="dashboard-select"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option value="sawn">{categoryData.sawn.name[lang] || categoryData.sawn.name.nl}</option>
-                    <option value="planed">{categoryData.planed.name[lang] || categoryData.planed.name.nl}</option>
-                    <option value="dowels">{categoryData.dowels.name[lang] || categoryData.dowels.name.nl}</option>
-                    <option value="profiles">{categoryData.profiles.name[lang] || categoryData.profiles.name.nl}</option>
-                    <option value="specials">{categoryData.specials.name[lang] || categoryData.specials.name.nl}</option>
-                  </select>
+                  <label>{getTranslation('categoryLabel')}</label>
+                  <div className="main-category-grid">
+                    {mainCategories.map((cat) => (
+                      <label key={cat.id} className="main-category-card">
+                        <input
+                          type="radio"
+                          name="mainCategory"
+                          value={cat.id}
+                          checked={category === cat.id}
+                          onChange={() => setCategory(cat.id)}
+                        />
+                        <div className="card-content">
+                          <img src={cat.img} alt="" className="card-bg-image" />
+                          <div className="card-overlay"></div>
+                          <div className="card-info-overlay">
+                            <span className="card-label">{cat.name[lang] || cat.name.nl}</span>
+                          </div>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Subcategory: Dowels */}
