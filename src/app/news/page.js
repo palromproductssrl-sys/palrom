@@ -187,7 +187,7 @@ export default function News() {
     },
     {
       id: 2,
-      image: '/images/8.png',
+      image: '/images/6.png',
       title: lang === 'nl' ? 'Eerste Zaagbewerkingen' : (lang === 'de' ? 'Primäre Sägearbeiten' : (lang === 'ro' ? 'Operațiuni de Tăiere Primară' : 'Primary Sawing Operations')),
       desc: lang === 'nl' ? 'Geavanceerde zaaglijnen en het zagen van planken.' : (lang === 'de' ? 'High-Tech-Stammzerlegung und Zuschnitt von Schnittholz.' : (lang === 'ro' ? 'Debitarea buștenilor și tăierea cherestelei cu tehnologie avansată.' : 'High-tech log breakdown and sawn timber cutting.')),
     },
@@ -223,7 +223,7 @@ export default function News() {
     },
     {
       id: 8,
-      image: '/images/6.png',
+      image: '/images/8.png',
       title: lang === 'nl' ? 'Logistieke Ondersteuning' : (lang === 'de' ? 'Globale Logistik-Unterstützung' : (lang === 'ro' ? 'Suport Logistic Global' : 'Global Logistics Support')),
       desc: lang === 'nl' ? 'Exportklare verpakking en bundeling voor doe-het-zelf-bouwmarkten.' : (lang === 'de' ? 'Exportfertige Verpackung und Bündelung für Baumärkte.' : (lang === 'ro' ? 'Ambalare pregătită pentru export și ambalare în pachete pentru hypermarketuri DIY.' : 'Export-ready packaging and DIY hypermarket bundling.')),
     },
