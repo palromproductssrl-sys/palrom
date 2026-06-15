@@ -192,14 +192,16 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             // Get form values
-            const name = document.getElementById('name').value.strip ? document.getElementById('name').value.strip() : document.getElementById('name').value;
+            const name = document.getElementById('name').value.trim ? document.getElementById('name').value.trim() : document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const product = document.getElementById('product_type').value;
             const message = document.getElementById('message').value;
+            const isNl = document.documentElement.lang === 'nl';
 
             // Simple check
             if (!name || !email || !product || !message) {
-                showFeedback('Please fill out all required fields.', 'error');
+                const errorMsg = isNl ? 'Vul alstublieft alle verplichte velden in.' : 'Please fill out all required fields.';
+                showFeedback(errorMsg, 'error');
                 return;
             }
 
@@ -207,18 +209,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Sending inquiry...';
+            const sendingText = isNl 
+                ? '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Verzenden...' 
+                : '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Sending inquiry...';
+            submitBtn.innerHTML = sendingText;
 
             setTimeout(() => {
                 // Success
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
                 
-                const productMsg = product === 'careers' 
-                    ? 'application has been received by our Human Resources department' 
-                    : `inquiry regarding our "${product}" beechwood products has been sent to our Brad office`;
+                let feedbackMsg = '';
+                if (isNl) {
+                    const productMsg = product === 'careers'
+                        ? 'sollicitatie is ontvangen door onze afdeling Personeelszaken (HR)'
+                        : `aanvraag voor onze "${product}" beukenhouten producten is verzonden naar ons kantoor in Brad`;
+                    feedbackMsg = `Bedankt, ${name}! Uw ${productMsg}. We reageren binnen 24 uur.`;
+                } else {
+                    const productMsg = product === 'careers' 
+                        ? 'application has been received by our Human Resources department' 
+                        : `inquiry regarding our "${product}" beechwood products has been sent to our Brad office`;
+                    feedbackMsg = `Thank you, ${name}! Your ${productMsg}. We will reply in 24 hours.`;
+                }
                 
-                showFeedback(`Thank you, ${name}! Your ${productMsg}. We will reply in 24 hours.`, 'success');
+                showFeedback(feedbackMsg, 'success');
                 contactForm.reset();
             }, 1800);
         });
@@ -745,9 +759,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('cart_email').value;
             const phone = document.getElementById('cart_phone').value;
             const notes = document.getElementById('cart_message').value.trim();
+            const isNl = document.documentElement.lang === 'nl';
 
             if (!name || !email || !phone) {
-                alert('Please fill out all required contact fields.');
+                const errorMsg = isNl 
+                    ? 'Vul alstublieft alle verplichte contactvelden in.' 
+                    : 'Please fill out all required contact fields.';
+                alert(errorMsg);
                 return;
             }
 
@@ -755,7 +773,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = cartSubmitForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Submitting...';
+            const submittingText = isNl 
+                ? '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Verzenden...' 
+                : '<i class="fa-solid fa-spinner fa-spin icon-left"></i> Submitting...';
+            submitBtn.innerHTML = submittingText;
 
             setTimeout(() => {
                 submitBtn.disabled = false;
@@ -763,19 +784,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Format item list for success message
                 const itemsList = cart.map(item => {
-                    const gradeNames = {
+                    const gradeNames = isNl ? {
+                        'grade_a': 'Klasse A (Foutvrij)',
+                        'grade_b': 'Klasse B (Meubelhout)',
+                        'grade_ab': 'Klasse A/B Mix'
+                    } : {
                         'grade_a': 'Class A (Clear)',
                         'grade_b': 'Class B (Cabinet)',
                         'grade_ab': 'Class A/B Mixed'
                     };
                     const gradeName = gradeNames[item.grade] || item.grade;
-                    const dimDesc = item.dims ? ` [Size: ${item.dims}]` : '';
+                    const dimDesc = item.dims ? ` [Maat: ${item.dims}]` : '';
                     return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc})`;
                 }).join('\n');
 
-                alert(
-                    `Thank you, ${name}! Your inquiry for the following product(s) has been successfully received by our Brad headquarters:\n\n${itemsList}\n\nWe will prepare detailed sizing sheets and pricing estimates and email you at ${email} within 24 hours.`
-                );
+                const alertMsg = isNl 
+                    ? `Bedankt, ${name}! Uw offerteaanvraag voor de volgende product(en) is succesvol ontvangen door ons hoofdkantoor in Brad:\n\n${itemsList}\n\nWe zullen gedetailleerde specificaties en prijsopgaven voorbereiden en u binnen 24 uur e-mailen op ${email}.`
+                    : `Thank you, ${name}! Your inquiry for the following product(s) has been successfully received by our Brad headquarters:\n\n${itemsList}\n\nWe will prepare detailed sizing sheets and pricing estimates and email you at ${email} within 24 hours.`;
+                alert(alertMsg);
 
                 // Clear cart state
                 cart = [];
