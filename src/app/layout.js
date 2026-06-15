@@ -32,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="nl"
+      lang="en"
       className={`${inter.variable} ${outfit.variable} ${poppins.variable}`}
     >
       <head>

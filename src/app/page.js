@@ -11,56 +11,56 @@ export default function Home() {
     {
       id: 'dowels',
       category: 'dowels',
-      name: 'Beukenhouten Pluggen & Deuvels',
-      description: 'Verkrijgbaar in diameters van 3 mm tot 60 mm. Keuze uit gladde houten pinnen of spiraalgegroefde deuvels voor een optimale lijmhechting.',
+      name: 'Beechwood Dowels & Pins',
+      description: 'Available in diameters from 3 mm to 60 mm. Choose between smooth wooden pins or spiral grooved dowels for optimal glue adhesion.',
       image: '/images/dowels.png',
       link: '/dowels',
       specs: [
-        { label: 'Diameter', value: '3mm tot 60mm' },
-        { label: 'Afwerking', value: 'Glad / Gegroefd (6mm tot 20mm)' },
-        { label: 'Houtsoort', value: 'Gestoomd of ongestoomd beuken' },
+        { label: 'Diameter', value: '3mm to 60mm' },
+        { label: 'Finish', value: 'Smooth / Grooved (6mm to 20mm)' },
+        { label: 'Wood Type', value: 'Steamed or unsteamed beech' },
       ],
-      tag: 'Pluggen',
+      tag: 'Dowels',
     },
     {
       id: 'planed',
       category: 'planed',
-      name: 'Vierzijdig Geschaafd Timmerhout',
-      description: 'Geschaafd tot op de millimeter nauwkeurig. Leverbaar in diverse rechthoekige en vierkante secties, gekalibreerd voor timmerfabrieken en de meubelindustrie.',
+      name: 'Four-Sides Planed Timber',
+      description: 'Planed to millimeter precision. Available in various rectangular and square sections, calibrated for joinery factories and the furniture industry.',
       image: '/images/planed_wood.png',
       link: '/four-sides-planed',
       specs: [
-        { label: 'Secties', value: 'Vierkant & Rechthoekig' },
-        { label: 'Randen', value: 'Scherp, Radius 3 of Radius 6' },
-        { label: 'Vochtigheid', value: 'Oven-gedroogd tot 8-12%' },
+        { label: 'Sections', value: 'Square & Rectangular' },
+        { label: 'Edges', value: 'Sharp, Radius 3 or Radius 6' },
+        { label: 'Moisture', value: 'Kiln-dried to 8-12%' },
       ],
-      tag: 'Geschaafd',
+      tag: 'Planed',
     },
     {
       id: 'profiles',
       category: 'profiles',
-      name: 'Houten Profielen & Sierlijsten',
-      description: 'Groot assortiment decoratieve lijsten, plinten en profielen voor interieurafwerking en meubelproductie. Maatwerk profielen mogelijk op aanvraag.',
+      name: 'Wooden Profiles & Mouldings',
+      description: 'Large assortment of decorative mouldings, skirtings, and profiles for interior finishing and furniture production. Custom profiles available upon request.',
       image: '/images/profiles.png',
       link: '/profiles',
       specs: [
-        { label: 'Vormen', value: 'Halfrond, Kwartrond, Plinten' },
-        { label: 'Maatwerk', value: 'Hoekprofielen, schroefdraad, inkepingen' },
-        { label: 'Retail', value: 'EAN barcode labeling mogelijk' },
+        { label: 'Shapes', value: 'Half-round, Quarter-round, Skirtings' },
+        { label: 'Customization', value: 'Corner profiles, threading, notches' },
+        { label: 'Retail', value: 'EAN barcode labeling available' },
       ],
-      tag: 'Profielen',
+      tag: 'Profiles',
     },
     {
       id: 'specials',
       category: 'specials',
-      name: 'Speciale Componenten & Halffabrikaten',
-      description: 'Halffabrikaten en op maat gemaakte houten onderdelen voor meubels, keukengerei, speelgoed en specifieke industriële toepassingen.',
+      name: 'Special Components & Semi-Finished Products',
+      description: 'Semi-finished and custom-made wooden parts for furniture, kitchen utensils, toys, and specific industrial applications.',
       image: '/images/specials.png',
       link: '/specials',
       specs: [
-        { label: 'Toepassingen', value: 'Meubelindustrie / Keukengerei / DHZ' },
-        { label: 'FSC Gecertificeerd', value: 'Leverbaar op aanvraag' },
-        { label: 'Verpakking', value: 'Bulk of op maat verpakt' },
+        { label: 'Applications', value: 'Furniture industry / Kitchen utensils / DIY' },
+        { label: 'FSC Certified', value: 'Available upon request' },
+        { label: 'Packaging', value: 'Bulk or custom packaged' },
       ],
       tag: 'Specials',
     },
@@ -73,7 +73,7 @@ export default function Home() {
 
   const handleDownloadBrochure = (e) => {
     e.preventDefault();
-    alert('Palrom Products Corporate Brochure download gestart (Voorbeeld).');
+    alert('Palrom Products Corporate Brochure download started (Sample).');
   };
 
   return (
@@ -82,30 +82,30 @@ export default function Home() {
       <section id="home" className="hero-section">
         <div className="hero-overlay"></div>
         <div className="hero-content container">
-          <span className="hero-badge animate-fade-in">FSC®-Gecertificeerde Houtindustrie</span>
+          <span className="hero-badge animate-fade-in">FSC®-Certified Wood Industry</span>
           <h1 className="hero-title animate-slide-up">
-            Fabrikant van beukenhouten pluggen en profielen
+            Manufacturer of Beechwood Dowels and Profiles
           </h1>
           <p className="hero-subtitle animate-slide-up-delay">
-            Palrom Products combineert decennia aan ervaring met een moderne houtzagerij en droogkamers. Wij leveren hoogwaardige beukenhouten pluggen, profielen en geschaafde meubelcomponenten rechtstreeks aan de internationale meubel- en houtindustrie.
+            Palrom Products combines decades of experience with a modern sawmill and drying kilns. We supply high-quality beechwood dowels, profiles, and planed furniture components directly to the international furniture and wood industry.
           </p>
           <div className="hero-buttons animate-slide-up-delay-2">
             <Link href="/configurator" className="btn btn-primary">
-              Vraag direct een offerte aan
+              Request a Quote
             </Link>
             <Link href="/products" className="btn btn-secondary">
-              Bekijk Producten
+              View Products
             </Link>
           </div>
         </div>
 
         {/* Hiring Stamp on Hero Photo */}
-        <Link href="/careers" className="hiring-stamp-hero" title="We zoeken versterking! Bekijk onze vacatures">
-          <img src="/images/hiring_stamp.png" alt="Vacatures bij Palrom Products - Solliciteer nu" />
+        <Link href="/careers" className="hiring-stamp-hero" title="We are hiring! View our vacancies">
+          <img src="/images/hiring_stamp.png" alt="Vacancies at Palrom Products - Apply now" />
         </Link>
 
         <div className="scroll-indicator">
-          <span>Scroll naar beneden</span>
+          <span>Scroll Down</span>
           <i className="fa-solid fa-chevron-down scroll-arrow"></i>
         </div>
       </section>
@@ -115,14 +115,14 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-2">
             <div className="intro-text-column animate-on-scroll">
-              <span className="section-badge">Welkom bij PALROM</span>
-              <h2 className="section-title">FSC®-Gecertificeerd Beukenhout</h2>
+              <span className="section-badge">Welcome to PALROM</span>
+              <h2 className="section-title">FSC®-Certified Beechwood</h2>
               <p className="section-description">
-                Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië) beheert{' '}
-                <strong>Palrom Products SRL</strong> een geavanceerde houtzagerij, moderne droogkamers en een professionele schaverij. Wij leveren hoogwaardig timmerhout en meubelcomponenten rechtstreeks vanaf de bron.
+                Based in the forested region of Brad (Hunedoara, Romania),{' '}
+                <strong>Palrom Products SRL</strong> operates an advanced sawmill, modern drying kilns, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.
               </p>
               <p className="section-description">
-                Dankzij onze verticale integratie controleren we het volledige productieproces. We oogsten lokaal FSC®-gecertificeerd beukenhout, verwerken het met precisie, drogen het tot het optimale vochtpercentage en schaven het volgens de exacte specificaties van onze B2B-klanten in de Europese houtindustrie.
+                Thanks to our vertical integration, we control the entire production process. We harvest local FSC®-certified beechwood, process it with precision, dry it to the optimal moisture content, and plane it according to the exact specifications of our B2B customers in the European wood industry.
               </p>
               <div className="intro-features">
                 <div className="feature-item">
@@ -130,9 +130,9 @@ export default function Home() {
                     <i className="fa-solid fa-tree"></i>
                   </div>
                   <div>
-                    <h4>100% Duurzaam</h4>
+                    <h4>100% Sustainable</h4>
                     <p>
-                      Ons beukenhout is 100% FSC®-gecertificeerd en afkomstig uit verantwoord beheerde lokale bossen.
+                      Our beechwood is 100% FSC®-certified and sourced from responsibly managed local forests.
                     </p>
                   </div>
                 </div>
@@ -141,9 +141,9 @@ export default function Home() {
                     <i className="fa-solid fa-award"></i>
                   </div>
                   <div>
-                    <h4>Maatwerk Componenten</h4>
+                    <h4>Custom Components</h4>
                     <p>
-                      Zagen, drogen, schaven en profileren gebeurt volledig volgens uw gewenste afmetingen.
+                      Sawing, drying, planing, and profiling are done entirely according to your desired dimensions.
                     </p>
                   </div>
                 </div>
@@ -153,12 +153,12 @@ export default function Home() {
               <div className="image-wrapper-decorative">
                 <img
                   src="/images/sawmill.png"
-                  alt="Geautomatiseerde houtverwerking Palrom"
+                  alt="Automated wood processing Palrom"
                   className="img-responsive rounded-lg shadow-lg"
                 />
                 <div className="stats-badge">
                   <span className="stat-number">25+</span>
-                  <span className="stat-text">Jaar Ervaring</span>
+                  <span className="stat-text">Years Experience</span>
                 </div>
               </div>
             </div>
@@ -170,10 +170,10 @@ export default function Home() {
       <section className="why-us-section section-padding bg-light">
         <div className="container">
           <div className="text-center max-w-xl mx-auto mb-5">
-            <span className="section-badge">Waarom PALROM?</span>
-            <h2 className="section-title">Grootschalige Production & Maatwerk</h2>
+            <span className="section-badge">Why PALROM?</span>
+            <h2 className="section-title">Large-Scale Production & Customization</h2>
             <p className="section-subtitle">
-              Wij leveren niet alleen timmerhout; we ontwerpen maatwerkoplossingen die het rendement verhogen en productiekosten verlagen voor meubelfabrikanten en houtbewerkers.
+              We do not just deliver timber; we design custom solutions that increase yield and lower production costs for furniture manufacturers and woodworkers.
             </p>
           </div>
 
@@ -182,9 +182,9 @@ export default function Home() {
               <div className="card-icon">
                 <i className="fa-solid fa-warehouse"></i>
               </div>
-              <h3>Moderne Droogkamers</h3>
+              <h3>Modern Drying Kilns</h3>
               <p>
-                Onze droogcapaciteit garandeert een stabiel vochtpercentage van 8-12%, wat kromtrekken of scheuren in uw meubelcomponenten voorkomt.
+                Our drying capacity guarantees a stable moisture content of 8-12%, preventing warping or cracking in your furniture components.
               </p>
             </div>
             <div className="card card-hover animate-on-scroll">
@@ -193,16 +193,16 @@ export default function Home() {
               </div>
               <h3>Retail-Ready Labeling</h3>
               <p>
-                Voor DHZ-markten leveren we individueel gelabelde bundels met EAN-barcodes en op maat gemaakte verpakkingen.
+                For DIY markets, we deliver individually labeled bundles with EAN barcodes and custom packaging.
               </p>
             </div>
             <div className="card card-hover animate-on-scroll">
               <div className="card-icon">
                 <i className="fa-solid fa-globe"></i>
               </div>
-              <h3>Internationale Logistiek</h3>
+              <h3>International Logistics</h3>
               <p>
-                Export naar Duitsland, Frankrijk, Oostenrijk en Japan. Inclusief B2B-distributie en opslag via Van Soest International in Nederland.
+                Export to Germany, France, Austria, and Japan. Including B2B distribution and warehousing via Van Soest International in the Netherlands.
               </p>
             </div>
           </div>
@@ -211,14 +211,14 @@ export default function Home() {
             <div className="brochure-content">
               <i className="fa-solid fa-file-pdf pdf-large-icon"></i>
               <div>
-                <h3>Technische afmetingen en specificaties inzien?</h3>
+                <h3>Want to view technical dimensions and specifications?</h3>
                 <p>
-                  Download onze officiële productbrochure met maattabellen, kwaliteitsklassen en verpakkingsopties.
+                  Download our official product brochure with size tables, quality grades, and packaging options.
                 </p>
               </div>
             </div>
             <a href="#" className="btn btn-dark" onClick={handleDownloadBrochure}>
-              <i className="fa-solid fa-download icon-left"></i> Download Productbrochure
+              <i className="fa-solid fa-download icon-left"></i> Download Product Brochure
             </a>
           </div>
         </div>
@@ -228,10 +228,10 @@ export default function Home() {
       <section id="products" className="products-section section-padding">
         <div className="container">
           <div className="text-center max-w-xl mx-auto mb-4">
-            <span className="section-badge">Productassortiment</span>
-            <h2 className="section-title">Beuken Pluggen & Meubelcomponenten</h2>
+            <span className="section-badge">Product Range</span>
+            <h2 className="section-title">Beech Dowels & Furniture Components</h2>
             <p className="section-subtitle">
-              Ontdek onze kernproducten, met uiterste precisie vervaardigd uit FSC®-gecertificeerd Roemeens beukenhout.
+              Discover our core products, crafted with extreme precision from FSC®-certified Romanian beechwood.
             </p>
           </div>
 
@@ -241,31 +241,31 @@ export default function Home() {
               className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
               onClick={() => setActiveFilter('all')}
             >
-              Alles
+              All
             </button>
             <button
               className={`filter-btn ${activeFilter === 'dowels' ? 'active' : ''}`}
               onClick={() => setActiveFilter('dowels')}
             >
-              Beukenhouten Pluggen
+              Beechwood Dowels
             </button>
             <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}
               onClick={() => setActiveFilter('planed')}
             >
-              Vierzijdig Geschaafd
+              Four-Sides Planed
             </button>
             <button
               className={`filter-btn ${activeFilter === 'profiles' ? 'active' : ''}`}
               onClick={() => setActiveFilter('profiles')}
             >
-              Houten Profielen
+              Wooden Profiles
             </button>
             <button
               className={`filter-btn ${activeFilter === 'specials' ? 'active' : ''}`}
               onClick={() => setActiveFilter('specials')}
             >
-              Speciale Componenten
+              Special Components
             </button>
           </div>
 
@@ -290,7 +290,7 @@ export default function Home() {
                     ))}
                   </ul>
                   <Link href={p.link} className="product-link">
-                    {activeFilter === 'all' ? `Ontdek ${p.name.split(' ')[0]}` : 'Bekijk details'}{' '}
+                    {activeFilter === 'all' ? `Discover ${p.tag}` : 'View details'}{' '}
                     <i className="fa-solid fa-arrow-right"></i>
                   </Link>
                 </div>
