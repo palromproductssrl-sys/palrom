@@ -118,7 +118,7 @@
 
             <div class="news-grid">
                 <!-- News Item 1: Droogcapaciteit (Regular Card) -->
-                <div class="news-card animate-on-scroll">
+                <div class="news-card animate-on-scroll" data-article="drying">
                     <div class="news-image">
                         <img src="images/kilns_news.jpg" alt="New Drying Kilns in Brad">
                         <span class="news-tag">Production</span>
@@ -134,7 +134,7 @@
                 </div>
 
                 <!-- News Item 2: FSC Certificering (Regular Card) -->
-                <div class="news-card animate-on-scroll">
+                <div class="news-card animate-on-scroll" data-article="fsc">
                     <div class="news-image">
                         <img src="images/hero_bg.jpg" alt="Sustainable Forestry FSC">
                         <span class="news-tag">Sustainability</span>
@@ -150,7 +150,7 @@
                 </div>
 
                 <!-- News Item 3: Palrom Offerte Configurator Beta Testing (Regular Card) -->
-                <div class="news-card animate-on-scroll">
+                <div class="news-card animate-on-scroll" data-article="configurator">
                     <div class="news-image">
                         <img src="images/config_dowels.png" alt="Palrom Offerte Configurator B2B">
                         <span class="news-tag highlight-tag">Digitale Bèta</span>
@@ -562,6 +562,33 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Submit Quote Request <i class="fa-solid fa-paper-plane icon-right"></i></button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Detail Modal -->
+    <div id="newsModal" class="news-modal">
+        <div class="news-modal-overlay"></div>
+        <div class="news-modal-container animate-on-scroll">
+            <button class="news-modal-close" id="closeNewsModal" aria-label="Sluit pop-up">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="news-modal-image">
+                <img id="modalNewsImg" src="" alt="">
+            </div>
+            <div class="news-modal-body">
+                <div class="news-modal-meta">
+                    <span id="modalNewsTag" class="news-tag">Category</span>
+                    <span id="modalNewsDate" class="news-meta-item"><i class="fa-regular fa-calendar"></i> Date</span>
+                    <span id="modalNewsAuthor" class="news-meta-item"><i class="fa-regular fa-user"></i> Author</span>
+                </div>
+                <h2 id="modalNewsTitle">Article Title</h2>
+                <div id="modalNewsContent" class="news-modal-text">
+                    <!-- Dynamic rich content goes here -->
+                </div>
+                <div class="news-modal-actions">
+                    <a id="modalNewsCTA" href="" class="btn btn-primary">Action CTA <i class="fa-solid fa-arrow-right icon-right"></i></a>
+                </div>
             </div>
         </div>
     </div>

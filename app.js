@@ -1151,4 +1151,122 @@ document.addEventListener('DOMContentLoaded', () => {
     loadCart();
 
     checkCookieConsent();
+
+    // ==========================================
+    // 11. News Details Modal Logic
+    // ==========================================
+    const newsArticles = {
+        drying: {
+            title: "Expansion of Kiln Drying Capacity in Brad",
+            category: "Production",
+            categoryClass: "",
+            date: "May 24, 2026",
+            author: "PALROM Operations",
+            image: "images/kilns_news.jpg",
+            content: `
+                <p>To meet rising international demand for high-quality FSC-certified beechwood, we have commissioned two new fully-automated drying chambers at our Brad facility. This expansion increases our total kiln drying capacity by 15%.</p>
+                <p>Our state-of-the-art drying kilns use advanced computerized climate control systems to slowly reduce beechwood moisture levels to a precise 8-12%. This slow, controlled process prevents structural tension, surface cracking, and discoloration, ensuring maximum stability for high-end furniture and industrial components.</p>
+                <p>The two new chambers add an extra 400 cubic meters of active drying volume, allowing us to accelerate order fulfillment times for our B2B partners across Europe while maintaining our strict quality controls. This investment represents our ongoing commitment to technical excellence and capacity growth in sustainable hardwood processing.</p>
+            `,
+            ctaText: "Read our history",
+            ctaHref: "about.html#timeline-details"
+        },
+        fsc: {
+            title: "FSC® Chain of Custody Recertified",
+            category: "Sustainability",
+            categoryClass: "",
+            date: "April 12, 2026",
+            author: "PALROM Forestry Team",
+            image: "images/hero_bg.jpg",
+            content: `
+                <p>Following a comprehensive audit, our 100% FSC® certification for sustainable forest management and processing has been successfully renewed. We guarantee the responsible sourcing of all our beechwood products.</p>
+                <p>Sustainability is at the core of PALROM Products SRL. Our Chain of Custody (CoC) certification ensures that every log entering our sawmill can be traced back to responsibly managed, FSC®-certified forests in the Carpathian region.</p>
+                <p>The comprehensive audit evaluated our raw timber purchasing logs, physical sorting lines, production tracing systems, and export documentation. By achieving a perfect compliance score, we reaffirm our commitment to protecting biodiversity, supporting local forestry communities, and providing our B2B customers with 100% certified sustainable beech components that meet the highest environmental standards.</p>
+            `,
+            ctaText: "Explore our products",
+            ctaHref: "products.html"
+        },
+        configurator: {
+            title: "Help Ons Testen: De Palrom Offerte Configurator is Live!",
+            category: "Digitale Bèta",
+            categoryClass: "highlight-tag",
+            date: "15 juni 2026",
+            author: "IT & Sales Team",
+            image: "images/config_dowels.png",
+            content: `
+                <p>We introduceren met trots de eerste bèta-versie van onze nieuwe B2B-productconfigurator: de <strong>Palrom Offerte Configurator</strong>. Met deze online tool kunnen inkopers en houtspecialisten direct de exacte millimeter-afmetingen, productgroepen (zoals houten staven, geschaafd hout en profielen) en gewenste afwerkingen invoeren voor grote volumebestellingen.</p>
+                <p>Met de introductie van deze digitale tool zetten we een grote stap in het optimaliseren van onze B2B-dienstverlening. In plaats van handmatige e-mailuitwisselingen over afmetingen en toleranties, kunnen onze partners nu in drie eenvoudige stappen hun gewenste productgroepen configureren. De tool berekent live volumes, toont live sliders voor dikte, breedte en lengte, en biedt een interactieve selectie van speciale houtproducten.</p>
+                <p>We nodigen al onze partners en B2B-klanten uit om deze configurator te testen en hun feedback te delen. Dit helpt ons de workflows te optimaliseren en de definitieve release perfect af te stemmen op uw inkoopbehoeften.</p>
+            `,
+            ctaText: "Start de Palrom Offerte Configurator",
+            ctaHref: "configurator.html"
+        }
+    };
+
+    const newsCards = document.querySelectorAll('.news-card');
+    const newsModal = document.getElementById('newsModal');
+    
+    if (newsModal && newsCards.length > 0) {
+        const closeNewsModal = document.getElementById('closeNewsModal');
+        const modalOverlay = newsModal.querySelector('.news-modal-overlay');
+        
+        const modalImg = document.getElementById('modalNewsImg');
+        const modalTag = document.getElementById('modalNewsTag');
+        const modalDate = document.getElementById('modalNewsDate');
+        const modalAuthor = document.getElementById('modalNewsAuthor');
+        const modalTitle = document.getElementById('modalNewsTitle');
+        const modalContent = document.getElementById('modalNewsContent');
+        const modalCTA = document.getElementById('modalNewsCTA');
+        
+        newsCards.forEach(card => {
+            card.style.cursor = 'pointer';
+            
+            card.addEventListener('click', (e) => {
+                // If user clicked directly on a link/button inside the card, let the link action proceed
+                if (e.target.closest('a') || e.target.closest('button')) {
+                    return;
+                }
+                
+                const articleId = card.getAttribute('data-article');
+                const article = newsArticles[articleId];
+                if (!article) return;
+                
+                // Populate modal
+                modalImg.src = article.image;
+                modalImg.alt = article.title;
+                modalTag.textContent = article.category;
+                
+                modalTag.className = 'news-tag';
+                if (article.categoryClass) {
+                    modalTag.classList.add(article.categoryClass);
+                }
+                
+                modalDate.innerHTML = `<i class="fa-regular fa-calendar"></i> ${article.date}`;
+                modalAuthor.innerHTML = `<i class="fa-regular fa-user"></i> ${article.author}`;
+                modalTitle.textContent = article.title;
+                modalContent.innerHTML = article.content;
+                
+                modalCTA.textContent = article.ctaText;
+                modalCTA.href = article.ctaHref;
+                
+                // Show modal
+                newsModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // prevent background scrolling
+            });
+        });
+        
+        const hideModal = () => {
+            newsModal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        if (closeNewsModal) closeNewsModal.addEventListener('click', hideModal);
+        if (modalOverlay) modalOverlay.addEventListener('click', hideModal);
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && newsModal.classList.contains('active')) {
+                hideModal();
+            }
+        });
+    }
 });
