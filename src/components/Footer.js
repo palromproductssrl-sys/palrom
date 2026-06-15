@@ -2,10 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useInquiry } from './InquiryContext';
 
 export default function Footer() {
   const { setIsCookieModalOpen, lang } = useInquiry();
+  const router = useRouter();
 
   const handleCookieClick = (e) => {
     e.preventDefault();
@@ -122,7 +124,13 @@ export default function Footer() {
               {getTranslation('cookiePolicy')}
             </a>
             <span className="divider">|</span>
-            <span>Created by Emmer1972</span>
+            <span 
+              onDoubleClick={() => router.push('/configurator')} 
+              style={{ cursor: 'pointer', userSelect: 'none' }}
+              title="Dubbelklik voor configurator"
+            >
+              Created by Emmer1972
+            </span>
           </div>
         </div>
       </div>
