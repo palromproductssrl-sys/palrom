@@ -223,6 +223,7 @@ function formatEuro(val, decimals = 2) {
   }).format(val);
 }
 
+const SHOW_PRICING = false;
 
 export default function Configurator() {
   const { lang, addToCart, setIsCartOpen } = useInquiry();
@@ -1313,37 +1314,41 @@ export default function Configurator() {
                         <td style={{ fontStyle: 'italic', color: '#ffd700' }}>{activeSelection.additionalInfo}</td>
                       </tr>
                     )}
-                    <tr>
-                      <td>{getTranslation('targetPricePerPiece')}</td>
-                      <td>€ {formatEuro(activeSelection.unitPrice, 4)}</td>
-                    </tr>
-                    <tr>
-                      <td>{getTranslation('volumeDiscountRow')}</td>
-                      <td>
-                        {activeSelection.discountPercent > 0 ? (
-                          <span
-                            className="discount-badge"
-                            style={{
-                              background: 'rgba(231,177,36,0.15)',
-                              color: 'var(--color-primary-dark)',
-                              padding: '0.15rem 0.45rem',
-                              borderRadius: 'var(--border-radius-sm)',
-                              fontWeight: 600,
-                            }}
-                          >
-                            {activeSelection.discountPercent}% {getTranslation('volumeDiscountText')}
-                          </span>
-                        ) : (
-                          getTranslation('noDiscount')
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>{getTranslation('totalTargetPriceRow')}</td>
-                      <td style={{ fontWeight: 700, color: 'var(--color-primary-dark)' }}>
-                        € {formatEuro(activeSelection.price)}
-                      </td>
-                    </tr>
+                    {SHOW_PRICING && (
+                      <>
+                        <tr>
+                          <td>{getTranslation('targetPricePerPiece')}</td>
+                          <td>€ {formatEuro(activeSelection.unitPrice, 4)}</td>
+                        </tr>
+                        <tr>
+                          <td>{getTranslation('volumeDiscountRow')}</td>
+                          <td>
+                            {activeSelection.discountPercent > 0 ? (
+                              <span
+                                className="discount-badge"
+                                style={{
+                                  background: 'rgba(231,177,36,0.15)',
+                                  color: 'var(--color-primary-dark)',
+                                  padding: '0.15rem 0.45rem',
+                                  borderRadius: 'var(--border-radius-sm)',
+                                  fontWeight: 600,
+                                }}
+                              >
+                                {activeSelection.discountPercent}% {getTranslation('volumeDiscountText')}
+                              </span>
+                            ) : (
+                              getTranslation('noDiscount')
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{getTranslation('totalTargetPriceRow')}</td>
+                          <td style={{ fontWeight: 700, color: 'var(--color-primary-dark)' }}>
+                            € {formatEuro(activeSelection.price)}
+                          </td>
+                        </tr>
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>

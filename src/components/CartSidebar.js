@@ -11,6 +11,8 @@ function formatEuro(val, decimals = 2) {
   }).format(val);
 }
 
+const SHOW_PRICING = false;
+
 export default function CartSidebar() {
   const {
     cartItems,
@@ -85,10 +87,18 @@ export default function CartSidebar() {
       ro: 'Solicitarea Dvs. de Ofertă'
     },
     emptyMessage: {
-      nl: 'Uw offertelijst is leeg. Gebruik de configurator om klantspecifieke beukenhouten producten en richtprijzen aan uw aanvraag toe te voegen.',
-      en: 'Your inquiry list is empty. Use the configurator to add custom-spec beechwood products and target prices to your request.',
-      de: 'Ihre Anfrageliste ist leer. Nutzen Sie den Konfigurator, um Buchenholzprodukte mit kundenspezifischen Spezifikationen und Richtpreise zu Ihrer Anfrage hinzuzufügen.',
-      ro: 'Lista dvs. de solicitare este goală. Utilizați configuratorul pentru a adăuga produse din fag cu specificații personalizate și prețuri țintă la solicitarea dvs.'
+      nl: SHOW_PRICING 
+        ? 'Uw offertelijst is leeg. Gebruik de configurator om klantspecifieke beukenhouten producten en richtprijzen aan uw aanvraag toe te voegen.'
+        : 'Uw offertelijst is leeg. Gebruik de configurator om klantspecifieke beukenhouten producten aan uw aanvraag toe te voegen.',
+      en: SHOW_PRICING 
+        ? 'Your inquiry list is empty. Use the configurator to add custom-spec beechwood products and target prices to your request.'
+        : 'Your inquiry list is empty. Use the configurator to add custom-spec beechwood products to your request.',
+      de: SHOW_PRICING 
+        ? 'Ihre Anfrageliste ist leer. Nutzen Sie den Konfigurator, um Buchenholzprodukte mit kundenspezifischen Spezifikationen und Richtpreise zu Ihrer Anfrage hinzuzufügen.'
+        : 'Ihre Anfrageliste ist leer. Nutzen Sie den Konfigurator, um Buchenholzprodukte mit kundenspezifischen Spezifikationen zu Ihrer Anfrage hinzuzufügen.',
+      ro: SHOW_PRICING 
+        ? 'Lista dvs. de solicitare este goală. Utilizați configuratorul pentru a adăuga produse din fag cu specificații personalizate și prețuri țintă la solicitarea dvs.'
+        : 'Lista dvs. de solicitare este goală. Utilizați configuratorul pentru a adăuga produse din fag cu specificații personalizate la solicitarea dvs.'
     },
     goToProducts: {
       nl: 'Naar Configurator',
@@ -249,8 +259,8 @@ export default function CartSidebar() {
             const dryingText = item.drying === 'luchtdroog'
               ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried')))
               : (lang === 'nl' ? 'KD 10-12%' : (lang === 'de' ? 'KD 10-12%' : (lang === 'ro' ? 'KD 10-12%' : 'KD 10-12%')));
-            const priceText = `€ ${formatEuro(item.price)}`;
-            return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc}, ${fscText}, ${dryingText}, ${priceText})`;
+            const priceText = SHOW_PRICING ? `, € ${formatEuro(item.price)}` : '';
+            return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc}, ${fscText}, ${dryingText}${priceText})`;
           }
           return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc})`;
         })
@@ -350,31 +360,33 @@ export default function CartSidebar() {
                           </div>
                         )}
                       </div>
-                      <div className="configured-pricing-row" style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--color-border)', paddingTop: '0.75rem' }}>
-                        <div>
-                          {item.discountPercent > 0 && (
-                            <span className="discount-badge" style={{
-                              backgroundColor: '#fef3c7',
-                              color: '#b45309',
-                              fontSize: '0.75rem',
-                              fontWeight: '600',
-                              padding: '0.15rem 0.4rem',
-                              borderRadius: '0.25rem',
-                              display: 'inline-block',
-                            }}>
-                              {item.discountPercent}% {lang === 'nl' ? 'volumekorting' : (lang === 'de' ? 'Mengenrabatt' : (lang === 'ro' ? 'reducere de volum' : 'volume discount'))}
+                      {SHOW_PRICING && (
+                        <div className="configured-pricing-row" style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--color-border)', paddingTop: '0.75rem' }}>
+                          <div>
+                            {item.discountPercent > 0 && (
+                              <span className="discount-badge" style={{
+                                backgroundColor: '#fef3c7',
+                                color: '#b45309',
+                                fontSize: '0.75rem',
+                                fontWeight: '600',
+                                padding: '0.15rem 0.4rem',
+                                borderRadius: '0.25rem',
+                                display: 'inline-block',
+                              }}>
+                                {item.discountPercent}% {lang === 'nl' ? 'volumekorting' : (lang === 'de' ? 'Mengenrabatt' : (lang === 'ro' ? 'reducere de volum' : 'volume discount'))}
+                              </span>
+                            )}
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
+                              {lang === 'nl' ? 'Richtprijs (excl. btw)' : (lang === 'de' ? 'Richtpreis (exkl. MwSt.)' : (lang === 'ro' ? 'Preț țintă (excl. TVA)' : 'Target price (excl. VAT)'))}
                             </span>
-                          )}
+                            <strong style={{ fontSize: '1.05rem', color: 'var(--color-forest-dark)' }}>
+                              € {formatEuro(item.price)}
+                            </strong>
+                          </div>
                         </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
-                            {lang === 'nl' ? 'Richtprijs (excl. btw)' : (lang === 'de' ? 'Richtpreis (exkl. MwSt.)' : (lang === 'ro' ? 'Preț țintă (excl. TVA)' : 'Target price (excl. VAT)'))}
-                          </span>
-                          <strong style={{ fontSize: '1.05rem', color: 'var(--color-forest-dark)' }}>
-                            € {formatEuro(item.price)}
-                          </strong>
-                        </div>
-                      </div>
+                      )}
                     </div>
                   ) : (
                     <div className="cart-item-specs">
@@ -411,7 +423,7 @@ export default function CartSidebar() {
 
           {cartItems.length > 0 && (
             <div className="cart-form-section">
-              {cartItems.some(item => item.price !== undefined) && (
+              {SHOW_PRICING && cartItems.some(item => item.price !== undefined) && (
                 <div className="cart-total-box" style={{
                   background: 'linear-gradient(135deg, var(--color-forest-dark) 0%, #1e3a2b 100%)',
                   color: '#ffffff',
