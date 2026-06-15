@@ -49,6 +49,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 115px; /* Offset for fixed header + margin spacing */
     font-size: 16px;
     background-color: var(--color-bg-light);
     color: var(--color-text-dark);
