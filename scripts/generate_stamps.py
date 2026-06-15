@@ -3,7 +3,7 @@ import math
 import shutil
 from PIL import Image, ImageDraw, ImageFont
 
-def draw_curved_text(draw, img, text, center, radius, font, spacing_factor, text_color=(0, 0, 0, 255)):
+def draw_curved_text_top(draw, img, text, center, radius, font, spacing_factor, text_color=(0, 0, 0, 255)):
     chars = list(text)
     char_widths = []
     for char in chars:
@@ -17,31 +17,25 @@ def draw_curved_text(draw, img, text, center, radius, font, spacing_factor, text
     total_w = sum(char_widths)
     angle_span_rad = (total_w * spacing_factor) / radius
     
-    # Center the text around the top of the circle (-90 degrees / -pi/2 radians)
     center_angle_rad = -math.pi / 2
     start_angle_rad = center_angle_rad - (angle_span_rad / 2)
     
     current_w = 0
     for i, char in enumerate(chars):
         char_w = char_widths[i]
-        # Angle for the center of the current character
         char_angle_rad = start_angle_rad + (current_w + char_w / 2) * spacing_factor / radius
         current_w += char_w
         
-        # Position of the character center on the circle
         x = center[0] + radius * math.cos(char_angle_rad)
         y = center[1] + radius * math.sin(char_angle_rad)
         
-        # Calculate rotation angle in degrees
         theta_deg = math.degrees(char_angle_rad)
         rot_deg = -theta_deg - 90
         
-        # Create a small image for the character to rotate it
         char_sz = 200
         char_img = Image.new("RGBA", (char_sz, char_sz), (0, 0, 0, 0))
         char_draw = ImageDraw.Draw(char_img)
         
-        # Draw character centered
         bbox = font.getbbox(char)
         w = bbox[2] - bbox[0]
         h = bbox[3] - bbox[1]
@@ -50,10 +44,58 @@ def draw_curved_text(draw, img, text, center, radius, font, spacing_factor, text
         draw_y = (char_sz - h) / 2 - bbox[1]
         char_draw.text((draw_x, draw_y), char, font=font, fill=text_color)
         
-        # Rotate character image
         rotated_char_img = char_img.rotate(rot_deg, resample=Image.Resampling.BICUBIC)
         
-        # Paste onto the main canvas
+        paste_x = int(round(x - char_sz / 2))
+        paste_y = int(round(y - char_sz / 2))
+        img.paste(rotated_char_img, (paste_x, paste_y), rotated_char_img)
+
+def draw_curved_text_bottom(draw, img, text, center, radius, font, spacing_factor, text_color=(0, 0, 0, 255)):
+    chars = list(text)
+    char_widths = []
+    for char in chars:
+        try:
+            w = font.getlength(char)
+        except AttributeError:
+            bbox = font.getbbox(char)
+            w = bbox[2] - bbox[0]
+        char_widths.append(w)
+    
+    total_w = sum(char_widths)
+    angle_span_rad = (total_w * spacing_factor) / radius
+    
+    # Bottom text is centered at +90 degrees (pi/2 radians)
+    center_angle_rad = math.pi / 2
+    # Start on the left (larger angle, e.g. pi/2 + span/2) and write to the right (subtracting angles)
+    start_angle_rad = center_angle_rad + (angle_span_rad / 2)
+    
+    current_w = 0
+    for i, char in enumerate(chars):
+        char_w = char_widths[i]
+        # Subtract angle to move clockwise (from 8 o'clock to 4 o'clock)
+        char_angle_rad = start_angle_rad - (current_w + char_w / 2) * spacing_factor / radius
+        current_w += char_w
+        
+        x = center[0] + radius * math.cos(char_angle_rad)
+        y = center[1] + radius * math.sin(char_angle_rad)
+        
+        theta_deg = math.degrees(char_angle_rad)
+        rot_deg = 90 - theta_deg
+        
+        char_sz = 200
+        char_img = Image.new("RGBA", (char_sz, char_sz), (0, 0, 0, 0))
+        char_draw = ImageDraw.Draw(char_img)
+        
+        bbox = font.getbbox(char)
+        w = bbox[2] - bbox[0]
+        h = bbox[3] - bbox[1]
+        
+        draw_x = (char_sz - w) / 2 - bbox[0]
+        draw_y = (char_sz - h) / 2 - bbox[1]
+        char_draw.text((draw_x, draw_y), char, font=font, fill=text_color)
+        
+        rotated_char_img = char_img.rotate(rot_deg, resample=Image.Resampling.BICUBIC)
+        
         paste_x = int(round(x - char_sz / 2))
         paste_y = int(round(y - char_sz / 2))
         img.paste(rotated_char_img, (paste_x, paste_y), rotated_char_img)
@@ -117,7 +159,11 @@ def generate_stamp(lang, outer_text, center_text, font_path, output_path):
         fs_outer -= 2
         
     print(f"[{lang}] Outer text: font size {fs_outer}, spacing factor {spacing_factor:.3f}")
-    draw_curved_text(draw, img, outer_text, (512, 512), radius_text, font_outer, spacing_factor, text_color=(0, 0, 0, 255))
+    
+    # Draw curved top text
+    draw_curved_text_top(draw, img, outer_text, (512, 512), radius_text, font_outer, spacing_factor, text_color=(0, 0, 0, 255))
+    # Draw curved bottom text
+    draw_curved_text_bottom(draw, img, outer_text, (512, 512), radius_text, font_outer, spacing_factor, text_color=(0, 0, 0, 255))
     
     # 5. Calculate center text font size dynamically to prevent overflow
     # Bounding box limits inside the 320px radius circle

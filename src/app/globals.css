@@ -2816,12 +2816,25 @@ ul {
     transform: rotate(15deg); /* Initially rotated 15 degrees to look authentically stamped */
 }
 
+@keyframes stamp-spin {
+    0% {
+        transform: scale(1.02) rotate(-15deg);
+    }
+    50% {
+        transform: scale(1.02) rotate(15deg);
+    }
+    100% {
+        transform: scale(1.02) rotate(-15deg);
+    }
+}
+
 .hiring-stamp-hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     transform: scale(1.02);
+    animation: stamp-spin 8s ease-in-out infinite;
 }
 
 .hiring-stamp-hero:hover {
