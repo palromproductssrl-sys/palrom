@@ -5,6 +5,11 @@ import Link from 'next/link';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
+// STAP 1: Upload de video naar YouTube (bijvoorbeeld als verborgen/unlisted of openbaar).
+// STAP 2: Kopieer de video ID uit de YouTube link (bijv. 'y9vH9cM0J_4' uit 'https://www.youtube.com/watch?v=y9vH9cM0J_4').
+// STAP 3: Vervang de onderstaande placeholder-ID 'dQw4w9WgXcQ' door uw eigen YouTube video ID.
+const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'; // Standaard placeholder video
+
 export default function News() {
   const { lang } = useInquiry();
 
@@ -334,10 +339,14 @@ export default function News() {
 
             {/* Video Item */}
             <div className="gallery-item video-item animate-on-scroll">
-              <video autoPlay muted loop playsInline controls className="gallery-video">
-                <source src="/images/PALROM.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <iframe
+                className="gallery-video"
+                src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`}
+                title={getTranslation('videoTitle')}
+                style={{ border: 'none' }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
               <div className="gallery-overlay">
                 <h3>{getTranslation('videoTitle')}</h3>
                 <p>{getTranslation('videoDesc')}</p>
