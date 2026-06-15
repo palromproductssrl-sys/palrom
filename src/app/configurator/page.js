@@ -895,7 +895,7 @@ export default function Configurator() {
                   <label>{getTranslation('categoryLabel')}</label>
                   <div className="main-category-grid">
                     {mainCategories.map((cat) => (
-                      <label key={cat.id} className="main-category-card">
+                      <label key={cat.id} className={`main-category-card ${category !== cat.id ? 'dimmed' : ''}`}>
                         <input
                           type="radio"
                           name="mainCategory"
@@ -921,7 +921,7 @@ export default function Configurator() {
                     <label>{getTranslation('dowelSubcatLabel')}</label>
                     <div className="dowels-subcat-grid">
                       {dowelSubcategories.map((d) => (
-                        <label key={d.id} className="dowels-subcat-card">
+                        <label key={d.id} className={`dowels-subcat-card ${subCategoryDowels !== d.id ? 'dimmed' : ''}`}>
                           <input
                             type="radio"
                             name="subCategoryDowels"
@@ -948,7 +948,7 @@ export default function Configurator() {
                     <label>{getTranslation('planedSubcatLabel')}</label>
                     <div className="planed-subcat-grid">
                       {planedSubcategories.map((p) => (
-                        <label key={p.id} className="planed-subcat-card">
+                        <label key={p.id} className={`planed-subcat-card ${subCategoryPlaned !== p.id ? 'dimmed' : ''}`}>
                           <input
                             type="radio"
                             name="subCategoryPlaned"
@@ -975,7 +975,7 @@ export default function Configurator() {
                     <label>{getTranslation('profileSubcatLabel')}</label>
                     <div className="profiles-subcat-grid">
                       {profileSubcategories.map((p) => (
-                        <label key={p.id} className="profiles-subcat-card">
+                        <label key={p.id} className={`profiles-subcat-card ${subCategoryProfiles !== p.id ? 'dimmed' : ''}`}>
                           <input
                             type="radio"
                             name="subCategoryProfiles"
@@ -1002,7 +1002,7 @@ export default function Configurator() {
                     <label>{getTranslation('specialSubcatLabel')}</label>
                     <div className="specials-subcat-grid">
                       {specialsSubcategories.map((s) => (
-                        <label key={s.id} className="specials-subcat-card">
+                        <label key={s.id} className={`specials-subcat-card ${subCategorySpecials !== s.id ? 'dimmed' : ''}`}>
                           <input
                             type="radio"
                             name="subCategorySpecials"

@@ -4096,6 +4096,26 @@ ul {
     line-height: 1.25;
 }
 
+/* Selected card popping, others dimmed */
+.main-category-card.dimmed,
+.dowels-subcat-card.dimmed,
+.planed-subcat-card.dimmed,
+.profiles-subcat-card.dimmed,
+.specials-subcat-card.dimmed {
+    opacity: 0.55;
+    filter: grayscale(40%);
+    transition: opacity var(--transition-fast) ease, filter var(--transition-fast) ease, transform var(--transition-fast) ease, border-color var(--transition-fast) ease;
+}
+
+.main-category-card.dimmed:hover,
+.dowels-subcat-card.dimmed:hover,
+.planed-subcat-card.dimmed:hover,
+.profiles-subcat-card.dimmed:hover,
+.specials-subcat-card.dimmed:hover {
+    opacity: 0.8;
+    filter: grayscale(20%);
+}
+
 /* Responsive grid adjustments */
 @media (max-width: 768px) {
     .specials-subcat-grid {
