@@ -158,8 +158,8 @@ const teamMemberData = {
       ro: 'Willem este reprezentantul nostru în Olanda. El este punctul principal de contact pentru logistică, depozitare și distribuție în Europa de Vest, fiind bucuros să vă ajute cu livrările locale și parteneriatele.'
     },
     email: 'willem@palromproducts.ro',
-    phone: '+31654321098',
-    whatsapp: 'https://wa.me/31654321098?text=Hallo%20Willem,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten.',
+    phone: '+31 6 28621019',
+    whatsapp: 'https://wa.me/31628621019?text=Hallo%20Willem,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten.',
   },
 };
 
