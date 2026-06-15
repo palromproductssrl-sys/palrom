@@ -91,12 +91,12 @@ const planedSubcategories = [
 ];
 
 const specialsSubcategories = [
-  { id: 'special-keeplat-spruce', name: { nl: 'Vuren keeplat (spie)', en: 'Keeplat Spruce', de: 'Keilleiste Fichte', ro: 'Pană din Lemn de Molid' } },
-  { id: 'special-keeplat-beech', name: { nl: 'Beuken keeplat (spie)', en: 'Keeplat Beech', de: 'Keilleiste Buche', ro: 'Pană din Lemn de Fag' } },
-  { id: 'special-distancer-mix', name: { nl: 'Afstandhouders kleurenmix', en: 'Distancers Color Mix', de: 'Abstandhalter Farbmix', ro: 'Distanțiere Mix de Culori' } },
-  { id: 'special-threshold', name: { nl: 'Houten drempel', en: 'Wooden Threshold', de: 'Holzschwelle', ro: 'Prag din Lemn' } },
-  { id: 'special-distancer-ind', name: { nl: 'Industriële afstandhouder', en: 'Industrial Distancer', de: 'Industrieller Abstandhalter', ro: 'Distanțier Industrial' } },
-  { id: 'special-wood-iron', name: { nl: 'Hout met ijzeren component', en: 'Wood with Iron Component', de: 'Holz mit Eisenkomponente', ro: 'Lemn cu Componentă din Fier' } },
+  { id: 'special-keeplat-spruce', name: { nl: 'Vuren keeplat (spie)', en: 'Keeplat Spruce', de: 'Keilleiste Fichte', ro: 'Pană din Lemn de Molid' }, img: '/images/special1.jpg' },
+  { id: 'special-keeplat-beech', name: { nl: 'Beuken keeplat (spie)', en: 'Keeplat Beech', de: 'Keilleiste Buche', ro: 'Pană din Lemn de Fag' }, img: '/images/special2.jpg' },
+  { id: 'special-distancer-mix', name: { nl: 'Afstandhouders kleurenmix', en: 'Distancers Color Mix', de: 'Abstandhalter Farbmix', ro: 'Distanțiere Mix de Culori' }, img: '/images/special3.jpg' },
+  { id: 'special-threshold', name: { nl: 'Houten drempel', en: 'Wooden Threshold', de: 'Holzschwelle', ro: 'Prag din Lemn' }, img: '/images/special4.jpg' },
+  { id: 'special-distancer-ind', name: { nl: 'Industriële afstandhouder', en: 'Industrial Distancer', de: 'Industrieller Abstandhalter', ro: 'Distanțier Industrial' }, img: '/images/special5.jpg' },
+  { id: 'special-wood-iron', name: { nl: 'Hout met ijzeren component', en: 'Wood with Iron Component', de: 'Holz mit Eisenkomponente', ro: 'Lemn cu Componentă din Fier' }, img: '/images/special6.jpg' },
 ];
 
 const t = {
@@ -1029,8 +1029,12 @@ export default function Configurator() {
                               onChange={() => setSubCategorySpecials(s.id)}
                             />
                             <div className="card-content">
-                              <div className="card-icon">{svgMap[s.id]}</div>
-                              <span className="card-label">{s.name[lang] || s.name.nl}</span>
+                              <img src={s.img} alt="" className="card-bg-image" />
+                              <div className="card-overlay"></div>
+                              <div className="card-info-overlay">
+                                <div className="card-icon">{svgMap[s.id]}</div>
+                                <span className="card-label">{s.name[lang] || s.name.nl}</span>
+                              </div>
                             </div>
                           </label>
                         );
