@@ -141,7 +141,7 @@ const t = {
   totalTargetPriceRow: { nl: 'Totale Richtprijs', en: 'Total Target Price', de: 'Gesamte Richtpreis', ro: 'Preț Țintă Total' },
   certificationLabel: { nl: 'Certificering', en: 'Certification', de: 'Zertifizierung', ro: 'Certificare' },
   statusLabel: { nl: 'Status', en: 'Status', de: 'Status', ro: 'Status' },
-  submitInquiryButton: { nl: 'Vraag Direct Offerte Aan', en: 'Request Quote Direct', de: 'Direkt Angebot anfordern', ro: 'Solicită Ofertă Direct' },
+  submitInquiryButton: { nl: 'Toevoegen aan offerteaanvraag', en: 'Add to quote request', de: 'Zur Angebotsanfrage hinzufügen', ro: 'Adaugă la solicitare' },
   successTitle: { nl: 'Aanvraag Succesvol Ontvangen', en: 'Inquiry Successfully Received', de: 'Anfrage erfolgreich empfangen', ro: 'Solicitare Primită cu Succes' },
   successLead: { nl: 'Bedankt! Uw specificaties zijn geregistreerd in ons B2B-offertesysteem. We nemen binnen 24 uur contact met u op.', en: 'Thank you! Your specifications have been registered in our B2B quote system. We will contact you within 24 hours.', de: 'Vielen Dank! Ihre Spezifikationen wurden in unserem B2B-Angebotssystem registriert. Wir werden uns innerhalb von 24 Stunden mit Ihnen in Verbindung setzen.', ro: 'Vă mulțumim! Specificațiile dvs. au fost înregistrate în sistemul nostru de oferte B2B. Vă vom contacta în termen de 24 de ore.' },
   ticketHeader: { nl: 'OFFERTE TICKETAANVRAAG', en: 'QUOTE INQUIRY TICKET', de: 'ANGEBOTSANFRAGE-TICKET', ro: 'TICKET SOLICITARE OFERTĂ' },
@@ -225,7 +225,7 @@ function formatEuro(val, decimals = 2) {
 
 
 export default function Configurator() {
-  const { lang } = useInquiry();
+  const { lang, addToCart, setIsCartOpen } = useInquiry();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [password, setPassword] = useState('');
@@ -295,25 +295,7 @@ export default function Configurator() {
     }
   }, [minQty, quantity]);
 
-  // Combined configurations state (holds raw properties for on-the-fly language rendering)
-  const [configuredItems, setConfiguredItems] = useState([]);
 
-  // Modals state
-  const [showCombineModal, setShowCombineModal] = useState(false);
-  const [showContactModal, setShowContactModal] = useState(false);
-  const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
-
-  // Contact form details
-  const [clientName, setClientName] = useState('');
-  const [clientCompany, setClientCompany] = useState('');
-  const [clientEmail, setClientEmail] = useState('');
-  const [clientPhone, setClientPhone] = useState('');
-  const [clientNotes, setClientNotes] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Ticket success details
-  const [ticketNum, setTicketNum] = useState('');
-  const [successItems, setSuccessItems] = useState([]);
 
   // Load session storage check
   useEffect(() => {
@@ -725,21 +707,9 @@ export default function Configurator() {
     }
   };
 
-  const handleRemoveItem = (index) => {
-    setConfiguredItems((prev) => prev.filter((_, i) => i !== index));
-  };
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    setShowCombineModal(true);
-  };
 
-  const handleConfigureAnother = () => {
-    handleAddConfiguration();
-    setShowCombineModal(false);
-  };
-
-  const handleFinishAndSubmit = () => {
     const currentItem = {
       category,
       subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '',
@@ -755,78 +725,94 @@ export default function Configurator() {
       woodType,
       steamed
     };
-    setConfiguredItems((prev) => {
-      const updated = [...prev, currentItem];
-      setSuccessItems(updated);
-      return updated;
+
+    const resolvedDetails = localizeItem(currentItem, lang);
+    
+    // Calculate base unit price before quantity discount
+    const calculatedBase = calculatePriceDetails(
+      currentItem.category,
+      currentItem.length,
+      currentItem.diameter,
+      currentItem.thickness,
+      1, // qty=1 to get the unit price without quantity volume discount
+      currentItem.subCategory,
+      currentItem.grade || 'A',
+      currentItem.lengthType || 'standard',
+      currentItem.drying || 'kd'
+    );
+
+    // Add to global cartItems
+    addToCart({
+      id: 'config-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+      isConfigured: true,
+      category: resolvedDetails.productName.split(' - ')[0],
+      name: resolvedDetails.productName,
+      qty: currentItem.quantity,
+      grade: currentItem.grade,
+      dims: resolvedDetails.dimensions,
+      fsc: currentItem.fsc,
+      drying: currentItem.drying,
+      additionalInfo: currentItem.additionalInfo,
+      price: resolvedDetails.price, // Calculated target price
+      baseUnitPrice: calculatedBase.unitPrice, // Store the base unit price (before qty discounts) for cart calculations
+      discountPercent: resolvedDetails.discountPercent, // Save the calculated volume discount
     });
 
-    setShowCombineModal(false);
-    setShowContactModal(true);
-  };
-
-  const handleInquirySubmit = async (e) => {
-    e.preventDefault();
-    if (!clientName.trim() || !clientCompany.trim() || !clientEmail.trim() || !clientPhone.trim()) {
-      alert(getTranslation('contactAlert'));
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // API request to Next.js API route
-      const response = await fetch('/api/inquire', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          clientName: `${clientName} (${clientCompany})`,
-          clientEmail,
-          clientPhone,
-          clientNotes: clientNotes,
-          items: successItems.map((item) => {
-            const locItem = localizeItem(item, lang);
-            return {
-              name: locItem.productName,
-              category: locItem.productName.split(' - ')[0],
-              qty: locItem.qtyVal,
-              grade: item.grade || 'AAA',
-              dims: locItem.dimensions,
-              notes: `Grade: ${item.grade || 'AAA'}, Type: ${item.lengthType || 'standard'}, FSC: ${item.fsc ? 'Yes' : 'No'}, Finish: ${locItem.finish}, Richtprijs: € ${formatEuro(locItem.price)}`,
-            };
-          }),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Database inquiry recording failed.');
+    // Reset configurator fields
+    const data = categoryData[category];
+    if (data) {
+      if (category === 'sawn') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(25);
+        setWidthType('standard');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'planed') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(50);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'dowels') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('standard');
+        setThickness(10);
+        setWidthType('standard');
+        setDiameter(10);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'profiles') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('standard');
+        setLength('1000-1400');
+      } else if (category === 'specials') {
+        setDrying('kd');
+        setGrade('A');
+        setThicknessType('custom');
+        setThickness(20);
+        setWidthType('custom');
+        setDiameter(40);
+        setLengthType('custom');
+        setLength(500);
       }
-
-      const resData = await response.json();
-      
-      const randomTicket = 'PLR-2026-' + Math.floor(10000 + Math.random() * 90000);
-      setTicketNum(randomTicket);
-      
-      setShowContactModal(false);
-      setShowSuccessOverlay(true);
-    } catch (err) {
-      console.error(err);
-      alert(getTranslation('submitError'));
-    } finally {
-      setIsSubmitting(false);
+      setAdditionalInfo('');
+      setFsc(true);
     }
-  };
 
-  const handleRestart = () => {
-    setConfiguredItems([]);
-    setSuccessItems([]);
-    setCategory('planed');
-    setClientName('');
-    setClientCompany('');
-    setClientEmail('');
-    setClientPhone('');
-    setClientNotes('');
-    setShowSuccessOverlay(false);
+    // Open the sidebar cart
+    setIsCartOpen(true);
   };
 
   if (isLoading) {
@@ -903,20 +889,6 @@ export default function Configurator() {
       </>
     );
   }
-
-  // Cumulative total price for rendering
-  let cumulativeTotal = 0;
-  configuredItems.forEach((x) => {
-    const loc = localizeItem(x, lang);
-    cumulativeTotal += loc.price;
-  });
-
-  // Success total price for rendering
-  let successTotal = 0;
-  successItems.forEach((x) => {
-    const loc = localizeItem(x, lang);
-    successTotal += loc.price;
-  });
 
   return (
     <>
@@ -1411,53 +1383,6 @@ export default function Configurator() {
                 </div>
               </div>
 
-              {/* Added Configurations List Block */}
-              {configuredItems.length > 0 && (
-                <div className="control-group" style={{ gridColumn: 'span 2', marginBottom: '2rem' }}>
-                  <label style={{ fontWeight: 600, fontSize: '1.05rem' }}>
-                    {getTranslation('addedConfigsTitle')}
-                  </label>
-                  <div className="configured-items-list">
-                    {configuredItems.map((rawItem, idx) => {
-                      const item = localizeItem(rawItem, lang);
-                      return (
-                        <div className="configured-item-row" key={idx}>
-                          <div>
-                            <span className="item-info">{item.productName}</span>
-                            <span className="item-specs">
-                              ({item.dimensions} | {item.grade} | {item.fsc ? getTranslation('fscLabelFsc') : getTranslation('fscLabelNonFsc')} | {item.finish} | {item.qtyText} | € {formatEuro(item.price)})
-                            </span>
-                          </div>
-                          <button
-                            type="button"
-                            className="remove-item-btn"
-                            onClick={() => handleRemoveItem(idx)}
-                            aria-label={getTranslation('removeItemAria')}
-                          >
-                            <i className="fa-solid fa-xmark"></i>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      marginTop: '1rem',
-                      fontWeight: 600,
-                      fontSize: '1.1rem',
-                      borderTop: '1px solid rgba(0,0,0,0.1)',
-                      paddingTop: '0.75rem',
-                    }}
-                  >
-                    <span>{getTranslation('totalCumulativePrice')}</span>
-                    <span style={{ color: 'var(--color-primary-dark)' }}>
-                      € {formatEuro(cumulativeTotal)}
-                    </span>
-                  </div>
-                </div>
-              )}
 
               {/* Summary Table */}
               <div className="dashboard-table-wrapper">
@@ -1604,259 +1529,7 @@ export default function Configurator() {
               </button>
             </form>
 
-            {/* Success Overlay view */}
-            {showSuccessOverlay && (
-              <div className="configurator-success-overlay" id="configuratorSuccessOverlay">
-                <div className="success-card dark-success-card">
-                  <div className="success-icon-circle">
-                    <i className="fa-solid fa-circle-check"></i>
-                  </div>
-                  <h2>{getTranslation('successTitle')}</h2>
-                  <p className="success-lead">
-                    {getTranslation('successLead')}
-                  </p>
 
-                  <div className="ticket-summary-box dark-ticket-box">
-                    <div className="ticket-header">
-                      <span>{getTranslation('ticketHeader')}</span>
-                      <strong>{ticketNum}</strong>
-                    </div>
-                    <div className="ticket-body">
-                      <p
-                        className="ticket-status-label"
-                        style={{ fontWeight: 600, color: '#f8fafc', marginBottom: '0.75rem', fontSize: '1.05rem' }}
-                      >
-                        {getTranslation('ticketBodyLead')}
-                      </p>
-                      <ul
-                        style={{
-                          listStyle: 'none',
-                          paddingLeft: 0,
-                          marginBottom: '1.5rem',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '0.50rem',
-                          color: '#f8fafc',
-                        }}
-                      >
-                        {successItems.map((rawItem, idx) => {
-                          const item = localizeItem(rawItem, lang);
-                          return (
-                            <li
-                              key={idx}
-                              style={{
-                                padding: '0.5rem 0',
-                                borderBottom: '1px solid rgba(255,255,255,0.08)',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <div>
-                                <strong>{item.productName}</strong>
-                                <br />
-                                <span style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {lang === 'nl' ? 'Droging' : 'Drying'}: {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : 'Air-dried') : (lang === 'nl' ? 'KD 10-12%' : 'KD 10-12%')} | {getTranslation('fscRow')}: {item.fsc ? getTranslation('yes') : getTranslation('no')} | {getTranslation('quantityRow')}:{' '}
-                                  {item.qtyText}
-                                </span>
-                              </div>
-                              <strong style={{ whiteSpace: 'nowrap', color: 'var(--color-primary)' }}>
-                                € {formatEuro(item.price)}
-                              </strong>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                      <div
-                        style={{
-                          borderTop: '1px solid rgba(255,255,255,0.15)',
-                          paddingTop: '1rem',
-                          marginBottom: '1rem',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          fontSize: '1.1rem',
-                          color: '#ffffff',
-                        }}
-                      >
-                        <strong>{getTranslation('successTotalLabel')}</strong>
-                        <strong style={{ color: 'var(--color-primary)' }}>
-                          € {formatEuro(successTotal)}
-                        </strong>
-                      </div>
-                      <ul style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem', listStyle: 'none', paddingLeft: 0, color: '#f8fafc' }}>
-                        <li>
-                          <strong>{getTranslation('successCompanyLabel')}</strong> <span>{clientCompany}</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="success-actions">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() =>
-                        alert(
-                          getTranslation('downloadSheetAlert')
-                        )
-                      }
-                    >
-                      <i className="fa-solid fa-file-pdf icon-left"></i> {getTranslation('downloadSheetButton')}
-                    </button>
-                    <button className="btn btn-secondary" onClick={handleRestart}>
-                      {getTranslation('configureAnotherButton')}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Combine Request Prompt Modal */}
-            {showCombineModal && (
-              <div className="dashboard-modal-overlay" onClick={() => setShowCombineModal(false)}>
-                <div
-                  className="dashboard-modal-card text-center"
-                  style={{ maxWidth: '500px', padding: '3rem 2.5rem' }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button
-                    type="button"
-                    className="modal-close-btn"
-                    onClick={() => setShowCombineModal(false)}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                  <i
-                    className="fa-solid fa-folder-plus"
-                    style={{
-                      fontSize: '3.5rem',
-                      color: 'var(--color-primary)',
-                      marginBottom: '1.5rem',
-                      display: 'block',
-                    }}
-                  ></i>
-                  <h3>{getTranslation('combineTitle')}</h3>
-                  <p style={{ marginBottom: '2rem', color: 'var(--color-text-muted)' }}>
-                    {getTranslation('combineLead')}
-                  </p>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <button
-                      type="button"
-                      className="dashboard-modal-submit-btn"
-                      style={{
-                        marginTop: 0,
-                        backgroundColor: '#ffffff',
-                        color: 'var(--color-text-dark)',
-                        border: '2px solid var(--color-primary)',
-                      }}
-                      onClick={handleConfigureAnother}
-                    >
-                      <i className="fa-solid fa-plus icon-left"></i> {getTranslation('combineYesBtn')}
-                    </button>
-                    <button
-                      type="button"
-                      className="dashboard-modal-submit-btn"
-                      style={{ marginTop: 0 }}
-                      onClick={handleFinishAndSubmit}
-                    >
-                      {getTranslation('combineNoBtn')} <i className="fa-solid fa-chevron-right icon-right"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* B2B Contact Details Form Modal */}
-            {showContactModal && (
-              <div className="dashboard-modal-overlay" onClick={() => setShowContactModal(false)}>
-                <div className="dashboard-modal-card" onClick={(e) => e.stopPropagation()}>
-                  <button
-                    type="button"
-                    className="modal-close-btn"
-                    onClick={() => setShowContactModal(false)}
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                  <h3>{getTranslation('contactTitle')}</h3>
-                  <p>
-                    {getTranslation('contactLead')}
-                  </p>
-
-                  <form onSubmit={handleInquirySubmit} className="dashboard-modal-form">
-                    <div className="form-group-db">
-                      <label htmlFor="dbName">{getTranslation('contactNameLabel')}</label>
-                      <input
-                        type="text"
-                        id="dbName"
-                        required
-                        placeholder={getTranslation('contactNamePlaceholder')}
-                        value={clientName}
-                        onChange={(e) => setClientName(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group-db">
-                      <label htmlFor="dbCompany">{getTranslation('contactCompanyLabel')}</label>
-                      <input
-                        type="text"
-                        id="dbCompany"
-                        required
-                        placeholder={getTranslation('contactCompanyPlaceholder')}
-                        value={clientCompany}
-                        onChange={(e) => setClientCompany(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group-db">
-                      <label htmlFor="dbEmail">{getTranslation('contactEmailLabel')}</label>
-                      <input
-                        type="email"
-                        id="dbEmail"
-                        required
-                        placeholder={getTranslation('contactEmailPlaceholder')}
-                        value={clientEmail}
-                        onChange={(e) => setClientEmail(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group-db">
-                      <label htmlFor="dbPhone">{getTranslation('contactPhoneLabel')}</label>
-                      <input
-                        type="tel"
-                        id="dbPhone"
-                        required
-                        placeholder={getTranslation('contactPhonePlaceholder')}
-                        value={clientPhone}
-                        onChange={(e) => setClientPhone(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group-db">
-                      <label htmlFor="dbNotes">{getTranslation('contactNotesLabel')}</label>
-                      <textarea
-                        id="dbNotes"
-                        rows="3"
-                        placeholder={getTranslation('contactNotesPlaceholder')}
-                        value={clientNotes}
-                        onChange={(e) => setClientNotes(e.target.value)}
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="dashboard-modal-submit-btn"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <i className="fa-solid fa-spinner fa-spin icon-left"></i> {getTranslation('submittingText')}
-                        </>
-                      ) : (
-                        <>
-                          {getTranslation('submitButtonText')} <i className="fa-solid fa-paper-plane icon-right"></i>
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </section>

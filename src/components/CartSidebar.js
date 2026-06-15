@@ -4,6 +4,13 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useInquiry } from './InquiryContext';
 
+function formatEuro(val, decimals = 2) {
+  return new Intl.NumberFormat('nl-NL', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(val);
+}
+
 export default function CartSidebar() {
   const {
     cartItems,
@@ -31,7 +38,23 @@ export default function CartSidebar() {
   const handleQtyChange = (index, valStr) => {
     let val = parseInt(valStr);
     if (isNaN(val) || val < 1) val = 1;
-    updateCartItem(index, { qty: val });
+    
+    const item = cartItems[index];
+    if (item.isConfigured) {
+      let discountPercent = 0;
+      if (val >= 100000) {
+        discountPercent = 15;
+      } else if (val >= 50000) {
+        discountPercent = 10;
+      } else if (val >= 10000) {
+        discountPercent = 5;
+      }
+      const discountFactor = (100 - discountPercent) / 100;
+      const totalPrice = item.baseUnitPrice * discountFactor * val;
+      updateCartItem(index, { qty: val, price: totalPrice, discountPercent });
+    } else {
+      updateCartItem(index, { qty: val });
+    }
   };
 
   const handleGradeChange = (index, grade) => {
@@ -186,26 +209,49 @@ export default function CartSidebar() {
               grade_a: 'Klasse A (Foutvrij)',
               grade_b: 'Klasse B (Meubelhout)',
               grade_ab: 'Klasse A/B Mix',
+              A: 'Klasse A (Foutvrij)',
+              B: 'Klasse B (Meubelhout)',
+              C: 'Klasse C (Constructief)',
             },
             en: {
               grade_a: 'Class A (Clear)',
               grade_b: 'Class B (Cabinet)',
               grade_ab: 'Class A/B Mixed',
+              A: 'Class A (Clear)',
+              B: 'Class B (Cabinet)',
+              C: 'Class C (Structural)',
             },
             de: {
               grade_a: 'Klasse A (Astfrei)',
               grade_b: 'Klasse B (Möbelholz)',
               grade_ab: 'Klasse A/B gemischt',
+              A: 'Klasse A (Astfrei)',
+              B: 'Klasse B (Möbelholz)',
+              C: 'Klasse C (Konstruktive Qualität)',
             },
             ro: {
               grade_a: 'Clasa A (Fără noduri)',
               grade_b: 'Clasa B (Lemn pentru mobilă)',
               grade_ab: 'Clasa A/B amestecat',
+              A: 'Clasa A (Fără noduri)',
+              B: 'Clasa B (Lemn pentru mobilă)',
+              C: 'Clasa C (Calitate constructivă)',
             }
           };
           const currentGrades = gradeNames[lang] || gradeNames.nl;
           const gradeName = currentGrades[item.grade] || item.grade;
           const dimDesc = item.dims ? ` [Maat: ${item.dims}]` : '';
+          
+          if (item.isConfigured) {
+            const fscText = item.fsc
+              ? 'FSC® 100%'
+              : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')));
+            const dryingText = item.drying === 'luchtdroog'
+              ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried')))
+              : (lang === 'nl' ? 'KD 10-12%' : (lang === 'de' ? 'KD 10-12%' : (lang === 'ro' ? 'KD 10-12%' : 'KD 10-12%')));
+            const priceText = `€ ${formatEuro(item.price)}`;
+            return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc}, ${fscText}, ${dryingText}, ${priceText})`;
+          }
           return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc})`;
         })
         .join('\n');
@@ -258,12 +304,9 @@ export default function CartSidebar() {
           <div className="cart-items-container">
             {cartItems.length === 0 ? (
               <div className="cart-empty-message">
-                <p>
-                  {getTranslation('emptyMessage')}
-                </p>
+                <p>{getTranslation('emptyMessage')}</p>
                 <Link href="/products" className="cart-empty-action-btn" onClick={handleClose}>
-                  {getTranslation('goToProducts')}{' '}
-                  <i className="fa-solid fa-arrow-right icon-right"></i>
+                  {getTranslation('goToProducts')} <i className="fa-solid fa-arrow-right icon-right"></i>
                 </Link>
               </div>
             ) : (
@@ -274,58 +317,93 @@ export default function CartSidebar() {
                       <span className="cart-item-category">{item.category}</span>
                       <h4 className="cart-item-name">{item.name}</h4>
                     </div>
-                    <button
-                      className="cart-item-remove"
-                      onClick={() => removeFromCart(index)}
-                      aria-label="Remove Item"
-                    >
-                      <i className="fa-solid fa-trash-can"></i>
-                    </button>
+                    <button className="cart-item-remove" onClick={() => removeFromCart(index)}><i className="fa-solid fa-trash-can"></i></button>
                   </div>
-                  <div className="cart-item-specs">
-                    <div className="cart-spec-row">
+                  {item.isConfigured ? (
+                    <div className="cart-item-specs configured-specs">
                       <div className="cart-spec-group">
                         <label>{getTranslation('quantityLabel')}</label>
-                        <input
-                          type="number"
-                          className="cart-spec-qty"
-                          value={item.qty}
-                          min="1"
-                          onChange={(e) => handleQtyChange(index, e.target.value)}
-                        />
+                        <input type="number" className="cart-spec-qty" value={item.qty} min="1" onChange={(e) => handleQtyChange(index, e.target.value)} />
+                      </div>
+                      <div className="configured-meta-details" style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+                        <div>
+                          <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {item.dims}
+                        </div>
+                        <div>
+                          <strong>{lang === 'nl' ? 'Kwaliteitsklasse' : (lang === 'de' ? 'Holzqualität' : (lang === 'ro' ? 'Clasă Lemn' : 'Wood Grade'))}:</strong>{' '}
+                          {item.grade === 'A' ? (lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))) :
+                           item.grade === 'B' ? (lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))) :
+                           item.grade === 'C' ? (lang === 'nl' ? 'Klasse C (Constructief)' : (lang === 'de' ? 'Klasse C (Konstruktive Qualität)' : (lang === 'ro' ? 'Clasa C (Calitate constructivă)' : 'Class C (Structural)'))) :
+                           item.grade}
+                        </div>
+                        <div>
+                          <strong>{lang === 'nl' ? 'Certificering' : (lang === 'de' ? 'Zertifizierung' : (lang === 'ro' ? 'Certificare' : 'Certification'))}:</strong>{' '}
+                          {item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')))}
+                        </div>
+                        <div>
+                          <strong>{lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying'))}:</strong>{' '}
+                          {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried'))) : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : (lang === 'ro' ? 'Uscat în cameră (KD 10-12%)' : 'Chamber dried (KD 10-12%)')))}
+                        </div>
+                        {item.additionalInfo && (
+                          <div style={{ wordBreak: 'break-word' }}>
+                            <strong>{lang === 'nl' ? 'Aanvullende info' : (lang === 'de' ? 'Zusatzinfo' : (lang === 'ro' ? 'Info suplimentare' : 'Additional info'))}:</strong> {item.additionalInfo}
+                          </div>
+                        )}
+                      </div>
+                      <div className="configured-pricing-row" style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--color-border)', paddingTop: '0.75rem' }}>
+                        <div>
+                          {item.discountPercent > 0 && (
+                            <span className="discount-badge" style={{
+                              backgroundColor: '#fef3c7',
+                              color: '#b45309',
+                              fontSize: '0.75rem',
+                              fontWeight: '600',
+                              padding: '0.15rem 0.4rem',
+                              borderRadius: '0.25rem',
+                              display: 'inline-block',
+                            }}>
+                              {item.discountPercent}% {lang === 'nl' ? 'volumekorting' : (lang === 'de' ? 'Mengenrabatt' : (lang === 'ro' ? 'reducere de volum' : 'volume discount'))}
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
+                            {lang === 'nl' ? 'Richtprijs (excl. btw)' : (lang === 'de' ? 'Richtpreis (exkl. MwSt.)' : (lang === 'ro' ? 'Preț țintă (excl. TVA)' : 'Target price (excl. VAT)'))}
+                          </span>
+                          <strong style={{ fontSize: '1.05rem', color: 'var(--color-forest-dark)' }}>
+                            € {formatEuro(item.price)}
+                          </strong>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="cart-item-specs">
+                      <div className="cart-spec-row">
+                        <div className="cart-spec-group">
+                          <label>{getTranslation('quantityLabel')}</label>
+                          <input type="number" className="cart-spec-qty" value={item.qty} min="1" onChange={(e) => handleQtyChange(index, e.target.value)} />
+                        </div>
+                        <div className="cart-spec-group">
+                          <label>{getTranslation('woodGradeLabel')}</label>
+                          <select className="cart-spec-grade" value={item.grade} onChange={(e) => handleGradeChange(index, e.target.value)}>
+                            <option value="grade_a">
+                              {lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))}
+                            </option>
+                            <option value="grade_b">
+                              {lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))}
+                            </option>
+                            <option value="grade_ab">
+                              {lang === 'nl' ? 'Klasse A/B Mix' : (lang === 'de' ? 'Klasse A/B gemischt' : (lang === 'ro' ? 'Clasa A/B amestecat' : 'Class A/B Mixed'))}
+                            </option>
+                          </select>
+                        </div>
                       </div>
                       <div className="cart-spec-group">
-                        <label>{getTranslation('woodGradeLabel')}</label>
-                        <select
-                          className="cart-spec-grade"
-                          value={item.grade}
-                          onChange={(e) => handleGradeChange(index, e.target.value)}
-                        >
-                          <option value="grade_a">
-                            {lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))}
-                          </option>
-                          <option value="grade_b">
-                            {lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))}
-                          </option>
-                          <option value="grade_ab">
-                            {lang === 'nl' ? 'Klasse A/B Mix' : (lang === 'de' ? 'Klasse A/B gemischt' : (lang === 'ro' ? 'Clasa A/B amestecat' : 'Class A/B Mixed'))}
-                          </option>
-                        </select>
+                        <label>{getTranslation('dimsLabel')}</label>
+                        <input type="text" className="cart-spec-dims" value={item.dims || ''} placeholder={getTranslation('dimsPlaceholder')} onChange={(e) => handleDimsChange(index, e.target.value)} />
                       </div>
                     </div>
-                    <div className="cart-spec-group">
-                      <label>
-                        {getTranslation('dimsLabel')}
-                      </label>
-                      <input
-                        type="text"
-                        className="cart-spec-dims"
-                        value={item.dims || ''}
-                        placeholder={getTranslation('dimsPlaceholder')}
-                        onChange={(e) => handleDimsChange(index, e.target.value)}
-                      />
-                    </div>
-                  </div>
+                  )}
                 </div>
               ))
             )}
@@ -333,6 +411,33 @@ export default function CartSidebar() {
 
           {cartItems.length > 0 && (
             <div className="cart-form-section">
+              {cartItems.some(item => item.price !== undefined) && (
+                <div className="cart-total-box" style={{
+                  background: 'linear-gradient(135deg, var(--color-forest-dark) 0%, #1e3a2b 100%)',
+                  color: '#ffffff',
+                  borderRadius: 'var(--border-radius-md)',
+                  padding: '1.25rem',
+                  marginBottom: '1.5rem',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      {lang === 'nl' ? 'Totale Richtprijs' : (lang === 'de' ? 'Gesamte Richtpreis' : (lang === 'ro' ? 'Preț Țintă Total' : 'Total Target Price'))}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', opacity: 0.6 }}>
+                      {lang === 'nl' ? '(exclusief btw)' : (lang === 'de' ? '(exklusive MwSt.)' : (lang === 'ro' ? '(exclusiv TVA)' : '(excl. VAT)'))}
+                    </span>
+                  </div>
+                  <strong style={{ fontSize: '1.4rem', color: '#fbbf24' }}>
+                    € {formatEuro(
+                      cartItems.reduce((acc, item) => acc + (item.price || 0), 0)
+                    )}
+                  </strong>
+                </div>
+              )}
               <h4>{getTranslation('contactDetailsTitle')}</h4>
               <form onSubmit={handleSubmit} className="cart-modern-form">
                 <div className="form-group">
