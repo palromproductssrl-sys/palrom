@@ -7,13 +7,6 @@ import { useInquiry } from '@/components/InquiryContext';
 
 // Configurator Sizing Rules
 const categoryData = {
-  pluggen: {
-    id: 'pluggen',
-    name: { nl: 'Beuken Pluggen', en: 'Beech Plugs', de: 'Buchenholzdübel-Pins', ro: 'Dibluri Mici din Fag' },
-    length: { min: 30, max: 3000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
-    diameter: { min: 3, max: 60, default: 20, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
-    finish: { nl: 'Industrieel geschuurd', en: 'Industrially sanded', de: 'Industriell geschliffen', ro: 'Șlefuit industrial' },
-  },
   dowels: {
     id: 'dowels',
     name: { nl: 'Beukenhouten Dowels & Staven', en: 'Beechwood Dowels & Rods', de: 'Buchenholzdübel & -stäbe', ro: 'Dibluri și Tije din Lemn de Fag' },
@@ -185,7 +178,7 @@ export default function Configurator() {
   const [authError, setAuthError] = useState(false);
 
   // Configurator states
-  const [category, setCategory] = useState('pluggen');
+  const [category, setCategory] = useState('dowels');
   const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-small');
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
@@ -303,7 +296,7 @@ export default function Configurator() {
       subcatName = names[specificSubcat || subCategoryPlaned] || 'Planed Rectangular (Variant 1)';
     }
 
-    if (cat === 'pluggen' || cat === 'dowels') {
+    if (cat === 'dowels') {
       const baseLength = 40.0;
       const baseDiameter = 8.0;
       const basePrice = 0.03;
@@ -571,7 +564,7 @@ export default function Configurator() {
   const handleRestart = () => {
     setConfiguredItems([]);
     setSuccessItems([]);
-    setCategory('pluggen');
+    setCategory('dowels');
     setClientName('');
     setClientCompany('');
     setClientEmail('');
@@ -701,7 +694,6 @@ export default function Configurator() {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option value="pluggen">{categoryData.pluggen.name[lang] || categoryData.pluggen.name.nl}</option>
                     <option value="dowels">{categoryData.dowels.name[lang] || categoryData.dowels.name.nl}</option>
                     <option value="planed">{categoryData.planed.name[lang] || categoryData.planed.name.nl}</option>
                     <option value="profiles">{categoryData.profiles.name[lang] || categoryData.profiles.name.nl}</option>
