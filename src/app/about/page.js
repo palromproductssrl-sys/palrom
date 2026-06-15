@@ -117,28 +117,34 @@ export default function About() {
       ro: 'Identitatea Noastră'
     },
     whoWeAre: {
-      nl: 'Wie We Zijn',
+      nl: 'Wie Wij Zijn',
       en: 'Who We Are',
       de: 'Wer Wir Sind',
       ro: 'Cine Suntem'
     },
     quoteLead: {
-      nl: '"Wij zijn een multinational die onze producten op maat maakt om te voldoen aan de eisen van onze klanten."',
-      en: '"We are a multinational firm, tailor-making our products to fit our clients\' requirements."',
-      de: '"Wir sind ein multinationales Unternehmen, das seine Produkte maßschneidert, um den Anforderungen unserer Kunden zu entsprechen."',
-      ro: '"Suntem o firmă multinațională, care realizează produse la comandă pentru a se potrivi cerințelor clienților noștri."'
+      nl: '"Wij produceren beukenhouten componenten op maat, afgestemd op de specifieke wensen van onze klanten."',
+      en: '"We produce custom beechwood components, tailored to the specific wishes of our customers."',
+      de: '"Wir produzieren maßgeschneiderte Buchenholzkomponenten, die auf die spezifischen Wünsche unserer Kunden abgestimmt sind."',
+      ro: '"Producem componente din lemn de fag la comandă, adaptate dorințelor specifice ale clienților noștri."'
     },
     desc1: {
-      nl: 'Palrom Products SRL, opgericht in 1999, heeft haar bereik over het Europese continent uitgebreid. Ons hout wordt geoogst in duurzame bossen rondom onze zagerij in het district Hunedoara, waardoor we een lage CO2-voetafdruk voor transport kunnen behouden.',
-      en: 'Founded in 1999, Palrom Products SRL has expanded its reach across the European continent. Our timber is harvested in sustainable forests surrounding our sawmill in Hunedoara county, allowing us to maintain a low carbon footprint for transport.',
-      de: 'Palrom Products SRL wurde 1999 gegründet und hat seine Reichweite auf den europäischen Kontinent ausgedehnt. Unser Holz wird in nachhaltigen Wäldern rund um unser Sägewerk im Kreis Hunedoara geerntet, was es uns ermöglicht, einen geringen CO2-Fußabdruck für den Transport beizubehalten.',
-      ro: 'Fondată în 1999, Palrom Products SRL și-a extins prezența pe continentul european. Lemnul nostru este recoltat din păduri durabile din jurul gaterului nostru din județul Hunedoara, permițându-ne să menținem o amprentă redusă de carbon pentru transport.'
+      nl: 'Palrom Products SRL werd opgericht in 1999 en is uitgegroeid tot een betrouwbare leverancier van hoogwaardige beukenhouten producten voor klanten in heel Europa. Vanuit onze vestiging in het district Hunedoara, Roemenië, verwerken wij lokaal ingekocht hout uit duurzaam beheerde bossen. Dankzij deze korte aanvoerketen beperken wij transportafstanden en de bijbehorende CO₂-uitstoot.',
+      en: 'Palrom Products SRL was founded in 1999 and has grown into a reliable supplier of high-quality beechwood products for customers throughout Europe. From our facility in Hunedoara County, Romania, we process locally sourced timber from sustainably managed forests. Thanks to this short supply chain, we limit transport distances and the associated CO₂ emissions.',
+      de: 'Palrom Products SRL wurde 1999 gegründet und hat sich zu einem zuverlässigen Lieferanten von hochwertigen Buchenholzprodukten für Kunden in ganz Europa entwickelt. Von unserem Standort im Kreis Hunedoara, Rumänien, aus verarbeiten wir lokal bezogenes Holz aus nachhaltig bewirtschafteten Wäldern. Dank dieser kurzen Lieferkette minimieren wir Transportwege und die damit verbundenen CO₂-Emissionen.',
+      ro: 'Palrom Products SRL a fost fondată în 1999 și a devenit un furnizor de încredere de produse din lemn de fag de înaltă calitate pentru clienți din întreaga Europă. De la sediul nostru din județul Hunedoara, România, procesăm lemn achiziționat local din păduri gestionate în mod durabil. Datorită acestui lanț scurt de aprovizionare, limităm distanțele de transport și emisiile de CO₂ asociate.'
     },
     desc2: {
-      nl: 'Of we nu op maat gemaakte meubellijsten leveren aan meubelmakers in Duitsland, of individueel gelabelde beukenhouten deuvels aan doe-het-zelf-bouwmarkten in Frankrijk en Polen, onze kernwaarde blijft hetzelfde: compromisloze precisie en ecologisch beheer.',
-      en: 'Whether we are supplying custom furniture rails to cabinet makers in Germany, or retail-labeled beech dowels to DIY hypermarkets in France and Poland, our core value remains the same: uncompromising precision and ecological stewardship.',
-      de: 'Ob wir maßgeschneiderte Möbelschienen an Schreiner in Deutschland liefern oder einzeln etikettierte Buchenholzdübel an Baumärkte in Frankreich und Polen – unser Kernwert bleibt derselbe: kompromisslose Präzision und ökologische Verantwortung.',
-      ro: 'Fie că furnizăm plinte de mobilier personalizate producătorilor de dulapuri din Germania, fie dibluri de fag etichetate pentru hypermarketuri DIY din Franța și Polonia, valoarea noastră de bază rămâne aceeași: precizie fără compromisuri și administrare ecologică.'
+      nl: 'Met onze geïntegreerde productie – van rondhout tot eindproduct – leveren wij gezaagde bestekken, geschaafde stokken, latten en profielen aan klanten in de meubel-, bouw- en houtverwerkende industrie. Of het nu gaat om standaardproducten of klantspecifieke maatwerkoplossingen, kwaliteit, betrouwbaarheid en precisie staan altijd centraal.',
+      en: 'With our integrated production – from round logs to final products – we deliver blanks, planed sticks, slats, and profiles to customers in the furniture, construction, and wood-processing industries. Whether standard products or customer-specific custom solutions, quality, reliability, and precision are always central.',
+      de: 'Mit unserer integrierten Produktion – vom Rundholz bis zum Endprodukt – liefern wir Zuschnitte, gehobelte Stäbe, Leisten und Profile an Kunden in der Möbel-, Bau- und Holzindustrie. Ob Standardprodukte oder kundenspezifische Sonderlösungen – Qualität, Zuverlässigkeit und Präzision stehen immer im Mittelpunkt.',
+      ro: 'Prin producția noastră integrată – de la buștean la produsul finit – livrăm piese brute, tije rinduite, șipci și profile clienților din industria mobilei, a construcțiilor și a prelucrării lemnului. Fie că este vorba despre produse standard sau soluții personalizate la comandă, calitatea, fiabilitatea și precizia sunt întotdeauna pe primul loc.'
+    },
+    desc3: {
+      nl: 'Onze langdurige relaties met klanten zijn gebaseerd op flexibiliteit, vakmanschap en een voortdurende focus op duurzaamheid en verantwoord bosbeheer.',
+      en: 'Our long-term relationships with customers are based on flexibility, craftsmanship, and a continuous focus on sustainability and responsible forest management.',
+      de: 'Unsere langfristigen Beziehungen zu Kunden basieren auf Flexibilität, handwerklichem Geschick und einer kontinuierlichen Fokussierung auf Nachhaltigkeit und verantwortungsvolle Forstwirtschaft.',
+      ro: 'Relațiile noastre de lungă durată cu clienții se bazează pe flexibilitate, meșteșug și o concentrare continuă pe durabilitate și managementul forestier responsabil.'
     },
     floatingCard: {
       nl: 'Wij verwerken FSC®-gecertificeerd hout uit respect voor ons milieu en toekomstige generaties.',
@@ -302,16 +308,17 @@ export default function About() {
               <p className="lead">{getTranslation('quoteLead')}</p>
               <p>{getTranslation('desc1')}</p>
               <p>{getTranslation('desc2')}</p>
+              <p>{getTranslation('desc3')}</p>
 
               <div className="about-quote">
                 <p className="quote-text">
                   {lang === 'nl'
-                    ? '"We nodigen u uit om ons uit te dagen om de oplossingen te vinden die uw bedrijf succesvol maken."'
+                    ? '"Wij denken graag met u mee om de meest efficiënte en duurzame oplossing voor uw bedrijf te realiseren."'
                     : (lang === 'de'
-                      ? '"Wir laden Sie ein, uns herauszufordern, die Lösungen zu finden, die Ihrem Unternehmen zum Erfolg verhelfen."'
+                      ? '"Wir denken gerne mit Ihnen mit, um die effizienteste und nachhaltigste Lösung für Ihr Unternehmen zu realisieren."'
                       : (lang === 'ro'
-                        ? '"Vă invităm să ne provocați să găsim soluțiile care vor ajuta afacerea dvs. să aibă succes."'
-                        : '"We invite you to challenge us to find the solutions that will help your business succeed."'))}
+                        ? '"Ne face plăcere să gândim alături de dumneavoastră pentru a realiza cea mai eficientă și durabilă soluție pentru afacerea dumneavoastră."'
+                        : '"We are happy to think along with you to realize the most efficient and sustainable solution for your business."'))}
                 </p>
                 <div className="quote-author">
                   <strong>Gabriela Cioara</strong>
