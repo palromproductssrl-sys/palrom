@@ -3555,6 +3555,27 @@ ul {
 /* ==========================================================================
    19. Light Mode B2B Product Configurator Dashboard (STICKING TO SITE SCHEME)
    ========================================================================== */
+.configurator-hero {
+    padding: 8.5rem 0 3.5rem;
+    background-color: #FAF7F2;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.configurator-hero h1 {
+    color: var(--color-forest-dark) !important;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 0.5rem 0 0.75rem;
+}
+.configurator-hero p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
 .configurator-dark-section {
     background-color: var(--color-bg-light);
     padding: 6rem 0;
