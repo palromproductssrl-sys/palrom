@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -156,10 +157,39 @@ const t = {
   contactAlert: { nl: 'Vul a.u.b. alle verplichte contactvelden in.', en: 'Please fill in all required contact fields.', de: 'Bitte füllen Sie alle erforderlichen Kontaktfelder aus.', ro: 'Vă rugăm să completați toate câmpurile de contact obligatorii.' },
   submitError: { nl: 'Er is een fout opgetreden bij het verwerken van uw aanvraag. Probeer het opnieuw.', en: 'An error occurred while processing your request. Please try again.', de: 'Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.', ro: 'A apărut o eroare la procesarea solicitării dvs. Vă rugăm să încercați din nou.' },
   removeItemAria: { nl: 'Verwijder product', en: 'Remove product', de: 'Produkt entfernen', ro: 'Elimină produsul' },
-  materialValue: { nl: 'FSC®-Gecertificeerd Ongestoomd Beukenhout', en: 'FSC®-Certified Unsteamed Beechwood', de: 'FSC®-zertifiziertes ungedämpftes Buchenholz', ro: 'Lemn de Fag neaburit Certificat FSC®' },
+  materialValue: { nl: 'FSC®-Gecertificeerd Ongestoomd Beukenhout (natuurlijke kleur)', en: 'FSC®-Certified Unsteamed Beechwood (natural color)', de: 'FSC®-zertifiziertes ungedämpftes Buchenholz (natürliche Farbe)', ro: 'Lemn de Fag neaburit Certificat FSC® (culoare naturală)' },
   statusReady: { nl: 'Gereed', en: 'Ready', de: 'Bereit', ro: 'Pregătit' },
-  showPasswordAria: { nl: 'Wachtwoord tonen', en: 'Show password', de: 'Passwort anzeigen', ro: 'Afișează parola' }
+  showPasswordAria: { nl: 'Wachtwoord tonen', en: 'Show password', de: 'Passwort anzeigen', ro: 'Afișează parola' },
+  gradeLabel: { nl: 'Houtkwaliteit', en: 'Wood Quality', de: 'Holzqualität', ro: 'Calitatea lemnului' },
+  gradeAAA: { nl: 'AAA (4-zijdig foutvrij)', en: 'AAA (4-sides defect-free)', de: 'AAA (4-seitig fehlerfrei)', ro: 'AAA (fără defecte pe 4 fețe)' },
+  gradeCCC: { nl: 'CCC (4-zijdig foutvrij, natuurlijke kleurkernen/nuances)', en: 'CCC (4-sides defect-free, natural color cores/nuances)', de: 'CCC (4-seitig fehlerfrei, natürliche Farbkerne/Nuancen)', ro: 'CCC (fără defecte pe 4 fețe, nuclee/nuanțe de culoare naturală)' },
+  lengthTypeLabel: { nl: 'Lengte categorie', en: 'Length Category', de: 'Längenkategorie', ro: 'Categorie lungime' },
+  lengthTypeStandard: { nl: 'Standaard lengtes (snelle levering)', en: 'Standard lengths (fast shipping)', de: 'Standardlängen (schnelle Lieferung)', ro: 'Lungimi standard (livrare rapidă)' },
+  lengthTypeCustom: { nl: 'Maatwerk lengte', en: 'Custom length', de: 'Sondermaß-Länge', ro: 'Lungime personalizată' },
+  moqNotice: { nl: 'MOQ voor maatwerk is 18 m² (min. {minQty} stuks voor deze afmeting)', en: 'MOQ for custom size is 18 m² (min. {minQty} pcs for this dimension)', de: 'MOQ für Sondermaß ist 18 m² (mind. {minQty} Stk. für dieses Maß)', ro: 'MOQ pentru dimensiuni personalizate este 18 m² (min. {minQty} buc pentru această dimensiune)' },
+  gradeRow: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' }
 };
+
+const standardLengths = {
+  planed: [2000, 2400, 3000, 4000],
+  dowels: [1000, 2000, 3000],
+  profiles: [2000, 2400, 3000],
+  specials: [500, 1000, 1500, 2000],
+};
+
+function getPlanedMaxWidth(tVal) {
+  if (tVal === 26 || tVal === 52) {
+    return 125;
+  }
+  return 300;
+}
+
+function getMinQuantityForCustom(cat, len, diam) {
+  const areaPerPiece = (diam * len) / 1000000.0;
+  if (areaPerPiece <= 0) return 500;
+  const minQty = Math.ceil(18.0 / areaPerPiece);
+  return Math.max(500, minQty);
+}
 
 function formatEuro(val, decimals = 2) {
   return new Intl.NumberFormat('nl-NL', {
@@ -188,6 +218,40 @@ export default function Configurator() {
   const [diameter, setDiameter] = useState(20);
   const [thickness, setThickness] = useState(20);
   const [quantity, setQuantity] = useState(10000);
+  const [grade, setGrade] = useState('AAA');
+  const [lengthType, setLengthType] = useState('standard');
+
+  const getValidationError = () => {
+    if (category === 'planed' && grade === 'AAA') {
+      if (length >= 3000 && diameter >= 125) {
+        return {
+          nl: 'Productie-restrictie: Een lengte van 3000 mm of meer in AAA-kwaliteit is niet leverbaar in een breedte van 125 mm of meer.',
+          en: 'Production constraint: A length of 3000 mm or more in AAA quality is not available in a width of 125 mm or more.',
+          de: 'Produktionseinschränkung: Eine Länge von 3000 mm oder mehr in AAA-Qualität ist bei einer Breite von 125 mm of meer niet verfügbar.',
+          ro: 'Restricție de producție: O lungime de 3000 mm sau mai mare în calitate AAA nu este disponibilă la o lățime de 125 mm sau mai mare.'
+        };
+      }
+    }
+    return null;
+  };
+
+  const validationError = getValidationError();
+  const minQty = lengthType === 'custom' ? getMinQuantityForCustom(category, length, diameter) : 500;
+  const currentMaxWidth = category === 'planed' ? getPlanedMaxWidth(thickness) : categoryData[category].diameter.max;
+
+  // Clamp diameter to currentMaxWidth if it exceeds it
+  useEffect(() => {
+    if (diameter > currentMaxWidth) {
+      setDiameter(currentMaxWidth);
+    }
+  }, [currentMaxWidth, diameter]);
+
+  // Enforce minQty when lengthType or dimensions change
+  useEffect(() => {
+    if (quantity < minQty) {
+      setQuantity(minQty);
+    }
+  }, [minQty, quantity]);
 
   // Combined configurations state (holds raw properties for on-the-fly language rendering)
   const [configuredItems, setConfiguredItems] = useState([]);
@@ -222,13 +286,17 @@ export default function Configurator() {
   useEffect(() => {
     const data = categoryData[category];
     if (data) {
-      setLength(data.length.default);
+      if (lengthType === 'standard') {
+        setLength(standardLengths[category]?.[0] || data.length.default);
+      } else {
+        setLength(data.length.default);
+      }
       setDiameter(data.diameter.default);
       if (data.thickness) {
         setThickness(data.thickness.default);
       }
     }
-  }, [category]);
+  }, [category, lengthType]);
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
@@ -243,7 +311,7 @@ export default function Configurator() {
   };
 
   // Pricing calculations
-  const calculatePriceDetails = (cat, len, diam, thick, qtyVal, specificSubcat) => {
+  const calculatePriceDetails = (cat, len, diam, thick, qtyVal, specificSubcat, itemGrade = 'AAA', lenType = 'standard') => {
     let unitPrice = 0.0;
     let subcatName = '';
 
@@ -322,6 +390,12 @@ export default function Configurator() {
       if (unitPrice < 0.35) unitPrice = 0.35;
     }
 
+    // Apply grade factor
+    const gradeFactor = itemGrade === 'CCC' ? 0.85 : 1.0;
+    // Apply custom length overhead factor
+    const lenTypeFactor = lenType === 'custom' ? 1.15 : 1.0;
+    unitPrice = unitPrice * gradeFactor * lenTypeFactor;
+
     let discountPercent = 0;
     if (qtyVal >= 100000) {
       discountPercent = 15;
@@ -359,7 +433,7 @@ export default function Configurator() {
       : thickness;
 
     const currentSubcat = category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '';
-    const details = calculatePriceDetails(category, finalLength, finalDiameter, finalThickness, quantity, currentSubcat);
+    const details = calculatePriceDetails(category, finalLength, finalDiameter, finalThickness, quantity, currentSubcat, grade, lengthType);
     
     let subName = data.name[lang] || data.name.nl;
     if (details.subcatName) {
@@ -400,6 +474,8 @@ export default function Configurator() {
       price: details.totalPrice,
       unitPrice: details.unitPrice,
       discountPercent: details.discountPercent,
+      grade,
+      lengthType,
     };
   };
 
@@ -409,7 +485,7 @@ export default function Configurator() {
     const data = categoryData[item.category];
     if (!data) return item;
 
-    const details = calculatePriceDetails(item.category, item.length, item.diameter, item.thickness, item.quantity, item.subCategory);
+    const details = calculatePriceDetails(item.category, item.length, item.diameter, item.thickness, item.quantity, item.subCategory, item.grade || 'AAA', item.lengthType || 'standard');
 
     let subName = data.name[l] || data.name.nl;
     if (item.subCategory) {
@@ -439,6 +515,8 @@ export default function Configurator() {
 
     return {
       ...item,
+      grade: item.grade || 'AAA',
+      lengthType: item.lengthType || 'standard',
       productName: subName,
       dimensions: dims,
       qtyText: `${item.quantity.toLocaleString(l === 'nl' ? 'nl-NL' : 'en-US')} ${t['pieces']?.[l] || t['pieces']?.nl}`,
@@ -462,12 +540,18 @@ export default function Configurator() {
         ? Math.max(categoryData[category].thickness.min, Math.min(categoryData[category].thickness.max, parseInt(thickness) || categoryData[category].thickness.default))
         : thickness,
       quantity,
+      grade,
+      lengthType,
     };
     setConfiguredItems((prev) => [...prev, rawItem]);
 
     // Reset configurator fields
     const data = categoryData[category];
-    setLength(data.length.default);
+    if (lengthType === 'standard') {
+      setLength(standardLengths[category]?.[0] || data.length.default);
+    } else {
+      setLength(data.length.default);
+    }
     setDiameter(data.diameter.default);
     if (data.thickness) {
       setThickness(data.thickness.default);
@@ -491,13 +575,15 @@ export default function Configurator() {
   const handleFinishAndSubmit = () => {
     const currentItem = {
       category,
-      subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : '',
+      subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '',
       length: Math.max(categoryData[category].length.min, Math.min(categoryData[category].length.max, parseInt(length) || categoryData[category].length.default)),
       diameter: Math.max(categoryData[category].diameter.min, Math.min(categoryData[category].diameter.max, parseInt(diameter) || categoryData[category].diameter.default)),
       thickness: categoryData[category].thickness
         ? Math.max(categoryData[category].thickness.min, Math.min(categoryData[category].thickness.max, parseInt(thickness) || categoryData[category].thickness.default))
         : thickness,
       quantity,
+      grade,
+      lengthType,
     };
     setConfiguredItems((prev) => {
       const updated = [...prev, currentItem];
@@ -534,9 +620,9 @@ export default function Configurator() {
               name: locItem.productName,
               category: locItem.productName.split(' - ')[0],
               qty: locItem.qtyVal,
-              grade: 'grade_a', // default
+              grade: item.grade || 'AAA',
               dims: locItem.dimensions,
-              notes: `Finish: ${locItem.finish}, Richtprijs: € ${formatEuro(locItem.price)}`,
+              notes: `Grade: ${item.grade || 'AAA'}, Type: ${item.lengthType || 'standard'}, Finish: ${locItem.finish}, Richtprijs: € ${formatEuro(locItem.price)}`,
             };
           }),
         }),
@@ -809,40 +895,96 @@ export default function Configurator() {
                   </div>
                 )}
 
+                {/* Wood Quality Grade Selector */}
+                <div className="control-group" id="controlGroupGrade">
+                  <label htmlFor="dbGrade">{getTranslation('gradeLabel')}</label>
+                  <select
+                    id="dbGrade"
+                    className="dashboard-select"
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                  >
+                    <option value="AAA">{getTranslation('gradeAAA')}</option>
+                    <option value="CCC">{getTranslation('gradeCCC')}</option>
+                  </select>
+                </div>
+
+                {/* Length Type Toggle */}
+                <div className="control-group" id="controlGroupLengthType">
+                  <label>{getTranslation('lengthTypeLabel')}</label>
+                  <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#fff' }}>
+                      <input
+                        type="radio"
+                        name="lengthType"
+                        value="standard"
+                        checked={lengthType === 'standard'}
+                        onChange={() => setLengthType('standard')}
+                      />
+                      <span>{getTranslation('lengthTypeStandard')}</span>
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#fff' }}>
+                      <input
+                        type="radio"
+                        name="lengthType"
+                        value="custom"
+                        checked={lengthType === 'custom'}
+                        onChange={() => setLengthType('custom')}
+                      />
+                      <span>{getTranslation('lengthTypeCustom')}</span>
+                    </label>
+                  </div>
+                </div>
+
                 {/* Sizing: Length */}
                 <div className="control-group">
                   <div className="slider-header">
                     <label htmlFor="dbLength">{categoryData[category].length.label[lang] || categoryData[category].length.label.nl}</label>
                   </div>
-                  <div className="slider-wrapper">
-                    <input
-                      type="range"
+                  {lengthType === 'standard' ? (
+                    <select
                       id="dbLength"
-                      min={categoryData[category].length.min}
-                      max={categoryData[category].length.max}
-                      value={length || categoryData[category].length.min}
-                      className="dashboard-slider"
-                      onChange={(e) => setLength(parseInt(e.target.value) || '')}
-                    />
-                    <input
-                      type="number"
-                      className="slider-value-display"
+                      className="dashboard-select"
                       value={length}
-                      min={categoryData[category].length.min}
-                      max={categoryData[category].length.max}
-                      onChange={(e) => {
-                        const val = parseInt(e.target.value);
-                        setLength(isNaN(val) ? '' : val);
-                      }}
-                      onBlur={() => {
-                        const min = categoryData[category].length.min;
-                        const max = categoryData[category].length.max;
-                        if (length === '' || length < min) setLength(min);
-                        else if (length > max) setLength(max);
-                      }}
-                      style={{ textAlign: 'center', outline: 'none' }}
-                    />
-                  </div>
+                      onChange={(e) => setLength(parseInt(e.target.value))}
+                    >
+                      {(standardLengths[category] || []).map((stdLen) => (
+                        <option key={stdLen} value={stdLen}>
+                          {stdLen} mm
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <div className="slider-wrapper">
+                      <input
+                        type="range"
+                        id="dbLength"
+                        min={categoryData[category].length.min}
+                        max={categoryData[category].length.max}
+                        value={length || categoryData[category].length.min}
+                        className="dashboard-slider"
+                        onChange={(e) => setLength(parseInt(e.target.value) || '')}
+                      />
+                      <input
+                        type="number"
+                        className="slider-value-display"
+                        value={length}
+                        min={categoryData[category].length.min}
+                        max={categoryData[category].length.max}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value);
+                          setLength(isNaN(val) ? '' : val);
+                        }}
+                        onBlur={() => {
+                          const min = categoryData[category].length.min;
+                          const max = categoryData[category].length.max;
+                          if (length === '' || length < min) setLength(min);
+                          else if (length > max) setLength(max);
+                        }}
+                        style={{ textAlign: 'center', outline: 'none' }}
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* Sizing: Width / Diameter */}
@@ -855,7 +997,7 @@ export default function Configurator() {
                       type="range"
                       id="dbDiameter"
                       min={categoryData[category].diameter.min}
-                      max={categoryData[category].diameter.max}
+                      max={currentMaxWidth}
                       value={diameter || categoryData[category].diameter.min}
                       className="dashboard-slider"
                       onChange={(e) => setDiameter(parseInt(e.target.value) || '')}
@@ -865,14 +1007,14 @@ export default function Configurator() {
                       className="slider-value-display"
                       value={diameter}
                       min={categoryData[category].diameter.min}
-                      max={categoryData[category].diameter.max}
+                      max={currentMaxWidth}
                       onChange={(e) => {
                         const val = parseInt(e.target.value);
                         setDiameter(isNaN(val) ? '' : val);
                       }}
                       onBlur={() => {
                         const min = categoryData[category].diameter.min;
-                        const max = categoryData[category].diameter.max;
+                        const max = currentMaxWidth;
                         if (diameter === '' || diameter < min) setDiameter(min);
                         else if (diameter > max) setDiameter(max);
                       }}
@@ -922,20 +1064,29 @@ export default function Configurator() {
                 {/* Quantity */}
                 <div className="control-group">
                   <label htmlFor="dbOplage">{getTranslation('quantityLabel')}</label>
-                  <select
+                  <input
+                    type="number"
                     id="dbOplage"
-                    className="dashboard-select"
+                    className="dashboard-input"
                     value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  >
-                    <option value="500">500 {getTranslation('pieces')}</option>
-                    <option value="1000">{(1000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                    <option value="5000">{(5000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                    <option value="10000">{(10000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                    <option value="25000">{(25000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                    <option value="50000">{(50000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                    <option value="100000">{(100000).toLocaleString(lang === 'en' ? 'en-US' : 'nl-NL')} {getTranslation('pieces')}</option>
-                  </select>
+                    min={minQty}
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
+                      setQuantity(isNaN(val) ? '' : val);
+                    }}
+                    onBlur={() => {
+                      if (quantity === '' || quantity < minQty) {
+                        setQuantity(minQty);
+                      }
+                    }}
+                    style={{ outline: 'none' }}
+                  />
+                  {lengthType === 'custom' && (
+                    <div style={{ fontSize: '0.85rem', color: '#fbbf24', marginTop: '0.5rem' }}>
+                      <i className="fa-solid fa-circle-info"></i>{' '}
+                      {getTranslation('moqNotice').replace('{minQty}', minQty.toLocaleString())}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -953,7 +1104,7 @@ export default function Configurator() {
                           <div>
                             <span className="item-info">{item.productName}</span>
                             <span className="item-specs">
-                              ({item.dimensions} | {item.finish} | {item.qtyText} | € {formatEuro(item.price)})
+                              ({item.dimensions} | {item.grade} | {item.finish} | {item.qtyText} | € {formatEuro(item.price)})
                             </span>
                           </div>
                           <button
@@ -1016,6 +1167,12 @@ export default function Configurator() {
                       </td>
                     </tr>
                     <tr>
+                      <td>{getTranslation('gradeRow')}</td>
+                      <td>
+                        {activeSelection.grade === 'AAA' ? getTranslation('gradeAAA') : getTranslation('gradeCCC')}
+                      </td>
+                    </tr>
+                    <tr>
                       <td>{getTranslation('finishRow')}</td>
                       <td>{activeSelection.finish}</td>
                     </tr>
@@ -1054,6 +1211,28 @@ export default function Configurator() {
                 </table>
               </div>
 
+              {validationError && (
+                <div
+                  className="validation-error-box"
+                  style={{
+                    background: '#fef2f2',
+                    border: '1px solid #ef4444',
+                    borderRadius: 'var(--border-radius-md)',
+                    padding: '1rem',
+                    marginBottom: '1.5rem',
+                    color: '#991b1b',
+                    fontSize: '0.95rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    width: '100%',
+                  }}
+                >
+                  <i className="fa-solid fa-triangle-exclamation" style={{ color: '#dc2626', fontSize: '1.2rem' }}></i>
+                  <span>{validationError[lang] || validationError.nl}</span>
+                </div>
+              )}
+
               {/* Status Bar */}
               <div className="dashboard-status-bar">
                 <div className="status-col">
@@ -1066,7 +1245,12 @@ export default function Configurator() {
                 </div>
               </div>
 
-              <button type="submit" className="dashboard-submit-btn">
+              <button
+                type="submit"
+                className="dashboard-submit-btn"
+                disabled={!!validationError}
+                style={validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+              >
                 {getTranslation('submitInquiryButton')}
               </button>
             </form>
@@ -1123,7 +1307,7 @@ export default function Configurator() {
                                 <strong>{item.productName}</strong>
                                 <br />
                                 <span style={{ fontSize: '0.85rem', opacity: 0.85 }}>
-                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('finishRow')}: {item.finish} | {getTranslation('quantityRow')}:{' '}
+                                  {getTranslation('dimensionsRow')}: {item.dimensions} | {getTranslation('gradeRow')}: {item.grade} | {getTranslation('finishRow')}: {item.finish} | {getTranslation('quantityRow')}:{' '}
                                   {item.qtyText}
                                 </span>
                               </div>
