@@ -81,18 +81,7 @@ export default function Home() {
       ? products
       : products.filter((p) => p.category === activeFilter);
 
-  const handleDownloadBrochure = (e) => {
-    e.preventDefault();
-    let alertMsg = 'Palrom Products Corporate Brochure download started (Sample).';
-    if (lang === 'nl') {
-      alertMsg = 'Download van de Palrom Products productbrochure is gestart (voorbeeld).';
-    } else if (lang === 'de') {
-      alertMsg = 'Download der Produktbroschüre von Palrom Products gestartet (Beispiel).';
-    } else if (lang === 'ro') {
-      alertMsg = 'Descărcarea broșurii corporative Palrom Products a început (Eșantion).';
-    }
-    alert(alertMsg);
-  };
+
 
   const t = {
     heroBadge: {
@@ -436,7 +425,7 @@ export default function Home() {
                 <p>{getTranslation('brochureDesc')}</p>
               </div>
             </div>
-            <a href="#" className="btn btn-dark" onClick={handleDownloadBrochure}>
+            <a href="/palrom_brochure.pdf" download="palrom_brochure.pdf" className="btn btn-dark">
               <i className="fa-solid fa-download icon-left"></i> {getTranslation('brochureBtn')}
             </a>
           </div>

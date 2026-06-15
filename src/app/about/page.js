@@ -341,20 +341,9 @@ export default function About() {
               </div>
             </div>
             <a
-              href="#"
+              href="/palrom_brochure.pdf"
+              download="palrom_brochure.pdf"
               className="btn btn-dark"
-              onClick={(e) => {
-                e.preventDefault();
-                let alertMsg = 'Palrom Products Corporate Brochure download started (Sample Simulation).';
-                if (lang === 'nl') {
-                  alertMsg = 'Download van de Palrom Products productbrochure is gestart (voorbeeld).';
-                } else if (lang === 'de') {
-                  alertMsg = 'Download der Produktbroschüre von Palrom Products gestartet (Beispiel).';
-                } else if (lang === 'ro') {
-                  alertMsg = 'Descărcarea broșurii corporative Palrom Products a început (Eșantion).';
-                }
-                alert(alertMsg);
-              }}
             >
               <i className="fa-solid fa-download icon-left"></i> {getTranslation('brochureBtn')}
             </a>
