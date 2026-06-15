@@ -391,6 +391,23 @@ export default function About() {
               <div key={i} className={`timeline-item animate-on-scroll ${evt.align}`}>
                 <div className="timeline-dot"></div>
                 <div className="timeline-content-card">
+                  {evt.year === '2010' && (
+                    <div className="fsc-timeline-logo-wrapper" style={{ marginBottom: '1.25rem' }}>
+                      <img
+                        src="/images/fsc_logo.png"
+                        alt="FSC Logo"
+                        style={{
+                          height: '75px',
+                          width: 'auto',
+                          objectFit: 'contain',
+                          display: 'block',
+                          backgroundColor: '#fff',
+                          padding: '8px',
+                          borderRadius: '6px'
+                        }}
+                      />
+                    </div>
+                  )}
                   <span className="timeline-year">{evt.year}</span>
                   <h3>{evt.title[lang] || evt.title.nl}</h3>
                   <p>{evt.description[lang] || evt.description.nl}</p>
