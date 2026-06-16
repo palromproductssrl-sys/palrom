@@ -97,8 +97,6 @@ ul {
 
 /* Layout Utilities */
 .container {
-    position: relative;
-    z-index: 2;
     width: 90%;
     max-width: var(--max-width);
     margin: 0 auto;
@@ -109,7 +107,19 @@ ul {
 }
 
 .bg-light {
+    position: relative;
+}
+
+.bg-light::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: var(--color-bg-white);
+    z-index: -2;
+    pointer-events: none;
 }
 
 .bg-dark {
@@ -392,11 +402,21 @@ ul {
     min-height: 600px;
     display: flex;
     align-items: center;
+    color: var(--color-bg-white);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url('/images/hero_bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: var(--color-bg-white);
+    z-index: -2;
 }
 
 .hero-overlay {
@@ -406,7 +426,7 @@ ul {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, rgba(42, 42, 42, 0.88) 0%, rgba(231, 177, 36, 0.35) 100%);
-    z-index: 0;
+    z-index: -2;
 }
 
 .hero-content {
@@ -488,7 +508,7 @@ ul {
     position: fixed;
     right: 5%;
     top: 35%;
-    z-index: 1;
+    z-index: -1;
     pointer-events: none;
     animation: floatUpDown 12s ease-in-out infinite alternate;
 }
