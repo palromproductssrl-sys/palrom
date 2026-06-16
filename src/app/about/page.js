@@ -146,7 +146,7 @@ export default function About() {
     {
       id: 4,
       image: '/images/kilns.jpg',
-      title: lang === 'nl' ? 'Geautomatiseerde Droogkamers' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Camere de Uscare Automatizate' : 'Automated Drying Chambers')),
+      title: lang === 'nl' ? 'Gecontroleerd drogen van het hout' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Camere de Uscare Automatizate' : 'Automated Drying Chambers')),
       desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a cherestelei la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
     },
     {

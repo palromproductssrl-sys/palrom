@@ -203,7 +203,7 @@ export default function Home() {
       ro: 'Nu livrăm doar cherestea; proiectăm soluții personalizate care cresc randamentul și reduc costurile de producție pentru producătorii de mobilier și prelucrătorii de lemn.'
     },
     kilnsTitle: {
-      nl: 'Moderne Droogkamers',
+      nl: 'Gecontroleerd drogen van het hout',
       en: 'Modern Drying Chambers',
       de: 'Moderne Trockenkammern',
       ro: 'Camere Moderne de Uscare'
