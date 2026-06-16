@@ -287,6 +287,15 @@ export default function Home() {
 
   return (
     <>
+      {/* Floating Decorative Wood Mosaic */}
+      <div className="hero-floating-wrapper animate-fade-in-delay">
+        <img 
+          src="/images/floating_wood.png" 
+          alt="Decorative beechwood circular mosaic" 
+          className="hero-floating-graphic" 
+        />
+      </div>
+
       {/* Hero Section */}
       <section id="home" className="hero-section">
         <div className="hero-overlay"></div>
@@ -308,15 +317,6 @@ export default function Home() {
               {getTranslation('viewProducts')}
             </Link>
           </div>
-        </div>
-
-        {/* Floating Decorative Wood Mosaic */}
-        <div className="hero-floating-wrapper animate-fade-in-delay">
-          <img 
-            src="/images/floating_wood.png" 
-            alt="Decorative beechwood circular mosaic" 
-            className="hero-floating-graphic" 
-          />
         </div>
 
         {/* Hiring Stamp on Hero Photo */}
