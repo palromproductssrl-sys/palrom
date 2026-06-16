@@ -255,6 +255,7 @@ export default function Configurator() {
 
   // Configurator states
   const [currentStep, setCurrentStep] = useState(1);
+  const [highestStepReached, setHighestStepReached] = useState(1);
   const [category, setCategory] = useState('sawn');
   const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-small');
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
@@ -297,6 +298,7 @@ export default function Configurator() {
       setQuantity(10000);
       setShouldResetConfigurator(false);
       setCurrentStep(1);
+      setHighestStepReached(1);
     }
   }, [shouldResetConfigurator, setShouldResetConfigurator]);
 
@@ -318,6 +320,16 @@ export default function Configurator() {
   };
 
   const validationError = getValidationError();
+
+  const getStep2Summary = () => {
+    if (category === 'brichete') {
+      return lang === 'nl' ? '100% Natuurlijk beukenhout' : (lang === 'ro' ? '100% Fag natural' : (lang === 'de' ? '100% Naturbuche' : '100% Natural beechwood'));
+    }
+    const fscText = activeSelection.fsc ? 'FSC®' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')));
+    const dryingText = activeSelection.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'ro' ? 'Uscat la aer' : (lang === 'de' ? 'Luftgetrocknet' : 'Air-dried'))) : 'KD';
+    const gradeText = activeSelection.grade ? `Grade ${activeSelection.grade}` : '';
+    return `${activeSelection.dimensions || ''}${gradeText ? `, ${gradeText}` : ''}, ${fscText}, ${dryingText}`;
+  };
   const parsedLengthForMinQty = typeof length === 'string' && length.includes('-')
     ? parseInt(length.split('-')[1])
     : (parseInt(length) || 0);
@@ -856,6 +868,7 @@ export default function Configurator() {
       setFsc(true);
     }
     setCurrentStep(1);
+    setHighestStepReached(1);
     // Open the sidebar cart
     setIsCartOpen(true);
   };
@@ -957,44 +970,30 @@ export default function Configurator() {
             <form onSubmit={handleFormSubmit} className="configurator-dashboard-form">
               <h2 className="dashboard-title">{getTranslation('heroTitle')}</h2>
 
-              {/* Stepper Progress Bar */}
-              <div className="configurator-stepper">
-                <div className="stepper-progress" style={{ width: currentStep === 1 ? '0%' : currentStep === 2 ? '50%' : '100%' }}></div>
-                <button
-                  type="button"
-                  className={`step-node ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
-                  onClick={() => setCurrentStep(1)}
+              {/* Panel 1: Product Selection */}
+              <div className={`accordion-step-panel ${currentStep === 1 ? 'active' : ''} ${highestStepReached > 1 ? 'completed' : ''}`}>
+                <div 
+                  className="accordion-step-header"
+                  onClick={() => { if (highestStepReached >= 1) setCurrentStep(1); }}
+                  style={highestStepReached < 1 ? { cursor: 'not-allowed' } : {}}
                 >
-                  <div className="step-circle">{currentStep > 1 ? <i className="fa-solid fa-check"></i> : '1'}</div>
-                  <span className="step-label">{lang === 'ro' ? 'Categorie' : (lang === 'nl' ? 'Categorie' : (lang === 'de' ? 'Kategorie' : 'Category'))}</span>
-                </button>
-                <button
-                  type="button"
-                  className={`step-node ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
-                  onClick={() => {
-                    if (currentStep > 1) setCurrentStep(2);
-                  }}
-                  disabled={currentStep < 2}
-                >
-                  <div className="step-circle">{currentStep > 2 ? <i className="fa-solid fa-check"></i> : '2'}</div>
-                  <span className="step-label">{lang === 'ro' ? 'Specificății' : (lang === 'nl' ? 'Specificaties' : (lang === 'de' ? 'Spezifikationen' : 'Specifications'))}</span>
-                </button>
-                <button
-                  type="button"
-                  className={`step-node ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}
-                  onClick={() => {
-                    if (currentStep > 2) setCurrentStep(3);
-                  }}
-                  disabled={currentStep < 3}
-                >
-                  <div className="step-circle">{currentStep > 3 ? <i className="fa-solid fa-check"></i> : '3'}</div>
-                  <span className="step-label">{lang === 'ro' ? 'Oplage' : (lang === 'nl' ? 'Oplage' : (lang === 'de' ? 'Menge' : 'Quantity'))}</span>
-                </button>
-              </div>
+                  <div className="accordion-step-header-left">
+                    <div className="accordion-step-circle">
+                      {highestStepReached > 1 ? <i className="fa-solid fa-check"></i> : '1'}
+                    </div>
+                    <span className="accordion-step-title">
+                      {lang === 'nl' ? 'Stap 1: Kies product' : (lang === 'ro' ? 'Pasul 1: Alegeți produsul' : (lang === 'de' ? 'Schritt 1: Produkt auswählen' : 'Step 1: Choose product'))}
+                    </span>
+                  </div>
+                  {highestStepReached > 1 && (
+                    <span className="accordion-step-summary">
+                      {activeSelection.productName}
+                    </span>
+                  )}
+                  <i className="fa-solid fa-chevron-down accordion-step-arrow"></i>
+                </div>
 
-              {/* Wizard fields */}
-              {currentStep === 1 && (
-                <div className="wizard-step-container">
+                <div className="accordion-step-body">
                   <div className="dashboard-controls-grid">
                     <div className="control-group" id="controlGroupCategory">
                       <label>{getTranslation('categoryLabel')}</label>
@@ -1128,13 +1127,50 @@ export default function Configurator() {
                   </div>
                 )}
 
-              </div>
-            </div>
-          )}
+                  </div>
 
-          {currentStep === 2 && (
-            <div className="wizard-step-container">
-              <div className="dashboard-controls-grid">
+                  <div className="wizard-nav-buttons">
+                    <div></div>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setCurrentStep(2);
+                        setHighestStepReached((prev) => Math.max(prev, 2));
+                      }}
+                    >
+                      {lang === 'ro' ? 'Înainte' : (lang === 'nl' ? 'Volgende' : (lang === 'de' ? 'Weiter' : 'Next'))}{' '}
+                      <i className="fa-solid fa-arrow-right icon-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Panel 2: Specifications & Dimensions */}
+              <div className={`accordion-step-panel ${currentStep === 2 ? 'active' : ''} ${highestStepReached > 2 ? 'completed' : ''}`}>
+                <div 
+                  className="accordion-step-header"
+                  onClick={() => { if (highestStepReached >= 2) setCurrentStep(2); }}
+                  style={highestStepReached < 2 ? { cursor: 'not-allowed', opacity: 0.6 } : {}}
+                >
+                  <div className="accordion-step-header-left">
+                    <div className="accordion-step-circle">
+                      {highestStepReached > 2 ? <i className="fa-solid fa-check"></i> : '2'}
+                    </div>
+                    <span className="accordion-step-title">
+                      {lang === 'nl' ? 'Stap 2: Specificaties & Afmetingen' : (lang === 'ro' ? 'Pasul 2: Specificații & Dimensiuni' : (lang === 'de' ? 'Schritt 2: Spezifikationen & Maße' : 'Step 2: Specifications & Dimensions'))}
+                    </span>
+                  </div>
+                  {highestStepReached > 2 && (
+                    <span className="accordion-step-summary">
+                      {getStep2Summary()}
+                    </span>
+                  )}
+                  <i className="fa-solid fa-chevron-down accordion-step-arrow"></i>
+                </div>
+
+                <div className="accordion-step-body">
+                  <div className="dashboard-controls-grid">
                 {/* Houtsoort */}
                 <div className="control-group">
                   <label htmlFor="dbWoodType">{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</label>
@@ -1356,13 +1392,91 @@ export default function Configurator() {
                   </div>
                 )}
 
-              </div>
-            </div>
-          )}
+                  </div>
 
-          {currentStep === 3 && (
-            <div className="wizard-step-container">
-              <div className="dashboard-controls-grid">
+                  {validationError && (
+                    <div
+                      className="validation-error-box"
+                      style={{
+                        background: '#fef2f2',
+                        border: '1px solid #ef4444',
+                        borderRadius: 'var(--border-radius-md)',
+                        padding: '1rem',
+                        marginTop: '1.5rem',
+                        marginBottom: '1rem',
+                        color: '#991b1b',
+                        fontSize: '0.95rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        width: '100%',
+                      }}
+                    >
+                      <i className="fa-solid fa-triangle-exclamation" style={{ color: '#dc2626', fontSize: '1.2rem' }}></i>
+                      <span>{validationError[lang] || validationError.nl}</span>
+                    </div>
+                  )}
+
+                  {/* Status Bar */}
+                  <div className="dashboard-status-bar" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div className="status-col">
+                      <span className="status-label">{getTranslation('certificationLabel')}</span>
+                      <span className="status-value">
+                        {activeSelection.category === 'brichete'
+                          ? getTranslation('materialValueBrichete')
+                          : (activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc'))}
+                      </span>
+                    </div>
+                    <div className="status-col">
+                      <span className="status-label">{getTranslation('statusLabel')}</span>
+                      <span className="status-value status-ready">{getTranslation('statusReady')}</span>
+                    </div>
+                  </div>
+
+                  <div className="wizard-nav-buttons">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => setCurrentStep(1)}
+                    >
+                      <i className="fa-solid fa-arrow-left icon-left"></i>{' '}
+                      {lang === 'ro' ? 'Înapoi' : (lang === 'nl' ? 'Vorige' : (lang === 'de' ? 'Zurück' : 'Previous'))}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!!validationError}
+                      style={validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                      onClick={() => {
+                        setCurrentStep(3);
+                        setHighestStepReached((prev) => Math.max(prev, 3));
+                      }}
+                    >
+                      {lang === 'ro' ? 'Înainte' : (lang === 'nl' ? 'Volgende' : (lang === 'de' ? 'Weiter' : 'Next'))}{' '}
+                      <i className="fa-solid fa-arrow-right icon-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Panel 3: Quantity & Summary */}
+              <div className={`accordion-step-panel ${currentStep === 3 ? 'active' : ''}`}>
+                <div 
+                  className="accordion-step-header"
+                  onClick={() => { if (highestStepReached >= 3) setCurrentStep(3); }}
+                  style={highestStepReached < 3 ? { cursor: 'not-allowed', opacity: 0.6 } : {}}
+                >
+                  <div className="accordion-step-header-left">
+                    <div className="accordion-step-circle">3</div>
+                    <span className="accordion-step-title">
+                      {lang === 'nl' ? 'Stap 3: Oplage & Samenvatting' : (lang === 'ro' ? 'Pasul 3: Cantitate & Sumar' : (lang === 'de' ? 'Schritt 3: Menge & Zusammenfassung' : 'Step 3: Quantity & Summary'))}
+                    </span>
+                  </div>
+                  <i className="fa-solid fa-chevron-down accordion-step-arrow"></i>
+                </div>
+
+                <div className="accordion-step-body">
+                  <div className="dashboard-controls-grid">
                 {/* Aanvullende informatie */}
                 <div className="control-group" style={{ gridColumn: 'span 2' }}>
                   <label htmlFor="dbAdditionalInfo">{lang === 'nl' ? 'Aanvullende informatie' : 'Additional information'}</label>
@@ -1414,14 +1528,9 @@ export default function Configurator() {
                   )}
                 </div>
               </div>
-            </div>
-          )}
 
-
-          {/* Summary Table */}
-          {currentStep === 3 && (
-            <div className="wizard-step-container">
-              <div className="dashboard-table-wrapper">
+              {/* Summary Table */}
+              <div className="dashboard-table-wrapper" style={{ marginTop: '1.5rem' }}>
                 <table className="dashboard-table">
                   <thead>
                     <tr>
@@ -1524,85 +1633,27 @@ export default function Configurator() {
                   </tbody>
                 </table>
               </div>
-            </div>
-          )}
 
-          {currentStep >= 2 && validationError && (
-            <div
-              className="validation-error-box"
-              style={{
-                background: '#fef2f2',
-                border: '1px solid #ef4444',
-                borderRadius: 'var(--border-radius-md)',
-                padding: '1rem',
-                marginBottom: '1.5rem',
-                color: '#991b1b',
-                fontSize: '0.95rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                width: '100%',
-              }}
-            >
-              <i className="fa-solid fa-triangle-exclamation" style={{ color: '#dc2626', fontSize: '1.2rem' }}></i>
-              <span>{validationError[lang] || validationError.nl}</span>
-            </div>
-          )}
-
-          {/* Status Bar */}
-          {currentStep >= 2 && (
-            <div className="dashboard-status-bar">
-              <div className="status-col">
-                <span className="status-label">{getTranslation('certificationLabel')}</span>
-                <span className="status-value">
-                  {activeSelection.category === 'brichete'
-                    ? getTranslation('materialValueBrichete')
-                    : (activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc'))}
-                </span>
-              </div>
-              <div className="status-col">
-                <span className="status-label">{getTranslation('statusLabel')}</span>
-                <span className="status-value status-ready">{getTranslation('statusReady')}</span>
+              {/* Panel 3 Navigation Buttons */}
+              <div className="wizard-nav-buttons" style={{ marginTop: '1.5rem' }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setCurrentStep(2)}
+                >
+                  <i className="fa-solid fa-arrow-left icon-left"></i>{' '}
+                  {lang === 'ro' ? 'Înapoi' : (lang === 'nl' ? 'Vorige' : (lang === 'de' ? 'Zurück' : 'Previous'))}
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={!!validationError}
+                  style={validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                >
+                  {getTranslation('submitInquiryButton')}
+                </button>
               </div>
             </div>
-          )}
-
-          {/* Wizard Navigation Buttons */}
-          <div className="wizard-nav-buttons">
-            {currentStep > 1 ? (
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setCurrentStep((prev) => prev - 1)}
-              >
-                <i className="fa-solid fa-arrow-left icon-left"></i>{' '}
-                {lang === 'ro' ? 'Înapoi' : (lang === 'nl' ? 'Vorige' : (lang === 'de' ? 'Zurück' : 'Previous'))}
-              </button>
-            ) : (
-              <div></div>
-            )}
-
-            {currentStep < 3 ? (
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={currentStep === 2 && !!validationError}
-                style={currentStep === 2 && validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-                onClick={() => setCurrentStep((prev) => prev + 1)}
-              >
-                {lang === 'ro' ? 'Înainte' : (lang === 'nl' ? 'Volgende' : (lang === 'de' ? 'Weiter' : 'Next'))}{' '}
-                <i className="fa-solid fa-arrow-right icon-right"></i>
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={!!validationError}
-                style={validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-              >
-                {getTranslation('submitInquiryButton')}
-              </button>
-            )}
           </div>
         </form>
           </div>
