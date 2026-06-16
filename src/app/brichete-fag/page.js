@@ -78,7 +78,7 @@ export default function BricheteFag() {
   const { lang, setLang } = useInquiry();
   const [isVerifying, setIsVerifying] = useState(true);
   const [isAccessAllowed, setIsAccessAllowed] = useState(false);
-  const [activeImage, setActiveImage] = useState('/images/brichete_fag.png');
+  const [activeImage, setActiveImage] = useState('/images/brichete_fag_ambient.png');
 
   const activeLang = lang === 'en' ? 'en' : 'ro';
 
