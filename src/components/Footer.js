@@ -103,6 +103,9 @@ export default function Footer() {
             <li><Link href="/profiles">{getTranslation('profiles')}</Link></li>
             <li><Link href="/specials">{getTranslation('specials')}</Link></li>
             <li><Link href="/products">{getTranslation('fscBeech')}</Link></li>
+            {lang === 'ro' && (
+              <li><Link href="/brichete-fag">Brichete fag (Exclusiv RO)</Link></li>
+            )}
           </ul>
         </div>
       </div>

@@ -164,6 +164,47 @@ export default function Products() {
     },
   ];
 
+  if (lang === 'ro') {
+    productsList.push({
+      id: 'brichete',
+      category: 'specials',
+      name: {
+        nl: 'Brichete din lemn de fag',
+        en: 'Brichete din lemn de fag',
+        de: 'Brichete din lemn de fag',
+        ro: 'Brichete din lemn de fag',
+      },
+      description: {
+        nl: 'Brichete de foc premium produse din rumeguș compactat de fag, ecologice, 100% naturale și cu putere calorică mare. Destinate exclusiv pieței din România.',
+        en: 'Brichete de foc premium produse din rumeguș compactat de fag, ecologice, 100% naturale și cu putere calorică mare. Destinate exclusiv pieței din România.',
+        de: 'Brichete de foc premium produse din rumeguș compactat de fag, ecologice, 100% naturale și cu putere calorică mare. Destinate exclusiv pieței din România.',
+        ro: 'Brichete de foc premium produse din rumeguș compactat de fag, ecologice, 100% naturale și cu putere calorică mare. Destinate exclusiv pieței din România.',
+      },
+      image: '/images/brichete_fag.png',
+      link: '/brichete-fag',
+      specs: [
+        {
+          label: { nl: 'Putere Calorică', en: 'Putere Calorică', de: 'Putere Calorică', ro: 'Putere Calorică' },
+          value: { nl: '~18.5 MJ/kg', en: '~18.5 MJ/kg', de: '~18.5 MJ/kg', ro: '~18.5 MJ/kg' }
+        },
+        {
+          label: { nl: 'Umiditate', en: 'Umiditate', de: 'Umiditate', ro: 'Umiditate' },
+          value: { nl: '< 10%', en: '< 10%', de: '< 10%', ro: '< 10%' }
+        },
+        {
+          label: { nl: 'Ambalare', en: 'Ambalare', de: 'Ambalare', ro: 'Ambalare' },
+          value: { nl: 'Saci de 10 kg (96 saci/palet)', en: 'Saci de 10 kg (96 saci/palet)', de: 'Saci de 10 kg (96 saci/palet)', ro: 'Saci de 10 kg (96 saci/palet)' }
+        },
+      ],
+      tag: {
+        nl: 'Exclusiv RO',
+        en: 'Exclusiv RO',
+        de: 'Exclusiv RO',
+        ro: 'Exclusiv RO'
+      },
+    });
+  }
+
   const t = {
     breadcrumb: {
       nl: 'Producten',

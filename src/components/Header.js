@@ -10,7 +10,7 @@ export default function Header() {
   const { cartCount, setIsCartOpen, lang, setLang } = useInquiry();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const isProductsActive = ['/products', '/rods', '/four-sides-planed', '/profiles', '/specials'].some(
+  const isProductsActive = ['/products', '/rods', '/four-sides-planed', '/profiles', '/specials', '/brichete-fag'].some(
     (path) => pathname === path
   );
   
@@ -48,6 +48,11 @@ export default function Header() {
           <Link href="/products" className={`nav-link ${isProductsActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('products')}
           </Link>
+          {lang === 'ro' && (
+            <Link href="/brichete-fag" className={`nav-link ${pathname === '/brichete-fag' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
+              Brichete Fag
+            </Link>
+          )}
           <Link href="/careers" className={`nav-link ${isCareersActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('careers')}
           </Link>
@@ -69,34 +74,47 @@ export default function Header() {
             {getTranslation('requestQuote')}
           </Link>
           <div className="language-switcher-vertical">
-            <button 
-              className={`lang-btn ${lang === 'nl' ? 'active' : ''}`} 
-              onClick={() => setLang('nl')}
-              aria-label="Nederlands"
-            >
-              NL
-            </button>
-            <button 
-              className={`lang-btn ${lang === 'en' ? 'active' : ''}`} 
-              onClick={() => setLang('en')}
-              aria-label="English"
-            >
-              EN
-            </button>
-            <button 
-              className={`lang-btn ${lang === 'de' ? 'active' : ''}`} 
-              onClick={() => setLang('de')}
-              aria-label="Deutsch"
-            >
-              DE
-            </button>
-            <button 
-              className={`lang-btn ${lang === 'ro' ? 'active' : ''}`} 
-              onClick={() => setLang('ro')}
-              aria-label="Română"
-            >
-              RO
-            </button>
+            {pathname === '/brichete-fag' ? (
+              <button 
+                className="lang-btn active" 
+                disabled 
+                aria-label="Română"
+                style={{ cursor: 'not-allowed', opacity: 0.8 }}
+              >
+                RO
+              </button>
+            ) : (
+              <>
+                <button 
+                  className={`lang-btn ${lang === 'nl' ? 'active' : ''}`} 
+                  onClick={() => setLang('nl')}
+                  aria-label="Nederlands"
+                >
+                  NL
+                </button>
+                <button 
+                  className={`lang-btn ${lang === 'en' ? 'active' : ''}`} 
+                  onClick={() => setLang('en')}
+                  aria-label="English"
+                >
+                  EN
+                </button>
+                <button 
+                  className={`lang-btn ${lang === 'de' ? 'active' : ''}`} 
+                  onClick={() => setLang('de')}
+                  aria-label="Deutsch"
+                >
+                  DE
+                </button>
+                <button 
+                  className={`lang-btn ${lang === 'ro' ? 'active' : ''}`} 
+                  onClick={() => setLang('ro')}
+                  aria-label="Română"
+                >
+                  RO
+                </button>
+              </>
+            )}
           </div>
           <button 
             className={`mobile-nav-toggle ${isMobileMenuOpen ? 'open' : ''}`} 
