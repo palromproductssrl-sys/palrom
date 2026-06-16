@@ -92,8 +92,17 @@ export default function BricheteFag() {
   useEffect(() => {
     async function verifyGeolocation() {
       const hostname = window.location.hostname;
-      // Skip check for local development
-      if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      // Skip check for local development (localhost, 127.0.0.1, IPv6 loopback, private IPs, and local domains)
+      const isLocal = 
+        hostname === 'localhost' || 
+        hostname === '127.0.0.1' || 
+        hostname === '::1' || 
+        hostname.startsWith('192.168.') || 
+        hostname.startsWith('10.') || 
+        hostname.startsWith('172.') || 
+        hostname.endsWith('.local');
+
+      if (isLocal) {
         setIsAccessAllowed(true);
         setIsVerifying(false);
         return;
@@ -129,7 +138,12 @@ export default function BricheteFag() {
   }
 
   if (!isAccessAllowed) {
-    return null; // Will redirect via useEffect
+    return (
+      <div className="geo-loading-screen">
+        <div className="geo-spinner"></div>
+        <p>{activeLang === 'ro' ? 'Se redirecționează...' : 'Redirecting...'}</p>
+      </div>
+    );
   }
 
   return (
