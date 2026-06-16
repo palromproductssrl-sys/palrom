@@ -1417,21 +1417,6 @@ export default function Configurator() {
                     </div>
                   )}
 
-                  {/* Status Bar */}
-                  <div className="dashboard-status-bar" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-                    <div className="status-col">
-                      <span className="status-label">{getTranslation('certificationLabel')}</span>
-                      <span className="status-value">
-                        {activeSelection.category === 'brichete'
-                          ? getTranslation('materialValueBrichete')
-                          : (activeSelection.fsc ? getTranslation('materialValueFsc') : getTranslation('materialValueNonFsc'))}
-                      </span>
-                    </div>
-                    <div className="status-col">
-                      <span className="status-label">{getTranslation('statusLabel')}</span>
-                      <span className="status-value status-ready">{getTranslation('statusReady')}</span>
-                    </div>
-                  </div>
 
                   <div className="wizard-nav-buttons">
                     <button
