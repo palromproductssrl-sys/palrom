@@ -48,11 +48,6 @@ export default function Header() {
           <Link href="/products" className={`nav-link ${isProductsActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('products')}
           </Link>
-          {isRomania && (
-            <Link href="/brichete-fag" className={`nav-link ${pathname === '/brichete-fag' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
-              {lang === 'ro' ? 'Brichete Fag' : (lang === 'nl' ? 'Houtbriketten' : (lang === 'de' ? 'Holzbriketts' : 'Beech Briquettes'))}
-            </Link>
-          )}
           <Link href="/careers" className={`nav-link ${isCareersActive ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('careers')}
           </Link>
