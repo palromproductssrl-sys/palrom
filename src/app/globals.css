@@ -519,8 +519,8 @@ ul {
     width: 220px;
     height: 220px;
     object-fit: contain;
-    opacity: 0.12;
-    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.05));
+    opacity: 0.35;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
     animation: rotateSlowly 180s linear infinite;
 }
 
@@ -557,7 +557,7 @@ ul {
     .hero-floating-graphic {
         width: 140px;
         height: 140px;
-        opacity: 0.08;
+        opacity: 0.22;
     }
 }
 
@@ -569,7 +569,7 @@ ul {
     .hero-floating-graphic {
         width: 100px;
         height: 100px;
-        opacity: 0.06;
+        opacity: 0.18;
     }
 }
 
