@@ -118,10 +118,10 @@ export default function About() {
         nl: 'Palrom opereert als een belangrijke leverancier voor grote Europese retailers van meubelcomponenten, met centraal logistiek beheer en distributiepunten in Nederland.',
         en: 'Operating as a key vendor to major European furniture components retailers, with central logistics managed and distributed through points in the Netherlands.',
         de: 'Tätig als Hauptlieferant für große europäische Händler von Möbelkomponenten, mit zentraler Logistiksteuerung und Vertrieb über Standorte in den Niederlanden.',
-        ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistica centrală gestionată și distribuită prin puncte din Olanda.'
+        ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistică gestionată central și distribuită prin puncte din Olanda.'
       },
       align: 'right',
-    },
+    }
   ];
 
   const galleryItems = [
@@ -140,31 +140,31 @@ export default function About() {
     {
       id: 3,
       image: '/images/1.png',
-      title: lang === 'nl' ? 'Conditioneren' : (lang === 'de' ? 'Dämpfen & Bewittern' : (lang === 'ro' ? 'Aburire & Tratare' : 'Steaming & Weathering')),
-      desc: lang === 'nl' ? 'gecontroleerd conditioneren van het hout voor kleur en stabiliteit.' : (lang === 'de' ? 'Kontrolliertes Holzdämpfen für Farbe und Stabilität.' : (lang === 'ro' ? 'Aburirea controlată a lemnului pentru culoare și stabilitate.' : 'Controlled wood steaming for color and stability.')),
+      title: lang === 'nl' ? 'Conditioneren' : (lang === 'de' ? 'Konditionieren' : (lang === 'ro' ? 'Condiționare' : 'Conditioning')),
+      desc: lang === 'nl' ? 'Gecontroleerd conditioneren van het hout voor kleur en stabiliteit.' : (lang === 'de' ? 'Kontrolliertes Konditionieren des Holzes für Farbe und Stabilität.' : (lang === 'ro' ? 'Condiționarea controlată a lemnului pentru culoare și stabilitate.' : 'Controlled conditioning of the wood for color and stability.')),
     },
     {
       id: 4,
       image: '/images/kilns.jpg',
-      title: lang === 'nl' ? 'Gecontroleerd drogen van het hout' : (lang === 'de' ? 'Automatische Trockenkammern' : (lang === 'ro' ? 'Camere de Uscare Automatizate' : 'Automated Drying Chambers')),
-      desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a cherestelei la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
+      title: lang === 'nl' ? 'Gecontroleerd drogen van het hout' : (lang === 'de' ? 'Kontrollierte Holztrocknung' : (lang === 'ro' ? 'Uscarea Controlată a Lemnului' : 'Controlled Wood Drying')),
+      desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a lemnului la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
     },
     {
       id: 5,
       image: '/images/5.png',
-      title: lang === 'nl' ? 'Houtschaverij Werkplaats' : (lang === 'de' ? 'Hobelwerkstatt' : (lang === 'ro' ? 'Atelier de Rinduit Lemn' : 'Wood Planing Workshop')),
-      desc: lang === 'nl' ? 'Kalibreren van houtprofielen tot de exacte toleranties van de klant.' : (lang === 'de' ? 'Kalibrierung von Holzprofilen nach exakten Kundentoleranzen.' : (lang === 'ro' ? 'Calibrarea profilelor din lemn conform toleranțelor exacte ale clienților.' : 'Calibrating timber profiles to exact customer tolerances.')),
+      title: lang === 'nl' ? 'Slijperij Werkplaats' : (lang === 'de' ? 'Schärfwerkstatt' : (lang === 'ro' ? 'Atelier de Ascuțire' : 'Sharpening Workshop')),
+      desc: lang === 'nl' ? 'Onze slijperij' : (lang === 'de' ? 'Unsere Schärfwerkstatt' : (lang === 'ro' ? 'Atelierul nostru de ascuțire' : 'Our sharpening workshop')),
     },
     {
       id: 6,
       image: '/images/2.png',
       title: lang === 'nl' ? 'Beukenhouten Stokkenproductie' : (lang === 'de' ? 'Buchenholzstäbe-Produktion' : (lang === 'ro' ? 'Producție Tije din Lemn de Fag' : 'Beech Stick Production')),
-      desc: lang === 'nl' ? 'Hoge capaciteit gegroefde en gladde stokkenproductielijnen.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Stäbe.' : (lang === 'ro' ? 'Linii de mare capacitate pentru tije canelate și netede.' : 'High capacity rilled and smooth stick production lines.')),
+      desc: lang === 'nl' ? 'Hoge capaciteit gerilde en gladde stokken.' : (lang === 'de' ? 'Hochleistungslinien für geriffelte und glatte Stäbe.' : (lang === 'ro' ? 'Linii de mare capacitate pentru tije canelate și netede.' : 'High capacity rilled and smooth stick production lines.')),
     },
     {
       id: 7,
       image: '/images/3.png',
-      title: lang === 'nl' ? 'Kwaliteitsinspectie & Sortering' : (lang === 'de' ? 'Qualitätsprüfung & Sortierung' : (lang === 'ro' ? 'Inspecție de Calitate & Sortare' : 'Quality Inspection & Sorting')),
+      title: lang === 'nl' ? 'Customising en labeling' : (lang === 'de' ? 'Anpassung & Etikettierung' : (lang === 'ro' ? 'Personalizare & Etichetare' : 'Customization & Labeling')),
       desc: lang === 'nl' ? 'Strenge visuele controle om premium houtklassen te garanderen.' : (lang === 'de' ? 'Strenge visuelle Prüfung zur Gewährleistung erstklassiger Holzqualitäten.' : (lang === 'ro' ? 'Control vizual riguros pentru a garanta clase de lemn premium.' : 'Rigorous visual check to guarantee premium wood grades.')),
     },
     {
@@ -176,7 +176,7 @@ export default function About() {
     {
       id: 9,
       image: '/images/specials_gallery.jpg',
-      title: lang === 'nl' ? 'Speciale Componenten Portfolio' : (lang === 'de' ? 'Spezialkomponenten-Portfolio' : (lang === 'ro' ? 'Portofoliu Componente Speciale' : 'Special Components Portfolio')),
+      title: lang === 'nl' ? 'Slats sticks and profiles' : (lang === 'de' ? 'Leisten, Stäbe und Profile' : (lang === 'ro' ? 'Șipci, tije și profile' : 'Slats, sticks and profiles')),
       desc: lang === 'nl' ? 'Diverse op maat gemaakte draai- en freesonderdelen uit onze productie.' : (lang === 'de' ? 'Verschiedene kundenspezifische Dreh- und Frästeile aus unserer Produktion.' : (lang === 'ro' ? 'Diverse componente strunjite și frezate la comandă din producția noastră.' : 'Various custom-turned and milled beechwood components from our production.')),
     },
   ];
@@ -241,7 +241,7 @@ export default function About() {
     },
     desc2: {
       nl: 'Met onze geïntegreerde productie – van rondhout tot eindproduct – leveren wij gezaagde bestekken, geschaafde stokken, latten en profielen aan klanten in de meubel-, bouw- en houtverwerkende industrie. Of het nu gaat om standaardproducten of klantspecifieke maatwerkoplossingen, kwaliteit, betrouwbaarheid en precisie staan altijd centraal.',
-      en: 'With our integrated production – from round logs to final products – we deliver blanks, planed sticks, slats, and profiles to customers in the furniture, construction, and wood-processing industries. Whether standard products or customer-specific custom solutions, quality, reliability, and precision are always central.',
+      en: 'With our integrated production – from round logs to final products – we deliver specials, planed sticks, slats, and profiles to customers in the furniture, construction, and wood-processing industries. Whether standard products or customer-specific custom solutions, quality, reliability, and precision are always central.',
       de: 'Mit unserer integrierten Produktion – vom Rundholz bis zum Endprodukt – liefern wir Zuschnitte, gehobelte Stäbe, Leisten und Profile an Kunden in der Möbel-, Bau- und Holzindustrie. Ob Standardprodukte oder kundenspezifische Sonderlösungen – Qualität, Zuverlässigkeit und Präzision stehen immer im Mittelpunkt.',
       ro: 'Prin producția noastră integrată – de la buștean la produsul finit – livrăm piese brute, tije rinduite, șipci și profile clienților din industria mobilei, a construcțiilor și a prelucrării lemnului. Fie că este vorba despre produse standard sau soluții personalizate la comandă, calitatea, fiabilitatea și precizia sunt întotdeauna pe primul loc.'
     },

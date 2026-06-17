@@ -11,6 +11,44 @@ export default function Products() {
 
   const productsList = [
     {
+      id: 'blanks',
+      category: 'blanks',
+      name: {
+        nl: 'Beukenhouten blanks',
+        en: 'Beechwood blanks',
+        de: 'Buchenholz-Blanks',
+        ro: 'Piese brute din lemn de fag (blanks)',
+      },
+      description: {
+        nl: 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en uitermate geschikt voor meubelonderdelen en draaiwerk.',
+        en: 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.',
+        de: 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal für Möbelteile und Drechselarbeiten.',
+        ro: 'Piese brute din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.',
+      },
+      image: '/images/beechwood_blanks.png',
+      link: '/blanks',
+      specs: [
+        {
+          label: { nl: 'Dikte', en: 'Thickness', de: 'Dicke', ro: 'Grosime' },
+          value: { nl: '20mm tot 67mm', en: '20mm to 67mm', de: '20mm bis 67mm', ro: '20mm până la 67mm' }
+        },
+        {
+          label: { nl: 'Breedte', en: 'Width', de: 'Breite', ro: 'Lățime' },
+          value: { nl: '45mm tot 95mm', en: '45mm to 95mm', de: '45mm bis 95mm', ro: '45mm până la 95mm' }
+        },
+        {
+          label: { nl: 'Vochtgehalte', en: 'Moisture', de: 'Feuchtigkeit', ro: 'Umiditate' },
+          value: { nl: 'Kammergedroogd (8-12%) of vers', en: 'Chamber-dried (8-12%) or fresh', de: 'Kammergetrocknet (8-12%) oder frisch', ro: 'Uscat în camere (8-12%) sau proaspăt' }
+        },
+      ],
+      tag: {
+        nl: 'Blanks',
+        en: 'Blanks',
+        de: 'Blanks',
+        ro: 'Piese brute'
+      },
+    },
+    {
       id: 'planed',
       category: 'planed',
       name: {
@@ -129,7 +167,7 @@ export default function Products() {
       category: 'specials',
       name: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag',
       },
@@ -157,7 +195,7 @@ export default function Products() {
       ],
       tag: {
         nl: 'Bestekken',
-        en: 'Blanks',
+        en: 'Specials',
         de: 'Zuschnitte',
         ro: 'Piese brute'
       },
@@ -256,9 +294,15 @@ export default function Products() {
     },
     filterSpecials: {
       nl: 'Bestekken',
-      en: 'Blanks',
+      en: 'Specials',
       de: 'Zuschnitte',
       ro: 'Piese brute'
+    },
+    filterBlanks: {
+      nl: 'Blanks',
+      en: 'Blanks',
+      de: 'Blanks',
+      ro: 'Blanks'
     },
     exploreDetails: {
       nl: 'Details Bekijken',
@@ -292,7 +336,7 @@ export default function Products() {
           </span>
         </div>
       </section>
-
+      
       {/* Products Catalogue Section */}
       <section className="section-padding bg-light products-grid-section">
         <div className="container">
@@ -303,6 +347,12 @@ export default function Products() {
               onClick={() => setActiveFilter('all')}
             >
               {getTranslation('filterAll')}
+            </button>
+            <button
+              className={`filter-btn ${activeFilter === 'blanks' ? 'active' : ''}`}
+              onClick={() => setActiveFilter('blanks')}
+            >
+              {getTranslation('filterBlanks')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}

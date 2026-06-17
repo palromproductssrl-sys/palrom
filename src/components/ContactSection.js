@@ -315,9 +315,15 @@ export default function ContactSection() {
     },
     interestSpecials: {
       nl: 'Beukenhouten bestekken',
-      en: 'Beechwood blanks',
+      en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
       ro: 'Piese brute din lemn de fag'
+    },
+    interestBlanks: {
+      nl: 'Beukenhouten blanks',
+      en: 'Beechwood blanks',
+      de: 'Buchenholz-Blanks',
+      ro: 'Piese brute din lemn de fag (blanks)'
     },
     interestGeneral: {
       nl: 'Algemene Houtinkoop Aanvraag',
@@ -640,6 +646,9 @@ export default function ContactSection() {
                       </option>
                       <option value="specials">
                         {getTranslation('interestSpecials')}
+                      </option>
+                      <option value="blanks">
+                        {getTranslation('interestBlanks')}
                       </option>
                       <option value="general">
                         {getTranslation('interestGeneral')}

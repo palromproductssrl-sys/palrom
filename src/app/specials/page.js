@@ -26,7 +26,7 @@ export default function Specials() {
       image: '/images/special1.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -48,7 +48,7 @@ export default function Specials() {
       image: '/images/special2.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -70,7 +70,7 @@ export default function Specials() {
       image: '/images/special3.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -86,13 +86,13 @@ export default function Specials() {
       description: {
         nl: 'Houten onderdelen speciaal geproduceerd en gecertificeerd voor direct contact met voedsel en verpakkingen.',
         en: 'Wooden components specially manufactured and certified for direct food contact and packaging.',
-        de: 'Holzkomponenten, speziell hergestellt und zertifiziert für den direkten Kontakt mit Lebensmitteln und Verpackungen.',
+        de: 'Holzkomponenten, speziell hergestellt und zertifiziert für den direkten kontakt mit Lebensmitteln und Verpackungen.',
         ro: 'Componente din lemn special fabricate și certificate pentru contactul direct cu alimentele și ambalajele.',
       },
       image: '/images/special4.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -114,7 +114,7 @@ export default function Specials() {
       image: '/images/special5.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -123,20 +123,20 @@ export default function Specials() {
       id: 'special-wood-iron',
       name: {
         nl: 'Gezaagde bestekken (fijnbezaagd)',
-        en: 'Rough-sawn blanks (fine-sawn)',
+        en: 'Rough-sawn specials (fine-sawn)',
         de: 'Sägerauhe Zuschnitte',
         ro: 'Piese brute netăiate',
       },
       description: {
         nl: 'Ruwe, op maat gezaagde beukenhouten bestekken voor verdere industriële verwerking in meubelfabrieken.',
-        en: 'Rough, custom-cut beechwood blanks for further industrial processing in furniture factories.',
+        en: 'Rough, custom-cut beechwood specials for further industrial processing in furniture factories.',
         de: 'Sägerauhe Buchenholz-Zuschnitte für die weitere industrielle Verarbeitung in Möbelfabriken.',
         ro: 'Piese brute din lemn de fag tăiate la comandă, pentru procesare industrială ulterioară în fabrici de mobilă.',
       },
       image: '/images/special6.jpg',
       category: {
         nl: 'Beukenhouten bestekken',
-        en: 'Beechwood blanks',
+        en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
         ro: 'Piese brute din lemn de fag'
       },
@@ -146,19 +146,19 @@ export default function Specials() {
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / Beukenhouten bestekken',
-      en: 'Home / Products / Beechwood blanks',
+      en: 'Home / Products / Beechwood specials',
       de: 'Home / Produkte / Buchenholz-Zuschnitte',
       ro: 'Home / Produsele / Piese brute din lemn de fag'
     },
     title: {
       nl: 'Beukenhouten bestekken',
-      en: 'Beechwood blanks',
+      en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
       ro: 'Piese brute din lemn de fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert gespecialiseerde halffabrikaten en beukenhouten bestekken voor de meubel-, verpakkings- en voedingsindustrie. Van op maat gemaakte keeplatten tot afstandhouders en componenten voor de voedingsindustrie.',
-      en: 'PALROM Products manufactures specialized semi-finished products and beechwood blanks for the furniture, packaging, and food industries. From customized keeplats to distancers and food industry components.',
+      en: 'PALROM Products manufactures specialized semi-finished products and beechwood specials for the furniture, packaging, and food industries. From customized keeplats to distancers and food industry components.',
       de: 'PALROM Products stellt spezialisierte Halbfabrikate und Buchenholz-Zuschnitte für die Möbel-, Verpackungs- und Lebensmittelindustrie her. Von maßgeschneiderten Keilleisten bis hin zu Abstandhaltern und Lebensmittelkomponenten.',
       ro: 'PALROM Products produce semifabricate specializate și piese brute din lemn de fag pentru industria de mobilier, ambalaje și alimentară. De la pane personalizate la distanțiere și componente pentru industria alimentară.'
     },

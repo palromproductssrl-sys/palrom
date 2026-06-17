@@ -44,7 +44,8 @@ export default function Footer() {
     dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije din lemn de fag" },
     planed: { nl: "Beukenhouten latten", en: "Beechwood slats", de: "Buchenholzleisten", ro: "Șipci din lemn de fag" },
     profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile din lemn de fag" },
-    specials: { nl: "Beukenhouten bestekken", en: "Beechwood blanks", de: "Buchenholz-Zuschnitte", ro: "Piese brute din lemn de fag" },
+    specials: { nl: "Beukenhouten bestekken", en: "Beechwood specials", de: "Buchenholz-Zuschnitte", ro: "Piese brute din lemn de fag" },
+    blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Piese brute din lemn de fag (blanks)" },
     fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag Sustenabil FSC®" },
     copyright: {
       nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen.",
@@ -98,6 +99,7 @@ export default function Footer() {
         <div className="footer-products">
           <h3>{getTranslation('offerings')}</h3>
           <ul>
+            <li><Link href="/blanks">{getTranslation('blanks')}</Link></li>
             <li><Link href="/four-sides-planed">{getTranslation('planed')}</Link></li>
             <li><Link href="/rods">{getTranslation('dowels')}</Link></li>
             <li><Link href="/profiles">{getTranslation('profiles')}</Link></li>

@@ -11,6 +11,22 @@ export default function Home() {
 
   const products = [
     {
+      id: 'blanks',
+      category: 'blanks',
+      name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Piese brute din lemn de fag (blanks)' : 'Beechwood blanks')),
+      description: lang === 'nl'
+        ? 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en geschikt voor meubelonderdelen en draaiwerk.'
+        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal für Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Piese brute din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
+      image: '/images/beechwood_blanks.png',
+      link: '/blanks',
+      specs: [
+        { label: lang === 'nl' ? 'Dikte' : (lang === 'de' ? 'Dicke' : (lang === 'ro' ? 'Grosime' : 'Thickness')), value: lang === 'nl' ? '20mm tot 67mm' : (lang === 'de' ? '20mm bis 67mm' : (lang === 'ro' ? '20mm până la 67mm' : '20mm to 67mm')) },
+        { label: lang === 'nl' ? 'Breedte' : (lang === 'de' ? 'Breite' : (lang === 'ro' ? 'Lățime' : 'Width')), value: lang === 'nl' ? '45mm tot 95mm' : (lang === 'de' ? '45mm bis 95mm' : (lang === 'ro' ? '45mm până la 95mm' : '45mm to 95mm')) },
+        { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd (8-12%) of vers' : (lang === 'de' ? 'Kammergetrocknet (8-12%) oder frisch' : (lang === 'ro' ? 'Uscat în camere (8-12%) sau proaspăt' : 'Chamber-dried (8-12%) or fresh')) },
+      ],
+      tag: lang === 'nl' ? 'Blanks' : (lang === 'de' ? 'Blanks' : (lang === 'ro' ? 'Piese brute' : 'Blanks')),
+    },
+    {
       id: 'planed',
       category: 'planed',
       name: lang === 'nl' ? 'Beukenhouten latten' : (lang === 'de' ? 'Buchenholzleisten' : (lang === 'ro' ? 'Șipci din lemn de fag' : 'Beechwood slats')),
@@ -54,16 +70,16 @@ export default function Home() {
       specs: [
         { label: lang === 'nl' ? 'Vormen' : (lang === 'de' ? 'Formen' : (lang === 'ro' ? 'Forme' : 'Shapes')), value: lang === 'nl' ? 'Halfrond, Kwartrond, Plinten' : (lang === 'de' ? 'Halbrund, Viertelrund, Sockelleisten' : (lang === 'ro' ? 'Semirotund, Sfert de cerc, Plinte' : 'Half-round, Quarter-round, Skirtings')) },
         { label: lang === 'nl' ? 'Maatwerk' : (lang === 'de' ? 'Anpassung' : (lang === 'ro' ? 'Personalizare' : 'Customization')), value: lang === 'nl' ? 'Hoekprofielen, draadsnijden, inkepingen' : (lang === 'de' ? 'Eckprofile, Gewinde, Kerben' : (lang === 'ro' ? 'Profile de colț, filet, crestături' : 'Corner profiles, threading, notches')) },
-        { label: lang === 'nl' ? 'Retail' : (lang === 'de' ? 'Einzelhandel' : (lang === 'ro' ? 'Retail' : 'Retail')), value: lang === 'nl' ? 'EAN-barcode etikettering beschikbaar' : (lang === 'de' ? 'EAN-Barcode-Etikettierung verfügbar' : (lang === 'ro' ? 'Etichetare cu cod de bare EAN disponibilă' : 'EAN barcode labeling available')) },
+        { label: lang === 'nl' ? 'Retail' : (lang === 'de' ? 'Einzelhandel' : (lang === 'ro' ? 'Retail' : 'Retail')), value: lang === 'nl' ? 'EAN-barcode-etikettering beschikbaar' : (lang === 'de' ? 'EAN-Barcode-Etikettierung verfügbar' : (lang === 'ro' ? 'Etichetare cu cod de bare EAN disponibilă' : 'EAN barcode labeling available')) },
       ],
       tag: lang === 'nl' ? 'Profielen' : (lang === 'de' ? 'Profile' : (lang === 'ro' ? 'Profile' : 'Profiles')),
     },
     {
       id: 'specials',
       category: 'specials',
-      name: lang === 'nl' ? 'Beukenhouten bestekken' : (lang === 'de' ? 'Buchenholz-Zuschnitte' : (lang === 'ro' ? 'Piese brute din lemn de fag' : 'Beechwood blanks')),
+      name: lang === 'nl' ? 'Beukenhouten bestekken' : (lang === 'de' ? 'Buchenholz-Zuschnitte' : (lang === 'ro' ? 'Piese brute din lemn de fag' : 'Beechwood specials')),
       description: lang === 'nl'
-        ? 'Halffabrikaten en op maat gemaakte houten onderdelen voor meubels, keukengerei, speelgoed en specifieke industriële toepassingen.'
+        ? 'Halffabrikaten en op maat gemaakte houten onderdelen voor meubels, keukengerei, speelgoed and specifieke industriële toepassingen.'
         : (lang === 'de' ? 'Halbfabrikate und maßgefertigte Holzteile für Möbel, Küchenutensilien, Spielzeug und spezifische industrielle Anwendungen.' : (lang === 'ro' ? 'Piese din lemn semifinite și realizate la comandă pentru mobilier, ustensile de bucătărie, jucării și aplicații industriale specifice.' : 'Semi-finished and custom-made wooden parts for furniture, kitchen utensils, toys, and specific industrial applications.')),
       image: '/images/specials.png',
       link: '/specials',
@@ -72,7 +88,7 @@ export default function Home() {
         { label: lang === 'nl' ? 'FSC® Gecertificeerd' : (lang === 'de' ? 'FSC®-zertifiziert' : (lang === 'ro' ? 'Certificat FSC®' : 'FSC® Certified')), value: lang === 'nl' ? 'Beschikbaar op aanvraag' : (lang === 'de' ? 'Auf Anfrage erhältlich' : (lang === 'ro' ? 'Disponibil la cerere' : 'Available upon request')) },
         { label: lang === 'nl' ? 'Verpakking' : (lang === 'de' ? 'Verpackung' : (lang === 'ro' ? 'Ambalare' : 'Packaging')), value: lang === 'nl' ? 'Bulk of op maat verpakt' : (lang === 'de' ? 'Bulk oder kundenspezifisch verpackt' : (lang === 'ro' ? 'Vrac sau ambalat la comandă' : 'Bulk or custom packaged')) },
       ],
-      tag: lang === 'nl' ? 'Bestekken' : (lang === 'de' ? 'Zuschnitte' : (lang === 'ro' ? 'Piese brute' : 'Blanks')),
+      tag: lang === 'nl' ? 'Bestekken' : (lang === 'de' ? 'Zuschnitte' : (lang === 'ro' ? 'Piese brute' : 'Specials')),
     },
   ];
 
@@ -264,7 +280,7 @@ export default function Home() {
     },
     rangeTitle: {
       nl: 'Beukenhouten bestekken, stokken, latten en profielen',
-      en: 'Beechwood blanks, sticks, slats and profiles',
+      en: 'Beechwood specials, sticks, slats and profiles',
       de: 'Buchenholz-Zuschnitte, Stäbe, Leisten und Profile',
       ro: 'Piese brute, tije, șipci și profile din lemn de fag'
     },
@@ -278,7 +294,8 @@ export default function Home() {
     filterDowels: { nl: 'Stokken', en: 'Sticks', de: 'Stäbe', ro: 'Tije' },
     filterPlaned: { nl: 'Latten', en: 'Slats', de: 'Leisten', ro: 'Șipci' },
     filterProfiles: { nl: 'Profielen', en: 'Profiles', de: 'Profile', ro: 'Profile' },
-    filterSpecials: { nl: 'Bestekken', en: 'Blanks', de: 'Zuschnitte', ro: 'Piese brute' }
+    filterSpecials: { nl: 'Bestekken', en: 'Specials', de: 'Zuschnitte', ro: 'Piese brute' },
+    filterBlanks: { nl: 'Blanks', en: 'Blanks', de: 'Blanks', ro: 'Blanks' }
   };
 
   const getTranslation = (key) => {
@@ -461,6 +478,12 @@ export default function Home() {
               onClick={() => setActiveFilter('all')}
             >
               {getTranslation('filterAll')}
+            </button>
+            <button
+              className={`filter-btn ${activeFilter === 'blanks' ? 'active' : ''}`}
+              onClick={() => setActiveFilter('blanks')}
+            >
+              {getTranslation('filterBlanks')}
             </button>
             <button
               className={`filter-btn ${activeFilter === 'planed' ? 'active' : ''}`}

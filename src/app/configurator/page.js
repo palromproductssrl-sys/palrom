@@ -59,7 +59,7 @@ const mainCategories = [
   { id: 'dowels', name: categoryData.dowels.name, img: '/images/dowels.png' },
   { id: 'profiles', name: categoryData.profiles.name, img: '/images/profiles.png' },
   { id: 'specials', name: categoryData.specials.name, img: '/images/specials.png' },
-  { id: 'sawn', name: categoryData.sawn.name, img: '/images/sawmill.png' },
+  { id: 'sawn', name: categoryData.sawn.name, img: '/images/beechwood_blanks.png' },
   { id: 'brichete', name: categoryData.brichete.name, img: '/images/brichete_fag.png' },
 ];
 
@@ -75,7 +75,7 @@ const specialsPrices = {
   'Distancers Color Mix': 0.85,
   'Food Industry Components': 3.55,
   'Industrial Distancer': 2.15,
-  'Rough-sawn Blanks': 4.85,
+  'Rough-sawn Specials': 4.85,
 };
 
 // Subcategory data
@@ -119,7 +119,7 @@ const specialsSubcategories = [
   { id: 'special-distancer-mix', name: { nl: 'Afstandhouders kleurenmix', en: 'Distancers Color Mix', de: 'Abstandhalter Farbmix', ro: 'Distanțiere Mix de Culori' }, img: '/images/special3.jpg' },
   { id: 'special-threshold', name: { nl: 'Componenten voedingsindustrie', en: 'Food industry components', de: 'Komponenten für Lebensmittelindustrie', ro: 'Componente pentru industria alimentară' }, img: '/images/special4.jpg' },
   { id: 'special-distancer-ind', name: { nl: 'Industriële afstandhouder', en: 'Industrial Distancer', de: 'Industrieller Abstandhalter', ro: 'Distanțier Industrial' }, img: '/images/special5.jpg' },
-  { id: 'special-wood-iron', name: { nl: 'Gezaagde bestekken (fijnbezaagd)', en: 'Rough-sawn blanks (fine-sawn)', de: 'Sägerauhe Zuschnitte', ro: 'Piese brute netăiate' }, img: '/images/special6.jpg' },
+  { id: 'special-wood-iron', name: { nl: 'Gezaagde bestekken (fijnbezaagd)', en: 'Rough-sawn specials (fine-sawn)', de: 'Sägerauhe Zuschnitte', ro: 'Piese brute netăiate' }, img: '/images/special6.jpg' },
 ];
 
 const t = {
@@ -136,7 +136,7 @@ const t = {
   dowelSubcatLabel: { nl: 'Subcategorie Stokken *', en: 'Sticks Subcategory *', de: 'Stäbe Unterkategorie *', ro: 'Subcategorie Tije *' },
   profileSubcatLabel: { nl: 'Subcategorie Profielen *', en: 'Profiles Subcategory *', de: 'Profile Unterkategorie *', ro: 'Subcategorie Profile *' },
   planedSubcatLabel: { nl: 'Subcategorie Latten *', en: 'Slats Subcategory *', de: 'Leisten Unterkategorie *', ro: 'Subcategorie Șipci *' },
-  specialSubcatLabel: { nl: 'Subcategorie Bestekken *', en: 'Blanks Subcategory *', de: 'Zuschnitte Unterkategorie *', ro: 'Subcategorie Piese brute *' },
+  specialSubcatLabel: { nl: 'Subcategorie Bestekken *', en: 'Specials Subcategory *', de: 'Zuschnitte Unterkategorie *', ro: 'Subcategorie Piese brute *' },
   quantityLabel: { nl: 'Oplage (stuks)', en: 'Quantity (pieces)', de: 'Auflage (Stück)', ro: 'Cantitate (bucăți)' },
   pieces: { nl: 'stuks', en: 'pieces', de: 'Stück', ro: 'bucăți' },
   addedConfigsTitle: { nl: 'Toegevoegde configuraties in deze offerteaanvraag', en: 'Added configurations in this quote request', de: 'Hinzugefügte Konfigurationen in dieser Angebotsanfrage', ro: 'Configurații adăugate în această solicitare de ofertă' },
@@ -436,9 +436,9 @@ export default function Configurator() {
         'special-keeplat-spruce': 'Keeplat Spruce',
         'special-keeplat-beech': 'Keeplat Beech',
         'special-distancer-mix': 'Distancers Color Mix',
-        'special-threshold': 'Wooden Threshold',
+        'special-threshold': 'Food Industry Components',
         'special-distancer-ind': 'Industrial Distancer',
-        'special-wood-iron': 'Wood with Iron Component',
+        'special-wood-iron': 'Rough-sawn Specials',
       };
       subcatName = names[specificSubcat || subCategorySpecials] || 'Keeplat Spruce';
     } else if (cat === 'profiles') {
