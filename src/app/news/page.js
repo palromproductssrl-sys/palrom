@@ -64,7 +64,7 @@ export default function News() {
           </Link>
         </>
       ),
-      image: '/images/config_specials.png',
+      image: '/images/team_group_photo.png',
     },
     {
       id: 'drying',
