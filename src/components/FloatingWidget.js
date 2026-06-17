@@ -20,7 +20,7 @@ const teamMembers = [
       de: 'Englisch, Rumänisch',
       ro: 'Engleză, Română'
     },
-    phone: '40254606053',
+    phone: '40754202800',
     greetings: {
       nl: "Hallo Gabriela, ik heb een vraag over uw B2B-meubelcomponenten.",
       en: "Hello Gabriela, I have a question about your B2B furniture components.",

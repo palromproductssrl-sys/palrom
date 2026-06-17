@@ -28,8 +28,8 @@ const teamMemberData = {
       ro: 'Gabriela conduce PALROM Products cu o experiență de peste 20 de ani în industria lemnului B2B. Ea se concentrează pe creșterea strategică, asigurarea calității și menținerea lanțului nostru premium de aprovizionare certificat FSC®.'
     },
     email: 'office@palromproducts.ro',
-    phone: '+40254606053',
-    whatsapp: 'https://wa.me/40254606053?text=Hallo%20Gabriela,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten.',
+    phone: '+40754202800',
+    whatsapp: 'https://wa.me/40754202800?text=Hallo%20Gabriela,%20ik%20heb%20een%20vraag%20over%20uw%20B2B-meubelcomponenten.',
   },
   adi: {
     id: 'adi',
