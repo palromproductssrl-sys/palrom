@@ -130,7 +130,7 @@ export async function POST(request) {
 
     // Send email via FormSubmit.co or Resend
     const resendApiKey = process.env.RESEND_API_KEY;
-    const useFormSubmit = process.env.USE_FORMSUBMIT !== 'false'; // Default to true
+    const useFormSubmit = process.env.USE_FORMSUBMIT === 'true'; // Default to false (use Resend)
     const emailTo = process.env.EMAIL_TO || 'office@palromproducts.ro';
     const emailFrom = process.env.EMAIL_FROM || 'onboarding@resend.dev';
 
