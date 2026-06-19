@@ -59,7 +59,7 @@ export async function POST(request) {
     if (productType === 'careers') {
       emailTo = 'anca.mihut@palromproducts.ro';
     }
-    const emailFrom = process.env.EMAIL_FROM || 'no-reply@palromproducts.ro';
+    const emailFrom = process.env.EMAIL_FROM || 'no-reply@palromproducts.com';
 
     let emailSent = false;
     if (useFormSubmit) {
