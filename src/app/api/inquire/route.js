@@ -309,6 +309,45 @@ export async function POST(request) {
           </div>
         `;
 
+        // Generate CSV content for back-office import
+        const escapeCSV = (val) => {
+          if (val === undefined || val === null) return '';
+          let str = String(val);
+          str = str.replace(/"/g, '""');
+          if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+            return `"${str}"`;
+          }
+          return str;
+        };
+
+        const csvRows = [
+          ["Inquiry Details", ""].map(escapeCSV).join(','),
+          ["Client Name", clientName].map(escapeCSV).join(','),
+          ["Client Email", clientEmail].map(escapeCSV).join(','),
+          ["Client Phone", clientPhone].map(escapeCSV).join(','),
+          ["Client Notes", clientNotes || ''].map(escapeCSV).join(','),
+          ["", ""].map(escapeCSV).join(','),
+          ["Product Index", "Product Name", "Category", "Quantity", "Dimensions", "Grade", "Certification (FSC)", "Drying", "Product Notes"].map(escapeCSV).join(',')
+        ];
+
+        items.forEach((item, index) => {
+          const row = [
+            `Product ${index + 1}`,
+            item.name || '',
+            item.category || '',
+            item.qty || '',
+            item.dims || '',
+            localizeSpecValue('grade', item.grade, 'en') || '',
+            localizeSpecValue('fsc', item.fsc, 'en') || '',
+            localizeSpecValue('drying', item.drying, 'en') || '',
+            item.additionalInfo || ''
+          ];
+          csvRows.push(row.map(escapeCSV).join(','));
+        });
+
+        const csvContent = csvRows.join('\n');
+        const csvBase64 = Buffer.from(csvContent, 'utf-8').toString('base64');
+
         const resendRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -320,7 +359,13 @@ export async function POST(request) {
             to: emailTo,
             cc: 'matthias.radder@gmail.com',
             subject: `This is a test email - Solicitare ofertă B2B de la ${clientName} (New B2B quote inquiry from ${clientName})`,
-            html: htmlContent
+            html: htmlContent,
+            attachments: [
+              {
+                filename: `Inquiry_${clientName.replace(/\s+/g, '_')}.csv`,
+                content: csvBase64
+              }
+            ]
           })
         });
 
