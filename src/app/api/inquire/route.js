@@ -310,8 +310,12 @@ export async function POST(request) {
       } catch (err) {
         console.error('Failed to send email via Resend:', err);
       }
+    } else {
+      console.log('Neither FormSubmit nor Resend configured, skipping internal email delivery');
+    }
 
-      // 2. Send client confirmation email to clientEmail
+    // 2. Send client confirmation email to clientEmail (always via Resend if API key is present)
+    if (resendApiKey) {
       try {
         const emailLang = lang; // Revert to dynamic language chosen by customer
         const clientSubject = {
@@ -539,7 +543,7 @@ export async function POST(request) {
         console.warn('Failed to send client confirmation email:', clientErr);
       }
     } else {
-      console.log('Neither FormSubmit nor Resend configured, skipping email delivery');
+      console.log('Resend API key not configured, skipping client confirmation email');
     }
 
     return NextResponse.json({
