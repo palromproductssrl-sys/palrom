@@ -54,7 +54,7 @@ export default function Header() {
           <Link href="/news" className={`nav-link ${pathname === '/news' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('news')}
           </Link>
-          <Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+          <Link href="/#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
             {getTranslation('contact')}
           </Link>
         </nav>
@@ -65,7 +65,7 @@ export default function Header() {
               <span className={`cart-count-badge ${cartCount > 0 ? 'visible' : ''}`}>{cartCount}</span>
             </button>
           )}
-          <Link href="#contact" className="action-btn">
+          <Link href="/#contact" className="action-btn">
             {getTranslation('requestQuote')}
           </Link>
           <div className="language-switcher-vertical">
