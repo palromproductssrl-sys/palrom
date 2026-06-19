@@ -156,8 +156,8 @@ export async function POST(request) {
             "Client Phone": clientPhone,
             "Notes": clientNotes || 'No notes',
             ...items.reduce((acc, item, index) => {
-              const matKey = `Material ${index + 1}`;
-              acc[matKey] = `${item.name} (Quantity: ${item.qty})`;
+              const prodKey = `Product ${index + 1}`;
+              acc[prodKey] = `${item.name} (Quantity: ${item.qty})`;
               
               Object.entries(item).forEach(([k, v]) => {
                 if (['id', 'isConfigured', 'name', 'category', 'categoryKey', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return;
@@ -166,7 +166,7 @@ export async function POST(request) {
                 const label = localizeSpecKey(k, 'en');
                 const val = localizeSpecValue(k, v, 'en');
                 
-                acc[`${matKey} - ${label}`] = val;
+                acc[`${prodKey} - ${label}`] = val;
               });
               return acc;
             }, {})
@@ -195,18 +195,34 @@ export async function POST(request) {
             const label = localizeSpecKey(k, 'en');
             const val = localizeSpecValue(k, v, 'en');
             
-            return `<div style="margin-top: 4px;"><strong>${label}</strong>: ${val}</div>`;
+            return `
+              <tr>
+                <td style="padding: 4px 0; color: #64748b; font-weight: 500; width: 140px; vertical-align: top;">${label}</td>
+                <td style="padding: 4px 0; color: #0f172a; font-weight: 600; vertical-align: top;">${val}</td>
+              </tr>
+            `;
           }).filter(Boolean).join('');
 
           return `
-            <div style="margin-bottom: 20px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); font-family: sans-serif;">
-              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #edf2f7; padding-bottom: 12px; margin-bottom: 12px;">
-                <h4 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #0f172a;">Material ${index + 1}: ${item.name}</h4>
-                <span style="font-size: 0.85rem; font-weight: 700; color: #1e3a2b; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Qty: ${item.qty}</span>
-              </div>
-              <div style="font-size: 0.9rem; color: #475569; line-height: 1.5;">
-                <div><strong>Category</strong>: ${item.category}</div>
-                ${specsList}
+            <div style="margin-bottom: 20px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; font-family: sans-serif;">
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; border-bottom: 1px solid #edf2f7;">
+                <tr>
+                  <td style="padding: 0 0 12px 0; vertical-align: middle;">
+                    <h4 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #0f172a;">Product ${index + 1}: ${item.name}</h4>
+                  </td>
+                  <td style="padding: 0 0 12px 0; text-align: right; vertical-align: middle; width: 100px;">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: #1e3a2b; background-color: #f0fdf4; border: 1px solid #dcfce7; padding: 4px 10px; border-radius: 6px; white-space: nowrap;">Qty: ${item.qty}</span>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-size: 0.9rem; color: #475569; line-height: 1.6;">
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 4px 0; color: #64748b; font-weight: 500; width: 140px; vertical-align: top;">Category</td>
+                    <td style="padding: 4px 0; color: #0f172a; font-weight: 600; vertical-align: top;">${item.category}</td>
+                  </tr>
+                  ${specsList}
+                </table>
               </div>
             </div>
           `;
@@ -245,7 +261,7 @@ export async function POST(request) {
             </div>
 
             <div style="margin-bottom: 40px;">
-              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Requested Materials</h3>
+              <h3 style="font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #718096; margin-bottom: 16px; margin-top: 0;">Requested Products</h3>
               ${itemsHtml}
             </div>
 
