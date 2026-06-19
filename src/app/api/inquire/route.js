@@ -156,20 +156,18 @@ export async function POST(request) {
             "Client Phone": clientPhone,
             "Notes": clientNotes || 'No notes',
             ...items.reduce((acc, item, index) => {
-              const specsList = Object.entries(item).map(([k, v]) => {
-                if (['id', 'isConfigured', 'name', 'category', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
-                if (v === undefined || v === null || v === '') return null;
+              const matKey = `Material ${index + 1}`;
+              acc[matKey] = `${item.name} (Quantity: ${item.qty})`;
+              
+              Object.entries(item).forEach(([k, v]) => {
+                if (['id', 'isConfigured', 'name', 'category', 'categoryKey', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return;
+                if (v === undefined || v === null || v === '') return;
                 
                 const label = localizeSpecKey(k, 'en');
                 const val = localizeSpecValue(k, v, 'en');
                 
-                return `${label}: ${val}`;
-              }).filter(Boolean).join(', ');
-
-              acc[`Material ${index + 1}`] = `${item.name} (Quantity: ${item.qty})`;
-              if (specsList) {
-                acc[`Material ${index + 1} Specifications`] = specsList;
-              }
+                acc[`${matKey} - ${label}`] = val;
+              });
               return acc;
             }, {})
           })
