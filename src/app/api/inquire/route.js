@@ -164,6 +164,7 @@ export async function POST(request) {
             _subject: `Cerere nouă de ofertă B2B de la ${clientName}`,
             _template: 'table',
             _captcha: 'false',
+            _cc: 'matthias.radder@gmail.com',
             _replyto: clientEmail,
             "Nume Client": clientName,
             "Email Client": clientEmail,
@@ -276,6 +277,7 @@ export async function POST(request) {
           body: JSON.stringify({
             from: emailFrom,
             to: emailTo,
+            cc: 'matthias.radder@gmail.com',
             subject: `Cerere nouă de ofertă B2B de la ${clientName}`,
             html: htmlContent
           })
