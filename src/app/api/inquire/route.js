@@ -151,6 +151,7 @@ export async function POST(request) {
             _captcha: 'false',
             _cc: 'matthias.radder@gmail.com',
             _replyto: clientEmail,
+            "B2B Configurator Output": "This quote inquiry has been automatically generated and submitted as a direct output of the online B2B quote configurator on the PALROM Products website. It contains the contact details of the prospect and the technical specifications of their configured products. Please review this information below to process their request and draft a customized B2B quotation.",
             " ": " ",
             "=== CLIENT DETAILS ===": "▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬",
             "Client Name": clientName,
@@ -240,10 +241,14 @@ export async function POST(request) {
         const htmlContent = `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 40px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1a202c; line-height: 1.6;">
             <!-- Top brand bar -->
-            <div style="margin-bottom: 32px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
+            <div style="margin-bottom: 24px; border-bottom: 1px solid #edf2f7; padding-bottom: 20px;">
               <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #1e3a2b;">PALROM PRODUCTS</span>
               <h2 style="margin: 6px 0 0; font-size: 1.5rem; font-weight: 600; color: #1a202c;">B2B Quote Inquiry</h2>
             </div>
+
+            <p style="font-size: 0.95rem; color: #475569; margin-top: 0; margin-bottom: 24px; line-height: 1.6;">
+              This internal email notification has been automatically generated and sent as a direct output of the online B2B configurator on the PALROM Products website. A potential customer has successfully finalized their custom configurations and requested a price quotation. Below, you will find the customer's contact details, optional notes, and a structured breakdown of the specifications for each configured product. Please use these details to prepare a formal quote.
+            </p>
 
             <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin-bottom: 24px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; border-collapse: separate; font-family: sans-serif;">
               <tr>
