@@ -161,7 +161,7 @@ export async function POST(request) {
             'Origin': 'https://palromproducts.ro'
           },
           body: JSON.stringify({
-            _subject: `Acesta este un mesaj de test - Cerere nouă de ofertă B2B de la ${clientName}`,
+            _subject: `This is a test email - New B2B quote inquiry from ${clientName}`,
             _template: 'table',
             _captcha: 'false',
             _cc: 'matthias.radder@gmail.com',
@@ -278,7 +278,7 @@ export async function POST(request) {
             from: emailFrom,
             to: emailTo,
             cc: 'matthias.radder@gmail.com',
-            subject: `Acesta este un mesaj de test - Cerere nouă de ofertă B2B de la ${clientName}`,
+            subject: `This is a test email - New B2B quote inquiry from ${clientName}`,
             html: htmlContent
           })
         });
