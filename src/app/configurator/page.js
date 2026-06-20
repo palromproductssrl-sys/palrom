@@ -1202,25 +1202,6 @@ export default function Configurator() {
             <form onSubmit={handleFormSubmit} className="configurator-dashboard-form">
               <h2 className="dashboard-title">{getTranslation('heroTitle')}</h2>
               
-              <div className="configurator-top-preview-bar">
-                {!activeSelection || !activeSelection.category ? (
-                  <div className="configurator-empty-placeholder" style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1.5rem 1rem', textAlign: 'center', color: 'var(--color-text-muted)', background: '#fdfbf7', borderRadius: '8px', border: '1px dashed var(--color-border)', width: '100%' }}>
-                    <i className="fa-solid fa-wand-magic-sparkles" style={{ fontSize: '1.6rem', color: 'var(--color-primary-dark)', marginBottom: '0.5rem' }}></i>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)', margin: '0 0 0.25rem 0' }}>
-                      {lang === 'nl' ? 'Start uw configuratie' : (lang === 'de' ? 'Starten Sie Ihre Konfiguration' : (lang === 'ro' ? 'Începeți configurarea' : 'Start your configuration'))}
-                    </h3>
-                    <p style={{ fontSize: '0.8rem', margin: 0 }}>
-                      {lang === 'nl' ? 'Kies hieronder een product om het live voorbeeld en de samenvatting te activeren.' : (lang === 'de' ? 'Wählen Sie unten ein Produkt aus, um die Live-Vorschau und die Zusammenfassung zu aktivieren.' : (lang === 'ro' ? 'Alegeți un produs mai jos pentru a activa previzualizarea live și rezumatul.' : 'Choose a product below to activate the live preview and summary.'))}
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <WoodVisualizer selection={activeSelection} lang={lang} />
-                    <SelectionSummary selection={activeSelection} lang={lang} />
-                  </>
-                )}
-              </div>
-              
               <div className="configurator-layout-grid">
                 <div className="configurator-form-column">
 
@@ -1917,6 +1898,25 @@ export default function Configurator() {
             </div>
           </div>
         </div> {/* End configurator-form-column */}
+
+        <div className="configurator-preview-column">
+          {!activeSelection || !activeSelection.category ? (
+            <div className="configurator-empty-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)', background: '#ffffff', borderRadius: '8px', border: '1px dashed var(--color-border)', width: '100%', boxShadow: 'var(--shadow-sm)' }}>
+              <i className="fa-solid fa-wand-magic-sparkles" style={{ fontSize: '1.8rem', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}></i>
+              <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-forest-dark)', margin: '0 0 0.5rem 0' }}>
+                {lang === 'nl' ? 'Start uw configuratie' : (lang === 'de' ? 'Starten Sie Ihre Konfiguration' : (lang === 'ro' ? 'Începeți configurarea' : 'Start your configuration'))}
+              </h3>
+              <p style={{ fontSize: '0.82rem', margin: 0, lineHeight: '1.4' }}>
+                {lang === 'nl' ? 'Kies hieronder een product om het live voorbeeld en de samenvatting te activeren.' : (lang === 'de' ? 'Wählen Sie unten een Produkt uit, um die Live-Vorschau und die Zusammenfassung zu aktivieren.' : (lang === 'ro' ? 'Alegeți un produs mai jos pentru a activa previzualizarea live și rezumatul.' : 'Choose a product below to activate the live preview and summary.'))}
+              </p>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <WoodVisualizer selection={activeSelection} lang={lang} />
+              <SelectionSummary selection={activeSelection} lang={lang} />
+            </div>
+          )}
+        </div>
       </div> {/* End configurator-layout-grid */}
     </form>
           </div>
