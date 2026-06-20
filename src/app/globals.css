@@ -5909,6 +5909,7 @@ ul {
     .configurator-form-column {
         max-width: 100%;
         width: 100%;
+        min-height: 750px; /* Enforce stable height to prevent layout jumps on step change */
     }
     .configurator-preview-column {
         position: sticky;

@@ -280,7 +280,7 @@ function WoodVisualizer({ selection, lang }) {
   const woodColorEnd = grade === 'A' ? '#cba57e' : (grade === 'B' ? '#b88f66' : '#a77d54');
 
   return (
-    <div className="wood-visualizer-card">
+    <div className="wood-visualizer-card" style={{ height: '175px', display: 'flex', flexDirection: 'column' }}>
       <div className="visualizer-header">
         <span className="visualizer-badge">
           <i className="fa-solid fa-eye"></i> {lang === 'nl' ? 'Live voorbeeld' : 'Live preview'}
@@ -421,7 +421,7 @@ function SelectionSummary({ selection, lang }) {
   const getVal = (dict, key) => dict[key]?.[lang] || dict[key]?.en || key;
 
   return (
-    <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.65rem 1rem', boxShadow: 'var(--shadow-sm)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.65rem 1rem', boxShadow: 'var(--shadow-sm)', height: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
       <h3 style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-forest-dark)', marginTop: 0, marginBottom: '0.4rem', borderBottom: '1px solid #edf2f7', paddingBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
         <i className="fa-solid fa-list-check" style={{ color: 'var(--color-primary-dark)' }}></i>
         {getVal(t, 'title')}
@@ -1901,7 +1901,7 @@ export default function Configurator() {
 
         <div className="configurator-preview-column">
           {!activeSelection || !activeSelection.category ? (
-            <div className="configurator-empty-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)', background: '#ffffff', borderRadius: '8px', border: '1px dashed var(--color-border)', width: '100%', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="configurator-empty-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)', background: '#ffffff', borderRadius: '8px', border: '1px dashed var(--color-border)', width: '100%', boxShadow: 'var(--shadow-sm)', height: '445px' }}>
               <i className="fa-solid fa-wand-magic-sparkles" style={{ fontSize: '1.8rem', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}></i>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-forest-dark)', margin: '0 0 0.5rem 0' }}>
                 {lang === 'nl' ? 'Start uw configuratie' : (lang === 'de' ? 'Starten Sie Ihre Konfiguration' : (lang === 'ro' ? 'Începeți configurarea' : 'Start your configuration'))}
