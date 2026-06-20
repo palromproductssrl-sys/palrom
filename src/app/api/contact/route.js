@@ -407,6 +407,28 @@ export async function POST(request) {
         if (!clientRes.ok) {
           const errText = await clientRes.text();
           console.warn('Resend client contact confirmation warning (normal in sandbox mode):', errText);
+          
+          if (errText.includes('validation_error') || errText.includes('testing emails')) {
+            console.log('Attempting Sandbox client contact copy fallback to matthias.radder@gmail.com');
+            const fallbackRes = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${resendApiKey}`
+              },
+              body: JSON.stringify({
+                from: emailFrom,
+                to: 'matthias.radder@gmail.com',
+                subject: `[Sandbox Client Copy] ${clientSubject}`,
+                html: clientHtmlContent
+              })
+            });
+            if (fallbackRes.ok) {
+              console.log('Sandbox client contact copy fallback email sent successfully to matthias.radder@gmail.com');
+            } else {
+              console.error('Sandbox client contact copy fallback failed:', await fallbackRes.text());
+            }
+          }
         } else {
           console.log('Client contact confirmation email sent successfully via Resend');
         }

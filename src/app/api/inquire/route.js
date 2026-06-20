@@ -763,6 +763,34 @@ export async function POST(request) {
         if (!clientRes.ok) {
           const errText = await clientRes.text();
           console.warn('Resend client confirmation warning (normal in sandbox mode):', errText);
+          
+          if (errText.includes('validation_error') || errText.includes('testing emails')) {
+            console.log('Attempting Sandbox client copy fallback to matthias.radder@gmail.com');
+            const fallbackRes = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${resendApiKey}`
+              },
+              body: JSON.stringify({
+                from: emailFrom,
+                to: 'matthias.radder@gmail.com',
+                subject: `[Sandbox Client Copy] ${clientSubject}`,
+                html: clientHtmlContent,
+                attachments: pdfBase64 ? [
+                  {
+                    filename: `Quote_Request_${clientName.replace(/\s+/g, '_')}.pdf`,
+                    content: pdfBase64
+                  }
+                ] : []
+              })
+            });
+            if (fallbackRes.ok) {
+              console.log('Sandbox client copy fallback email sent successfully to matthias.radder@gmail.com');
+            } else {
+              console.error('Sandbox client copy fallback failed:', await fallbackRes.text());
+            }
+          }
         } else {
           console.log('Client confirmation email sent successfully via Resend');
         }
