@@ -441,6 +441,31 @@ export default function CartSidebar() {
           </div>
 
           {cartItems.length > 0 && (
+            <div style={{ marginBottom: '1.5rem' }}>
+              <Link
+                href="/configurator"
+                className="btn btn-outlined btn-block"
+                style={{
+                  borderColor: 'var(--color-primary)',
+                  color: 'var(--color-forest-dark)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  textDecoration: 'none',
+                }}
+                onClick={handleClose}
+              >
+                <i className="fa-solid fa-plus"></i>
+                {lang === 'nl' ? 'Nog een product configureren' :
+                 lang === 'de' ? 'Anderes Produkt konfigurieren' :
+                 lang === 'ro' ? 'Configurați un alt produs' :
+                 'Configure another product'}
+              </Link>
+            </div>
+          )}
+
+          {cartItems.length > 0 && (
             <div className="cart-form-section">
               {SHOW_PRICING && cartItems.some(item => item.price !== undefined) && (
                 <div className="cart-total-box" style={{
