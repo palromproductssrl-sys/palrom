@@ -492,7 +492,7 @@ export async function POST(request) {
           const errText = await resendRes.text();
           console.error('Resend API error response (internal email):', errText);
           
-          if (errText.includes('validation_error') || errText.includes('testing emails')) {
+          if (errText.includes('validation_error') || errText.includes('testing emails') || errText.includes('not verified')) {
             console.log('Attempting Resend sandbox fallback to matthias.radder@gmail.com');
             const fallbackRes = await fetch('https://api.resend.com/emails', {
               method: 'POST',
@@ -501,7 +501,7 @@ export async function POST(request) {
                 'Authorization': `Bearer ${resendApiKey}`
               },
               body: JSON.stringify({
-                from: emailFrom,
+                from: 'onboarding@resend.dev',
                 to: 'matthias.radder@gmail.com',
                 subject: `[Sandbox Fallback] ${subjectLine}`,
                 html: htmlContent,
@@ -764,7 +764,7 @@ export async function POST(request) {
           const errText = await clientRes.text();
           console.warn('Resend client confirmation warning (normal in sandbox mode):', errText);
           
-          if (errText.includes('validation_error') || errText.includes('testing emails')) {
+          if (errText.includes('validation_error') || errText.includes('testing emails') || errText.includes('not verified')) {
             console.log('Attempting Sandbox client copy fallback to matthias.radder@gmail.com');
             const fallbackRes = await fetch('https://api.resend.com/emails', {
               method: 'POST',
@@ -773,7 +773,7 @@ export async function POST(request) {
                 'Authorization': `Bearer ${resendApiKey}`
               },
               body: JSON.stringify({
-                from: emailFrom,
+                from: 'onboarding@resend.dev',
                 to: 'matthias.radder@gmail.com',
                 subject: `[Sandbox Client Copy] ${clientSubject}`,
                 html: clientHtmlContent,
