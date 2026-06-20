@@ -5989,7 +5989,6 @@ ul {
 .visualizer-badge {
     font-size: 0.75rem;
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--color-primary-dark);
     display: inline-flex;

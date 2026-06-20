@@ -283,7 +283,7 @@ function WoodVisualizer({ selection, lang }) {
     <div className="wood-visualizer-card">
       <div className="visualizer-header">
         <span className="visualizer-badge">
-          <i className="fa-solid fa-eye"></i> {lang === 'nl' ? 'Live Voorbeeld' : 'Live Preview'}
+          <i className="fa-solid fa-eye"></i> {lang === 'nl' ? 'Live voorbeeld' : 'Live preview'}
         </span>
       </div>
       <div className="visualizer-body" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '130px', background: '#fdfbf7', border: '1px solid #edf2f7', borderRadius: '8px', padding: '10px', position: 'relative' }}>
@@ -401,7 +401,7 @@ function SelectionSummary({ selection, lang }) {
   if (!selection || !selection.category) return null;
 
   const t = {
-    title: { nl: 'Configuratie Samenvatting', en: 'Configuration Summary', de: 'Konfigurations-Zusammenfassung', ro: 'Sumar Configurare' },
+    title: { nl: 'Uw configuratie', en: 'Your configuration', de: 'Ihre Konfiguration', ro: 'Configurația dvs.' },
     product: { nl: 'Product', en: 'Product', de: 'Produkt', ro: 'Produs' },
     dimensions: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
     grade: { nl: 'Kwaliteit', en: 'Grade', de: 'Qualität', ro: 'Calitate' },
@@ -418,7 +418,7 @@ function SelectionSummary({ selection, lang }) {
     ro: { A: 'Clasa A (Fără noduri)', B: 'Clasa B (Lemn pentru mobilă)', C: 'Clasa C (Calitate constructivă)' }
   };
 
-  const getVal = (dict, key) => dict[lang]?.[key] || dict.en?.[key] || key;
+  const getVal = (dict, key) => dict[key]?.[lang] || dict[key]?.en || key;
 
   return (
     <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '1.25rem', boxShadow: 'var(--shadow-sm)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
