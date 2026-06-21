@@ -2124,7 +2124,7 @@ export default function Configurator() {
               </div>
 
               {/* Panel 3 Navigation Buttons */}
-              <div className="wizard-nav-buttons" style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <div className="wizard-nav-buttons" style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -2142,15 +2142,20 @@ export default function Configurator() {
                   <i className="fa-solid fa-rotate-left icon-left"></i>{' '}
                   {lang === 'nl' ? 'Opnieuw beginnen' : (lang === 'ro' ? 'Reîncepe' : (lang === 'de' ? 'Neustart' : 'Start over'))}
                 </button>
+              </div>
+
+              {/* Centered Primary Submit Button */}
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
                 <button
                   type="submit"
                   className="btn btn-primary"
                   disabled={!!validationError}
-                  style={validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                  style={{ minWidth: '220px', ...(validationError ? { opacity: 0.5, cursor: 'not-allowed' } : {}) }}
                 >
                   {getTranslation('submitInquiryButton')}
                 </button>
               </div>
+
             </div>
           </div>
         </div> {/* End configurator-form-column */}
