@@ -348,15 +348,58 @@ export default function OpenChatConfigurator() {
 
   // Clean up speech recognition & synthesis on unmount
   useEffect(() => {
+    const handleVoicesChanged = () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.getVoices();
+      }
+    };
+
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+    }
+
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
       if (typeof window !== 'undefined' && window.speechSynthesis) {
         window.speechSynthesis.cancel();
+        window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
       }
     };
   }, []);
+
+  const selectVoice = (langCode) => {
+    if (typeof window === 'undefined' || !window.speechSynthesis) return null;
+    const voices = window.speechSynthesis.getVoices();
+    const langVoices = voices.filter(v => v.lang.toLowerCase().startsWith(langCode.toLowerCase()));
+    if (langVoices.length === 0) return null;
+
+    // Preferred high-quality male voices across OS platforms
+    let preferredNames = [];
+    if (langCode === 'nl') {
+      preferredNames = ['xander', 'lennart', 'arthur', 'bart', 'coen', 'nl-nl-x-nls-local'];
+    } else if (langCode === 'en') {
+      preferredNames = ['daniel', 'david', 'luther', 'james', 'google us english', 'en-us-x-sfg-local'];
+    } else if (langCode === 'de') {
+      preferredNames = ['yannick', 'stefan', 'deutschland', 'de-de-x-dfs-local'];
+    } else if (langCode === 'ro') {
+      preferredNames = ['alexandru', 'emil', 'ro-ro-x-ros-local'];
+    }
+
+    for (const name of preferredNames) {
+      const matched = langVoices.find(v => v.name.toLowerCase().includes(name));
+      if (matched) return matched;
+    }
+
+    // Secondary fallback: search for 'male' or 'man' keywords
+    const maleVoice = langVoices.find(v => v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('man'));
+    if (maleVoice) return maleVoice;
+
+    // Default to the first available voice for this language
+    return langVoices[0];
+  };
 
   const speakText = (text) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return;
@@ -377,10 +420,21 @@ export default function OpenChatConfigurator() {
     
     const utterance = new SpeechSynthesisUtterance(cleanText);
     
-    if (lang === 'ro') utterance.lang = 'ro-RO';
-    else if (lang === 'de') utterance.lang = 'de-DE';
-    else if (lang === 'en') utterance.lang = 'en-US';
-    else utterance.lang = 'nl-NL';
+    let langCode = 'nl';
+    if (lang === 'ro') langCode = 'ro';
+    else if (lang === 'de') langCode = 'de';
+    else if (lang === 'en') langCode = 'en';
+
+    const voice = selectVoice(langCode);
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    } else {
+      if (langCode === 'ro') utterance.lang = 'ro-RO';
+      else if (langCode === 'de') utterance.lang = 'de-DE';
+      else if (langCode === 'en') utterance.lang = 'en-US';
+      else utterance.lang = 'nl-NL';
+    }
     
     window.speechSynthesis.speak(utterance);
   };
