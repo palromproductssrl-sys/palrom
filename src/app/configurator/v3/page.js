@@ -214,7 +214,7 @@ const t = {
 };
 
 const localeMap = { nl: 'nl-NL', en: 'en-US', de: 'de-DE', ro: 'ro-RO' };
-const SHOW_PRICING = true;
+const SHOW_PRICING = false;
 
 const getPlanedMaxWidth = (thick) => {
   if (thick <= 15) return 100;
