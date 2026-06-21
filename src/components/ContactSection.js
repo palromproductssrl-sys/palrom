@@ -634,11 +634,11 @@ export default function ContactSection() {
                       onChange={(e) => setProductType(e.target.value)}
                       options={[
                         { value: '', label: getTranslation('selectCategory') },
-                        { value: 'dowels', label: getTranslation('interestDowels') },
+                        { value: 'blanks', label: getTranslation('interestBlanks') },
                         { value: 'planed', label: getTranslation('interestPlaned') },
+                        { value: 'dowels', label: getTranslation('interestDowels') },
                         { value: 'profiles', label: getTranslation('interestProfiles') },
                         { value: 'specials', label: getTranslation('interestSpecials') },
-                        { value: 'blanks', label: getTranslation('interestBlanks') },
                         { value: 'general', label: getTranslation('interestGeneral') },
                         { value: 'careers', label: getTranslation('interestCareers') }
                       ]}
