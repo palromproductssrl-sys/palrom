@@ -68,13 +68,13 @@ export default function Header() {
           </a>
         </nav>
         <div className="header-actions">
-          {pathname === '/configurator' && (
+          {pathname && pathname.startsWith('/configurator') && (
             <button className="cart-toggle-btn" onClick={() => setIsCartOpen(true)} aria-label="View Inquiry Cart" style={{ fontSize: '1.85rem' }}>
               <i className="fa-solid fa-clipboard-list"></i>
               <span className={`cart-count-badge ${cartCount > 0 ? 'visible' : ''}`}>{cartCount}</span>
             </button>
           )}
-          {pathname !== '/configurator' && (
+          {pathname && !pathname.startsWith('/configurator') && (
             <a href="/#contact" className="action-btn">
               {getTranslation('requestQuote')}
             </a>
