@@ -451,14 +451,14 @@ function SelectionSummary({ selection, lang }) {
             </span>
           </div>
         )}
-        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'certification')}: </span>
-          <span style={{ fontWeight: 600 }}>
-            {selection.category === 'brichete'
-              ? (lang === 'ro' ? '100% Natural' : (lang === 'nl' ? '100% Natuurlijk' : '100% Natural'))
-              : (selection.fsc ? 'FSC® 100%' : 'Geen FSC')}
-          </span>
-        </div>
+        {selection.category !== 'brichete' && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'certification')}: </span>
+            <span style={{ fontWeight: 600 }}>
+              {selection.fsc ? 'FSC® 100%' : 'Geen FSC'}
+            </span>
+          </div>
+        )}
         <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
           <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'qty')}: </span>
           <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.qtyText}</span>
@@ -1415,12 +1415,14 @@ export default function Configurator() {
                 </div>
 
                 {/* Gestoomd */}
-                <div className="control-group">
-                  <label htmlFor="dbSteamed">{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</label>
-                  <select id="dbSteamed" className="dashboard-select" value={steamed} disabled={true}>
-                    <option value="no">{lang === 'nl' ? 'Nee' : 'No'}</option>
-                  </select>
-                </div>
+                {category !== 'brichete' && (
+                  <div className="control-group">
+                    <label htmlFor="dbSteamed">{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</label>
+                    <select id="dbSteamed" className="dashboard-select" value={steamed} disabled={true}>
+                      <option value="no">{lang === 'nl' ? 'Nee' : 'No'}</option>
+                    </select>
+                  </div>
+                )}
 
                 {/* Droging */}
                 <div className="control-group">
@@ -1450,19 +1452,20 @@ export default function Configurator() {
                 </div>
 
                 {/* Certificering */}
-                <div className="control-group">
-                  <label htmlFor="dbFsc">{lang === 'nl' ? 'Certificering' : 'Certification'}</label>
-                  <select
-                    id="dbFsc"
-                    className="dashboard-select"
-                    value={category === 'brichete' ? 'no' : (fsc ? 'yes' : 'no')}
-                    disabled={category === 'brichete'}
-                    onChange={(e) => setFsc(e.target.value === 'yes')}
-                  >
-                    <option value="yes">{lang === 'nl' ? 'FSC®-Gecertificeerd' : 'FSC®-Certified'}</option>
-                    <option value="no">{lang === 'nl' ? 'Geen FSC®' : 'No FSC®'}</option>
-                  </select>
-                </div>
+                {category !== 'brichete' && (
+                  <div className="control-group">
+                    <label htmlFor="dbFsc">{lang === 'nl' ? 'Certificering' : 'Certification'}</label>
+                    <select
+                      id="dbFsc"
+                      className="dashboard-select"
+                      value={fsc ? 'yes' : 'no'}
+                      onChange={(e) => setFsc(e.target.value === 'yes')}
+                    >
+                      <option value="yes">{lang === 'nl' ? 'FSC®-Gecertificeerd' : 'FSC®-Certified'}</option>
+                      <option value="no">{lang === 'nl' ? 'Geen FSC®' : 'No FSC®'}</option>
+                    </select>
+                  </div>
+                )}
 
                 {/* Kwaliteit */}
                 {category !== 'brichete' && (
@@ -1796,10 +1799,12 @@ export default function Configurator() {
                       <td>{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</td>
                       <td>{lang === 'nl' ? 'Beuken' : 'Beechwood'}</td>
                     </tr>
-                    <tr>
-                      <td>{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</td>
-                      <td>{lang === 'nl' ? 'Nee (Ongestoomd)' : 'No (Unsteamed)'}</td>
-                    </tr>
+                    {category !== 'brichete' && (
+                      <tr>
+                        <td>{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</td>
+                        <td>{lang === 'nl' ? 'Nee (Ongestoomd)' : 'No (Unsteamed)'}</td>
+                      </tr>
+                    )}
                     <tr>
                       <td>{lang === 'nl' ? 'Droging' : 'Drying'}</td>
                       <td>
@@ -1808,12 +1813,14 @@ export default function Configurator() {
                           : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : 'Chamber-dried (KD 10-12%)')}
                       </td>
                     </tr>
-                    <tr>
-                      <td>{getTranslation('fscRow')}</td>
-                      <td>
-                        {activeSelection.fsc ? getTranslation('yes') : getTranslation('no')}
-                      </td>
-                    </tr>
+                    {category !== 'brichete' && (
+                      <tr>
+                        <td>{getTranslation('fscRow')}</td>
+                        <td>
+                          {activeSelection.fsc ? getTranslation('yes') : getTranslation('no')}
+                        </td>
+                      </tr>
+                    )}
                     <tr>
                       <td>{getTranslation('gradeRow')}</td>
                       <td>
