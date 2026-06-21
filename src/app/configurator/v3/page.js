@@ -1025,13 +1025,13 @@ export default function ChatbotConfigurator() {
           position: relative;
         }
         .chat-header {
-          background: var(--color-primary-dark);
+          background: #111111;
           color: #ffffff;
           padding: 1rem 1.5rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-bottom: 2px solid rgba(231, 177, 36, 0.3);
+          border-bottom: 2px solid var(--color-primary);
         }
         .chat-avatar-wrapper {
           display: flex;
@@ -1041,14 +1041,14 @@ export default function ChatbotConfigurator() {
         .chat-avatar {
           width: 2.75rem;
           height: 2.75rem;
-          background: rgba(255, 255, 255, 0.2);
+          background: #222222;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 1.25rem;
-          color: #f6d365;
-          border: 1px solid rgba(255, 255, 255, 0.4);
+          color: var(--color-primary);
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .chat-history {
           flex: 1;
@@ -1317,7 +1317,7 @@ export default function ChatbotConfigurator() {
                 </div>
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>Willem</h3>
-                  <span style={{ fontSize: '0.75rem', opacity: 0.8, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#cbd5e1', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     <span style={{ width: '6px', height: '6px', background: '#10b981', borderRadius: '50%' }}></span>
                     Online B2B Adviseur
                   </span>
