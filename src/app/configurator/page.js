@@ -28,6 +28,10 @@ const t = {
   v3Desc: { nl: 'Configureer uw aanvraag in gesprek met onze virtuele adviseur Willem. Stapsgewijze begeleiding met interactieve invoer en live chatpreviews.', en: 'Configure your request in conversation with our virtual advisor Willem. Step-by-step guidance with interactive input and live chat previews.', de: 'Konfigurieren Sie Ihre Anfrage im Gespräch mit unserem virtuellen Berater Willem. Schritt-für-Schritt-Anleitung mit interaktiver Eingabe und Live-Chat-Vorschauen.', ro: 'Configurați-vă solicitarea în conversație cu consilierul nostru de vânzări virtual Willem. Ghidare pas cu pas cu introducere interactivă și previzualizări live pe chat.' },
   v3Badge: { nl: 'Chatbot', en: 'Chatbot', de: 'Chatbot', ro: 'Chatbot' },
   
+  v4Title: { nl: 'V4: Open Chatbot (AI)', en: 'V4: Open Chatbot (AI)', de: 'V4: Offener Chatbot (KI)', ro: 'V4: Chatbot deschis (AI)' },
+  v4Desc: { nl: 'Configureer uw aanvraag door vrijuit te chatten met Willem. Typ uw wensen in eigen woorden en de slimme assistent stelt uw offerte samen.', en: 'Configure your request by chatting freely with Willem. Type your wishes in your own words and our smart assistant will compile your quote.', de: 'Konfigurieren Sie Ihre Anfrage, indem Sie sich frei mit Willem unterhalten. Schreiben Sie Ihre Wünsche in eigenen Worten und der Assistent erstellt Ihr Angebot.', ro: 'Configurați-vă solicitarea discutând liber cu Willem. Scrieți cerințele dvs. în propriile cuvinte și asistentul inteligent vă va crea oferta.' },
+  v4Badge: { nl: 'Open Chat', en: 'Open Chat', de: 'Offener Chat', ro: 'Chat deschis' },
+  
   testButton: { nl: 'Configurator Starten', en: 'Start Configurator', de: 'Konfigurator starten', ro: 'Pornește configuratorul' },
   lockPortal: { nl: 'Portaal Vergrendelen', en: 'Lock Portal', de: 'Portal sperren', ro: 'Blochează Portalul' }
 };
@@ -272,9 +276,9 @@ export default function ConfiguratorSelector() {
 
       {/* Grid selector cards */}
       <section className="selector-grid-section" style={{ padding: '4rem 0 6rem', background: '#f8fafc' }}>
-        <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
           
-          <div className="selector-grid">
+          <div className="selector-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
             {/* Card V1: Classic */}
             <Link href="/configurator/v1" className="selector-card">
               <span className="card-badge badge-classic">{getTranslation('v1Badge')}</span>
@@ -306,14 +310,29 @@ export default function ConfiguratorSelector() {
             </Link>
 
             {/* Card V3: Chatbot Assistent */}
-            <Link href="/configurator/v3" className="selector-card" style={{ border: '1px dashed var(--color-primary)' }}>
-              <span className="card-badge badge-new" style={{ background: 'rgba(231, 177, 36, 0.25)' }}>{getTranslation('v3Badge')}</span>
+            <Link href="/configurator/v3" className="selector-card">
+              <span className="card-badge badge-classic">{getTranslation('v3Badge')}</span>
               <div className="card-content">
-                <div className="card-icon-wrapper" style={{ borderColor: 'var(--color-primary)' }}>
+                <div className="card-icon-wrapper">
                   <i className="fa-solid fa-comments"></i>
                 </div>
                 <h3>{getTranslation('v3Title')}</h3>
                 <p>{getTranslation('v3Desc')}</p>
+              </div>
+              <span className="btn btn-secondary btn-block" style={{ width: '100%', textAlign: 'center', display: 'block' }}>
+                {getTranslation('testButton')} <i className="fa-solid fa-arrow-right icon-right"></i>
+              </span>
+            </Link>
+
+            {/* Card V4: Open Chatbot Assistent */}
+            <Link href="/configurator/v4" className="selector-card" style={{ border: '1px dashed var(--color-primary)' }}>
+              <span className="card-badge badge-new" style={{ background: 'rgba(231, 177, 36, 0.25)' }}>{getTranslation('v4Badge')}</span>
+              <div className="card-content">
+                <div className="card-icon-wrapper" style={{ borderColor: 'var(--color-primary)' }}>
+                  <i className="fa-solid fa-comment-dots"></i>
+                </div>
+                <h3>{getTranslation('v4Title')}</h3>
+                <p>{getTranslation('v4Desc')}</p>
               </div>
               <span className="btn btn-primary btn-block" style={{ width: '100%', textAlign: 'center', display: 'block', background: 'var(--color-primary-dark)', borderColor: 'var(--color-primary-dark)' }}>
                 {getTranslation('testButton')} <i className="fa-solid fa-arrow-right icon-right"></i>
