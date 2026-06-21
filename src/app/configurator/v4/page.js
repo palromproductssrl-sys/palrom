@@ -158,10 +158,10 @@ const translations = {
   
   // Chat placeholders & UI
   placeholderInput: {
-    nl: 'Typ hier uw wensen (bijv. "1000 blanks van 25x75x1200mm, Klasse A, KD")...',
-    en: 'Type your requirements (e.g., "1000 blanks of 25x75x1200mm, Class A, KD")...',
-    de: 'Schreiben Sie Ihre Wünsche (z.B. "1000 Blanks, 25x75x1200mm, Klasse A, KD")...',
-    ro: 'Scrieți cerințele dvs. (de ex. "1000 piese brute, 25x75x1200mm, clasa A, KD")...'
+    nl: 'Typ hier uw vraag.',
+    en: 'Type your question here.',
+    de: 'Geben Sie hier Ihre Frage ein.',
+    ro: 'Scrieți întrebarea dvs. aici.'
   },
   btnSend: { nl: 'Verzend', en: 'Send', de: 'Senden', ro: 'Trimite' },
   resetText: { nl: 'Opnieuw beginnen', en: 'Start Over', de: 'Neustart', ro: 'Reîncepe' },
