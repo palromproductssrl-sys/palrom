@@ -2134,7 +2134,12 @@ export default function Configurator() {
           )}
         </div>
       </div> {/* End configurator-layout-grid */}
-    </form>
+          </form>
+          </div>
+          
+          {/* Configurator Version */}
+          <div style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.8rem', color: '#9ca3af', opacity: 0.8 }}>
+            Configurator v2.1.2
           </div>
         </div>
       </section>
