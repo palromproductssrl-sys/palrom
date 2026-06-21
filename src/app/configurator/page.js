@@ -1732,6 +1732,7 @@ export default function Configurator() {
                     className="dashboard-input"
                     value={quantity}
                     min={minQty}
+                    step={category === 'brichete' ? 1 : 500}
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
                       setQuantity(isNaN(val) ? '' : val);
