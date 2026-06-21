@@ -802,6 +802,7 @@ export default function OpenChatConfigurator() {
             updatedDimFlags.thickness = false;
             updatedDimFlags.width = false;
             updatedDimFlags.length = false;
+            setQuantity(parsed.category === 'brichete' ? 1 : 500);
           }
         }
 
@@ -969,6 +970,7 @@ export default function OpenChatConfigurator() {
               updatedDimFlags.thickness = false;
               updatedDimFlags.width = false;
               updatedDimFlags.length = false;
+              setQuantity(parsed.category === 'brichete' ? 1 : 500);
             }
           }
           
@@ -1577,10 +1579,35 @@ export default function OpenChatConfigurator() {
                 <div className="chat-chips-row">
                   {!filledFields.category && (
                     <>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Ik zoek blanks' : 'I want blanks', 'blanks')}>Blanks</div>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Ik zoek geschaafde latten' : 'I want planed slats', 'latten')}>Slats</div>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Ik zoek stokken' : 'I want sticks', 'stokken')}>Dowels</div>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Ik zoek profielen' : 'I want profiles', 'profielen')}>Profiles</div>
+                      {['sawn', 'planed', 'dowels', 'profiles', 'specials', ...(isRomania ? ['brichete'] : [])].map(catKey => {
+                        const cat = categoryData[catKey];
+                        const displayName = cat.name[lang] || cat.name.nl;
+                        let chipText = displayName;
+                        if (catKey === 'sawn') chipText = lang === 'nl' ? 'Blanks' : (lang === 'ro' ? 'Piese brute' : (lang === 'de' ? 'Blanks' : 'Blanks'));
+                        else if (catKey === 'planed') chipText = lang === 'nl' ? 'Latten' : (lang === 'ro' ? 'Șipci' : (lang === 'de' ? 'Leisten' : 'Slats'));
+                        else if (catKey === 'dowels') chipText = lang === 'nl' ? 'Stokken' : (lang === 'ro' ? 'Tije' : (lang === 'de' ? 'Rundstäbe' : 'Dowels'));
+                        else if (catKey === 'profiles') chipText = lang === 'nl' ? 'Profielen' : (lang === 'ro' ? 'Profile' : (lang === 'de' ? 'Profile' : 'Profiles'));
+                        else if (catKey === 'specials') chipText = lang === 'nl' ? 'Bestekken' : (lang === 'ro' ? 'Speciale' : (lang === 'de' ? 'Zuschnitte' : 'Specials'));
+                        else if (catKey === 'brichete') chipText = lang === 'nl' ? 'Briketten' : (lang === 'ro' ? 'Brichete' : (lang === 'de' ? 'Briketts' : 'Briquettes'));
+
+                        const phrase = lang === 'nl' 
+                          ? `Ik zoek ${chipText.toLowerCase()}` 
+                          : (lang === 'ro' 
+                            ? `Caut ${chipText.toLowerCase()}` 
+                            : (lang === 'de' 
+                              ? `Ich suche ${chipText}` 
+                              : `I am looking for ${chipText.toLowerCase()}`));
+
+                        return (
+                          <div 
+                            key={catKey} 
+                            className="chat-chip" 
+                            onClick={() => handleChipClick(phrase, catKey)}
+                          >
+                            {chipText}
+                          </div>
+                        );
+                      })}
                     </>
                   )}
                   {filledFields.category && !filledFields.dimensions && (
@@ -1607,16 +1634,7 @@ export default function OpenChatConfigurator() {
                       <div className="chat-chip" onClick={() => handleChipClick(getTranslation('dryingValueAir'), 'AD luchtdroog')}>Luchtdroog (AD)</div>
                     </>
                   )}
-                  {isConfigComplete && (
-                    <>
-                      <div className="chat-chip" onClick={() => handleAddToCart()} style={{ background: 'var(--color-primary-dark)', color: '#ffffff', borderColor: 'var(--color-primary-dark)' }}>
-                        <i className="fa-solid fa-cart-plus icon-left"></i> {getTranslation('addToInquiry')}
-                      </div>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Verander het aantal naar 2000 stuks' : 'Change quantity to 2000', '2000 stuks')}>2000 stuks</div>
-                      <div className="chat-chip" onClick={() => handleChipClick(lang === 'nl' ? 'Maak de dikte 30mm' : 'Make thickness 30mm', 'dikte 30mm')}>Dikte 30mm</div>
-                    </>
-                  )}
-                </div>
+                 </div>
 
                 {/* Input Bar */}
                 <form onSubmit={handleSendMessage} className="chat-input-row">
