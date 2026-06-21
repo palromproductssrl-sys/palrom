@@ -1606,10 +1606,9 @@ export default function Configurator() {
                       id="dbSteamed"
                       className="dashboard-select"
                       value={steamed}
-                      onChange={(e) => setSteamed(e.target.value)}
+                      disabled={true}
                     >
                       <option value="no">{getTranslation('steamedValueNo')}</option>
-                      <option value="yes">{getTranslation('steamedValueYes')}</option>
                     </select>
                   </div>
                 )}
