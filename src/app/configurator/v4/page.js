@@ -449,6 +449,20 @@ export default function OpenChatConfigurator() {
     });
   };
 
+  const isConfigCompleteFor = (cat, fields) => {
+    if (cat === 'brichete') {
+      return ['category', 'quantity'].every(k => fields[k]);
+    }
+    return ['category', 'dimensions', 'grade', 'drying', 'quantity'].every(k => fields[k]);
+  };
+
+  const handleInputSuggestion = (text) => {
+    setUserInput(text);
+    setTimeout(() => {
+      handleSendMessage();
+    }, 50);
+  };
+
   const toggleListening = () => {
     if (!hasSpeechSupport) {
       alert(lang === 'nl' 
@@ -1061,7 +1075,7 @@ export default function OpenChatConfigurator() {
         setFilledFields(updatedFields);
 
         // If user typed "ja" or "yes" or similar, and everything was complete, add to cart
-        const wasCompleteBeforeMsg = Object.values(filledFields).every(val => val === true || (category === 'brichete' && ['category', 'quantity'].every(k => filledFields[k])));
+        const wasCompleteBeforeMsg = isConfigCompleteFor(category, filledFields);
         const isAffirmative = /^(?:ja|yes|oui|da|ok|toevoegen|bestellen|offerte|in winkelwagen|add|submit)/i.test(cleanText);
         
         if (wasCompleteBeforeMsg && isAffirmative) {
@@ -1401,7 +1415,7 @@ export default function OpenChatConfigurator() {
   const woodColorFront = '#e5b88f';
   const woodColorEnd = '#b48154';
 
-  const isConfigComplete = Object.values(filledFields).every(val => val === true || (category === 'brichete' && ['category', 'quantity'].every(k => filledFields[k])));
+  const isConfigComplete = isConfigCompleteFor(category, filledFields);
 
   if (isLoading) {
     return (
@@ -1806,7 +1820,7 @@ export default function OpenChatConfigurator() {
                     )}
 
                     {msg.sender === 'bot' && index === history.length - 1 && isConfigComplete && !msg.isAddedSuccess && (
-                      <div style={{ marginTop: '1.5rem' }}>
+                      <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                         <button
                           onClick={handleAddToCart}
                           className="btn btn-primary"
@@ -1825,6 +1839,25 @@ export default function OpenChatConfigurator() {
                           }}
                         >
                           <i className="fa-solid fa-cart-plus"></i> {getTranslation('addToInquiry') || 'Toevoegen aan Offerteaanvraag'}
+                        </button>
+                        <button
+                          onClick={() => handleInputSuggestion('Ik wil nog wat veranderen')}
+                          className="btn btn-secondary"
+                          style={{
+                            fontSize: '0.85rem',
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#ffffff',
+                            color: 'var(--color-text-dark)',
+                            border: '2px solid var(--color-text-dark)',
+                            borderRadius: 'var(--border-radius-sm)',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
+                          }}
+                        >
+                          <i className="fa-solid fa-pen-to-square"></i> {lang === 'nl' ? 'Ik wil nog wat veranderen' : (lang === 'ro' ? 'Vreau să modific ceva' : (lang === 'de' ? 'Ich möchte etwas ändern' : 'I want to change something'))}
                         </button>
                       </div>
                     )}
