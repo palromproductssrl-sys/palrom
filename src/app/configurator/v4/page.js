@@ -168,6 +168,7 @@ const translations = {
   backText: { nl: 'Vorige', en: 'Back', de: 'Zurück', ro: 'Înapoi' },
   addToInquiry: { nl: 'Toevoegen aan Offerteaanvraag', en: 'Add to Quote Request', de: 'Zur Angebotsanfrage hinzufügen', ro: 'Adaugă la solicitarea de ofertă' },
   addedToCart: { nl: 'Toegevoegd aan winkelwagen!', en: 'Added to cart!', de: 'In den Warenkorb gelegt!', ro: 'Adăugat în coș!' },
+  addedToQuote: { nl: 'Toegevoegd aan offerte', en: 'Added to quote', de: 'Zum Angebot hinzugefügt', ro: 'Adăugat la ofertă' },
   configureAnother: { nl: 'Nog een product configureren', en: 'Configure another product', de: 'Anderes Produkt konfigurieren', ro: 'Configurați alt produs' },
   pieces: { nl: 'stuks', en: 'pieces', de: 'Stück', ro: 'bucăți' },
   viewCart: { nl: 'Bekijk offerteaanvraag', en: 'View quote request', de: 'Angebotsanfrage ansehen', ro: 'Vizualizați cererea de ofertă' },
@@ -306,6 +307,7 @@ export default function OpenChatConfigurator() {
   const [quantity, setQuantity] = useState(500);
 
   const [notification, setNotification] = useState(null);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
   // Chat History & Typing Indicators
   const [userInput, setUserInput] = useState('');
@@ -373,6 +375,27 @@ export default function OpenChatConfigurator() {
   useEffect(() => {
     userInputRef.current = userInput;
   }, [userInput]);
+
+  // Reset isAddedToCart whenever user modifies configuration parameters
+  useEffect(() => {
+    setIsAddedToCart(false);
+  }, [
+    category,
+    subCategoryDowels,
+    subCategoryProfiles,
+    subCategorySpecials,
+    subCategoryPlaned,
+    woodType,
+    steamed,
+    drying,
+    fsc,
+    grade,
+    thickness,
+    diameter,
+    length,
+    quantity,
+    additionalInfo
+  ]);
 
   // Initialize Speech Recognition on client
   useEffect(() => {
@@ -700,6 +723,7 @@ export default function OpenChatConfigurator() {
       width: false,
       length: false
     });
+    setIsAddedToCart(false);
     setHistory([
       { sender: 'bot', text: getTranslation('welcomeMessage') }
     ]);
@@ -1672,44 +1696,12 @@ export default function OpenChatConfigurator() {
       setNotification(null);
     }, 4000);
 
-    // Reset configuration states to zero/empty
-    setCategory('sawn');
-    setSubCategoryDowels('dowel-smooth');
-    setSubCategoryProfiles('profile-semiround');
-    setSubCategorySpecials('special-keeplat-spruce');
-    setSubCategoryPlaned('planed-rect-v1');
-    setWoodType('beech');
-    setSteamed('no');
-    setDrying('kd');
-    setFsc(true);
-    setGrade('A');
-    setThicknessType('custom');
-    setThickness(25);
-    setWidthType('custom');
-    setDiameter(50);
-    setLengthType('custom');
-    setLength(1000);
-    setAdditionalInfo('');
-    setQuantity(500);
-    setIsTyping(false);
-    setUserInput('');
-    setFilledFields({
-      category: false,
-      dimensions: false,
-      grade: false,
-      drying: false,
-      fsc: false,
-      quantity: false,
-      steamed: false
-    });
-    setDimensionFlags({
-      thickness: false,
-      width: false,
-      length: false
-    });
+    // Set added state, keeping the configuration states intact
+    setIsAddedToCart(true);
 
-    // Reset history to a single welcoming success message
-    setHistory([
+    // Append history with a welcoming success message
+    setHistory(prev => [
+      ...prev,
       {
         sender: 'bot',
         text: `🎉 **${getTranslation('addedToCart')}**<br/><br/>
@@ -2529,10 +2521,17 @@ export default function OpenChatConfigurator() {
               {isConfigComplete && (
                 <button
                   onClick={handleAddToCart}
+                  disabled={isAddedToCart}
                   className="btn btn-primary btn-block"
-                  style={{ marginTop: 'auto', width: '100%' }}
+                  style={{
+                    marginTop: 'auto',
+                    width: '100%',
+                    opacity: isAddedToCart ? 0.6 : 1,
+                    cursor: isAddedToCart ? 'not-allowed' : 'pointer',
+                    pointerEvents: isAddedToCart ? 'none' : 'auto'
+                  }}
                 >
-                  <i className="fa-solid fa-cart-plus icon-left"></i> {getTranslation('addToInquiry')}
+                  <i className="fa-solid fa-cart-plus icon-left"></i> {isAddedToCart ? (getTranslation('addedToQuote') || 'Toegevoegd aan offerte') : getTranslation('addToInquiry')}
                 </button>
               )}
             </div>
