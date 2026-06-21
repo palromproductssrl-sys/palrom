@@ -228,8 +228,18 @@ const t = {
   gradeCSelect: { nl: 'C = constructieve kwaliteit', en: 'C = structural quality', de: 'C = konstruktive Qualität', ro: 'C = calitate constructivă' },
   gradeAValue: { nl: 'A (foutvrij, egaal van kleur)', en: 'A (defect-free, uniform color)', de: 'A (astfrei, gleichmäßige Farbe)', ro: 'A (fără defecte, culoare uniformă)' },
   gradeBValue: { nl: 'B (foutvrij, gezond kleurverschil toegestaan)', en: 'B (defect-free, healthy color difference allowed)', de: 'B (astfrei, gesunde Farbabweichungen zulässig)', ro: 'B (fără defecte, diferențe de culoare admise)' },
-  gradeCValue: { nl: 'C (constructieve kwaliteit)', en: 'C (structural quality)', de: 'C (konstruktive Qualität)', ro: 'C (calitate constructivă)' }
+  gradeCValue: { nl: 'C (constructieve kwaliteit)', en: 'C (structural quality)', de: 'C (konstruktive Qualität)', ro: 'C (calitate constructivă)' },
+  livePreview: { nl: 'Live voorbeeld', en: 'Live preview', de: 'Live-Vorschau', ro: 'Previzualizare live' },
+  additionalInfoLabel: { nl: 'Aanvullende informatie', en: 'Additional information', de: 'Zusätzliche Information', ro: 'Informații suplimentare' },
+  additionalInfoPlaceholder: {
+    nl: 'Bijvoorbeeld schaaftoleranties of specifieke verpakkingseisen...',
+    en: 'For example planing tolerances or specific packaging requirements...',
+    de: 'Zum Beispiel Hobeltoleranzen oder spezifische Verpackungsanforderungen...',
+    ro: 'De exemplu, toleranțe de rindeluire sau cerințe specifice de ambalare...'
+  }
 };
+
+const localeMap = { nl: 'nl-NL', de: 'de-DE', ro: 'ro-RO', en: 'en-US' };
 
 const standardLengths = {
   planed: [2000, 2400, 3000, 4000],
@@ -299,7 +309,7 @@ function WoodVisualizer({ selection, lang }) {
     <div className="wood-visualizer-card" style={{ height: '175px', display: 'flex', flexDirection: 'column' }}>
       <div className="visualizer-header">
         <span className="visualizer-badge">
-          <i className="fa-solid fa-eye"></i> {lang === 'nl' ? 'Live voorbeeld' : 'Live preview'}
+          <i className="fa-solid fa-eye"></i> {t.livePreview?.[lang] || t.livePreview?.nl || 'Live preview'}
         </span>
       </div>
       <div className="visualizer-body" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '130px', background: '#fdfbf7', border: '1px solid #edf2f7', borderRadius: '8px', padding: '10px', position: 'relative' }}>
@@ -871,8 +881,8 @@ export default function Configurator() {
       productName: subName,
       dimensions: dims,
       qtyText: category === 'brichete'
-        ? `${quantity.toLocaleString(lang === 'nl' ? 'nl-NL' : 'en-US')} ${lang === 'ro' ? 'paleți' : (lang === 'nl' ? 'pallets' : (lang === 'de' ? 'Paletten' : 'pallets'))}`
-        : `${quantity.toLocaleString(lang === 'nl' ? 'nl-NL' : 'en-US')} ${getTranslation('pieces')}`,
+        ? `${quantity.toLocaleString(localeMap[lang] || 'en-US')} ${lang === 'ro' ? 'paleți' : (lang === 'nl' ? 'pallets' : (lang === 'de' ? 'Paletten' : 'pallets'))}`
+        : `${quantity.toLocaleString(localeMap[lang] || 'en-US')} ${getTranslation('pieces')}`,
       qtyVal: quantity,
       finish: data.finish[lang] || data.finish.nl,
       price: details.totalPrice,
@@ -938,8 +948,8 @@ export default function Configurator() {
       productName: subName,
       dimensions: dims,
       qtyText: item.category === 'brichete'
-        ? `${item.quantity.toLocaleString(l === 'nl' ? 'nl-NL' : 'en-US')} ${l === 'ro' ? 'paleți' : (l === 'nl' ? 'pallets' : (l === 'de' ? 'Paletten' : 'pallets'))}`
-        : `${item.quantity.toLocaleString(l === 'nl' ? 'nl-NL' : 'en-US')} ${t['pieces']?.[l] || t['pieces']?.nl}`,
+        ? `${item.quantity.toLocaleString(localeMap[l] || 'en-US')} ${l === 'ro' ? 'paleți' : (l === 'nl' ? 'pallets' : (l === 'de' ? 'Paletten' : 'pallets'))}`
+        : `${item.quantity.toLocaleString(localeMap[l] || 'en-US')} ${t['pieces']?.[l] || t['pieces']?.nl}`,
       qtyVal: item.quantity,
       finish: data.finish[l] || data.finish.nl,
       price: details.totalPrice,
@@ -1521,7 +1531,7 @@ export default function Configurator() {
                 {categoryData[category]?.thickness && (
                   <div className="control-group">
                     <label htmlFor="dbThickness">
-                      {lang === 'nl' ? 'Dikte (mm)' : 'Thickness (mm)'}
+                      {categoryData[category]?.thickness?.label?.[lang] || categoryData[category]?.thickness?.label?.en || 'Thickness (mm)'}
                     </label>
                     <div className="slider-wrapper">
                       <input
@@ -1565,8 +1575,8 @@ export default function Configurator() {
                   <div className="control-group">
                     <label htmlFor="dbDiameter">
                       {category === 'dowels'
-                        ? (lang === 'nl' ? 'Diameter (mm)' : 'Diameter (mm)')
-                        : (lang === 'nl' ? 'Breedte (mm)' : 'Width (mm)')}
+                        ? (categoryData[category]?.diameter?.label?.[lang] || categoryData[category]?.diameter?.label?.en || 'Diameter (mm)')
+                        : (categoryData[category]?.diameter?.label?.[lang] || categoryData[category]?.diameter?.label?.en || 'Width (mm)')}
                     </label>
                     <div className="slider-wrapper">
                       <input
@@ -1609,7 +1619,7 @@ export default function Configurator() {
                 {categoryData[category]?.length && (
                   <div className="control-group">
                     <label htmlFor="dbLength">
-                      {lang === 'nl' ? 'Lengte (mm)' : 'Length (mm)'}
+                      {categoryData[category]?.length?.label?.[lang] || categoryData[category]?.length?.label?.en || 'Length (mm)'}
                     </label>
                     <div className="slider-wrapper">
                       <input
@@ -1768,21 +1778,21 @@ export default function Configurator() {
                   ) : lengthType === 'custom' && (
                     <div style={{ fontSize: '0.85rem', color: '#fbbf24', marginTop: '0.5rem' }}>
                       <i className="fa-solid fa-circle-info"></i>{' '}
-                      {getTranslation('moqNotice').replace('{minQty}', minQty.toLocaleString())}
+                      {getTranslation('moqNotice').replace('{minQty}', minQty.toLocaleString(localeMap[lang] || 'en-US'))}
                     </div>
                   )}
                 </div>
 
                 {/* Aanvullende informatie */}
                 <div className="control-group" style={{ gridColumn: 'span 2' }}>
-                  <label htmlFor="dbAdditionalInfo">{lang === 'nl' ? 'Aanvullende informatie' : 'Additional information'}</label>
+                  <label htmlFor="dbAdditionalInfo">{getTranslation('additionalInfoLabel')}</label>
                   <textarea
                     id="dbAdditionalInfo"
                     className="dashboard-input"
                     rows="2"
                     value={additionalInfo}
                     onChange={(e) => setAdditionalInfo(e.target.value)}
-                    placeholder={lang === 'nl' ? 'Bijvoorbeeld schaaftoleranties of specifieke verpakkingseisen...' : 'For example planing tolerances or specific packaging requirements...'}
+                    placeholder={getTranslation('additionalInfoPlaceholder')}
                     style={{ resize: 'vertical', width: '100%', minHeight: '60px' }}
                   />
                 </div>
@@ -1854,7 +1864,7 @@ export default function Configurator() {
                     </tr>
                     {activeSelection.additionalInfo && (
                       <tr>
-                        <td>{lang === 'nl' ? 'Aanvullende informatie' : 'Additional information'}</td>
+                        <td>{getTranslation('additionalInfoLabel')}</td>
                         <td style={{ fontStyle: 'italic', color: '#ffd700' }}>{activeSelection.additionalInfo}</td>
                       </tr>
                     )}
