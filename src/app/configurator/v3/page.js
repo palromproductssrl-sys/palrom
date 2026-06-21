@@ -271,11 +271,16 @@ export default function ChatbotConfigurator() {
     { step: 'category', botMsgKey: 'chooseCategory', optionsType: 'category', userChoice: null }
   ]);
 
-  const messagesEndRef = useRef(null);
+  const chatHistoryRef = useRef(null);
 
   // Scroll to bottom of chat
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatHistoryRef.current) {
+      chatHistoryRef.current.scrollTo({
+        top: chatHistoryRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   useEffect(() => {
@@ -1100,7 +1105,7 @@ export default function ChatbotConfigurator() {
       `}</style>
 
       {/* Breadcrumb section */}
-      <section className="configurator-hero" style={{ padding: '4rem 0 2rem', background: '#ffffff', borderBottom: '1px solid #edf2f7' }}>
+      <section className="configurator-hero" style={{ padding: '8.5rem 0 2rem', background: '#ffffff', borderBottom: '1px solid #edf2f7' }}>
         <div className="container">
           <Link href="/configurator" className="btn-lock" style={{ textDecoration: 'none', marginBottom: '0.75rem' }}>
             <i className="fa-solid fa-chevron-left"></i> {getTranslation('backToHub')}
@@ -1140,7 +1145,7 @@ export default function ChatbotConfigurator() {
             </div>
 
             {/* Message History */}
-            <div className="chat-history">
+            <div className="chat-history" ref={chatHistoryRef}>
               {history.map((stepObj, idx) => {
                 const isLatest = idx === history.length - 1;
                 const showBotMsg = !isLatest || !isTyping;
@@ -1292,7 +1297,6 @@ export default function ChatbotConfigurator() {
                   </React.Fragment>
                 );
               })}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input Controls Footer Area */}
