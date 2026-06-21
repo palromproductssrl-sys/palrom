@@ -273,7 +273,7 @@ export default function ConfiguratorSelector() {
       `}</style>
 
       {/* Hero Section */}
-      <section className="configurator-hero" style={{ padding: '6rem 0 3rem', background: '#ffffff', borderBottom: '1px solid #edf2f7' }}>
+      <section className="configurator-hero" style={{ padding: '8.5rem 0 3rem', background: '#ffffff', borderBottom: '1px solid #edf2f7' }}>
         <div className="container text-center">
           <span className="hero-badge animate-fade-in" style={{ marginBottom: '1rem', display: 'inline-block' }}>
             PALROM PORTAL
