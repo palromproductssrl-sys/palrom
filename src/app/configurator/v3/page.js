@@ -118,11 +118,8 @@ const specialsPrices = {
 };
 
 const dowelSubcategories = [
-  { id: 'dowel-small', name: { nl: 'Kleine deuvels (3 t/m 5 mm)', en: 'Small Size (3 mm and up)', de: 'Kleine Dübel (ab 3 mm)', ro: 'Dimensiuni mici (de la 3 mm)' } },
-  { id: 'dowel-medium-sticks', name: { nl: 'Dunne stokken (6 t/m 18 mm)', en: 'Sticks Small to Medium', de: 'Dünne Stäbe (6 bis 18 mm)', ro: 'Tije subțiri (6 la 18 mm)' } },
-  { id: 'dowel-medium', name: { nl: 'Middelgrote stokken (19 t/m 30 mm)', en: 'Medium Size Dowel Rods', de: 'Mittlere Stäbe (19 bis 30 mm)', ro: 'Tije medii (19 la 30 mm)' } },
-  { id: 'dowel-big', name: { nl: 'Dikke stokken (35 t/m 60 mm)', en: 'Big Size (up to 60 mm)', de: 'Dicke Stäbe (bis 60 mm)', ro: 'Tije groase (până la 60 mm)' } },
-  { id: 'dowel-rilled', name: { nl: 'Gegroefde deuvelpennen (spiraal)', en: 'Spiral Rilled Pins (6 to 20 mm)', de: 'Geriffelte Dübelstifte', ro: 'Știfturi canelate în spirală' } },
+  { id: 'dowel-smooth', name: { nl: 'Glad', en: 'Smooth', de: 'Glatt', ro: 'Neted' } },
+  { id: 'dowel-rilled', name: { nl: 'Gerild', en: 'Rilled', de: 'Geriffelt', ro: 'Canelat' } },
 ];
 
 const profileSubcategories = [
@@ -244,7 +241,7 @@ export default function ChatbotConfigurator() {
 
   // Configurator States (synchronised with chat selection)
   const [category, setCategory] = useState('sawn');
-  const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-small');
+  const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-smooth');
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
   const [subCategoryPlaned, setSubCategoryPlaned] = useState('planed-rect-v1');
@@ -303,7 +300,7 @@ export default function ChatbotConfigurator() {
   // Opnieuw beginnen (Start Over)
   const handleStartOver = () => {
     setCategory('sawn');
-    setSubCategoryDowels('dowel-small');
+    setSubCategoryDowels('dowel-smooth');
     setSubCategoryProfiles('profile-semiround');
     setSubCategorySpecials('special-keeplat-spruce');
     setSubCategoryPlaned('planed-rect-v1');
@@ -340,11 +337,30 @@ export default function ChatbotConfigurator() {
   const minQty = category === 'brichete' ? 1 : (lengthType === 'custom' ? getMinQuantityForCustom(category, parsedLengthForMinQty, diameter) : 500);
   const currentMaxWidth = category === 'planed' ? getPlanedMaxWidth(thickness) : categoryData[category]?.diameter?.max || 500;
 
-  useEffect(() => {
-    if (diameter > currentMaxWidth) {
-      setDiameter(currentMaxWidth);
+  const getMinDiameter = () => {
+    if (category === 'dowels') {
+      return subCategoryDowels === 'dowel-rilled' ? 6 : 3;
     }
-  }, [currentMaxWidth, diameter]);
+    return categoryData[category]?.diameter?.min || 5;
+  };
+
+  const getMaxDiameter = () => {
+    if (category === 'dowels') {
+      return subCategoryDowels === 'dowel-rilled' ? 20 : 60;
+    }
+    return currentMaxWidth;
+  };
+
+  // Clamp diameter to range
+  useEffect(() => {
+    const minD = getMinDiameter();
+    const maxD = getMaxDiameter();
+    if (diameter < minD) {
+      setDiameter(minD);
+    } else if (diameter > maxD) {
+      setDiameter(maxD);
+    }
+  }, [category, subCategoryDowels, diameter, currentMaxWidth]);
 
   useEffect(() => {
     if (quantity < minQty) {
@@ -391,13 +407,10 @@ export default function ChatbotConfigurator() {
       subcatName = names[specificSubcat || subCategoryProfiles] || 'Semiround Profile';
     } else if (cat === 'dowels') {
       const names = {
-        'dowel-small': 'Small Size (3 mm and up)',
-        'dowel-medium-sticks': 'Sticks Small to Medium',
-        'dowel-medium': 'Medium Size Dowel Rods',
-        'dowel-big': 'Big Size (up to 60 mm)',
+        'dowel-smooth': 'Smooth Dowel Rods',
         'dowel-rilled': 'Spiral Rilled Pins (6 to 20 mm)',
       };
-      subcatName = names[specificSubcat || subCategoryDowels] || 'Small Size (3 mm and up)';
+      subcatName = names[specificSubcat || subCategoryDowels] || 'Smooth Dowel Rods';
     } else if (cat === 'planed') {
       const names = {
         'planed-rect-v1': 'Planed Rectangular (Variant 1)',
@@ -1343,9 +1356,17 @@ export default function ChatbotConfigurator() {
                   {activeStep.optionsType === 'diameter' && (
                     <div>
                       <div className="chip-grid" style={{ maxHeight: '120px', overflowY: 'auto', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '0.5rem' }}>
-                        {standardRodDiameters.map(d => (
-                          <button key={d} onClick={() => proceedToNextStep(d)} className="chip-button" style={{ padding: '0.4rem' }}>Ø {d} mm</button>
-                        ))}
+                        {standardRodDiameters
+                          .filter(d => {
+                            if (category === 'dowels' && subCategoryDowels === 'dowel-rilled') {
+                              return d >= 6 && d <= 20;
+                            }
+                            return true;
+                          })
+                          .map(d => (
+                            <button key={d} onClick={() => proceedToNextStep(d)} className="chip-button" style={{ padding: '0.4rem' }}>Ø {d} mm</button>
+                          ))
+                        }
                       </div>
                     </div>
                   )}

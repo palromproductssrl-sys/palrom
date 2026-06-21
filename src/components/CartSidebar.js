@@ -53,11 +53,8 @@ const categoryNames = {
 };
 
 const dowelSubcategories = [
-  { id: 'dowel-small', name: { nl: 'Kleine deuvels (vanaf 3 mm)', en: 'Small Size (3 mm and up)', de: 'Kleine Dübel (ab 3 mm)', ro: 'Dibluri mici (de la 3 mm)' } },
-  { id: 'dowel-medium-sticks', name: { nl: 'Kleine tot middelgrote deuvelstokken', en: 'Sticks Small to Medium', de: 'Dübelstäbe klein bis mittel', ro: 'Tije de dibluri mici spre medii' } },
-  { id: 'dowel-medium', name: { nl: 'Middelgrote deuvelstaven', en: 'Medium Size Dowel Rods', de: 'Mittlere Dübelstangen', ro: 'Tije de dibluri de dimensiuni medii' } },
-  { id: 'dowel-big', name: { nl: 'Grote deuvelstaven (tot 60 mm)', en: 'Big Size (up to 60 mm)', de: 'Große Dübelstangen (bis 60 mm)', ro: 'Tije mari (până la 60 mm)' } },
-  { id: 'dowel-rilled', name: { nl: 'Gegroefde deuvelpennen (6 tot 20 mm)', en: 'Spiral Rilled Pins (6 to 20 mm)', de: 'Spiralgeriffelte Dübelstifte (6 bis 20 mm)', ro: 'Dibluri canelate în spirală (6 la 20 mm)' } },
+  { id: 'dowel-smooth', name: { nl: 'Glad', en: 'Smooth', de: 'Glatt', ro: 'Neted' } },
+  { id: 'dowel-rilled', name: { nl: 'Gerild', en: 'Rilled', de: 'Geriffelt', ro: 'Canelat' } },
 ];
 
 const profileSubcategories = [

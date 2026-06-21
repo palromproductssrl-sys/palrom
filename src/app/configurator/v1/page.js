@@ -107,11 +107,8 @@ const specialsPrices = {
 
 // Subcategory data
 const dowelSubcategories = [
-  { id: 'dowel-small', name: { nl: 'Kleine deuvels (vanaf 3 mm)', en: 'Small Size (3 mm and up)', de: 'Kleine Dübel (ab 3 mm)', ro: 'Dibluri mici (de la 3 mm)' }, img: '/images/dowelssmall-1.jpg' },
-  { id: 'dowel-medium-sticks', name: { nl: 'Kleine tot middelgrote deuvelstokken', en: 'Sticks Small to Medium', de: 'Dübelstäbe klein bis mittel', ro: 'Tije de dibluri mici spre medii' }, img: '/images/dowelsmedium.jpg' },
-  { id: 'dowel-medium', name: { nl: 'Middelgrote deuvelstaven', en: 'Medium Size Dowel Rods', de: 'Mittlere Dübelstangen', ro: 'Tije de dibluri de dimensiuni medii' }, img: '/images/dowels-medium-2.jpg' },
-  { id: 'dowel-big', name: { nl: 'Grote deuvelstaven (tot 60 mm)', en: 'Big Size (up to 60 mm)', de: 'Große Dübelstangen (bis 60 mm)', ro: 'Tije mari (până la 60 mm)' }, img: '/images/dowelsbig-300x300-1.jpg' },
-  { id: 'dowel-rilled', name: { nl: 'Gegroefde deuvelpennen (6 tot 20 mm)', en: 'Spiral Rilled Pins (6 to 20 mm)', de: 'Spiralgeriffelte Dübelstifte (6 bis 20 mm)', ro: 'Dibluri canelate în spirală (6 la 20 mm)' }, img: '/images/dowelsrilled-300x300-1.jpg' },
+  { id: 'dowel-smooth', name: { nl: 'Glad', en: 'Smooth', de: 'Glatt', ro: 'Neted' }, img: '/images/dowelsmedium.jpg' },
+  { id: 'dowel-rilled', name: { nl: 'Gerild', en: 'Rilled', de: 'Geriffelt', ro: 'Canelat' }, img: '/images/dowelsrilled-300x300-1.jpg' },
 ];
 
 const profileSubcategories = [
@@ -611,7 +608,7 @@ export default function Configurator() {
 
   const [highestStepReached, setHighestStepReached] = useState(1);
   const [category, setCategory] = useState('');
-  const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-small');
+  const [subCategoryDowels, setSubCategoryDowels] = useState('dowel-smooth');
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
   const [subCategoryPlaned, setSubCategoryPlaned] = useState('planed-rect-v1');
@@ -633,7 +630,7 @@ export default function Configurator() {
 
   const resetConfigurator = () => {
     setCategory('');
-    setSubCategoryDowels('dowel-small');
+    setSubCategoryDowels('dowel-smooth');
     setSubCategoryProfiles('profile-semiround');
     setSubCategorySpecials('special-keeplat-spruce');
     setSubCategoryPlaned('planed-rect-v1');
@@ -695,12 +692,30 @@ export default function Configurator() {
   const minQty = category === 'brichete' ? 1 : (lengthType === 'custom' ? getMinQuantityForCustom(category, parsedLengthForMinQty, diameter) : 500);
   const currentMaxWidth = category === 'planed' ? getPlanedMaxWidth(thickness) : categoryData[category]?.diameter?.max || 500;
 
-  // Clamp diameter to currentMaxWidth if it exceeds it
-  useEffect(() => {
-    if (diameter > currentMaxWidth) {
-      setDiameter(currentMaxWidth);
+  const getMinDiameter = () => {
+    if (category === 'dowels') {
+      return subCategoryDowels === 'dowel-rilled' ? 6 : 3;
     }
-  }, [currentMaxWidth, diameter]);
+    return categoryData[category]?.diameter?.min || 5;
+  };
+
+  const getMaxDiameter = () => {
+    if (category === 'dowels') {
+      return subCategoryDowels === 'dowel-rilled' ? 20 : 60;
+    }
+    return currentMaxWidth;
+  };
+
+  // Clamp diameter to range
+  useEffect(() => {
+    const minD = getMinDiameter();
+    const maxD = getMaxDiameter();
+    if (diameter < minD) {
+      setDiameter(minD);
+    } else if (diameter > maxD) {
+      setDiameter(maxD);
+    }
+  }, [category, subCategoryDowels, diameter, currentMaxWidth]);
 
   // Set quantity to minQty when the minimum quantity requirement changes
   useEffect(() => {
@@ -820,13 +835,10 @@ export default function Configurator() {
       subcatName = names[specificSubcat || subCategoryProfiles] || 'Semiround Profile';
     } else if (cat === 'dowels') {
       const names = {
-        'dowel-small': 'Small Size (3 mm and up)',
-        'dowel-medium-sticks': 'Sticks Small to Medium',
-        'dowel-medium': 'Medium Size Dowel Rods',
-        'dowel-big': 'Big Size (up to 60 mm)',
+        'dowel-smooth': 'Smooth Dowel Rods',
         'dowel-rilled': 'Spiral Rilled Pins (6 to 20 mm)',
       };
-      subcatName = names[specificSubcat || subCategoryDowels] || 'Small Size (3 mm and up)';
+      subcatName = names[specificSubcat || subCategoryDowels] || 'Smooth Dowel Rods';
     } else if (cat === 'planed') {
       const names = {
         'planed-rect-v1': 'Planed Rectangular (Variant 1)',
@@ -1719,26 +1731,26 @@ export default function Configurator() {
                       <input
                         type="range"
                         className="dashboard-slider"
-                        min={categoryData[category]?.diameter?.min || 5}
-                        max={category === 'dowels' ? 60 : currentMaxWidth}
-                        value={diameter || (categoryData[category]?.diameter?.min || 5)}
-                        onChange={(e) => setDiameter(parseInt(e.target.value) || (categoryData[category]?.diameter?.min || 5))}
+                        min={getMinDiameter()}
+                        max={getMaxDiameter()}
+                        value={diameter || getMinDiameter()}
+                        onChange={(e) => setDiameter(parseInt(e.target.value) || getMinDiameter())}
                       />
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <input
                           type="number"
                           id="dbDiameter"
                           className="slider-value-display"
-                          min={categoryData[category]?.diameter?.min || 5}
-                          max={category === 'dowels' ? 60 : currentMaxWidth}
+                          min={getMinDiameter()}
+                          max={getMaxDiameter()}
                           value={diameter}
                           onChange={(e) => {
                             const val = parseInt(e.target.value);
                             setDiameter(isNaN(val) ? '' : val);
                           }}
                           onBlur={() => {
-                            const minVal = categoryData[category]?.diameter?.min || 5;
-                            const maxVal = category === 'dowels' ? 60 : currentMaxWidth;
+                            const minVal = getMinDiameter();
+                            const maxVal = getMaxDiameter();
                             if (diameter === '' || diameter < minVal) {
                               setDiameter(minVal);
                             } else if (diameter > maxVal) {
