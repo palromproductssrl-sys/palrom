@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
@@ -376,7 +377,13 @@ export default function Careers() {
 
         {/* Hiring Stamp on Hero */}
         <a href="#positions" className="hiring-stamp-hero" title={lang === 'nl' ? 'Bekijk onze openstaande posities!' : (lang === 'de' ? 'Sehen Sie sich unsere offenen Stellen an!' : (lang === 'ro' ? 'Vezi pozițiile noastre deschise!' : 'View our open positions!'))}>
-          <img src={`/images/hiring_stamp_${lang}.png`} alt="We are Hiring Stamp" />
+          <Image 
+            src={`/images/hiring_stamp_${lang}.png`} 
+            alt="We are Hiring Stamp" 
+            width={170}
+            height={170}
+            priority
+          />
         </a>
       </section>
 

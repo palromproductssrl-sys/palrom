@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 
 
@@ -1241,7 +1242,7 @@ export default function Configurator() {
                           onChange={() => setCategory(cat.id)}
                         />
                         <div className="card-content">
-                          <img src={cat.img} alt="" className="card-bg-image" />
+                           <Image src={cat.img} alt="" className="card-bg-image" width={300} height={98} />
                           <div className="card-overlay"></div>
                           <div className="card-info-overlay">
                             <span className="card-label">{cat.name[lang] || cat.name.nl}</span>
@@ -1267,7 +1268,7 @@ export default function Configurator() {
                             onChange={() => setSubCategoryDowels(d.id)}
                           />
                           <div className="card-content">
-                            <img src={d.img} alt="" className="card-bg-image" />
+                             <Image src={d.img} alt="" className="card-bg-image" width={300} height={98} />
                             <div className="card-overlay"></div>
                             <div className="card-info-overlay">
                               <span className="card-label">{d.name[lang] || d.name.nl}</span>
@@ -1294,7 +1295,7 @@ export default function Configurator() {
                             onChange={() => setSubCategoryPlaned(p.id)}
                           />
                           <div className="card-content">
-                            <img src={p.img} alt="" className="card-bg-image" />
+                             <Image src={p.img} alt="" className="card-bg-image" width={300} height={98} />
                             <div className="card-overlay"></div>
                             <div className="card-info-overlay">
                               <span className="card-label">{p.name[lang] || p.name.nl}</span>
@@ -1321,7 +1322,7 @@ export default function Configurator() {
                             onChange={() => setSubCategoryProfiles(p.id)}
                           />
                           <div className="card-content">
-                            <img src={p.img} alt="" className="card-bg-image" />
+                             <Image src={p.img} alt="" className="card-bg-image" width={300} height={98} />
                             <div className="card-overlay"></div>
                             <div className="card-info-overlay">
                               <span className="card-label">{p.name[lang] || p.name.nl}</span>
@@ -1348,7 +1349,7 @@ export default function Configurator() {
                             onChange={() => setSubCategorySpecials(s.id)}
                           />
                           <div className="card-content">
-                            <img src={s.img} alt="" className="card-bg-image" />
+                             <Image src={s.img} alt="" className="card-bg-image" width={300} height={98} />
                             <div className="card-overlay"></div>
                             <div className="card-info-overlay">
                               <span className="card-label">{s.name[lang] || s.name.nl}</span>
@@ -1990,7 +1991,7 @@ export default function Configurator() {
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.95rem', fontWeight: 700 }}>
                         {lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'en' ? 'Class A (Clear)' : (lang === 'de' ? 'Klasse A (Astfrei)' : 'Clasa A (Fără noduri)'))}
                       </h4>
-                      <img src="/images/grade_a_beech.png" alt="Grade A Beechwood" style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
+                      <Image src="/images/grade_a_beech.png" alt="Grade A Beechwood" width={400} height={110} style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
                       <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>
                         {lang === 'nl' ? 'Hoogste kwaliteit, volledig noestvrij en vrij van fouten. Geschikt voor zichtwerk, speelgoed, fijn timmerwerk en deuvels.' : 
                          lang === 'en' ? 'Highest quality, completely knot-free and clear. Ideal for visible applications, toys, furniture-making, and precision dowels.' :
@@ -2007,7 +2008,7 @@ export default function Configurator() {
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.95rem', fontWeight: 700 }}>
                         {lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'en' ? 'Class B (Cabinet)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : 'Clasa B (Lemn mobilă)'))}
                       </h4>
-                      <img src="/images/grade_b_beech.png" alt="Grade B Beechwood" style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
+                      <Image src="/images/grade_b_beech.png" alt="Grade B Beechwood" width={400} height={110} style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
                       <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>
                         {lang === 'nl' ? 'Meubelkwaliteit. Bevat gezonde, vaste noesten en natuurlijke kleurvariaties (rode kern). Uitstekend voor structurele delen van meubels.' : 
                          lang === 'en' ? 'Cabinet quality. Contains healthy, tight knots and natural color variations (red heartwood). Excellent for furniture components.' :
@@ -2024,7 +2025,7 @@ export default function Configurator() {
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.95rem', fontWeight: 700 }}>
                         {lang === 'nl' ? 'Klasse C (Constructief)' : (lang === 'en' ? 'Class C (Structural)' : (lang === 'de' ? 'Klasse C (Konstruktive Qualität)' : 'Clasa C (Calitate constructivă)'))}
                       </h4>
-                      <img src="/images/grade_c_beech.png" alt="Grade C Beechwood" style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
+                      <Image src="/images/grade_c_beech.png" alt="Grade C Beechwood" width={400} height={110} style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
                       <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>
                         {lang === 'nl' ? 'Constructiekwaliteit. Bevat grotere noesten en kleurverschillen. Wordt gebruikt voor onzichtbare binnenframes en verpakkingen.' : 
                          lang === 'en' ? 'Structural quality. Permits larger knots and variations. Perfect for internal framing, packaging, and non-visible components.' :
@@ -2044,7 +2045,7 @@ export default function Configurator() {
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.95rem', fontWeight: 700 }}>
                         {lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'en' ? 'Kiln-Dried (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : 'Uscat în Cameră (KD 10-12%)'))}
                       </h4>
-                      <img src="/images/kilns.jpg" alt="Kiln Drying Chambers" style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
+                      <Image src="/images/kilns.jpg" alt="Kiln Drying Chambers" width={400} height={110} style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
                       <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>
                         {lang === 'nl' ? 'Gecontroleerd gedroogd in moderne droogkamers. Vermindert de werking van het hout drastisch. Vereist voor binnentoepassingen en meubels.' : 
                          lang === 'en' ? 'Dried under computer control in modern drying chambers. Drastically reduces wood movement. Essential for interior joinery and furniture.' :
@@ -2061,7 +2062,7 @@ export default function Configurator() {
                       <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.95rem', fontWeight: 700 }}>
                         {lang === 'nl' ? 'Luchtdroog (AD)' : (lang === 'en' ? 'Air-Dried (AD)' : (lang === 'de' ? 'Luftgetrocknet (AD)' : 'Uscat Natural (AD)'))}
                       </h4>
-                      <img src="/images/air_drying_beech.png" alt="Air Drying Yard" style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
+                      <Image src="/images/air_drying_beech.png" alt="Air Drying Yard" width={400} height={110} style={{ width: '100%', height: '110px', objectFit: 'cover', borderRadius: '6px', margin: '0.5rem 0', border: '1px solid #e5e7eb' }} />
                       <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>
                         {lang === 'nl' ? 'Gedroogd in de buitenlucht tot ca. 18-20% vochtgehalte. Ideaal voor buitenwerk of voor hout dat in een latere fase nog droging ondergaat.' : 
                          lang === 'en' ? 'Naturally air-dried in covered outdoor yards to 18-20% moisture. Suitable for outdoor construction or parts that will be dried later.' :

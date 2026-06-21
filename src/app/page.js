@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
@@ -306,10 +307,13 @@ export default function Home() {
     <>
       {/* Floating Decorative Wood Mosaic */}
       <div className="hero-floating-wrapper animate-fade-in-delay">
-        <img 
+        <Image 
           src="/images/floating_wood.png" 
           alt="Decorative beechwood circular mosaic" 
           className="hero-floating-graphic" 
+          width={220}
+          height={220}
+          priority
         />
       </div>
 
@@ -338,7 +342,13 @@ export default function Home() {
 
         {/* Hiring Stamp on Hero Photo */}
         <Link href="/careers" className="hiring-stamp-hero" title={getTranslation('hiringTitle')}>
-          <img src={`/images/hiring_stamp_${lang}.png`} alt={getTranslation('hiringAlt')} />
+          <Image 
+            src={`/images/hiring_stamp_${lang}.png`} 
+            alt={getTranslation('hiringAlt')} 
+            width={170}
+            height={170}
+            priority
+          />
         </Link>
 
         <div className="scroll-indicator">
@@ -387,10 +397,12 @@ export default function Home() {
             </div>
             <div className="intro-image-column animate-on-scroll">
               <div className="image-wrapper-decorative">
-                <img
+                <Image
                   src="/images/sawmill.png"
                   alt="Automated wood processing Palrom"
                   className="img-responsive rounded-lg shadow-lg"
+                  width={945}
+                  height={1024}
                 />
                 <div className="stats-badge">
                   <span className="stat-number">25+</span>
@@ -517,7 +529,12 @@ export default function Home() {
               <div className="product-card" key={p.id} data-category={p.category}>
                 <div className="product-img-wrapper">
                   <Link href={p.link} className="product-img-link">
-                    <img src={p.image} alt={p.name} />
+                    <Image 
+                      src={p.image} 
+                      alt={p.name} 
+                      width={400} 
+                      height={400} 
+                    />
                   </Link>
                   <span className="product-tag">{p.tag}</span>
                 </div>

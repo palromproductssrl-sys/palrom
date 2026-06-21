@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useInquiry } from './InquiryContext';
 
@@ -37,7 +38,14 @@ export default function Header() {
     <header className="main-header scrolled">
       <div className="header-container">
         <Link href="/" className="logo">
-          <img src="/images/logo.png" alt="PALROM Products Logo" className="header-logo-img" />
+          <Image 
+            src="/images/logo.png" 
+            alt="PALROM Products Logo" 
+            className="header-logo-img" 
+            width={247}
+            height={80}
+            priority
+          />
         </Link>
         <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>

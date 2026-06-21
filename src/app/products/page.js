@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 import ContactSection from '@/components/ContactSection';
 
@@ -386,7 +387,12 @@ export default function Products() {
               <div className="product-card" key={p.id} data-category={p.category}>
                 <div className="product-img-wrapper">
                   <Link href={p.link} className="product-img-link">
-                    <img src={p.image} alt={p.name[lang] || p.name.nl} />
+                    <Image 
+                      src={p.image} 
+                      alt={p.name[lang] || p.name.nl} 
+                      width={400}
+                      height={400}
+                    />
                   </Link>
                   <span className="product-tag">{p.tag[lang] || p.tag.nl}</span>
                 </div>

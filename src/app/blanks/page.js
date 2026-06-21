@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 import ContactSection from '@/components/ContactSection';
 
@@ -159,7 +160,12 @@ export default function Blanks() {
             {blankProducts.map((p) => (
               <div className="detail-card animate-on-scroll" key={p.id}>
                 <div className="detail-img-wrapper">
-                  <img src={p.image} alt={p.name[lang] || p.name.nl} />
+                  <Image 
+                    src={p.image} 
+                    alt={p.name[lang] || p.name.nl} 
+                    width={400}
+                    height={300}
+                  />
                 </div>
                 <div className="detail-info">
                   <h3>{p.name[lang] || p.name.nl}</h3>

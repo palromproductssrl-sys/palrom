@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useInquiry } from './InquiryContext';
 
@@ -70,7 +71,13 @@ export default function Footer() {
       <div className="footer-top container">
         <div className="footer-brand">
           <Link href="/" className="footer-logo-link">
-            <img src="/images/logo_white.png" alt="PALROM Products Logo" className="footer-logo-img" />
+            <Image 
+              src="/images/logo_white.png" 
+              alt="PALROM Products Logo" 
+              className="footer-logo-img" 
+              width={198}
+              height={64}
+            />
           </Link>
           <p>{getTranslation('brandDesc')}</p>
           <div className="footer-socials">

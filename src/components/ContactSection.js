@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInquiry } from './InquiryContext';
 
 const teamMemberData = {
@@ -723,7 +724,7 @@ export default function ContactSection() {
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="team-avatar">
-                    <img src={member.avatar} alt={member.name} />
+                    <Image src={member.avatar} alt={member.name} width={70} height={70} />
                   </div>
                   <h3>{member.name}</h3>
                   <div className="team-role">{member.role[lang] || member.role.nl}</div>
@@ -755,7 +756,7 @@ export default function ContactSection() {
               <i className="fa-solid fa-xmark"></i>
             </button>
             <div className="team-modal-avatar">
-              <img src={activeModalMember.avatar} alt={activeModalMember.name} />
+              <Image src={activeModalMember.avatar} alt={activeModalMember.name} width={120} height={120} />
             </div>
             <h2>{activeModalMember.name}</h2>
             <div className="team-modal-role">

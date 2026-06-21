@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 import ContactSection from '@/components/ContactSection';
 
@@ -168,11 +169,14 @@ export default function BricheteFag() {
         <div className="container">
           <div className="grid grid-2 align-items-center" style={{ gap: '3.5rem' }}>
             <div className="animate-on-scroll">
-              <img 
+              <Image 
                 src={activeImage} 
                 alt={t.title[activeLang]} 
                 className="img-responsive rounded-lg shadow-lg"
+                width={1000}
+                height={800}
                 style={{ width: '100%', objectFit: 'cover', height: '400px', borderRadius: '12px', display: 'block' }}
+                priority
               />
               <div style={{ display: 'flex', gap: '1rem', marginTop: '1.25rem' }}>
                 <button 
@@ -190,10 +194,12 @@ export default function BricheteFag() {
                   }}
                   aria-label="Studio product photo"
                 >
-                  <img 
+                  <Image 
                     src="/images/brichete_fag.png" 
                     alt="Studio" 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                    width={90}
+                    height={70}
+                    style={{ objectFit: 'cover', display: 'block' }} 
                   />
                 </button>
                 <button 
@@ -211,10 +217,12 @@ export default function BricheteFag() {
                   }}
                   aria-label="Homely ambient photo"
                 >
-                  <img 
+                  <Image 
                     src="/images/brichete_fag_ambient.png" 
                     alt="Ambient" 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                    width={90}
+                    height={70}
+                    style={{ objectFit: 'cover', display: 'block' }} 
                   />
                 </button>
               </div>

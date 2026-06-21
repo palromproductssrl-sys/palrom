@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
@@ -372,10 +373,13 @@ export default function About() {
           <div className="grid grid-2 align-items-center">
             <div className="about-image-column animate-on-scroll">
               <div className="image-stack">
-                <img
+                <Image
                   src="/images/hero_bg.jpg"
                   alt="Aerial view of Palrom Products Brad sawmill facilities"
                   className="img-responsive rounded-lg shadow-lg"
+                  width={1024}
+                  height={502}
+                  priority
                 />
                 <div className="about-floating-card">
                   <i className="fa-solid fa-leaf text-accent"></i>
@@ -562,7 +566,14 @@ export default function About() {
                       onClick={() => setActiveSlide((prev) => (prev + 1) % galleryItems.length)}
                       style={{ cursor: 'pointer' }}
                     >
-                      <img src={item.image} alt={item.title} />
+                      <Image 
+                        src={item.image} 
+                        alt={item.title} 
+                        fill 
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px" 
+                        style={{ objectFit: 'cover' }} 
+                        priority={idx === 0}
+                      />
                       <div className="gallery-overlay">
                         <h3>{item.title}</h3>
                         <p>{item.desc}</p>
@@ -624,9 +635,11 @@ export default function About() {
                 <div className="timeline-content-card">
                   {evt.year === '2010' && (
                     <div className="fsc-timeline-logo-wrapper" style={{ marginBottom: '1.25rem' }}>
-                      <img
+                      <Image
                         src="/images/fsc_logo.png"
                         alt="FSC Logo"
+                        width={60}
+                        height={75}
                         style={{
                           height: '75px',
                           width: 'auto',

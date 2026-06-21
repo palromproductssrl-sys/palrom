@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useInquiry } from '@/components/InquiryContext';
 
@@ -595,7 +596,13 @@ export default function Apply() {
 
         {/* Hiring Stamp on Hero */}
         <a href="#apply-form" className="hiring-stamp-hero" title={lang === 'nl' ? 'Solliciteer direct!' : (lang === 'de' ? 'Jetzt direkt bewerben!' : (lang === 'ro' ? 'Aplică direct!' : 'Apply directly!'))}>
-          <img src={`/images/hiring_stamp_${lang}.png`} alt="We are Hiring Stamp" />
+          <Image 
+            src={`/images/hiring_stamp_${lang}.png`} 
+            alt="We are Hiring Stamp" 
+            width={170}
+            height={170}
+            priority
+          />
         </a>
       </section>
 
@@ -604,7 +611,12 @@ export default function Apply() {
         <div className="container">
           <div className="hr-welcome-grid">
             <div className="hr-image-wrapper animate-on-scroll">
-              <img src="/images/anca.png" alt="Anca Mihuț - PALROM Products HR Coordinator" />
+              <Image 
+                src="/images/anca.png" 
+                alt="Anca Mihuț - PALROM Products HR Coordinator" 
+                width={630}
+                height={632}
+              />
             </div>
             <div className="hr-welcome-text animate-on-scroll">
               <h2>{getTranslation('hrTitle')}</h2>

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
@@ -213,7 +214,12 @@ export default function News() {
                 }}
               >
                 <div className="news-image">
-                  <img src={item.image || '/images/config_dowels.png'} alt={item.title} />
+                  <Image 
+                    src={item.image || '/images/config_dowels.png'} 
+                    alt={item.title} 
+                    width={600}
+                    height={400}
+                  />
                   <span className={`news-tag ${item.tagClass || ''}`}>{item.tag}</span>
                 </div>
                 <div className="news-content">
@@ -249,7 +255,12 @@ export default function News() {
               <i className="fa-solid fa-xmark"></i>
             </button>
             <div className="news-modal-image">
-              <img src={selectedArticle.image || '/images/config_dowels.png'} alt={selectedArticle.title} />
+              <Image 
+                src={selectedArticle.image || '/images/config_dowels.png'} 
+                alt={selectedArticle.title} 
+                width={600}
+                height={400}
+              />
             </div>
             <div className="news-modal-body">
               <div className="news-modal-meta">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useInquiry } from './InquiryContext';
 
 const teamMembers = [
@@ -235,7 +236,13 @@ export default function FloatingWidget() {
             return (
               <div className="whatsapp-member-row" key={member.id}>
                 <div className="whatsapp-member-avatar-wrapper">
-                  <img src={member.avatar} alt={member.name} className="whatsapp-member-avatar" />
+                  <Image 
+                    src={member.avatar} 
+                    alt={member.name} 
+                    className="whatsapp-member-avatar" 
+                    width={44} 
+                    height={44} 
+                  />
                   <span className="whatsapp-online-badge"></span>
                 </div>
                 <div className="whatsapp-member-details">
