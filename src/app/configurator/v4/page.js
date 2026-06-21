@@ -487,6 +487,14 @@ export default function OpenChatConfigurator() {
     }
   }, [shouldResetConfigurator, setShouldResetConfigurator]);
 
+  const formatMarkdownToHtml = (text) => {
+    if (!text) return '';
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br/>');
+  };
+
   // NLP Free text parser
   const parseFreeText = (text, activeCat) => {
     const cleanText = text.toLowerCase().trim();
@@ -777,12 +785,76 @@ export default function OpenChatConfigurator() {
     // Start bot typing animation
     setIsTyping(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       try {
         const cleanText = userText.toLowerCase().trim();
-        // 1. Run NLP Parser
-        const parsed = parseFreeText(userText, category);
-        
+        let parsed = null;
+        let replyText = '';
+        let useFallback = false;
+
+        // Try LLM API route
+        try {
+          const res = await fetch('/api/configurator/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: userText,
+              category,
+              filledFields,
+              dimensionFlags,
+              lang
+            })
+          });
+
+          if (!res.ok) {
+            useFallback = true;
+          } else {
+            const data = await res.json();
+            if (data.fallback) {
+              useFallback = true;
+            } else {
+              // Extract detected parameters
+              const dp = data.detected_parameters || {};
+              parsed = {};
+              if (dp.category) parsed.category = dp.category;
+              if (dp.subCategory) {
+                const sub = dp.subCategory;
+                if (sub.startsWith('dowel-')) {
+                  parsed.subCategoryDowels = sub;
+                  if (!parsed.category && category !== 'dowels') parsed.category = 'dowels';
+                } else if (sub.startsWith('planed-')) {
+                  parsed.subCategoryPlaned = sub;
+                  if (!parsed.category && category !== 'planed') parsed.category = 'planed';
+                } else if (sub.startsWith('profile-')) {
+                  parsed.subCategoryProfiles = sub;
+                  if (!parsed.category && category !== 'profiles') parsed.category = 'profiles';
+                } else if (sub.startsWith('special-')) {
+                  parsed.subCategorySpecials = sub;
+                  if (!parsed.category && category !== 'specials') parsed.category = 'specials';
+                }
+              }
+              if (dp.thickness !== null && dp.thickness !== undefined) parsed.thickness = dp.thickness;
+              if (dp.diameter !== null && dp.diameter !== undefined) parsed.diameter = dp.diameter;
+              if (dp.length !== null && dp.length !== undefined) parsed.length = dp.length;
+              if (dp.grade) parsed.grade = dp.grade;
+              if (dp.drying) parsed.drying = dp.drying;
+              if (dp.steamed) parsed.steamed = dp.steamed;
+              if (dp.fsc !== null && dp.fsc !== undefined) parsed.fsc = dp.fsc;
+              if (dp.quantity !== null && dp.quantity !== undefined) parsed.quantity = dp.quantity;
+
+              replyText = formatMarkdownToHtml(data.reply_text);
+            }
+          }
+        } catch (apiErr) {
+          console.error("Gemini API request failed, falling back to local NLP parser:", apiErr);
+          useFallback = true;
+        }
+
+        if (useFallback) {
+          // 1. Run local NLP Parser
+          parsed = parseFreeText(userText, category);
+        }
+
         // Keep track of what we detected
         const detectedFields = [];
         const updatedFields = { ...filledFields };
@@ -902,27 +974,28 @@ export default function OpenChatConfigurator() {
           return;
         }
 
-        const isBriquettes = activeCat === 'brichete';
+        // Only generate bot reply locally if fallback was used
+        if (useFallback) {
+          const isBriquettes = activeCat === 'brichete';
+          replyText = '';
+          if (detectedFields.length > 0) {
+            replyText += `${getTranslation('understandConfirmation')}<br/>` + detectedFields.join('<br/>') + '<br/><br/>';
+          }
 
-        // 2. Generate Bot Reply based on missing fields
-        let replyText = '';
-        if (detectedFields.length > 0) {
-          replyText += `${getTranslation('understandConfirmation')}<br/>` + detectedFields.join('<br/>') + '<br/><br/>';
-        }
-
-        // Next missing field check
-        if (!updatedFields.category) {
-          replyText += getTranslation('askCategory');
-        } else if (!updatedFields.dimensions) {
-          replyText += getTranslation('askDimensions');
-        } else if (!updatedFields.grade && !isBriquettes) {
-          replyText += getTranslation('askGrade');
-        } else if (!updatedFields.drying && !isBriquettes) {
-          replyText += getTranslation('askDrying');
-        } else if (!updatedFields.quantity) {
-          replyText += getTranslation('askQuantity');
-        } else {
-          replyText += getTranslation('everythingComplete');
+          // Next missing field check
+          if (!updatedFields.category) {
+            replyText += getTranslation('askCategory');
+          } else if (!updatedFields.dimensions) {
+            replyText += getTranslation('askDimensions');
+          } else if (!updatedFields.grade && !isBriquettes) {
+            replyText += getTranslation('askGrade');
+          } else if (!updatedFields.drying && !isBriquettes) {
+            replyText += getTranslation('askDrying');
+          } else if (!updatedFields.quantity) {
+            replyText += getTranslation('askQuantity');
+          } else {
+            replyText += getTranslation('everythingComplete');
+          }
         }
 
         setHistory(prev => [...prev, { sender: 'bot', text: replyText }]);
@@ -947,9 +1020,76 @@ export default function OpenChatConfigurator() {
       setHistory(prev => [...prev, { sender: 'user', text: suggestionText }]);
       setIsTyping(true);
       
-      setTimeout(() => {
+      setTimeout(async () => {
         try {
-          const parsed = parseFreeText(parseText || suggestionText, category);
+          const messageText = parseText || suggestionText;
+          const cleanText = messageText.toLowerCase().trim();
+          let parsed = null;
+          let replyText = '';
+          let useFallback = false;
+
+          // Try LLM API route
+          try {
+            const res = await fetch('/api/configurator/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                message: messageText,
+                category,
+                filledFields,
+                dimensionFlags,
+                lang
+              })
+            });
+
+            if (!res.ok) {
+              useFallback = true;
+            } else {
+              const data = await res.json();
+              if (data.fallback) {
+                useFallback = true;
+              } else {
+                // Extract detected parameters
+                const dp = data.detected_parameters || {};
+                parsed = {};
+                if (dp.category) parsed.category = dp.category;
+                if (dp.subCategory) {
+                  const sub = dp.subCategory;
+                  if (sub.startsWith('dowel-')) {
+                    parsed.subCategoryDowels = sub;
+                    if (!parsed.category && category !== 'dowels') parsed.category = 'dowels';
+                  } else if (sub.startsWith('planed-')) {
+                    parsed.subCategoryPlaned = sub;
+                    if (!parsed.category && category !== 'planed') parsed.category = 'planed';
+                  } else if (sub.startsWith('profile-')) {
+                    parsed.subCategoryProfiles = sub;
+                    if (!parsed.category && category !== 'profiles') parsed.category = 'profiles';
+                  } else if (sub.startsWith('special-')) {
+                    parsed.subCategorySpecials = sub;
+                    if (!parsed.category && category !== 'specials') parsed.category = 'specials';
+                  }
+                }
+                if (dp.thickness !== null && dp.thickness !== undefined) parsed.thickness = dp.thickness;
+                if (dp.diameter !== null && dp.diameter !== undefined) parsed.diameter = dp.diameter;
+                if (dp.length !== null && dp.length !== undefined) parsed.length = dp.length;
+                if (dp.grade) parsed.grade = dp.grade;
+                if (dp.drying) parsed.drying = dp.drying;
+                if (dp.steamed) parsed.steamed = dp.steamed;
+                if (dp.fsc !== null && dp.fsc !== undefined) parsed.fsc = dp.fsc;
+                if (dp.quantity !== null && dp.quantity !== undefined) parsed.quantity = dp.quantity;
+
+                replyText = formatMarkdownToHtml(data.reply_text);
+              }
+            }
+          } catch (apiErr) {
+            console.error("Gemini API request failed, falling back to local NLP parser:", apiErr);
+            useFallback = true;
+          }
+
+          if (useFallback) {
+            parsed = parseFreeText(messageText, category);
+          }
+
           const activeCat = parsed.category || category;
           const clamped = clampParsedValues(activeCat, parsed);
 
@@ -1043,19 +1183,20 @@ export default function OpenChatConfigurator() {
           setDimensionFlags(updatedDimFlags);
           setFilledFields(updatedFields);
 
-          const isBriquettes = activeCat === 'brichete';
+          if (useFallback) {
+            const isBriquettes = activeCat === 'brichete';
+            replyText = '';
+            if (detectedFields.length > 0) {
+              replyText += `${getTranslation('understandConfirmation')}<br/>` + detectedFields.join('<br/>') + '<br/><br/>';
+            }
 
-          let replyText = '';
-          if (detectedFields.length > 0) {
-            replyText += `${getTranslation('understandConfirmation')}<br/>` + detectedFields.join('<br/>') + '<br/><br/>';
+            if (!updatedFields.category) replyText += getTranslation('askCategory');
+            else if (!updatedFields.dimensions) replyText += getTranslation('askDimensions');
+            else if (!updatedFields.grade && !isBriquettes) replyText += getTranslation('askGrade');
+            else if (!updatedFields.drying && !isBriquettes) replyText += getTranslation('askDrying');
+            else if (!updatedFields.quantity) replyText += getTranslation('askQuantity');
+            else replyText += getTranslation('everythingComplete');
           }
-
-          if (!updatedFields.category) replyText += getTranslation('askCategory');
-          else if (!updatedFields.dimensions) replyText += getTranslation('askDimensions');
-          else if (!updatedFields.grade && !isBriquettes) replyText += getTranslation('askGrade');
-          else if (!updatedFields.drying && !isBriquettes) replyText += getTranslation('askDrying');
-          else if (!updatedFields.quantity) replyText += getTranslation('askQuantity');
-          else replyText += getTranslation('everythingComplete');
 
           setHistory(prev => [...prev, { sender: 'bot', text: replyText }]);
         } catch (err) {
