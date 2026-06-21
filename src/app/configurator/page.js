@@ -1231,6 +1231,10 @@ export default function Configurator() {
       woodType: currentItem.woodType || 'beech',
       steamed: currentItem.steamed || 'no',
       finish: resolvedDetails.finish,
+      subCategory: currentItem.subCategory,
+      length: currentItem.length,
+      diameter: currentItem.diameter,
+      thickness: currentItem.thickness,
     });
     // Reset configurator fields
     const data = categoryData[category];

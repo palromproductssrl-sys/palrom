@@ -13,6 +13,157 @@ function formatEuro(val, decimals = 2) {
 
 const SHOW_PRICING = false;
 
+const categoryNames = {
+  sawn: {
+    nl: 'Beukenhouten blanks',
+    en: 'Beechwood blanks',
+    de: 'Buchenholz-Blanks',
+    ro: 'Piese brute din lemn de fag (blanks)'
+  },
+  planed: {
+    nl: 'Beukenhouten latten',
+    en: 'Beechwood slats',
+    de: 'Buchenholzleisten',
+    ro: 'Șipci din lemn de fag'
+  },
+  dowels: {
+    nl: 'Beukenhouten stokken',
+    en: 'Beechwood sticks',
+    de: 'Buchenholzstäbe',
+    ro: 'Tije din lemn de fag'
+  },
+  profiles: {
+    nl: 'Beukenhouten profielen',
+    en: 'Beechwood profiles',
+    de: 'Buchenholzprofile',
+    ro: 'Profile din lemn de fag'
+  },
+  specials: {
+    nl: 'Beukenhouten bestekken',
+    en: 'Beechwood specials',
+    de: 'Buchenholz-Zuschnitte',
+    ro: 'Piese brute din lemn de fag'
+  },
+  brichete: {
+    nl: 'Beukenhoutbriketten',
+    en: 'Beechwood Heating Briquettes',
+    de: 'Buchenholzbriketts',
+    ro: 'Brichete din lemn de fag'
+  }
+};
+
+const dowelSubcategories = [
+  { id: 'dowel-small', name: { nl: 'Kleine deuvels (vanaf 3 mm)', en: 'Small Size (3 mm and up)', de: 'Kleine Dübel (ab 3 mm)', ro: 'Dibluri mici (de la 3 mm)' } },
+  { id: 'dowel-medium-sticks', name: { nl: 'Kleine tot middelgrote deuvelstokken', en: 'Sticks Small to Medium', de: 'Dübelstäbe klein bis mittel', ro: 'Tije de dibluri mici spre medii' } },
+  { id: 'dowel-medium', name: { nl: 'Middelgrote deuvelstaven', en: 'Medium Size Dowel Rods', de: 'Mittlere Dübelstangen', ro: 'Tije de dibluri de dimensiuni medii' } },
+  { id: 'dowel-big', name: { nl: 'Grote deuvelstaven (tot 60 mm)', en: 'Big Size (up to 60 mm)', de: 'Große Dübelstangen (bis 60 mm)', ro: 'Tije mari (până la 60 mm)' } },
+  { id: 'dowel-rilled', name: { nl: 'Gegroefde deuvelpennen (6 tot 20 mm)', en: 'Spiral Rilled Pins (6 to 20 mm)', de: 'Spiralgeriffelte Dübelstifte (6 bis 20 mm)', ro: 'Dibluri canelate în spirală (6 la 20 mm)' } },
+];
+
+const profileSubcategories = [
+  { id: 'profile-semiround', name: { nl: 'Halfrond profiel', en: 'Semiround Profile', de: 'Halbrondprofil', ro: 'Profil Semirotund' } },
+  { id: 'profile-strip', name: { nl: 'Plat profiel (Strip)', en: 'Profile Strip', de: 'Flachprofil (Leiste)', ro: 'Profil Șipcă Plată' } },
+  { id: 'profile-finish-v1', name: { nl: 'Afwerkingsprofiel (Variant 1)', en: 'Profile Finishing (Variant 1)', de: 'Profil-Abschlussleiste (Variante 1)', ro: 'Profil Finisaj (Varianta 1)' } },
+  { id: 'profile-quarter-v1', name: { nl: 'Kwartrond profiel (Variant 1)', en: 'Profile Quarter Round (Variant 1)', de: 'Viertelrundprofil (Variante 1)', ro: 'Profil Sfert de Cerc (Varianta 1)' } },
+  { id: 'profile-finish-v2', name: { nl: 'Afwerkingsprofiel (Variant 2)', en: 'Profile Finishing (Variant 2)', de: 'Profil-Abschlussleiste (Variante 2)', ro: 'Profil Finisaj (Varianta 2)' } },
+  { id: 'profile-plinth-v1', name: { nl: 'Plintprofiel (Variant 1)', en: 'Profile Plinth (Variant 1)', de: 'Sockelleistenprofil (Variante 1)', ro: 'Profil Plintă (Varianta 1)' } },
+  { id: 'profile-corner-v1', name: { nl: 'Hoekprofiel (Variant 1)', en: 'Profile Corner (Variant 1)', de: 'Eckprofil (Variante 1)', ro: 'Profil de Colț (Varianta 1)' } },
+  { id: 'profile-corner-v2', name: { nl: 'Hoekprofiel (Variant 2)', en: 'Profile Corner (Variant 2)', de: 'Eckprofil (Variante 2)', ro: 'Profil de Colț (Varianta 2)' } },
+  { id: 'profile-triangular', name: { nl: 'Driehoekig profiel', en: 'Profile Triangular', de: 'Dreiecksprofil', ro: 'Profil Triunghiular' } },
+  { id: 'profile-quarter-v2', name: { nl: 'Kwartrond profiel (Variant 2)', en: 'Profile Quarter Round (Variant 2)', de: 'Viertelrundprofil (Variante 2)', ro: 'Profil Sfert de Cerc (Varianta 2)' } },
+  { id: 'profile-thread', name: { nl: 'Gegroefd profiel (Draad)', en: 'Profile Thread', de: 'Gewindeprofil', ro: 'Profil Filetat / Striat' } },
+  { id: 'profile-calbat', name: { nl: 'Calbat profiel', en: 'Profile Calbat', de: 'Calbat-Profil', ro: 'Profil Calbat' } },
+];
+
+const planedSubcategories = [
+  { id: 'planed-rect-v1', name: { nl: 'Geschaafd rechthoekig (V1)', en: 'Planed Rectangular (V1)', de: 'Gehobelt Rechteckig (V1)', ro: 'Rinduit Rectangular (V1)' } },
+  { id: 'planed-rect-v2', name: { nl: 'Geschaafd rechthoekig (V2)', en: 'Planed Rectangular (V2)', de: 'Gehobelt Rechteckig (V2)', ro: 'Rinduit Rectangular (V2)' } },
+  { id: 'planed-rect-v3', name: { nl: 'Geschaafd rechthoekig (V3)', en: 'Planed Rectangular (V3)', de: 'Gehobelt Rechteckig (V3)', ro: 'Rinduit Rectangular (V3)' } },
+  { id: 'planed-rect-v4', name: { nl: 'Geschaafd rechthoekig (V4)', en: 'Planed Rectangular (V4)', de: 'Gehobelt Rechteckig (V4)', ro: 'Rinduit Rectangular (V4)' } },
+  { id: 'planed-sq-v1', name: { nl: 'Geschaafd vierkant (V1)', en: 'Planed Square (V1)', de: 'Gehobelt Quadratisch (V1)', ro: 'Rinduit Pătrat (V1)' } },
+  { id: 'planed-sq-v2', name: { nl: 'Geschaafd vierkant (V2)', en: 'Planed Square (V2)', de: 'Gehobelt Quadratisch (V2)', ro: 'Rinduit Pătrat (V2)' } },
+  { id: 'planed-rad3', name: { nl: 'Geschaafd Radius 3', en: 'Planed Radius 3', de: 'Gehobelt Radius 3', ro: 'Rinduit Rază 3' } },
+  { id: 'planed-rad6', name: { nl: 'Geschaafd Radius 6', en: 'Planed Radius 6', de: 'Gehobelt Radius 6', ro: 'Rinduit Rază 6' } },
+];
+
+const specialsSubcategories = [
+  { id: 'special-keeplat-spruce', name: { nl: 'Vuren keeplat (spie)', en: 'Keeplat Spruce', de: 'Keilleiste Fichte', ro: 'Pană din Lemn de Molid' } },
+  { id: 'special-keeplat-beech', name: { nl: 'Beuken keeplat (spie)', en: 'Keeplat Beech', de: 'Keilleiste Buche', ro: 'Pană din Lemn de Fag' } },
+  { id: 'special-distancer-mix', name: { nl: 'Afstandhouders kleurenmix', en: 'Distancers Color Mix', de: 'Abstandhalter Farbmix', ro: 'Distanțiere Mix de Culori' } },
+  { id: 'special-threshold', name: { nl: 'Componenten voedingsindustrie', en: 'Food industry components', de: 'Komponenten für Lebensmittelindustrie', ro: 'Componente pentru industria alimentară' } },
+  { id: 'special-distancer-ind', name: { nl: 'Industriële afstandhouder', en: 'Industrial Distancer', de: 'Industrieller Abstandhalter', ro: 'Distanțier Industrial' } },
+  { id: 'special-wood-iron', name: { nl: 'Gezaagde bestekken (fijnbezaagd)', en: 'Rough-sawn specials (fine-sawn)', de: 'Sägerauhe Zuschnitte', ro: 'Piese brute netăiate' } },
+];
+
+function getLocalizedFields(item, lang) {
+  // If not configured, just return item category/name/dims
+  if (!item.isConfigured) {
+    return {
+      category: item.category,
+      name: item.name,
+      dims: item.dims
+    };
+  }
+
+  const catKey = item.categoryKey || '';
+
+  // Get localized category name
+  const catNames = categoryNames[catKey] || { nl: item.category };
+  const localizedCategory = catNames[lang] || catNames.nl || item.category;
+
+  // Let's find subcategory ID
+  let subCatId = item.subCategory || '';
+  if (!subCatId && item.name && item.name.includes(' - ')) {
+    const parts = item.name.split(' - ');
+    const subNameInItem = parts.slice(1).join(' - ').trim();
+    
+    // Search in the corresponding subcategories array
+    let subList = [];
+    if (catKey === 'dowels') subList = dowelSubcategories;
+    else if (catKey === 'profiles') subList = profileSubcategories;
+    else if (catKey === 'planed') subList = planedSubcategories;
+    else if (catKey === 'specials') subList = specialsSubcategories;
+
+    const found = subList.find(sub => 
+      (sub.name.nl && sub.name.nl.trim() === subNameInItem) ||
+      (sub.name.en && sub.name.en.trim() === subNameInItem) ||
+      (sub.name.de && sub.name.de.trim() === subNameInItem) ||
+      (sub.name.ro && sub.name.ro.trim() === subNameInItem)
+    );
+    if (found) {
+      subCatId = found.id;
+    }
+  }
+
+  // Get localized product name
+  let localizedName = localizedCategory;
+  if (subCatId) {
+    let subList = [];
+    if (catKey === 'dowels') subList = dowelSubcategories;
+    else if (catKey === 'profiles') subList = profileSubcategories;
+    else if (catKey === 'planed') subList = planedSubcategories;
+    else if (catKey === 'specials') subList = specialsSubcategories;
+
+    const subObj = subList.find(s => s.id === subCatId);
+    if (subObj) {
+      const subName = subObj.name[lang] || subObj.name.nl;
+      localizedName = `${localizedCategory} - ${subName}`;
+    }
+  }
+
+  // Get localized dimensions
+  let localizedDims = item.dims;
+  if (catKey === 'brichete') {
+    localizedDims = lang === 'ro' ? 'Palet (960 kg greutate netă)' : (lang === 'nl' ? 'Pallet (960 kg netto gewicht)' : (lang === 'de' ? 'Palette (960 kg Nettogewicht)' : 'Pallet (960 kg net weight)'));
+  }
+
+  return {
+    category: localizedCategory,
+    name: localizedName,
+    dims: localizedDims
+  };
+}
+
 export default function CartSidebar() {
   const {
     cartItems,
@@ -224,7 +375,10 @@ export default function CartSidebar() {
           clientEmail: email,
           clientPhone: phone,
           clientNotes: notes,
-          items: cartItems,
+          items: cartItems.map(item => ({
+            ...item,
+            ...getLocalizedFields(item, lang)
+          })),
           lang,
         }),
       });
@@ -236,6 +390,10 @@ export default function CartSidebar() {
       // Format items for success alert
       const itemsList = cartItems
         .map((item) => {
+          const localized = getLocalizedFields(item, lang);
+          const localizedName = localized.name;
+          const localizedDims = localized.dims;
+
           const gradeNames = {
             nl: {
               grade_a: 'Klasse A (Foutvrij)',
@@ -272,7 +430,15 @@ export default function CartSidebar() {
           };
           const currentGrades = gradeNames[lang] || gradeNames.nl;
           const gradeName = currentGrades[item.grade] || item.grade;
-          const dimDesc = item.dims ? ` [Maat: ${item.dims}]` : '';
+
+          const labelMap = {
+            nl: 'Maat',
+            en: 'Size',
+            de: 'Größe',
+            ro: 'Dimensiune'
+          };
+          const sizeLabel = labelMap[lang] || labelMap.nl;
+          const dimDesc = localizedDims ? ` [${sizeLabel}: ${localizedDims}]` : '';
           
           if (item.isConfigured) {
             const fscText = item.fsc
@@ -282,9 +448,9 @@ export default function CartSidebar() {
               ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried')))
               : (lang === 'nl' ? 'KD 10-12%' : (lang === 'de' ? 'KD 10-12%' : (lang === 'ro' ? 'KD 10-12%' : 'KD 10-12%')));
             const priceText = SHOW_PRICING ? `, € ${formatEuro(item.price)}` : '';
-            return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc}, ${fscText}, ${dryingText}${priceText})`;
+            return `- ${localizedName} (${item.qty}x, ${gradeName}${dimDesc}, ${fscText}, ${dryingText}${priceText})`;
           }
-          return `- ${item.name} (${item.qty}x, ${gradeName}${dimDesc})`;
+          return `- ${localizedName} (${item.qty}x, ${gradeName}${dimDesc})`;
         })
         .join('\n');
 
@@ -345,131 +511,173 @@ export default function CartSidebar() {
                 </Link>
               </div>
             ) : (
-              cartItems.map((item, index) => (
-                <div className="cart-item" key={item.id + '-' + index}>
-                  <div className="cart-item-header">
-                    <div>
-                      <span className="cart-item-category">{item.category}</span>
-                      <h4 className="cart-item-name">{item.name}</h4>
-                    </div>
-                    <button className="cart-item-remove" onClick={() => removeFromCart(index)}><i className="fa-solid fa-trash-can"></i></button>
-                  </div>
-                  {item.isConfigured ? (
-                    <div className="cart-item-specs configured-specs">
-                      <div className="configured-meta-details" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
-                        {/* 2. Houtsoort */}
-                        <div>
-                          <strong>{lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Specie de lemn' : 'Wood species'))}:</strong>{' '}
-                          {item.categoryKey === 'brichete'
-                            ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
-                            : (lang === 'nl' ? 'Beuken' : (lang === 'en' ? 'Beechwood' : (lang === 'de' ? 'Buchenholz' : 'Fag')))}
-                        </div>
-                        {/* 3. Kwaliteitsklasse */}
-                        {item.categoryKey !== 'brichete' && (
-                          <div>
-                            <strong>{lang === 'nl' ? 'Kwaliteitsklasse' : (lang === 'de' ? 'Holzqualität' : (lang === 'ro' ? 'Clasă Lemn' : 'Wood Grade'))}:</strong>{' '}
-                            {item.grade === 'A' ? (lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))) :
-                             item.grade === 'B' ? (lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))) :
-                             item.grade === 'C' ? (lang === 'nl' ? 'Klasse C (Constructief)' : (lang === 'de' ? 'Klasse C (Konstruktive Qualität)' : (lang === 'ro' ? 'Clasa C (Calitate constructivă)' : 'Class C (Structural)'))) :
-                             item.grade}
-                          </div>
+              cartItems.map((item, index) => {
+                const { category: displayCategory, name: displayName, dims: displayDims } = getLocalizedFields(item, lang);
+                const gradeNames = {
+                  nl: {
+                    grade_a: 'Klasse A (Foutvrij)',
+                    grade_b: 'Klasse B (Meubelhout)',
+                    grade_ab: 'Klasse A/B Mix',
+                    A: 'Klasse A (Foutvrij)',
+                    B: 'Klasse B (Meubelhout)',
+                    C: 'Klasse C (Constructief)',
+                  },
+                  en: {
+                    grade_a: 'Class A (Clear)',
+                    grade_b: 'Class B (Cabinet)',
+                    grade_ab: 'Class A/B Mixed',
+                    A: 'Class A (Clear)',
+                    B: 'Class B (Cabinet)',
+                    C: 'Class C (Structural)',
+                  },
+                  de: {
+                    grade_a: 'Klasse A (Astfrei)',
+                    grade_b: 'Klasse B (Möbelholz)',
+                    grade_ab: 'Klasse A/B gemischt',
+                    A: 'Klasse A (Astfrei)',
+                    B: 'Klasse B (Möbelholz)',
+                    C: 'Klasse C (Konstruktive Qualität)',
+                  },
+                  ro: {
+                    grade_a: 'Clasa A (Fără noduri)',
+                    grade_b: 'Clasa B (Lemn pentru mobilă)',
+                    grade_ab: 'Clasa A/B amestecat',
+                    A: 'Clasa A (Fără noduri)',
+                    B: 'Clasa B (Lemn pentru mobilă)',
+                    C: 'Clasa C (Calitate constructivă)',
+                  }
+                };
+                const currentGrades = gradeNames[lang] || gradeNames.nl;
+                const gradeName = currentGrades[item.grade] || item.grade;
+
+                return (
+                  <div className="cart-item" key={item.id + '-' + index}>
+                    <div className="cart-item-header">
+                      <div>
+                        {displayCategory !== displayName && (
+                          <span className="cart-item-category">{displayCategory}</span>
                         )}
-                        {/* 4. Afmetingen */}
-                        <div>
-                          <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {item.dims}
-                        </div>
-                        {/* 5. Oplage */}
-                        <div>
-                          <strong>{getTranslation('quantityLabel')}:</strong>{' '}
-                          {item.qty.toLocaleString(lang === 'ro' ? 'ro-RO' : (lang === 'de' ? 'de-DE' : (lang === 'nl' ? 'nl-NL' : 'en-US')))}{' '}
-                          {item.categoryKey === 'brichete' ? getTranslation('pallets') : getTranslation('pieces')}
-                        </div>
-                        {/* 6. Afwerking */}
-                        <div>
-                          <strong>{lang === 'nl' ? 'Afwerking' : (lang === 'de' ? 'Oberfläche' : (lang === 'ro' ? 'Finisaj' : 'Finish'))}:</strong>{' '}
-                          {item.categoryKey === 'sawn' ? (lang === 'nl' ? 'Fijnbezaagd' : (lang === 'en' ? 'Fine-sawn / Rough-sawn' : (lang === 'de' ? 'Feinschnitt / Sägerau' : 'Tăiat brut'))) :
-                           item.categoryKey === 'planed' ? (lang === 'nl' ? 'Vierzijdig geschaafd (S4S)' : (lang === 'en' ? 'Four-sides planed (S4S)' : (lang === 'de' ? 'Vierseitig gehobelt (S4S)' : 'Rinduit pe patru fețe (S4S)'))) :
-                           item.categoryKey === 'dowels' ? (lang === 'nl' ? 'Rond geschaafd' : (lang === 'en' ? 'Round planed' : (lang === 'de' ? 'Rund gehobelt' : 'Rinduit rotund'))) :
-                           item.categoryKey === 'profiles' ? (lang === 'nl' ? 'Geprofileerd' : (lang === 'en' ? 'Moulded/Profiled' : (lang === 'de' ? 'Profiliert' : 'Profilat'))) :
-                           item.categoryKey === 'specials' ? (lang === 'nl' ? 'Op specificatie' : (lang === 'en' ? 'On custom specification' : (lang === 'de' ? 'Nach Spezifikation' : 'Conform specificației'))) :
-                           item.categoryKey === 'brichete' ? (lang === 'nl' ? 'Natuurlijk geperst, zonder chemische toevoegingen' : (lang === 'en' ? '100% Natural, chemical-free' : (lang === 'de' ? '100% Natürlich, ohne chemische Bindemittel' : '100% Natural, fără lianți chimici'))) :
-                           item.finish}
-                        </div>
-                        {/* 7. Droging */}
-                        {item.categoryKey !== 'brichete' && (
-                          <div>
-                            <strong>{lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying'))}:</strong>{' '}
-                            {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried'))) : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : (lang === 'ro' ? 'Uscat in camera (KD 10-12%)' : 'Chamber dried (KD 10-12%)')))}
-                          </div>
-                        )}
-                        {/* 8. Gestoomd */}
-                        {item.categoryKey !== 'brichete' && (
-                          <div>
-                            <strong>{lang === 'nl' ? 'Gestoomd' : (lang === 'de' ? 'Gedämpft' : (lang === 'ro' ? 'Aburit' : 'Steamed'))}:</strong>{' '}
-                            {item.steamed === 'yes' ?
-                              (lang === 'nl' ? 'Gestoomd' : (lang === 'en' ? 'Steamed' : (lang === 'de' ? 'Gedämpft' : 'Aburit'))) :
-                              (lang === 'nl' ? 'Ongestoomd' : (lang === 'en' ? 'Unsteamed' : (lang === 'de' ? 'Ungedämpft' : 'Neaburit')))}
-                          </div>
-                        )}
-                        {/* 9. FSC */}
-                        {item.categoryKey !== 'brichete' && (
-                          <div>
-                            <strong>{lang === 'nl' ? 'FSC® Certificering' : (lang === 'de' ? 'FSC®-Zertifizierung' : (lang === 'ro' ? 'Certificare FSC®' : 'FSC® Certification'))}:</strong>{' '}
-                            {item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')))}
-                          </div>
-                        )}
-                        {/* 10. Additional Info */}
-                        {item.additionalInfo && (
-                          <div style={{ wordBreak: 'break-word' }}>
-                            <strong>{lang === 'nl' ? 'Aanvullende info' : (lang === 'de' ? 'Zusatzinfo' : (lang === 'ro' ? 'Info suplimentare' : 'Additional info'))}:</strong> {item.additionalInfo}
-                          </div>
-                        )}
+                        <h4 className="cart-item-name">{displayName}</h4>
                       </div>
-                      {SHOW_PRICING && (
-                        <div className="configured-pricing-row" style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--color-border)', paddingTop: '0.75rem' }}>
+                      <button className="cart-item-remove" onClick={() => removeFromCart(index)}><i className="fa-solid fa-trash-can"></i></button>
+                    </div>
+                    {item.isConfigured ? (
+                      <div className="cart-item-specs configured-specs">
+                        <div className="configured-meta-details" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+                          {/* 2. Houtsoort */}
                           <div>
-                            {item.discountPercent > 0 && (
-                              <span className="discount-badge" style={{
-                                backgroundColor: '#fef3c7',
-                                color: '#b45309',
-                                fontSize: '0.75rem',
-                                fontWeight: '600',
-                                padding: '0.15rem 0.4rem',
-                                borderRadius: '0.25rem',
-                                display: 'inline-block',
-                              }}>
-                                {item.discountPercent}% {lang === 'nl' ? 'volumekorting' : (lang === 'de' ? 'Mengenrabatt' : (lang === 'ro' ? 'reducere de volum' : 'volume discount'))}
+                            <strong>{lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Specie de lemn' : 'Wood species'))}:</strong>{' '}
+                            {item.categoryKey === 'brichete'
+                              ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+                              : (lang === 'nl' ? 'Beuken' : (lang === 'en' ? 'Beechwood' : (lang === 'de' ? 'Buchenholz' : 'Fag')))}
+                          </div>
+                          {/* 3. Kwaliteitsklasse */}
+                          {item.categoryKey !== 'brichete' && (
+                            <div>
+                              <strong>{lang === 'nl' ? 'Kwaliteitsklasse' : (lang === 'de' ? 'Holzqualität' : (lang === 'ro' ? 'Clasă Lemn' : 'Wood Grade'))}:</strong>{' '}
+                              {item.grade === 'A' ? (lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))) :
+                               item.grade === 'B' ? (lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))) :
+                               item.grade === 'C' ? (lang === 'nl' ? 'Klasse C (Constructief)' : (lang === 'de' ? 'Klasse C (Konstruktive Qualität)' : (lang === 'ro' ? 'Clasa C (Calitate constructivă)' : 'Class C (Structural)'))) :
+                               item.grade}
+                            </div>
+                          )}
+                          {/* 4. Afmetingen */}
+                          <div>
+                            <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {displayDims}
+                          </div>
+                          {/* 5. Oplage */}
+                          <div>
+                            <strong>{getTranslation('quantityLabel')}:</strong>{' '}
+                            {item.qty.toLocaleString(lang === 'ro' ? 'ro-RO' : (lang === 'de' ? 'de-DE' : (lang === 'nl' ? 'nl-NL' : 'en-US')))}{' '}
+                            {item.categoryKey === 'brichete' ? getTranslation('pallets') : getTranslation('pieces')}
+                          </div>
+                          {/* 6. Afwerking */}
+                          <div>
+                            <strong>{lang === 'nl' ? 'Afwerking' : (lang === 'de' ? 'Oberfläche' : (lang === 'ro' ? 'Finisaj' : 'Finish'))}:</strong>{' '}
+                            {item.categoryKey === 'sawn' ? (lang === 'nl' ? 'Fijnbezaagd' : (lang === 'en' ? 'Fine-sawn / Rough-sawn' : (lang === 'de' ? 'Feinschnitt / Sägerau' : 'Tăiat brut'))) :
+                             item.categoryKey === 'planed' ? (lang === 'nl' ? 'Vierzijdig geschaafd (S4S)' : (lang === 'en' ? 'Four-sides planed (S4S)' : (lang === 'de' ? 'Vierseitig gehobelt (S4S)' : 'Rinduit pe patru fețe (S4S)'))) :
+                             item.categoryKey === 'dowels' ? (lang === 'nl' ? 'Rond geschaafd' : (lang === 'en' ? 'Round planed' : (lang === 'de' ? 'Rund gehobelt' : 'Rinduit rotund'))) :
+                             item.categoryKey === 'profiles' ? (lang === 'nl' ? 'Geprofileerd' : (lang === 'en' ? 'Moulded/Profiled' : (lang === 'de' ? 'Profiliert' : 'Profilat'))) :
+                             item.categoryKey === 'specials' ? (lang === 'nl' ? 'Op specificatie' : (lang === 'en' ? 'On custom specification' : (lang === 'de' ? 'Nach Spezifikation' : 'Conform specificației'))) :
+                             item.categoryKey === 'brichete' ? (lang === 'nl' ? 'Natuurlijk geperst, zonder chemische toevoegingen' : (lang === 'en' ? '100% Natural, chemical-free' : (lang === 'de' ? '100% Natürlich, ohne chemische Bindemittel' : '100% Natural, fără lianți chimici'))) :
+                             item.finish}
+                          </div>
+                          {/* 7. Droging */}
+                          {item.categoryKey !== 'brichete' && (
+                            <div>
+                              <strong>{lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying'))}:</strong>{' '}
+                              {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried'))) : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : (lang === 'ro' ? 'Uscat in camera (KD 10-12%)' : 'Chamber dried (KD 10-12%)')))}
+                            </div>
+                          )}
+                          {/* 8. Gestoomd */}
+                          {item.categoryKey !== 'brichete' && (
+                            <div>
+                              <strong>{lang === 'nl' ? 'Gestoomd' : (lang === 'de' ? 'Gedämpft' : (lang === 'ro' ? 'Aburit' : 'Steamed'))}:</strong>{' '}
+                              {item.steamed === 'yes' ?
+                                (lang === 'nl' ? 'Gestoomd' : (lang === 'en' ? 'Steamed' : (lang === 'de' ? 'Gedämpft' : 'Aburit'))) :
+                                (lang === 'nl' ? 'Ongestoomd' : (lang === 'en' ? 'Unsteamed' : (lang === 'de' ? 'Ungedämpft' : 'Neaburit')))}
+                            </div>
+                          )}
+                          {/* 9. FSC */}
+                          {item.categoryKey !== 'brichete' && (
+                            <div>
+                              <strong>{lang === 'nl' ? 'FSC® Certificering' : (lang === 'de' ? 'FSC®-Zertifizierung' : (lang === 'ro' ? 'Certificare FSC®' : 'FSC® Certification'))}:</strong>{' '}
+                              {item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')))}
+                            </div>
+                          )}
+                          {/* 10. Additional Info */}
+                          {item.additionalInfo && (
+                            <div style={{ wordBreak: 'break-word' }}>
+                              <strong>{lang === 'nl' ? 'Aanvullende info' : (lang === 'de' ? 'Zusatzinfo' : (lang === 'ro' ? 'Info suplimentare' : 'Additional info'))}:</strong> {item.additionalInfo}
+                            </div>
+                          )}
+                        </div>
+                        {SHOW_PRICING && (
+                          <div className="configured-pricing-row" style={{ marginTop: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px dashed var(--color-border)', paddingTop: '0.75rem' }}>
+                            <div>
+                              {item.discountPercent > 0 && (
+                                <span className="discount-badge" style={{
+                                  backgroundColor: '#fef3c7',
+                                  color: '#b45309',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '600',
+                                  padding: '0.15rem 0.4rem',
+                                  borderRadius: '0.25rem',
+                                  display: 'inline-block',
+                                }}>
+                                  {item.discountPercent}% {lang === 'nl' ? 'volumekorting' : (lang === 'de' ? 'Mengenrabatt' : (lang === 'ro' ? 'reducere de volum' : 'volume discount'))}
+                                </span>
+                              )}
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
+                                {lang === 'nl' ? 'Richtprijs (excl. btw)' : (lang === 'de' ? 'Richtpreis (exkl. MwSt.)' : (lang === 'ro' ? 'Preț țintă (excl. TVA)' : 'Target price (excl. VAT)'))}
                               </span>
-                            )}
+                              <strong style={{ fontSize: '1.05rem', color: 'var(--color-forest-dark)' }}>
+                                € {formatEuro(item.price)}
+                              </strong>
+                            </div>
                           </div>
-                          <div style={{ textAlign: 'right' }}>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', display: 'block' }}>
-                              {lang === 'nl' ? 'Richtprijs (excl. btw)' : (lang === 'de' ? 'Richtpreis (exkl. MwSt.)' : (lang === 'ro' ? 'Preț țintă (excl. TVA)' : 'Target price (excl. VAT)'))}
-                            </span>
-                            <strong style={{ fontSize: '1.05rem', color: 'var(--color-forest-dark)' }}>
-                              € {formatEuro(item.price)}
-                            </strong>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="cart-item-specs" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
-                      <div>
-                        <strong>{getTranslation('quantityLabel')}:</strong> {item.qty}
+                        )}
                       </div>
-                      <div>
-                        <strong>{getTranslation('woodGradeLabel')}:</strong> {gradeName}
-                      </div>
-                      {item.dims && (
+                    ) : (
+                      <div className="cart-item-specs" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
                         <div>
-                          <strong>{getTranslation('dimsLabel')}:</strong> {item.dims}
+                          <strong>{getTranslation('quantityLabel')}:</strong> {item.qty}
                         </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))
+                        <div>
+                          <strong>{getTranslation('woodGradeLabel')}:</strong> {gradeName}
+                        </div>
+                        {displayDims && (
+                          <div>
+                            <strong>{getTranslation('dimsLabel')}:</strong> {displayDims}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
             )}
           </div>
 
