@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useInquiry } from './InquiryContext';
+import CustomSelect from './CustomSelect';
 
 const teamMemberData = {
   gabriela: {
@@ -627,37 +628,21 @@ export default function ContactSection() {
                     <label htmlFor="form_product_type">
                       {getTranslation('productInterestLabel')}
                     </label>
-                    <select
+                    <CustomSelect
                       id="form_product_type"
-                      required
                       value={productType}
                       onChange={(e) => setProductType(e.target.value)}
-                    >
-                      <option value="" disabled>
-                        {getTranslation('selectCategory')}
-                      </option>
-                      <option value="dowels">
-                        {getTranslation('interestDowels')}
-                      </option>
-                      <option value="planed">
-                        {getTranslation('interestPlaned')}
-                      </option>
-                      <option value="profiles">
-                        {getTranslation('interestProfiles')}
-                      </option>
-                      <option value="specials">
-                        {getTranslation('interestSpecials')}
-                      </option>
-                      <option value="blanks">
-                        {getTranslation('interestBlanks')}
-                      </option>
-                      <option value="general">
-                        {getTranslation('interestGeneral')}
-                      </option>
-                      <option value="careers">
-                        {getTranslation('interestCareers')}
-                      </option>
-                    </select>
+                      options={[
+                        { value: '', label: getTranslation('selectCategory') },
+                        { value: 'dowels', label: getTranslation('interestDowels') },
+                        { value: 'planed', label: getTranslation('interestPlaned') },
+                        { value: 'profiles', label: getTranslation('interestProfiles') },
+                        { value: 'specials', label: getTranslation('interestSpecials') },
+                        { value: 'blanks', label: getTranslation('interestBlanks') },
+                        { value: 'general', label: getTranslation('interestGeneral') },
+                        { value: 'careers', label: getTranslation('interestCareers') }
+                      ]}
+                    />
                   </div>
 
                   <div className="form-group">

@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
+import CustomSelect from '@/components/CustomSelect';
 
 
 // Configurator Sizing Rules
@@ -1628,23 +1629,26 @@ export default function Configurator() {
                 {/* Houtsoort */}
                 <div className="control-group">
                   <label htmlFor="dbWoodType">{getTranslation('woodSpeciesRow')}</label>
-                  <select id="dbWoodType" className="dashboard-select" value={woodType} disabled={true}>
-                    <option value="beech">{getTranslation('beechwoodValue')}</option>
-                  </select>
+                  <CustomSelect
+                    id="dbWoodType"
+                    className="dashboard-select"
+                    value={woodType}
+                    disabled={true}
+                    options={[{ value: 'beech', label: getTranslation('beechwoodValue') }]}
+                  />
                 </div>
 
                 {/* Gestoomd */}
                 {category !== 'brichete' && (
                   <div className="control-group">
                     <label htmlFor="dbSteamed">{getTranslation('steamedRow')}</label>
-                    <select
+                    <CustomSelect
                       id="dbSteamed"
                       className="dashboard-select"
                       value={steamed}
                       disabled={true}
-                    >
-                      <option value="no">{getTranslation('steamedValueNo')}</option>
-                    </select>
+                      options={[{ value: 'no', label: getTranslation('steamedValueNo') }]}
+                    />
                   </div>
                 )}
 
@@ -1661,33 +1665,35 @@ export default function Configurator() {
                       <i className="fa-regular fa-circle-question"></i>
                     </button>
                   </label>
-                  <select
+                  <CustomSelect
                     id="dbDrying"
                     className="dashboard-select"
                     value={drying}
                     disabled={category !== 'sawn' && category !== 'specials'}
                     onChange={(e) => setDrying(e.target.value)}
-                  >
-                    <option value="kd">{getTranslation('dryingValueKiln')}</option>
-                    {(category === 'sawn' || category === 'specials') && (
-                      <option value="luchtdroog">{getTranslation('dryingValueAir')}</option>
-                    )}
-                  </select>
+                    options={[
+                      { value: 'kd', label: getTranslation('dryingValueKiln') },
+                      ...((category === 'sawn' || category === 'specials')
+                        ? [{ value: 'luchtdroog', label: getTranslation('dryingValueAir') }]
+                        : [])
+                    ]}
+                  />
                 </div>
 
                 {/* Certificering */}
                 {category !== 'brichete' && (
                   <div className="control-group">
                     <label htmlFor="dbFsc">{getTranslation('certificationLabel')}</label>
-                    <select
+                    <CustomSelect
                       id="dbFsc"
                       className="dashboard-select"
                       value={fsc ? 'yes' : 'no'}
                       onChange={(e) => setFsc(e.target.value === 'yes')}
-                    >
-                      <option value="yes">{getTranslation('fscLabelFscCertifiedSelect')}</option>
-                      <option value="no">{getTranslation('fscLabelNonFsc')}</option>
-                    </select>
+                      options={[
+                        { value: 'yes', label: getTranslation('fscLabelFscCertifiedSelect') },
+                        { value: 'no', label: getTranslation('fscLabelNonFsc') }
+                      ]}
+                    />
                   </div>
                 )}
 
@@ -1705,24 +1711,19 @@ export default function Configurator() {
                         <i className="fa-regular fa-circle-question"></i>
                       </button>
                     </label>
-                    <select
+                    <CustomSelect
                       id="dbGrade"
                       className="dashboard-select"
                       value={grade}
                       onChange={(e) => setGrade(e.target.value)}
-                    >
-                      <option value="A">
-                        {getTranslation('gradeASelect')}
-                      </option>
-                      <option value="B">
-                        {getTranslation('gradeBSelect')}
-                      </option>
-                      {(category === 'sawn' || category === 'specials') && (
-                        <option value="C">
-                          {getTranslation('gradeCSelect')}
-                        </option>
-                      )}
-                    </select>
+                      options={[
+                        { value: 'A', label: getTranslation('gradeASelect') },
+                        { value: 'B', label: getTranslation('gradeBSelect') },
+                        ...((category === 'sawn' || category === 'specials')
+                          ? [{ value: 'C', label: getTranslation('gradeCSelect') }]
+                          : [])
+                      ]}
+                    />
                   </div>
                 )}
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useInquiry } from '@/components/InquiryContext';
+import CustomSelect from '@/components/CustomSelect';
 
 function ApplyFormContent() {
   const { lang } = useInquiry();
@@ -423,21 +424,19 @@ function ApplyFormContent() {
             </div>
             <div className="form-group">
               <label htmlFor="apply_job_type">{getTranslation('labelPosition')}</label>
-              <select
+              <CustomSelect
                 id="apply_job_type"
-                required
                 value={position}
                 onChange={(e) => setPosition(e.target.value)}
-              >
-                <option value="" disabled>
-                  {getTranslation('selectPositionDefault')}
-                </option>
-                <option value="planing_operator">{getTranslation('optionPlaning')}</option>
-                <option value="quality_inspector">{getTranslation('optionQuality')}</option>
-                <option value="logistics_coordinator">{getTranslation('optionLogistics')}</option>
-                <option value="maintenance_mechanic">{getTranslation('optionMaintenance')}</option>
-                <option value="general_application">{getTranslation('optionGeneral')}</option>
-              </select>
+                options={[
+                  { value: '', label: getTranslation('selectPositionDefault') },
+                  { value: 'planing_operator', label: getTranslation('optionPlaning') },
+                  { value: 'quality_inspector', label: getTranslation('optionQuality') },
+                  { value: 'logistics_coordinator', label: getTranslation('optionLogistics') },
+                  { value: 'maintenance_mechanic', label: getTranslation('optionMaintenance') },
+                  { value: 'general_application', label: getTranslation('optionGeneral') }
+                ]}
+              />
             </div>
           </div>
 

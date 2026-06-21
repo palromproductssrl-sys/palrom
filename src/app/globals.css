@@ -6093,4 +6093,15 @@ ul {
     animation: slideInRight 0.4s ease-out forwards;
 }
 
+/* Custom Select Component Overrides & Styling */
+.custom-select-trigger {
+    background-image: none !important;
+}
 
+.custom-select-trigger:disabled {
+    cursor: not-allowed;
+}
+
+.custom-select-option-item.selected {
+    font-weight: 600;
+}
