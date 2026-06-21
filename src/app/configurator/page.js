@@ -505,7 +505,7 @@ export default function Configurator() {
   const [lengthType, setLengthType] = useState('custom');
   const [length, setLength] = useState(1000);
   const [additionalInfo, setAdditionalInfo] = useState('');
-  const [quantity, setQuantity] = useState(10000);
+  const [quantity, setQuantity] = useState(500);
   const [activeTooltipModal, setActiveTooltipModal] = useState(null);
 
   useEffect(() => {
@@ -575,12 +575,10 @@ export default function Configurator() {
     }
   }, [currentMaxWidth, diameter]);
 
-  // Enforce minQty when lengthType or dimensions change
+  // Set quantity to minQty when the minimum quantity requirement changes
   useEffect(() => {
-    if (quantity < minQty) {
-      setQuantity(minQty);
-    }
-  }, [minQty, quantity]);
+    setQuantity(minQty);
+  }, [minQty]);
 
 
 
@@ -1731,14 +1729,14 @@ export default function Configurator() {
                     id="dbOplage"
                     className="dashboard-input"
                     value={quantity}
-                    min={minQty}
+                    min={1}
                     step={category === 'brichete' ? 1 : 500}
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
                       setQuantity(isNaN(val) ? '' : val);
                     }}
                     onBlur={() => {
-                      if (quantity === '' || quantity < minQty) {
+                      if (quantity === '' || isNaN(quantity) || quantity < 1) {
                         setQuantity(minQty);
                       }
                     }}
