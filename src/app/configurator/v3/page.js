@@ -664,6 +664,64 @@ export default function ChatbotConfigurator() {
     setIsCartOpen(true);
   };
 
+  const handleConfigureAnother = () => {
+    const currentItem = {
+      category,
+      subCategory: category === 'dowels' ? subCategoryDowels : category === 'profiles' ? subCategoryProfiles : category === 'specials' ? subCategorySpecials : category === 'planed' ? subCategoryPlaned : '',
+      length,
+      diameter,
+      thickness: categoryData[category].thickness ? thickness : 0,
+      quantity,
+      grade,
+      lengthType,
+      fsc,
+      drying,
+      additionalInfo,
+      woodType,
+      steamed
+    };
+
+    const calculatedBase = calculatePriceDetails(
+      currentItem.category,
+      currentItem.length,
+      currentItem.diameter,
+      currentItem.thickness,
+      1,
+      currentItem.subCategory,
+      currentItem.grade || 'A',
+      currentItem.lengthType || 'standard',
+      currentItem.drying || 'kd'
+    );
+
+    addToCart({
+      id: 'config-' + Date.now() + '-' + Math.floor(Math.random() * 1000),
+      isConfigured: true,
+      categoryKey: currentItem.category,
+      category: activeSelection.productName.split(' - ')[0],
+      name: activeSelection.productName,
+      qty: currentItem.quantity,
+      grade: currentItem.grade,
+      dims: activeSelection.dimensions,
+      fsc: currentItem.fsc,
+      drying: currentItem.drying,
+      additionalInfo: currentItem.additionalInfo,
+      price: activeSelection.price,
+      baseUnitPrice: calculatedBase.unitPrice,
+      discountPercent: activeSelection.discountPercent,
+      woodType: currentItem.woodType || 'beech',
+      steamed: currentItem.steamed || 'no',
+      finish: activeSelection.finish,
+      subCategory: currentItem.subCategory,
+      length: currentItem.length,
+      diameter: currentItem.diameter,
+      thickness: currentItem.thickness,
+    });
+
+    setNotification(getTranslation('addSuccess'));
+    setTimeout(() => setNotification(null), 4000);
+    handleStartOver();
+  };
+
   // State Machine logic for Chatbot conversation steps
   const getNextStepInfo = (currentStepId, cat, lenType, widthTypeVal, thickTypeVal) => {
     switch (currentStepId) {
@@ -1758,7 +1816,7 @@ export default function ChatbotConfigurator() {
                       <button onClick={handleFormSubmit} className="btn btn-primary btn-block" style={{ width: '100%', padding: '0.85rem' }}>
                         {getTranslation('addToInquiry')} <i className="fa-solid fa-cart-plus icon-right"></i>
                       </button>
-                      <button onClick={handleStartOver} className="btn btn-secondary btn-block" style={{ width: '100%' }}>
+                      <button onClick={handleConfigureAnother} className="btn btn-secondary btn-block" style={{ width: '100%' }}>
                         Nog een product configureren <i className="fa-solid fa-plus icon-right"></i>
                       </button>
                     </div>
