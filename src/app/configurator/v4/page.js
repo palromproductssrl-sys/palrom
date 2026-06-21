@@ -171,6 +171,18 @@ const translations = {
   configureAnother: { nl: 'Nog een product configureren', en: 'Configure another product', de: 'Anderes Produkt konfigurieren', ro: 'Configurați alt produs' },
   pieces: { nl: 'stuks', en: 'pieces', de: 'Stück', ro: 'bucăți' },
   viewCart: { nl: 'Bekijk offerteaanvraag', en: 'View quote request', de: 'Angebotsanfrage ansehen', ro: 'Vizualizați cererea de ofertă' },
+  micTooltip: {
+    nl: 'Spreek uw specificaties in',
+    en: 'Speak your specifications',
+    de: 'Sprechen Sie Ihre Spezifikationen ein',
+    ro: 'Rostiți specificațiile dvs.'
+  },
+  micListening: {
+    nl: 'Aan het luisteren... Spreek nu uw wensen in.',
+    en: 'Listening... Speak your wishes now.',
+    de: 'Zuhören... Sprechen Sie jetzt Ihre Wünsche.',
+    ro: 'Se ascultă... Rostiți specificațiile dvs. acum.'
+  },
   activeSelectionTitle: { nl: 'Gedetecteerde Specificaties', en: 'Detected Specifications', de: 'Erkannte Spezifikationen', ro: 'Specificații Detectate' },
   visualizerTitle: { nl: 'Live voorbeeld', en: 'Live preview', de: 'Live-Vorschau', ro: 'Previzualizare live' },
 
@@ -275,6 +287,89 @@ export default function OpenChatConfigurator() {
   });
 
   const chatHistoryRef = useRef(null);
+
+  const [isListening, setIsListening] = useState(false);
+  const [hasSpeechSupport, setHasSpeechSupport] = useState(false);
+  const recognitionRef = useRef(null);
+
+  // Initialize Speech Recognition on client
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        setHasSpeechSupport(true);
+        const rec = new SpeechRecognition();
+        rec.continuous = true;
+        rec.interimResults = false;
+
+        const langMap = {
+          nl: 'nl-NL',
+          en: 'en-US',
+          de: 'de-DE',
+          ro: 'ro-RO'
+        };
+        rec.lang = langMap[lang] || 'nl-NL';
+
+        rec.onstart = () => {
+          setIsListening(true);
+        };
+
+        rec.onend = () => {
+          setIsListening(false);
+        };
+
+        rec.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          setIsListening(false);
+        };
+
+        rec.onresult = (event) => {
+          const result = event.results[event.results.length - 1];
+          if (result.isFinal) {
+            const transcriptText = result[0].transcript;
+            setUserInput(prev => {
+              const base = prev.trim();
+              return base ? `${base} ${transcriptText.trim()}` : transcriptText.trim();
+            });
+          }
+        };
+
+        recognitionRef.current = rec;
+      }
+    }
+  }, [lang]);
+
+  // Clean up speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
+
+  const toggleListening = () => {
+    if (!hasSpeechSupport) {
+      alert(lang === 'nl' 
+        ? 'Spraakherkenning wordt niet ondersteund door uw browser. Gebruik een browser zoals Chrome, Safari of Edge.' 
+        : (lang === 'de'
+          ? 'Spracherkennung wird von Ihrem Browser nicht unterstützt. Bitte verwenden Sie Chrome, Safari oder Edge.'
+          : (lang === 'ro'
+            ? 'Recunoașterea vocală nu este acceptată de browser-ul dvs. Vă rugăm să folosiți Chrome, Safari sau Edge.'
+            : 'Speech recognition is not supported by your browser. Please use Chrome, Safari or Edge.')));
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      try {
+        recognitionRef.current.start();
+      } catch (err) {
+        console.error('Failed to start speech recognition:', err);
+      }
+    }
+  };
 
   // Load session storage check
   useEffect(() => {
@@ -1171,6 +1266,64 @@ export default function OpenChatConfigurator() {
           outline: none;
           border-color: var(--color-primary);
         }
+        .btn-mic {
+          background: #f1f5f9;
+          border: 1px solid var(--color-border);
+          color: #475569;
+          padding: 0.75rem;
+          border-radius: var(--border-radius-md);
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          width: 46px;
+          height: 46px;
+        }
+        .btn-mic:hover:not(:disabled) {
+          background: #e2e8f0;
+          color: var(--color-text-dark);
+        }
+        .btn-mic.listening {
+          background: #fee2e2;
+          border-color: #ef4444;
+          color: #ef4444;
+          animation: pulse-red 1.5s infinite;
+        }
+        .btn-mic:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          background: #f8fafc;
+          border-color: #e2e8f0;
+          color: #cbd5e1;
+        }
+        .speech-listening-hint {
+          font-size: 0.8rem;
+          color: #ef4444;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 0.35rem;
+          margin-top: -0.25rem;
+          margin-left: 0.25rem;
+          animation: pulse-opacity 1.5s infinite alternate;
+        }
+        @keyframes pulse-red {
+          0% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+          }
+          70% {
+            box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+          }
+        }
+        @keyframes pulse-opacity {
+          0% { opacity: 0.6; }
+          100% { opacity: 1; }
+        }
         .chat-chips-row {
           display: flex;
           gap: 0.5rem;
@@ -1423,10 +1576,29 @@ export default function OpenChatConfigurator() {
                     onChange={(e) => setUserInput(e.target.value)}
                     disabled={isTyping}
                   />
+                  <button
+                    type="button"
+                    className={`btn-mic ${isListening ? 'listening' : ''}`}
+                    onClick={toggleListening}
+                    disabled={isTyping}
+                    title={getTranslation('micTooltip')}
+                  >
+                    {isListening ? (
+                      <i className="fa-solid fa-microphone-lines"></i>
+                    ) : (
+                      <i className="fa-solid fa-microphone"></i>
+                    )}
+                  </button>
                   <button type="submit" className="btn btn-primary" disabled={isTyping || !userInput.trim()}>
                     {getTranslation('btnSend')} <i className="fa-solid fa-paper-plane icon-right"></i>
                   </button>
                 </form>
+                {isListening && (
+                  <div className="speech-listening-hint">
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', backgroundColor: '#ef4444', display: 'inline-block', marginRight: '4px' }}></span>
+                    {getTranslation('micListening')}
+                  </div>
+                )}
               </div>
             </div>
 
