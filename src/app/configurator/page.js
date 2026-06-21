@@ -1199,8 +1199,6 @@ export default function Configurator() {
         <div className="container">
           <div className="configurator-dashboard-container">
             <form onSubmit={handleFormSubmit} className="configurator-dashboard-form">
-              <h2 className="dashboard-title">{getTranslation('heroTitle')}</h2>
-              
               <div className="configurator-layout-grid">
                 <div className="configurator-form-column">
 

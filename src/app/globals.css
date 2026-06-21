@@ -4031,7 +4031,7 @@ ul {
    19. Light Mode B2B Product Configurator Dashboard (STICKING TO SITE SCHEME)
    ========================================================================== */
 .configurator-hero {
-    padding: 8.5rem 0 3.5rem;
+    padding: 8.5rem 0 1.5rem;
     background-color: #FAF7F2;
     text-align: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -4053,7 +4053,7 @@ ul {
 
 .configurator-dark-section {
     background-color: var(--color-bg-light);
-    padding: 6rem 0;
+    padding: 2.5rem 0 6rem;
     min-height: 80vh;
     display: flex;
     align-items: center;
@@ -4895,7 +4895,7 @@ ul {
 /* Responsive Dashboard */
 @media (max-width: 768px) {
     .configurator-dark-section {
-        padding: 4rem 0;
+        padding: 1.5rem 0 4rem;
     }
 
     .configurator-dashboard-form {
