@@ -5856,9 +5856,8 @@ ul {
     margin-right: 1.5rem;
     text-align: right;
     max-width: 55%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .accordion-step-arrow {
