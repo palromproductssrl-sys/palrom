@@ -124,16 +124,24 @@ if (supabaseUrl && supabaseKey) {
 
 const localizeSpecKey = (key, lang = 'nl') => {
   const dict = {
+    woodType: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
+    grade: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
     dims: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
-    grade: { nl: 'Kwaliteit', en: 'Grade', de: 'Qualität', ro: 'Calitate' },
-    fsc: { nl: 'Certificering', en: 'Certification', de: 'Zertifizierung', ro: 'Certificare' },
+    finish: { nl: 'Afwerking', en: 'Finish', de: 'Oberfläche', ro: 'Finisaj' },
     drying: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
-    additionalInfo: { nl: 'Notities', en: 'Notes', de: 'Notizen', ro: 'Note' }
+    steamed: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
+    fsc: { nl: 'FSC® Certificering', en: 'FSC® Certification', de: 'FSC®-Zertifizierung', ro: 'Certificare FSC®' },
+    additionalInfo: { nl: 'Aanvullende info', en: 'Additional info', de: 'Zusatzinfo', ro: 'Info suplimentare' }
   };
   return dict[key]?.[lang] || dict[key]?.nl || key;
 };
 
-const localizeSpecValue = (key, val, lang = 'nl') => {
+const localizeSpecValue = (key, val, lang = 'nl', categoryKey = '') => {
+  if (key === 'woodType') {
+    return categoryKey === 'brichete'
+      ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+      : (lang === 'nl' ? 'Beuken' : (lang === 'en' ? 'Beechwood' : (lang === 'de' ? 'Buchenholz' : 'Fag')));
+  }
   if (key === 'grade') {
     const grades = {
       A: { nl: 'Klasse A (Foutvrij)', en: 'Class A (Clear)', de: 'Klasse A (Astfrei)', ro: 'Clasa A (Fără noduri)' },
@@ -141,6 +149,17 @@ const localizeSpecValue = (key, val, lang = 'nl') => {
       C: { nl: 'Klasse C (Constructief)', en: 'Class C (Structural)', de: 'Klasse C (Konstruktive Qualität)', ro: 'Clasa C (Calitate constructivă)' }
     };
     return grades[val]?.[lang] || grades[val]?.nl || val;
+  }
+  if (key === 'finish') {
+    const finishes = {
+      sawn: { nl: 'Fijnbezaagd', en: 'Fine-sawn / Rough-sawn', de: 'Feinschnitt / Sägerau', ro: 'Tăiat brut' },
+      planed: { nl: 'Vierzijdig geschaafd (S4S)', en: 'Four-sides planed (S4S)', de: 'Vierseitig gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
+      dowels: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
+      profiles: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
+      specials: { nl: 'Op specificatie', en: 'On custom specification', de: 'Nach Spezifikation', ro: 'Conform specificației' },
+      brichete: { nl: 'Natuurlijk geperst, zonder chemische toevoegingen', en: '100% Natural, chemical-free', de: '100% Natürlich, ohne chemische Bindemittel', ro: '100% Natural, fără lianți chimici' }
+    };
+    return finishes[categoryKey]?.[lang] || finishes[val]?.[lang] || val;
   }
   if (key === 'fsc') {
     const fscVals = {
@@ -156,6 +175,9 @@ const localizeSpecValue = (key, val, lang = 'nl') => {
       kd: { nl: 'Kamerdroog (KD 10-12%)', en: 'Kiln-dried (KD 10-12%)', de: 'Kammergetrocknet (KD 10-12%)', ro: 'Uscat în cuptor (KD 10-12%)' }
     };
     return dryingVals[val]?.[lang] || dryingVals[val]?.nl || val;
+  }
+  if (key === 'steamed') {
+    return lang === 'nl' ? 'Nee (Ongestoomd)' : (lang === 'en' ? 'No (Unsteamed)' : (lang === 'de' ? 'Nein (Ungedämpft)' : 'Nu (Neaburit)'));
   }
   return val;
 };
@@ -272,16 +294,18 @@ export async function POST(request) {
               acc[`Nume produs ${index + 1} (Product ${index + 1} Name)`] = item.name;
               acc[`Cantitate produs ${index + 1} (Product ${index + 1} Qty)`] = item.qty;
               
-              Object.entries(item).forEach(([k, v]) => {
-                if (['id', 'isConfigured', 'name', 'category', 'categoryKey', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return;
+              const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+              orderedKeys.forEach((k) => {
+                const v = item[k];
                 if (v === undefined || v === null || v === '') return;
+                if (item.categoryKey === 'brichete' && ['grade', 'drying', 'steamed', 'fsc'].includes(k)) return;
                 
                 const labelRo = localizeSpecKey(k, 'ro');
                 const labelEn = localizeSpecKey(k, 'en');
                 const label = `${labelRo} (${labelEn})`;
                 
-                const valRo = localizeSpecValue(k, v, 'ro');
-                const valEn = localizeSpecValue(k, v, 'en');
+                const valRo = localizeSpecValue(k, v, 'ro', item.categoryKey);
+                const valEn = localizeSpecValue(k, v, 'en', item.categoryKey);
                 const val = valRo === valEn ? valRo : `${valRo} (${valEn})`;
                 
                 acc[`Produsul ${index + 1} - ${label}`] = val;
@@ -305,17 +329,19 @@ export async function POST(request) {
       // 1. Send internal notification email to sales office (always in English for tests)
       try {
         const itemsHtml = items.map((item, index) => {
-          const specsList = Object.entries(item).map(([k, v]) => {
-            if (['id', 'isConfigured', 'name', 'category', 'categoryKey', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
+          const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+          const specsList = orderedKeys.map((k) => {
+            const v = item[k];
             if (v === undefined || v === null || v === '') return null;
+            if (item.categoryKey === 'brichete' && ['grade', 'drying', 'steamed', 'fsc'].includes(k)) return null;
             
             // Render specifications in Romanian + English for sales office
             const labelRo = localizeSpecKey(k, 'ro');
             const labelEn = localizeSpecKey(k, 'en');
             const label = `${labelRo} (${labelEn})`;
 
-            const valRo = localizeSpecValue(k, v, 'ro');
-            const valEn = localizeSpecValue(k, v, 'en');
+            const valRo = localizeSpecValue(k, v, 'ro', item.categoryKey);
+            const valEn = localizeSpecValue(k, v, 'en', item.categoryKey);
             const val = valRo === valEn ? valRo : `${valRo} (${valEn})`;
             
             return `
@@ -617,12 +643,14 @@ export async function POST(request) {
         }[emailLang] || 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.';
 
         const clientItemsHtml = items.map((item, index) => {
-          const specsList = Object.entries(item).map(([k, v]) => {
-            if (['id', 'isConfigured', 'name', 'category', 'categoryKey', 'qty', 'price', 'baseUnitPrice', 'discountPercent'].includes(k)) return null;
+          const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+          const specsList = orderedKeys.map((k) => {
+            const v = item[k];
             if (v === undefined || v === null || v === '') return null;
+            if (item.categoryKey === 'brichete' && ['grade', 'drying', 'steamed', 'fsc'].includes(k)) return null;
             
             const label = localizeSpecKey(k, emailLang);
-            const val = localizeSpecValue(k, v, emailLang);
+            const val = localizeSpecValue(k, v, emailLang, item.categoryKey);
             
             return `
               <tr>

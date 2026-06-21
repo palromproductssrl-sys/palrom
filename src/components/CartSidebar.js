@@ -121,6 +121,18 @@ export default function CartSidebar() {
       de: 'Menge',
       ro: 'Cantitate'
     },
+    pieces: {
+      nl: 'stuks',
+      en: 'pieces',
+      de: 'Stück',
+      ro: 'bucăți'
+    },
+    pallets: {
+      nl: 'pallets',
+      en: 'pallets',
+      de: 'Paletten',
+      ro: 'paleți'
+    },
     woodGradeLabel: {
       nl: 'Kwaliteitsklasse',
       en: 'Wood Grade',
@@ -344,14 +356,15 @@ export default function CartSidebar() {
                   </div>
                   {item.isConfigured ? (
                     <div className="cart-item-specs configured-specs">
-                      <div className="cart-spec-group">
-                        <label>{getTranslation('quantityLabel')}</label>
-                        <input type="number" className="cart-spec-qty" value={item.qty} min="1" onChange={(e) => handleQtyChange(index, e.target.value)} />
-                      </div>
-                      <div className="configured-meta-details" style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+                      <div className="configured-meta-details" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+                        {/* 2. Houtsoort */}
                         <div>
-                          <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {item.dims}
+                          <strong>{lang === 'nl' ? 'Houtsoort' : (lang === 'de' ? 'Holzart' : (lang === 'ro' ? 'Specie de lemn' : 'Wood species'))}:</strong>{' '}
+                          {item.categoryKey === 'brichete'
+                            ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+                            : (lang === 'nl' ? 'Beuken' : (lang === 'en' ? 'Beechwood' : (lang === 'de' ? 'Buchenholz' : 'Fag')))}
                         </div>
+                        {/* 3. Kwaliteitsklasse */}
                         {item.categoryKey !== 'brichete' && (
                           <div>
                             <strong>{lang === 'nl' ? 'Kwaliteitsklasse' : (lang === 'de' ? 'Holzqualität' : (lang === 'ro' ? 'Clasă Lemn' : 'Wood Grade'))}:</strong>{' '}
@@ -361,18 +374,49 @@ export default function CartSidebar() {
                              item.grade}
                           </div>
                         )}
+                        {/* 4. Afmetingen */}
                         <div>
-                          <strong>{lang === 'nl' ? 'Certificering' : (lang === 'de' ? 'Zertifizierung' : (lang === 'ro' ? 'Certificare' : 'Certification'))}:</strong>{' '}
-                          {item.categoryKey === 'brichete'
-                            ? (lang === 'ro' ? '100% Natural, fără lianți' : (lang === 'nl' ? '100% Natuurlijk, chemicaliënvrij' : (lang === 'de' ? '100% Natürlich, ohne Zusätze' : '100% Natural, chemical-free')))
-                            : (item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC'))))}
+                          <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {item.dims}
                         </div>
+                        {/* 5. Oplage */}
+                        <div>
+                          <strong>{getTranslation('quantityLabel')}:</strong>{' '}
+                          {item.qty.toLocaleString(lang === 'ro' ? 'ro-RO' : (lang === 'de' ? 'de-DE' : (lang === 'nl' ? 'nl-NL' : 'en-US')))}{' '}
+                          {item.categoryKey === 'brichete' ? getTranslation('pallets') : getTranslation('pieces')}
+                        </div>
+                        {/* 6. Afwerking */}
+                        <div>
+                          <strong>{lang === 'nl' ? 'Afwerking' : (lang === 'de' ? 'Oberfläche' : (lang === 'ro' ? 'Finisaj' : 'Finish'))}:</strong>{' '}
+                          {item.categoryKey === 'sawn' ? (lang === 'nl' ? 'Fijnbezaagd' : (lang === 'en' ? 'Fine-sawn / Rough-sawn' : (lang === 'de' ? 'Feinschnitt / Sägerau' : 'Tăiat brut'))) :
+                           item.categoryKey === 'planed' ? (lang === 'nl' ? 'Vierzijdig geschaafd (S4S)' : (lang === 'en' ? 'Four-sides planed (S4S)' : (lang === 'de' ? 'Vierseitig gehobelt (S4S)' : 'Rinduit pe patru fețe (S4S)'))) :
+                           item.categoryKey === 'dowels' ? (lang === 'nl' ? 'Rond geschaafd' : (lang === 'en' ? 'Round planed' : (lang === 'de' ? 'Rund gehobelt' : 'Rinduit rotund'))) :
+                           item.categoryKey === 'profiles' ? (lang === 'nl' ? 'Geprofileerd' : (lang === 'en' ? 'Moulded/Profiled' : (lang === 'de' ? 'Profiliert' : 'Profilat'))) :
+                           item.categoryKey === 'specials' ? (lang === 'nl' ? 'Op specificatie' : (lang === 'en' ? 'On custom specification' : (lang === 'de' ? 'Nach Spezifikation' : 'Conform specificației'))) :
+                           item.categoryKey === 'brichete' ? (lang === 'nl' ? 'Natuurlijk geperst, zonder chemische toevoegingen' : (lang === 'en' ? '100% Natural, chemical-free' : (lang === 'de' ? '100% Natürlich, ohne chemische Bindemittel' : '100% Natural, fără lianți chimici'))) :
+                           item.finish}
+                        </div>
+                        {/* 7. Droging */}
                         {item.categoryKey !== 'brichete' && (
                           <div>
                             <strong>{lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying'))}:</strong>{' '}
-                            {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried'))) : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : (lang === 'ro' ? 'Uscat în cameră (KD 10-12%)' : 'Chamber dried (KD 10-12%)')))}
+                            {item.drying === 'luchtdroog' ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'de' ? 'Luftgetrocknet' : (lang === 'ro' ? 'Uscat natural' : 'Air-dried'))) : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : (lang === 'de' ? 'Kammergetrocknet (KD 10-12%)' : (lang === 'ro' ? 'Uscat in camera (KD 10-12%)' : 'Chamber dried (KD 10-12%)')))}
                           </div>
                         )}
+                        {/* 8. Gestoomd */}
+                        {item.categoryKey !== 'brichete' && (
+                          <div>
+                            <strong>{lang === 'nl' ? 'Gestoomd' : (lang === 'de' ? 'Gedämpft' : (lang === 'ro' ? 'Aburit' : 'Steamed'))}:</strong>{' '}
+                            {lang === 'nl' ? 'Nee (Ongestoomd)' : (lang === 'en' ? 'No (Unsteamed)' : (lang === 'de' ? 'Nein (Ungedämpft)' : 'Nu (Neaburit)'))}
+                          </div>
+                        )}
+                        {/* 9. FSC */}
+                        {item.categoryKey !== 'brichete' && (
+                          <div>
+                            <strong>{lang === 'nl' ? 'FSC® Certificering' : (lang === 'de' ? 'FSC®-Zertifizierung' : (lang === 'ro' ? 'Certificare FSC®' : 'FSC® Certification'))}:</strong>{' '}
+                            {item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')))}
+                          </div>
+                        )}
+                        {/* 10. Additional Info */}
                         {item.additionalInfo && (
                           <div style={{ wordBreak: 'break-word' }}>
                             <strong>{lang === 'nl' ? 'Aanvullende info' : (lang === 'de' ? 'Zusatzinfo' : (lang === 'ro' ? 'Info suplimentare' : 'Additional info'))}:</strong> {item.additionalInfo}
@@ -408,31 +452,18 @@ export default function CartSidebar() {
                       )}
                     </div>
                   ) : (
-                    <div className="cart-item-specs">
-                      <div className="cart-spec-row">
-                        <div className="cart-spec-group">
-                          <label>{getTranslation('quantityLabel')}</label>
-                          <input type="number" className="cart-spec-qty" value={item.qty} min="1" onChange={(e) => handleQtyChange(index, e.target.value)} />
-                        </div>
-                        <div className="cart-spec-group">
-                          <label>{getTranslation('woodGradeLabel')}</label>
-                          <select className="cart-spec-grade" value={item.grade} onChange={(e) => handleGradeChange(index, e.target.value)}>
-                            <option value="grade_a">
-                              {lang === 'nl' ? 'Klasse A (Foutvrij)' : (lang === 'de' ? 'Klasse A (Astfrei)' : (lang === 'ro' ? 'Clasa A (Fără noduri)' : 'Class A (Clear)'))}
-                            </option>
-                            <option value="grade_b">
-                              {lang === 'nl' ? 'Klasse B (Meubelhout)' : (lang === 'de' ? 'Klasse B (Möbelholz)' : (lang === 'ro' ? 'Clasa B (Lemn pentru mobilă)' : 'Class B (Cabinet)'))}
-                            </option>
-                            <option value="grade_ab">
-                              {lang === 'nl' ? 'Klasse A/B Mix' : (lang === 'de' ? 'Klasse A/B gemischt' : (lang === 'ro' ? 'Clasa A/B amestecat' : 'Class A/B Mixed'))}
-                            </option>
-                          </select>
-                        </div>
+                    <div className="cart-item-specs" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.8rem' }}>
+                      <div>
+                        <strong>{getTranslation('quantityLabel')}:</strong> {item.qty}
                       </div>
-                      <div className="cart-spec-group">
-                        <label>{getTranslation('dimsLabel')}</label>
-                        <input type="text" className="cart-spec-dims" value={item.dims || ''} placeholder={getTranslation('dimsPlaceholder')} onChange={(e) => handleDimsChange(index, e.target.value)} />
+                      <div>
+                        <strong>{getTranslation('woodGradeLabel')}:</strong> {gradeName}
                       </div>
+                      {item.dims && (
+                        <div>
+                          <strong>{getTranslation('dimsLabel')}:</strong> {item.dims}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

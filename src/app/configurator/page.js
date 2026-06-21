@@ -11,7 +11,12 @@ import { useInquiry } from '@/components/InquiryContext';
 const categoryData = {
   sawn: {
     id: 'sawn',
-    name: { nl: 'Gezaagd hout', en: 'Rough-sawn timber', de: 'Schnittholz', ro: 'Lemn tăiat' },
+    name: {
+      nl: 'Beukenhouten blanks',
+      en: 'Beechwood blanks',
+      de: 'Buchenholz-Blanks',
+      ro: 'Piese brute din lemn de fag (blanks)'
+    },
     length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 25, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
@@ -19,7 +24,12 @@ const categoryData = {
   },
   planed: {
     id: 'planed',
-    name: { nl: 'Vierkant geschaafd (S4S)', en: 'Square planed (S4S)', de: 'Vierkant gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
+    name: {
+      nl: 'Beukenhouten latten',
+      en: 'Beechwood slats',
+      de: 'Buchenholzleisten',
+      ro: 'Șipci din lemn de fag'
+    },
     length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
@@ -27,14 +37,24 @@ const categoryData = {
   },
   dowels: {
     id: 'dowels',
-    name: { nl: 'Rond geschaafde stokken', en: 'Round planed sticks', de: 'Rund gehobelte Stäbe', ro: 'Tije rotunde rindeluite' },
+    name: {
+      nl: 'Beukenhouten stokken',
+      en: 'Beechwood sticks',
+      de: 'Buchenholzstäbe',
+      ro: 'Tije din lemn de fag'
+    },
     length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
     finish: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
   },
   profiles: {
     id: 'profiles',
-    name: { nl: 'Geschaafde plinten en profielen', en: 'Planed skirting & profiles', de: 'Gehobelte Leisten & Profile', ro: 'Plinte și profile rindeluite' },
+    name: {
+      nl: 'Beukenhouten profielen',
+      en: 'Beechwood profiles',
+      de: 'Buchenholzprofile',
+      ro: 'Profile din lemn de fag'
+    },
     length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
@@ -42,7 +62,12 @@ const categoryData = {
   },
   specials: {
     id: 'specials',
-    name: { nl: 'Specials', en: 'Specials', de: 'Spezialteile', ro: 'Speciale' },
+    name: {
+      nl: 'Beukenhouten bestekken',
+      en: 'Beechwood specials',
+      de: 'Buchenholz-Zuschnitte',
+      ro: 'Piese brute din lemn de fag'
+    },
     length: { min: 50, max: 3000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
@@ -258,8 +283,10 @@ function getPlanedMaxWidth(tVal) {
 function getMinQuantityForCustom(cat, len, diam) {
   const areaPerPiece = (diam * len) / 1000000.0;
   if (areaPerPiece <= 0) return 500;
-  const minQty = Math.ceil(18.0 / areaPerPiece);
-  return Math.max(500, minQty);
+  const rawMinQty = Math.ceil(18.0 / areaPerPiece);
+  // Round up to the nearest multiple of 500 to keep quantity options clean (e.g. 500, 1000, 1500)
+  const roundedMinQty = Math.ceil(rawMinQty / 500) * 500;
+  return Math.max(500, roundedMinQty);
 }
 
 function formatEuro(val, decimals = 2) {
@@ -415,9 +442,11 @@ function WoodVisualizer({ selection, lang }) {
           )}
         </svg>
 
-        <div style={{ position: 'absolute', bottom: '8px', left: '0', right: '0', textAlign: 'center', fontSize: '0.78rem', fontWeight: '700', color: 'var(--color-forest-dark)', backgroundColor: 'rgba(255, 255, 255, 0.85)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block', margin: '0 auto', width: 'fit-content', border: '1px solid var(--color-border)' }}>
-          {selection.dimensions}
-        </div>
+        {selection.dimensions && (
+          <div style={{ position: 'absolute', bottom: '8px', left: '0', right: '0', textAlign: 'center', fontSize: '0.78rem', fontWeight: '700', color: 'var(--color-forest-dark)', backgroundColor: 'rgba(255, 255, 255, 0.85)', padding: '2px 8px', borderRadius: '4px', display: 'inline-block', margin: '0 auto', width: 'fit-content', border: '1px solid var(--color-border)' }}>
+            {selection.dimensions}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -429,11 +458,18 @@ function SelectionSummary({ selection, lang }) {
   const t = {
     title: { nl: 'Uw configuratie', en: 'Your configuration', de: 'Ihre Konfiguration', ro: 'Configurația dvs.' },
     product: { nl: 'Product', en: 'Product', de: 'Produkt', ro: 'Produs' },
+    woodSpecies: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
+    beechwood: { nl: 'Beuken', en: 'Beechwood', de: 'Buchenholz', ro: 'Fag' },
+    grade: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
     dimensions: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
-    grade: { nl: 'Kwaliteit', en: 'Grade', de: 'Qualität', ro: 'Calitate' },
+    qty: { nl: 'Oplage', en: 'Quantity', de: 'Auflage', ro: 'Cantitate' },
+    finish: { nl: 'Afwerking', en: 'Finish', de: 'Oberfläche', ro: 'Finisaj' },
     drying: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
-    certification: { nl: 'Certificering', en: 'Certification', de: 'Zertifizierung', ro: 'Certificare' },
-    qty: { nl: 'Aantal', en: 'Quantity', de: 'Menge', ro: 'Cantitate' },
+    steamed: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
+    steamedValueNo: { nl: 'Nee (Ongestoomd)', en: 'No (Unsteamed)', de: 'Nein (Ungedämpft)', ro: 'Nu (Neaburit)' },
+    fsc: { nl: 'FSC® Certificering', en: 'FSC® Certification', de: 'FSC®-Zertifizierung', ro: 'Certificare FSC®' },
+    yes: { nl: 'Ja', en: 'Yes', de: 'Ja', ro: 'Da' },
+    no: { nl: 'Nee', en: 'No', de: 'Nein', ro: 'Nu' },
     price: { nl: 'Richtprijs (excl. btw)', en: 'Target Price (excl. VAT)', de: 'Richtpreis (exkl. MwSt.)', ro: 'Preț Țintă (excl. TVA)' },
   };
 
@@ -444,52 +480,88 @@ function SelectionSummary({ selection, lang }) {
     ro: { A: 'Clasa A (Fără noduri)', B: 'Clasa B (Lemn pentru mobilă)', C: 'Clasa C (Calitate constructivă)' }
   };
 
+  const dryingValues = {
+    luchtdroog: { nl: 'Luchtdroog', en: 'Air-dried', de: 'Luftgetrocknet', ro: 'Uscat natural' },
+    kd: { nl: 'Kamerdroog (KD 10-12%)', en: 'Chamber-dried (KD 10-12%)', de: 'Kammergetrocknet (KD 10-12%)', ro: 'Uscat în cameră (KD 10-12%)' }
+  };
+
   const getVal = (dict, key) => dict[key]?.[lang] || dict[key]?.en || key;
 
   return (
-    <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.65rem 1rem', boxShadow: 'var(--shadow-sm)', height: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+    <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.65rem 1rem', boxShadow: 'var(--shadow-sm)', minHeight: '250px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
       <h3 style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-forest-dark)', marginTop: 0, marginBottom: '0.4rem', borderBottom: '1px solid #edf2f7', paddingBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
         <i className="fa-solid fa-list-check" style={{ color: 'var(--color-primary-dark)' }}></i>
         {getVal(t, 'title')}
       </h3>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', fontSize: '0.8rem' }}>
-        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '2px' }}>
+        {/* 1. Product */}
+        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
           <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'product')}: </span>
           <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.productName}</span>
         </div>
+        {/* 2. Houtsoort */}
         <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'dimensions')}: </span>
-          <span style={{ fontWeight: 600 }}>{selection.dimensions}</span>
+          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'woodSpecies')}: </span>
+          <span style={{ fontWeight: 600 }}>
+            {selection.category === 'brichete'
+              ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+              : getVal(t, 'beechwood')}
+          </span>
         </div>
-        {selection.category !== 'brichete' && (
+        {/* 3. Kwaliteitsklasse */}
+        {selection.grade && selection.category !== 'brichete' && (
           <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
             <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'grade')}: </span>
             <span style={{ fontWeight: 600 }}>{gradeNames[lang]?.[selection.grade] || selection.grade}</span>
           </div>
         )}
-        {selection.category !== 'brichete' && (
+        {/* 4. Afmetingen */}
+        {selection.dimensions && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'dimensions')}: </span>
+            <span style={{ fontWeight: 600 }}>{selection.dimensions}</span>
+          </div>
+        )}
+        {/* 5. Oplage */}
+        {selection.qtyText && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'qty')}: </span>
+            <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.qtyText}</span>
+          </div>
+        )}
+        {/* 6. Afwerking */}
+        {selection.finish && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'finish')}: </span>
+            <span style={{ fontWeight: 600 }}>{selection.finish}</span>
+          </div>
+        )}
+        {/* 7. Droging */}
+        {selection.drying && selection.category !== 'brichete' && (
           <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
             <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'drying')}: </span>
             <span style={{ fontWeight: 600 }}>
-              {selection.drying === 'luchtdroog'
-                ? (lang === 'nl' ? 'Luchtdroog' : (lang === 'ro' ? 'Uscat natural' : (lang === 'de' ? 'Luftgetrocknet' : 'Air-dried')))
-                : (lang === 'nl' ? 'Kamerdroog (KD)' : (lang === 'ro' ? 'Uscat în cameră' : (lang === 'de' ? 'Kammergetrocknet' : 'Kiln-dried')))}
+              {dryingValues[selection.drying]?.[lang] || dryingValues.kd[lang]}
             </span>
           </div>
         )}
-        {selection.category !== 'brichete' && (
+        {/* 8. Gestoomd */}
+        {selection.steamed && selection.category !== 'brichete' && (
           <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'certification')}: </span>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'steamed')}: </span>
+            <span style={{ fontWeight: 600 }}>{getVal(t, 'steamedValueNo')}</span>
+          </div>
+        )}
+        {/* 9. FSC */}
+        {selection.fsc !== undefined && selection.category !== 'brichete' && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'fsc')}: </span>
             <span style={{ fontWeight: 600 }}>
               {selection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
             </span>
           </div>
         )}
-        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'qty')}: </span>
-          <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.qtyText}</span>
-        </div>
-        {SHOW_PRICING && (
+        {SHOW_PRICING && selection.price !== undefined && (
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', borderTop: '1px solid #edf2f7', paddingTop: '4px', marginTop: '4px' }}>
             <span style={{ color: 'var(--color-text-muted)', fontWeight: 500, marginRight: '0.5rem' }}>{getVal(t, 'price')}: </span>
             <span style={{ fontWeight: 700, color: 'var(--color-primary-dark)', fontSize: '0.95rem' }}>
@@ -521,7 +593,7 @@ export default function Configurator() {
       return;
     }
 
-    if (configuratorRef.current) {
+    if (currentStep && configuratorRef.current) {
       const elementRect = configuratorRef.current.getBoundingClientRect();
       const absoluteElementTop = elementRect.top + window.scrollY;
       const offset = 115; // Offset for fixed header + margin spacing
@@ -981,6 +1053,52 @@ export default function Configurator() {
 
   const activeSelection = getActiveSelectionDetails();
 
+  const [confirmedSelection, setConfirmedSelection] = useState(null);
+
+  useEffect(() => {
+    if (currentStep === 1) {
+      setConfirmedSelection(null);
+    } else if (currentStep === 2) {
+      const liveDetails = getActiveSelectionDetails();
+      setConfirmedSelection({
+        category: liveDetails.category,
+        productName: liveDetails.productName,
+        woodType: liveDetails.woodType,
+        finish: liveDetails.finish,
+        grade: liveDetails.grade,
+        dimensions: liveDetails.dimensions,
+        drying: liveDetails.drying,
+        steamed: liveDetails.steamed,
+        fsc: liveDetails.fsc,
+        length: liveDetails.length,
+        diameter: liveDetails.diameter,
+        thickness: liveDetails.thickness,
+      });
+    } else if (currentStep === 3) {
+      const liveDetails = getActiveSelectionDetails();
+      setConfirmedSelection({
+        category: liveDetails.category,
+        productName: liveDetails.productName,
+        woodType: liveDetails.woodType,
+        finish: liveDetails.finish,
+        grade: liveDetails.grade,
+        dimensions: liveDetails.dimensions,
+        drying: liveDetails.drying,
+        steamed: liveDetails.steamed,
+        fsc: liveDetails.fsc,
+        length: liveDetails.length,
+        diameter: liveDetails.diameter,
+        thickness: liveDetails.thickness,
+        qtyText: liveDetails.qtyText,
+        qtyVal: liveDetails.qtyVal,
+        price: liveDetails.price,
+        unitPrice: liveDetails.unitPrice,
+        discountPercent: liveDetails.discountPercent,
+        additionalInfo: liveDetails.additionalInfo,
+      });
+    }
+  }, [currentStep, category, subCategoryDowels, subCategoryProfiles, subCategorySpecials, subCategoryPlaned, woodType, grade, thickness, diameter, length, quantity, additionalInfo, fsc, drying, steamed, lang]);
+
   const handleAddConfiguration = () => {
     const rawItem = {
       category,
@@ -1103,6 +1221,9 @@ export default function Configurator() {
       price: resolvedDetails.price, // Calculated target price
       baseUnitPrice: calculatedBase.unitPrice, // Store the base unit price (before qty discounts) for cart calculations
       discountPercent: resolvedDetails.discountPercent, // Save the calculated volume discount
+      woodType: currentItem.woodType || 'beech',
+      steamed: currentItem.steamed || 'no',
+      finish: resolvedDetails.finish,
     });
     // Reset configurator fields
     const data = categoryData[category];
@@ -1252,7 +1373,7 @@ export default function Configurator() {
               <div className={`accordion-step-panel ${currentStep === 1 ? 'active' : ''} ${highestStepReached > 1 ? 'completed' : ''}`}>
                 <div 
                   className="accordion-step-header"
-                  onClick={() => { if (highestStepReached >= 1) setCurrentStep(1); }}
+                  onClick={() => { if (highestStepReached >= 1) setCurrentStep(prev => prev === 1 ? null : 1); }}
                   style={highestStepReached < 1 ? { cursor: 'not-allowed' } : {}}
                 >
                   <div className="accordion-step-header-left">
@@ -1289,7 +1410,19 @@ export default function Configurator() {
                            <Image src={cat.img} alt="" className="card-bg-image" width={300} height={98} />
                           <div className="card-overlay"></div>
                           <div className="card-info-overlay">
-                            <span className="card-label">{cat.name[lang] || cat.name.nl}</span>
+                            <span className="card-label">
+                              {cat.id === 'brichete' ? (
+                                lang === 'nl' ? (
+                                  <>Beukenhout<br />briketten</>
+                                ) : lang === 'de' ? (
+                                  <>Buchenholz<br />briketts</>
+                                ) : (
+                                  cat.name[lang] || cat.name.nl
+                                )
+                              ) : (
+                                cat.name[lang] || cat.name.nl
+                              )}
+                            </span>
                           </div>
                         </div>
                       </label>
@@ -1430,7 +1563,7 @@ export default function Configurator() {
               <div className={`accordion-step-panel ${currentStep === 2 ? 'active' : ''} ${highestStepReached > 2 ? 'completed' : ''}`}>
                 <div 
                   className="accordion-step-header"
-                  onClick={() => { if (highestStepReached >= 2) setCurrentStep(2); }}
+                  onClick={() => { if (highestStepReached >= 2) setCurrentStep(prev => prev === 2 ? null : 2); }}
                   style={highestStepReached < 2 ? { cursor: 'not-allowed', opacity: 0.6 } : {}}
                 >
                   <div className="accordion-step-header-left">
@@ -1752,7 +1885,7 @@ export default function Configurator() {
               <div className={`accordion-step-panel ${currentStep === 3 ? 'active' : ''}`}>
                 <div 
                   className="accordion-step-header"
-                  onClick={() => { if (highestStepReached >= 3) setCurrentStep(3); }}
+                  onClick={() => { if (highestStepReached >= 3) setCurrentStep(prev => prev === 3 ? null : 3); }}
                   style={highestStepReached < 3 ? { cursor: 'not-allowed', opacity: 0.6 } : {}}
                 >
                   <div className="accordion-step-header-left">
@@ -1778,14 +1911,14 @@ export default function Configurator() {
                     id="dbOplage"
                     className="dashboard-input"
                     value={quantity}
-                    min={1}
+                    min={minQty}
                     step={category === 'brichete' ? 1 : 500}
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
                       setQuantity(isNaN(val) ? '' : val);
                     }}
                     onBlur={() => {
-                      if (quantity === '' || isNaN(quantity) || quantity < 1) {
+                      if (quantity === '' || isNaN(quantity) || quantity < minQty) {
                         setQuantity(minQty);
                       }
                     }}
@@ -1829,60 +1962,77 @@ export default function Configurator() {
                     </tr>
                   </thead>
                   <tbody>
+                    {/* 1. Product */}
                     <tr>
                       <td>{getTranslation('productRow')}</td>
                       <td>{activeSelection.productName}</td>
                     </tr>
+                    {/* 2. Houtsoort */}
+                    <tr>
+                      <td>{getTranslation('woodSpeciesRow')}</td>
+                      <td>
+                        {category === 'brichete'
+                          ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+                          : getTranslation('beechwoodValue')}
+                      </td>
+                    </tr>
+                    {/* 3. Kwaliteitsklasse */}
+                    {category !== 'brichete' && (
+                      <tr>
+                        <td>{getTranslation('gradeRow')}</td>
+                        <td>
+                          {activeSelection.grade === 'A'
+                            ? getTranslation('gradeAValue')
+                            : activeSelection.grade === 'B'
+                            ? getTranslation('gradeBValue')
+                            : activeSelection.grade === 'C'
+                            ? getTranslation('gradeCValue')
+                            : activeSelection.grade}
+                        </td>
+                      </tr>
+                    )}
+                    {/* 4. Afmetingen */}
                     <tr>
                       <td>{getTranslation('dimensionsRow')}</td>
                       <td>{activeSelection.dimensions}</td>
                     </tr>
+                    {/* 5. Oplage */}
                     <tr>
                       <td>{getTranslation('quantityRow')}</td>
                       <td>{activeSelection.qtyText}</td>
                     </tr>
+                    {/* 6. Afwerking */}
                     <tr>
-                      <td>{getTranslation('woodSpeciesRow')}</td>
-                      <td>{getTranslation('beechwoodValue')}</td>
+                      <td>{getTranslation('finishRow')}</td>
+                      <td>{activeSelection.finish}</td>
                     </tr>
+                    {/* 7. Droging */}
+                    {category !== 'brichete' && (
+                      <tr>
+                        <td>{getTranslation('dryingRow')}</td>
+                        <td>
+                          {activeSelection.drying === 'luchtdroog'
+                            ? getTranslation('dryingValueAir')
+                            : getTranslation('dryingValueKiln')}
+                        </td>
+                      </tr>
+                    )}
+                    {/* 8. Gestoomd */}
                     {category !== 'brichete' && (
                       <tr>
                         <td>{getTranslation('steamedRow')}</td>
                         <td>{getTranslation('steamedValueNo')}</td>
                       </tr>
                     )}
-                    <tr>
-                      <td>{getTranslation('dryingRow')}</td>
-                      <td>
-                        {activeSelection.drying === 'luchtdroog'
-                          ? getTranslation('dryingValueAir')
-                          : getTranslation('dryingValueKiln')}
-                      </td>
-                    </tr>
+                    {/* 9. FSC */}
                     {category !== 'brichete' && (
                       <tr>
                         <td>{getTranslation('fscRow')}</td>
                         <td>
-                          {activeSelection.fsc ? getTranslation('yes') : getTranslation('no')}
+                          {activeSelection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
                         </td>
                       </tr>
                     )}
-                    <tr>
-                      <td>{getTranslation('gradeRow')}</td>
-                      <td>
-                        {activeSelection.grade === 'A'
-                          ? getTranslation('gradeAValue')
-                          : activeSelection.grade === 'B'
-                          ? getTranslation('gradeBValue')
-                          : activeSelection.grade === 'C'
-                          ? getTranslation('gradeCValue')
-                          : activeSelection.grade}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>{getTranslation('finishRow')}</td>
-                      <td>{activeSelection.finish}</td>
-                    </tr>
                     {activeSelection.additionalInfo && (
                       <tr>
                         <td>{getTranslation('additionalInfoLabel')}</td>
@@ -1952,7 +2102,7 @@ export default function Configurator() {
         </div> {/* End configurator-form-column */}
 
         <div className="configurator-preview-column">
-          {!activeSelection || !activeSelection.category ? (
+          {!confirmedSelection || !confirmedSelection.category ? (
             <div className="configurator-empty-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)', background: '#ffffff', borderRadius: '8px', border: '1px dashed var(--color-border)', width: '100%', boxShadow: 'var(--shadow-sm)', height: '445px' }}>
               <i className="fa-solid fa-wand-magic-sparkles" style={{ fontSize: '1.8rem', color: 'var(--color-primary-dark)', marginBottom: '0.75rem' }}></i>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-forest-dark)', margin: '0 0 0.5rem 0' }}>
@@ -1964,8 +2114,8 @@ export default function Configurator() {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <WoodVisualizer selection={activeSelection} lang={lang} />
-              <SelectionSummary selection={activeSelection} lang={lang} />
+              <WoodVisualizer selection={confirmedSelection} lang={lang} />
+              <SelectionSummary selection={confirmedSelection} lang={lang} />
             </div>
           )}
         </div>
