@@ -351,6 +351,18 @@ export default function ContactSection() {
       de: 'Beschreiben Sie Ihre gewünschten Maße, Mengen und Spezifikationen...',
       ro: 'Descrieți dimensiunile, cantitățile și specificațiile dorite...'
     },
+    messagePlaceholderCareers: {
+      nl: 'Vertel ons kort over uw achtergrond, ervaring en motivatie voor uw sollicitatie...',
+      en: 'Tell us briefly about your background, experience, and motivation for your application...',
+      de: 'Erzählen Sie uns kurz von Ihrem Hintergrund, Ihrer Erfahrung und Ihrer Motivation für Ihre Bewerbung...',
+      ro: 'Povestiți-ne pe scurt despre mediul dvs. profesional, experiență și motivația pentru candidatura dvs...'
+    },
+    messagePlaceholderGeneral: {
+      nl: 'Waar kunnen we u mee helpen? Stel hier uw algemene vraag of opmerking...',
+      en: 'How can we help you? Ask your general question or leave a comment here...',
+      de: 'Wie können wir Ihnen helfen? Stellen Sie hier Ihre allgemeine Frage oder hinterlassen Sie einen Kommentar...',
+      ro: 'Cum vă putem ajuta? Adresați întrebarea dvs. generală sau lăsați un comentariu aici...'
+    },
     submitBtn: {
       nl: 'Verzend Aanvraag',
       en: 'Submit Inquiry',
@@ -409,6 +421,16 @@ export default function ContactSection() {
 
   const getTranslation = (key) => {
     return t[key]?.[lang] || t[key]?.nl || '';
+  };
+
+  const getMessagePlaceholder = () => {
+    if (productType === 'careers') {
+      return getTranslation('messagePlaceholderCareers');
+    }
+    if (productType === 'general') {
+      return getTranslation('messagePlaceholderGeneral');
+    }
+    return getTranslation('messagePlaceholder');
   };
 
   const handleSubmit = async (e) => {
@@ -653,7 +675,7 @@ export default function ContactSection() {
                       id="form_message"
                       rows="5"
                       required
-                      placeholder={getTranslation('messagePlaceholder')}
+                      placeholder={getMessagePlaceholder()}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                     />
