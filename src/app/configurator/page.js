@@ -213,7 +213,22 @@ const t = {
   yes: { nl: 'Ja', en: 'Yes', de: 'Ja', ro: 'Da' },
   no: { nl: 'Nee', en: 'No', de: 'Nein', ro: 'Nu' },
   fscLabelFsc: { nl: 'FSC®', en: 'FSC®', de: 'FSC®', ro: 'FSC®' },
-  fscLabelNonFsc: { nl: 'Geen FSC®', en: 'No FSC®', de: 'Kein FSC®', ro: 'Fără FSC®' }
+  fscLabelNonFsc: { nl: 'Geen FSC®', en: 'No FSC®', de: 'Kein FSC®', ro: 'Fără FSC®' },
+  woodSpeciesRow: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
+  beechwoodValue: { nl: 'Beuken', en: 'Beechwood', de: 'Buchenholz', ro: 'Fag' },
+  steamedRow: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
+  steamedValueNo: { nl: 'Nee (Ongestoomd)', en: 'No (Unsteamed)', de: 'Nein (Ungedämpft)', ro: 'Nu (Neaburit)' },
+  steamedValueNoShort: { nl: 'Nee', en: 'No', de: 'Nein', ro: 'Nu' },
+  dryingRow: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
+  dryingValueAir: { nl: 'Luchtdroog', en: 'Air-dried', de: 'Luftgetrocknet', ro: 'Uscat natural' },
+  dryingValueKiln: { nl: 'Kamerdroog (KD 10-12%)', en: 'Chamber-dried (KD 10-12%)', de: 'Kammergetrocknet (KD 10-12%)', ro: 'Uscat în cameră (KD 10-12%)' },
+  fscLabelFscCertifiedSelect: { nl: 'FSC®-Gecertificeerd', en: 'FSC®-Certified', de: 'FSC®-zertifiziert', ro: 'Certificat FSC®' },
+  gradeASelect: { nl: 'A = foutvrij, egaal van kleur', en: 'A = defect-free, uniform color', de: 'A = astfrei, gleichmäßige Farbe', ro: 'A = fără defecte, culoare uniformă' },
+  gradeBSelect: { nl: 'B = foutvrij, gezond kleurverschil toegestaan', en: 'B = defect-free, healthy color difference allowed', de: 'B = astfrei, gesunde Farbabweichungen zulässig', ro: 'B = fără defecte, diferențe de culoare admise' },
+  gradeCSelect: { nl: 'C = constructieve kwaliteit', en: 'C = structural quality', de: 'C = konstruktive Qualität', ro: 'C = calitate constructivă' },
+  gradeAValue: { nl: 'A (foutvrij, egaal van kleur)', en: 'A (defect-free, uniform color)', de: 'A (astfrei, gleichmäßige Farbe)', ro: 'A (fără defecte, culoare uniformă)' },
+  gradeBValue: { nl: 'B (foutvrij, gezond kleurverschil toegestaan)', en: 'B (defect-free, healthy color difference allowed)', de: 'B (astfrei, gesunde Farbabweichungen zulässig)', ro: 'B (fără defecte, diferențe de culoare admise)' },
+  gradeCValue: { nl: 'C (constructieve kwaliteit)', en: 'C (structural quality)', de: 'C (konstruktive Qualität)', ro: 'C (calitate constructivă)' }
 };
 
 const standardLengths = {
@@ -456,7 +471,7 @@ function SelectionSummary({ selection, lang }) {
           <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
             <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'certification')}: </span>
             <span style={{ fontWeight: 600 }}>
-              {selection.fsc ? 'FSC® 100%' : 'Geen FSC'}
+              {selection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
             </span>
           </div>
         )}
@@ -1406,19 +1421,20 @@ export default function Configurator() {
                 <div className="accordion-step-body">
                   <div className="dashboard-controls-grid">
                 {/* Houtsoort */}
+                {/* Houtsoort */}
                 <div className="control-group">
-                  <label htmlFor="dbWoodType">{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</label>
+                  <label htmlFor="dbWoodType">{getTranslation('woodSpeciesRow')}</label>
                   <select id="dbWoodType" className="dashboard-select" value={woodType} disabled={true}>
-                    <option value="beech">{lang === 'nl' ? 'Beuken' : 'Beechwood'}</option>
+                    <option value="beech">{getTranslation('beechwoodValue')}</option>
                   </select>
                 </div>
 
                 {/* Gestoomd */}
                 {category !== 'brichete' && (
                   <div className="control-group">
-                    <label htmlFor="dbSteamed">{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</label>
+                    <label htmlFor="dbSteamed">{getTranslation('steamedRow')}</label>
                     <select id="dbSteamed" className="dashboard-select" value={steamed} disabled={true}>
-                      <option value="no">{lang === 'nl' ? 'Nee' : 'No'}</option>
+                      <option value="no">{getTranslation('steamedValueNoShort')}</option>
                     </select>
                   </div>
                 )}
@@ -1426,7 +1442,7 @@ export default function Configurator() {
                 {/* Droging */}
                 <div className="control-group">
                   <label htmlFor="dbDrying" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    {lang === 'nl' ? 'Droging' : 'Drying'}
+                    {getTranslation('dryingRow')}
                     <button 
                       type="button" 
                       className="info-tooltip-btn" 
@@ -1443,9 +1459,9 @@ export default function Configurator() {
                     disabled={category !== 'sawn' && category !== 'specials'}
                     onChange={(e) => setDrying(e.target.value)}
                   >
-                    <option value="kd">{lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : 'Chamber-dried (KD 10-12%)'}</option>
+                    <option value="kd">{getTranslation('dryingValueKiln')}</option>
                     {(category === 'sawn' || category === 'specials') && (
-                      <option value="luchtdroog">{lang === 'nl' ? 'Luchtdroog' : 'Air-dried'}</option>
+                      <option value="luchtdroog">{getTranslation('dryingValueAir')}</option>
                     )}
                   </select>
                 </div>
@@ -1453,15 +1469,15 @@ export default function Configurator() {
                 {/* Certificering */}
                 {category !== 'brichete' && (
                   <div className="control-group">
-                    <label htmlFor="dbFsc">{lang === 'nl' ? 'Certificering' : 'Certification'}</label>
+                    <label htmlFor="dbFsc">{getTranslation('certificationLabel')}</label>
                     <select
                       id="dbFsc"
                       className="dashboard-select"
                       value={fsc ? 'yes' : 'no'}
                       onChange={(e) => setFsc(e.target.value === 'yes')}
                     >
-                      <option value="yes">{lang === 'nl' ? 'FSC®-Gecertificeerd' : 'FSC®-Certified'}</option>
-                      <option value="no">{lang === 'nl' ? 'Geen FSC®' : 'No FSC®'}</option>
+                      <option value="yes">{getTranslation('fscLabelFscCertifiedSelect')}</option>
+                      <option value="no">{getTranslation('fscLabelNonFsc')}</option>
                     </select>
                   </div>
                 )}
@@ -1487,14 +1503,14 @@ export default function Configurator() {
                       onChange={(e) => setGrade(e.target.value)}
                     >
                       <option value="A">
-                        {lang === 'nl' ? 'A = foutvrij, egaal van kleur' : 'A = defect-free, uniform color'}
+                        {getTranslation('gradeASelect')}
                       </option>
                       <option value="B">
-                        {lang === 'nl' ? 'B = foutvrij, gezond kleurverschil toegestaan' : 'B = defect-free, healthy color difference allowed'}
+                        {getTranslation('gradeBSelect')}
                       </option>
                       {(category === 'sawn' || category === 'specials') && (
                         <option value="C">
-                          {lang === 'nl' ? 'C = constructieve kwaliteit' : 'C = structural quality'}
+                          {getTranslation('gradeCSelect')}
                         </option>
                       )}
                     </select>
@@ -1795,21 +1811,21 @@ export default function Configurator() {
                       <td>{activeSelection.qtyText}</td>
                     </tr>
                     <tr>
-                      <td>{lang === 'nl' ? 'Houtsoort' : 'Wood species'}</td>
-                      <td>{lang === 'nl' ? 'Beuken' : 'Beechwood'}</td>
+                      <td>{getTranslation('woodSpeciesRow')}</td>
+                      <td>{getTranslation('beechwoodValue')}</td>
                     </tr>
                     {category !== 'brichete' && (
                       <tr>
-                        <td>{lang === 'nl' ? 'Gestoomd' : 'Steamed'}</td>
-                        <td>{lang === 'nl' ? 'Nee (Ongestoomd)' : 'No (Unsteamed)'}</td>
+                        <td>{getTranslation('steamedRow')}</td>
+                        <td>{getTranslation('steamedValueNo')}</td>
                       </tr>
                     )}
                     <tr>
-                      <td>{lang === 'nl' ? 'Droging' : 'Drying'}</td>
+                      <td>{getTranslation('dryingRow')}</td>
                       <td>
                         {activeSelection.drying === 'luchtdroog'
-                          ? (lang === 'nl' ? 'Luchtdroog' : 'Air-dried')
-                          : (lang === 'nl' ? 'Kamerdroog (KD 10-12%)' : 'Chamber-dried (KD 10-12%)')}
+                          ? getTranslation('dryingValueAir')
+                          : getTranslation('dryingValueKiln')}
                       </td>
                     </tr>
                     {category !== 'brichete' && (
@@ -1824,11 +1840,11 @@ export default function Configurator() {
                       <td>{getTranslation('gradeRow')}</td>
                       <td>
                         {activeSelection.grade === 'A'
-                          ? (lang === 'nl' ? 'A (foutvrij, egaal van kleur)' : 'A (defect-free, uniform color)')
+                          ? getTranslation('gradeAValue')
                           : activeSelection.grade === 'B'
-                          ? (lang === 'nl' ? 'B (foutvrij, gezond kleurverschil toegestaan)' : 'B (defect-free, healthy color difference allowed)')
+                          ? getTranslation('gradeBValue')
                           : activeSelection.grade === 'C'
-                          ? (lang === 'nl' ? 'C (constructieve kwaliteit)' : 'C (structural quality)')
+                          ? getTranslation('gradeCValue')
                           : activeSelection.grade}
                       </td>
                     </tr>
