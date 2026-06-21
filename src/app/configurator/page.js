@@ -575,7 +575,7 @@ function SelectionSummary({ selection, lang }) {
 }
 
 export default function Configurator() {
-  const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator } = useInquiry();
+  const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator, isRomania } = useInquiry();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [password, setPassword] = useState('');
@@ -1397,7 +1397,9 @@ export default function Configurator() {
                     <div className="control-group" id="controlGroupCategory">
                       <label>{getTranslation('categoryLabel')}</label>
                   <div className="main-category-grid">
-                    {mainCategories.map((cat) => (
+                    {mainCategories
+                      .filter((cat) => cat.id !== 'brichete' || isRomania)
+                      .map((cat) => (
                       <label key={cat.id} className={`main-category-card ${category !== cat.id ? 'dimmed' : ''}`}>
                         <input
                           type="radio"
