@@ -2172,7 +2172,7 @@ export default function Configurator() {
                 {lang === 'nl' ? 'Start uw configuratie' : (lang === 'de' ? 'Starten Sie Ihre Konfiguration' : (lang === 'ro' ? 'Începeți configurarea' : 'Start your configuration'))}
               </h3>
               <p style={{ fontSize: '0.82rem', margin: 0, lineHeight: '1.4' }}>
-                {lang === 'nl' ? 'Kies hieronder een product om het live voorbeeld en de samenvatting te activeren.' : (lang === 'de' ? 'Wählen Sie unten een Produkt uit, um die Live-Vorschau und die Zusammenfassung zu aktivieren.' : (lang === 'ro' ? 'Alegeți un produs mai jos pentru a activa previzualizarea live și rezumatul.' : 'Choose a product below to activate the live preview and summary.'))}
+                {lang === 'nl' ? 'Kies hiernaast een product om het live voorbeeld en de samenvatting te activeren.' : (lang === 'de' ? 'Wählen Sie nebenan ein Produkt aus, um die Live-Vorschau und die Zusammenfassung zu aktivieren.' : (lang === 'ro' ? 'Alegeți un produs alături pentru a activa previzualizarea live și rezumatul.' : 'Choose a product beside this to activate the live preview and summary.'))}
               </p>
             </div>
           ) : (
