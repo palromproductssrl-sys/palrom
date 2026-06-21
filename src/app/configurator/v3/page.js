@@ -234,6 +234,50 @@ const getMinQuantityForCustom = (cat, len, diam) => {
   }
 };
 
+const getCategoryLabelLines = (catId, langVal) => {
+  if (langVal === 'en') {
+    switch (catId) {
+      case 'sawn': return ['Beechwood', 'blanks'];
+      case 'planed': return ['Beechwood', 'slats'];
+      case 'dowels': return ['Beechwood', 'sticks'];
+      case 'profiles': return ['Beechwood', 'profiles'];
+      case 'specials': return ['Beechwood', 'specials'];
+      case 'brichete': return ['Beechwood', 'briquettes'];
+      default: return ['', ''];
+    }
+  } else if (langVal === 'de') {
+    switch (catId) {
+      case 'sawn': return ['Buchenholz-', 'Blanks'];
+      case 'planed': return ['Buchenholz-', 'leisten'];
+      case 'dowels': return ['Buchenholz-', 'stäbe'];
+      case 'profiles': return ['Buchenholz-', 'profile'];
+      case 'specials': return ['Buchenholz-', 'Zuschnitte'];
+      case 'brichete': return ['Buchenholz-', 'briketts'];
+      default: return ['', ''];
+    }
+  } else if (langVal === 'ro') {
+    switch (catId) {
+      case 'sawn': return ['Piese brute din', 'lemn de fag (blanks)'];
+      case 'planed': return ['Șipci din', 'lemn de fag'];
+      case 'dowels': return ['Tije din', 'lemn de fag'];
+      case 'profiles': return ['Profile din', 'lemn de fag'];
+      case 'specials': return ['Piese brute din', 'lemn de fag'];
+      case 'brichete': return ['Brichete din', 'lemn de fag'];
+      default: return ['', ''];
+    }
+  } else { // default to 'nl'
+    switch (catId) {
+      case 'sawn': return ['Beukenhouten', 'blanks'];
+      case 'planed': return ['Beukenhouten', 'latten'];
+      case 'dowels': return ['Beukenhouten', 'stokken'];
+      case 'profiles': return ['Beukenhouten', 'profielen'];
+      case 'specials': return ['Beukenhouten', 'bestekken'];
+      case 'brichete': return ['Beukenhout', 'briketten'];
+      default: return ['', ''];
+    }
+  }
+};
+
 export default function ChatbotConfigurator() {
   const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator, isRomania } = useInquiry();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -1035,6 +1079,28 @@ export default function ChatbotConfigurator() {
           color: var(--color-primary);
           background: rgba(29, 58, 36, 0.02);
         }
+        .chip-button-category {
+          background: #ffffff;
+          border: 1.5px solid var(--color-border);
+          padding: 1rem 0.5rem;
+          border-radius: var(--border-radius-md);
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: var(--color-text-dark);
+          cursor: pointer;
+          transition: all 0.2s;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 105px;
+        }
+        .chip-button-category:hover {
+          border-color: var(--color-primary);
+          color: var(--color-primary);
+          background: rgba(29, 58, 36, 0.02);
+        }
         .slider-control-row {
           display: flex;
           align-items: center;
@@ -1321,16 +1387,23 @@ export default function ChatbotConfigurator() {
                   {/* CATEGORY INPUT WIDGET */}
                   {activeStep.optionsType === 'category' && (
                     <div className="chip-grid">
-                      {categoriesList.filter(cat => cat.id !== 'brichete' || isRomania).map((cat) => (
-                        <button
-                          key={cat.id}
-                          onClick={() => proceedToNextStep(cat.id)}
-                          className="chip-button"
-                        >
-                          <i className={cat.icon} style={{ marginRight: '0.4rem', color: 'var(--color-primary)' }}></i>
-                          {cat.label[lang] || cat.label.nl}
-                        </button>
-                      ))}
+                      {categoriesList.filter(cat => cat.id !== 'brichete' || isRomania).map((cat) => {
+                        const lines = getCategoryLabelLines(cat.id, lang);
+                        return (
+                          <button
+                            key={cat.id}
+                            onClick={() => proceedToNextStep(cat.id)}
+                            className="chip-button-category"
+                          >
+                            <i className={cat.icon} style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--color-primary)' }}></i>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.25 }}>
+                              {lines[0]}
+                              <br />
+                              {lines[1]}
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
 
