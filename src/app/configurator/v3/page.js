@@ -1068,7 +1068,7 @@ export default function ChatbotConfigurator() {
         }
         .chat-footer .btn-primary {
           background-color: var(--color-primary) !important;
-          color: var(--color-primary-dark) !important;
+          color: var(--color-text-dark) !important;
           border: 2px solid var(--color-primary) !important;
         }
         .chat-footer .btn-primary:hover {
