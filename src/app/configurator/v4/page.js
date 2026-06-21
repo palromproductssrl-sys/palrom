@@ -129,6 +129,12 @@ const planedSubcategories = [
 
 const translations = {
   loading: { nl: 'Inladen portal...', en: 'Loading portal...', de: 'Portal wird geladen...', ro: 'Se încarcă portalul...' },
+  v4PortalTitle: { nl: 'Willem AI - Beveiligde Toegang', en: 'Willem AI - Secured Access', de: 'Willem AI - Gesicherter Zugriff', ro: 'Willem AI - Acces Securizat' },
+  v4PortalLead: { nl: 'Voer het aanvullende wachtwoord in om toegang te krijgen tot de Willem AI configurator.', en: 'Enter the additional password to access the Willem AI configurator.', de: 'Geben Sie das zusätzliche Passwort ein, um auf den Willem AI-Konfigurator zuzugreifen.', ro: 'Introduceți parola suplimentară pentru a accesa configuratorul Willem AI.' },
+  v4PasswordLabel: { nl: 'Wachtwoord Willem AI *', en: 'Willem AI Password *', de: 'Willem AI Passwort *', ro: 'Parolă Willem AI *' },
+  v4PasswordError: { nl: 'Ongeldig wachtwoord voor Willem AI. Probeer het opnieuw.', en: 'Invalid password for Willem AI. Please try again.', de: 'Ungültiges Passwort für Willem AI. Bitte versuchen Sie es erneut.', ro: 'Parolă invalidă pentru Willem AI. Vă rugăm să încercați din nou.' },
+  v4UnlockButton: { nl: 'Toegang Ontgrendelen', en: 'Unlock Access', de: 'Zugang entsperren', ro: 'Deblochează Accesul' },
+  v4ShowPasswordAria: { nl: 'Wachtwoord tonen/verbergen', en: 'Show/hide password', de: 'Passwort anzeigen/ausblenden', ro: 'Afișează/ascunde parola' },
   heroBreadcrumb: { nl: 'Palrom Offerte Configurator', en: 'Palrom Quote Configurator', de: 'Palrom Angebotskonfigurator', ro: 'Configurator de Oferte Palrom' },
   heroTitle: { nl: 'Willem AI - Open Chatbot', en: 'Willem AI - Open Chatbot', de: 'Willem AI - Offener Chatbot', ro: 'Willem AI - Chatbot Deschis' },
   heroSubtitle: { nl: 'Configureer uw B2B houtproducten door eenvoudig te chatten in vrije tekst met onze virtuele salesadviseur Willem.', en: 'Configure your B2B wood products by simply chatting in free text with our virtual sales advisor Willem.', de: 'Konfigurieren Sie Ihre B2B-Holzprodukte, indem Sie einfach im Freitext mit unserem virtuellen Verkaufsberater Willem chatten.', ro: 'Configurați-vă produsele din lemn B2B pur și simplu discutând în text liber cu consilierul nostru de vânzări virtual Willem.' },
@@ -283,6 +289,10 @@ const translations = {
 export default function OpenChatConfigurator() {
   const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator, isRomania } = useInquiry();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isV4Authenticated, setIsV4Authenticated] = useState(false);
+  const [v4Password, setV4Password] = useState('');
+  const [showV4Password, setShowV4Password] = useState(false);
+  const [v4AuthError, setV4AuthError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // Configurator States (parsed from open chat)
@@ -346,7 +356,7 @@ export default function OpenChatConfigurator() {
 
   // Ping backend to check if Gemini is active or falling back
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isV4Authenticated) {
       const checkEngine = async () => {
         try {
           const res = await fetch('/api/configurator/chat', {
@@ -370,7 +380,7 @@ export default function OpenChatConfigurator() {
       };
       checkEngine();
     }
-  }, [isAuthenticated]);
+  }, [isV4Authenticated]);
 
   useEffect(() => {
     userInputRef.current = userInput;
@@ -632,19 +642,34 @@ export default function OpenChatConfigurator() {
         window.location.href = '/configurator';
       } else {
         setIsAuthenticated(true);
+        const v4Auth = sessionStorage.getItem('palrom_configurator_v4_auth') === 'true';
+        setIsV4Authenticated(v4Auth);
         setIsLoading(false);
       }
     }
   }, []);
 
+  const handleV4PasswordSubmit = (e) => {
+    e.preventDefault();
+    const cleanPw = v4Password.trim().toLowerCase();
+    if (cleanPw === 'willem2026' || cleanPw === 'willemai2026' || cleanPw === 'palromv4') {
+      sessionStorage.setItem('palrom_configurator_v4_auth', 'true');
+      setIsV4Authenticated(true);
+      setV4AuthError(false);
+    } else {
+      setV4AuthError(true);
+      setV4Password('');
+    }
+  };
+
   // Initialize chat history with welcome message
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isV4Authenticated) {
       setHistory([
         { sender: 'bot', text: getTranslation('welcomeMessage') }
       ]);
     }
-  }, [isAuthenticated, lang]);
+  }, [isV4Authenticated, lang]);
 
   const scrollToBottom = () => {
     if (chatHistoryRef.current) {
@@ -1771,6 +1796,71 @@ export default function OpenChatConfigurator() {
       <div style={{ padding: '15rem 0', textAlign: 'center', background: '#f8fafc', color: '#1e293b' }}>
         <h3>{getTranslation('loading')}</h3>
       </div>
+    );
+  }
+
+  if (!isV4Authenticated) {
+    return (
+      <>
+        {/* Style injection to hide Header, Footer and Widget when auth is locked */}
+        <style>{`
+          .main-header, .main-footer, .floating-contact-widget { display: none !important; }
+        `}</style>
+
+        <div className="auth-gate-container" style={{ minHeight: '100vh', background: '#f8fafc' }}>
+          <div className="auth-gate-card">
+            <div className="auth-lock-icon">
+              <i className="fa-solid fa-lock"></i>
+            </div>
+            <h2>{getTranslation('v4PortalTitle')}</h2>
+            <p>
+              {getTranslation('v4PortalLead')}
+            </p>
+            <form onSubmit={handleV4PasswordSubmit}>
+              <div className="form-group" style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
+                <label
+                  htmlFor="authPassword"
+                  style={{
+                    display: 'block',
+                    marginBottom: '0.5rem',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    color: 'var(--color-text-dark)',
+                  }}
+                >
+                  {getTranslation('v4PasswordLabel')}
+                </label>
+                <div className="password-input-wrapper">
+                  <input
+                    type={showV4Password ? 'text' : 'password'}
+                    id="authPassword"
+                    required
+                    placeholder="••••••••"
+                    value={v4Password}
+                    onChange={(e) => setV4Password(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="toggle-password-btn"
+                    onClick={() => setShowV4Password(!showV4Password)}
+                    aria-label={getTranslation('v4ShowPasswordAria')}
+                  >
+                    <i className={showV4Password ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'}></i>
+                  </button>
+                </div>
+                {v4AuthError && (
+                  <div className="error-message">
+                    <i className="fa-solid fa-triangle-exclamation"></i> {getTranslation('v4PasswordError')}
+                  </div>
+                )}
+              </div>
+              <button type="submit" className="btn btn-primary btn-block" style={{ width: '100%' }}>
+                {getTranslation('v4UnlockButton')} <i className="fa-solid fa-key icon-right"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </>
     );
   }
 
