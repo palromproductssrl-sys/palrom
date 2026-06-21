@@ -4073,7 +4073,7 @@ ul {
 }
 
 .configurator-dashboard-form {
-    padding: 3.5rem;
+    padding: 1.5rem 3.5rem 3.5rem; /* Reduced top padding to align columns and tighten layout */
     display: flex;
     flex-direction: column;
 }
@@ -5916,7 +5916,7 @@ ul {
     }
     .configurator-preview-column {
         position: sticky;
-        top: 171px; /* Align with Step 1 content (115px target scroll offset + 56px form padding) */
+        top: 115px; /* Align right under the fixed header (115px target scroll offset) to ensure alignment with Step 1 in normal flow */
         z-index: 900;
         width: 100%;
     }
