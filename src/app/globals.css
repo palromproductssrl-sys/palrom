@@ -5916,7 +5916,7 @@ ul {
     }
     .configurator-preview-column {
         position: sticky;
-        top: 110px; /* Float nicely below floating header menu */
+        top: 171px; /* Align with Step 1 content (115px target scroll offset + 56px form padding) */
         z-index: 900;
         width: 100%;
     }
