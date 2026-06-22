@@ -105,6 +105,42 @@ const tV3 = {
     en: 'Custom dimension (exact)',
     de: 'Maßanfertigung (exakt)',
     ro: 'Dimensiune personalizată (exactă)'
+  },
+  standardWidth: {
+    nl: 'Standaard breedte',
+    en: 'Standard width',
+    de: 'Standardbreite',
+    ro: 'Lățime standard'
+  },
+  customWidth: {
+    nl: 'Maatwerk breedte (exact)',
+    en: 'Custom width (exact)',
+    de: 'Maßanfertigung Breite (exakt)',
+    ro: 'Lățime personalizată (exactă)'
+  },
+  standardThickness: {
+    nl: 'Standaard dikte',
+    en: 'Standard thickness',
+    de: 'Standardstärke',
+    ro: 'Grosime standard'
+  },
+  customThickness: {
+    nl: 'Maatwerk dikte (exact)',
+    en: 'Custom thickness (exact)',
+    de: 'Maßanfertigung Stärke (exakt)',
+    ro: 'Grosime personalizată (exactă)'
+  },
+  standardLength: {
+    nl: 'Standaard lengte',
+    en: 'Standard length',
+    de: 'Standardlänge',
+    ro: 'Lungime standard'
+  },
+  customLength: {
+    nl: 'Maatwerk lengte (exact)',
+    en: 'Custom length (exact)',
+    de: 'Maßanfertigung Länge (exakt)',
+    ro: 'Lungime personalizată (exactă)'
   }
 };
 
@@ -971,9 +1007,11 @@ export default function ChatbotConfigurator() {
       case 'diameter':
         return `Ø ${val} mm`;
       case 'widthType':
+        return val === 'standard' ? getV3Translation('standardWidth') : getV3Translation('customWidth');
       case 'thicknessType':
+        return val === 'standard' ? getV3Translation('standardThickness') : getV3Translation('customThickness');
       case 'lengthType':
-        return val === 'standard' ? getV3Translation('standardRange') : getV3Translation('customRange');
+        return val === 'standard' ? getV3Translation('standardLength') : getV3Translation('customLength');
       case 'width':
       case 'thickness':
       case 'length':
@@ -1760,10 +1798,14 @@ export default function ChatbotConfigurator() {
                   {(activeStep.optionsType === 'widthType' || activeStep.optionsType === 'thicknessType' || activeStep.optionsType === 'lengthType') && (
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                       <button onClick={() => proceedToNextStep('standard')} className="btn btn-secondary" style={{ flex: 1, minWidth: '130px' }}>
-                        {getV3Translation('standardRange')}
+                        {activeStep.optionsType === 'widthType' && getV3Translation('standardWidth')}
+                        {activeStep.optionsType === 'thicknessType' && getV3Translation('standardThickness')}
+                        {activeStep.optionsType === 'lengthType' && getV3Translation('standardLength')}
                       </button>
                       <button onClick={() => proceedToNextStep('custom')} className="btn btn-primary" style={{ flex: 1, minWidth: '130px' }}>
-                        {getV3Translation('customRange')}
+                        {activeStep.optionsType === 'widthType' && getV3Translation('customWidth')}
+                        {activeStep.optionsType === 'thicknessType' && getV3Translation('customThickness')}
+                        {activeStep.optionsType === 'lengthType' && getV3Translation('customLength')}
                       </button>
                     </div>
                   )}
