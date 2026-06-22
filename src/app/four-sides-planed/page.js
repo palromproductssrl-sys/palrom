@@ -11,18 +11,18 @@ export default function FourSidesPlaned() {
 
   const planedProducts = [
     {
-      id: 'planed-rect-v1',
+      id: 'planed-rect',
       name: {
-        nl: 'Geschaafd rechthoekig beukenhout (Variant 1)',
-        en: 'Planed Rectangular (Variant 1)',
-        de: 'Gehobelt Rechteckig (Variante 1)',
-        ro: 'Fag Rinduit Rectangular (Varianta 1)',
+        nl: 'Recht geschaafde latten',
+        en: 'Straight planed slats',
+        de: 'Gerade gehobelte Leisten',
+        ro: 'Șipci rinduite drept',
       },
       description: {
-        nl: 'Hoge-tolerantie rechthoekige beuken latten, gedroogd tot 8-12% vochtgehalte. Ideaal voor de productie van bedbodems, meubelframes en hoogwaardige interieurafwerking.',
-        en: 'High-tolerance rectangular beech slats and slats, dried to 8-12% moisture. Ideal for manufacturing bed frames, furniture framing, and premium interior trim boards.',
-        de: 'Hochtolerante rechteckige Buchenleisten, getrocknet auf 8-12% Feuchtigkeit. Ideal für die Herstellung von Bettgestellen, Möbelrahmen und hochwertigen Innenverkleidungsbrettern.',
-        ro: 'Șipci din fag rectangulare cu toleranță ridicată, uscate la 8-12% umiditate. Ideale pentru fabricarea cadrelor de pat, cadrelor de mobilier și plintelor de interior premium.',
+        nl: 'Vierzijdig geschaafde rechthoekige en vierkante beukenhouten latten met scherpe hoeken van 90 graden. Ideaal voor bedbodems, meubelframes, trapbalusters, kastrails en strakke interieurafwerkingen. Gekalibreerd met extreem nauwe toleranties en gedroogd tot 8-12% vochtgehalte.',
+        en: 'Four-sides planed rectangular and square beechwood slats with sharp 90-degree corners. Ideal for bed frames, furniture framing, stair balusters, cabinet rails, and modern interior trim. Milled to extreme tolerances and chamber-dried to 8-12% moisture.',
+        de: 'Vierseitig gehobelte rechteckige und quadratische Buchenleisten mit scharfen 90-Grad-Kanten. Ideal für Bettgestelle, Möbelrahmen, Treppengeländerstäbe, Schrankschienen und moderne Innenverkleidungen. Gefräst auf extrem enge Toleranzen und getrocknet auf 8-12% Feuchtigkeit.',
+        ro: 'Șipci pătrate și rectangulare din lemn de fag rinduite pe patru fețe cu colțuri ascuțite la 90 de grade. Ideale pentru cadre de pat, cadre de mobilier, baluștri de scară, șine de dulap și finisaje interioare moderne. Frezate la toleranțe extrem de precise și uscate la 8-12% umiditate.',
       },
       image: '/images/4sides1.jpg',
       category: {
@@ -33,128 +33,18 @@ export default function FourSidesPlaned() {
       },
     },
     {
-      id: 'planed-rect-v2',
+      id: 'planed-radius',
       name: {
-        nl: 'Geschaafd rechthoekig beukenhout (Variant 2)',
-        en: 'Planed Rectangular (Variant 2)',
-        de: 'Gehobelt Rechteckig (Variante 2)',
-        ro: 'Fag Rinduit Rectangular (Varianta 2)',
+        nl: 'Geschaafde latten met afronding (Radius)',
+        en: 'Planed slats with rounded edges (Radius)',
+        de: 'Gehobelte Leisten mit abgerundeten Kanten (Radius)',
+        ro: 'Șipci rinduite cu margini rotunjite (Rază)',
       },
       description: {
-        nl: 'Gekalibreerde beukenhouten componenten met scherpe hoeken van 90 graden. Afgestemd op industriële meubelproductielijnen, kastrails en architecturale scheidingswanden.',
-        en: 'Calibrated beechwood components with sharp 90-degree corners. Tailored for industrial furniture assembly lines, cabinet rails, and architectural partition components.',
-        de: 'Kalibrierte Buchenholzkomponenten mit scharfen 90-Grad-Kanten. Maßgeschneidert für industrielle Möbelmontagelinien, Schrankschienen und architektonische Trennwandkomponenten.',
-        ro: 'Componente calibrate din lemn de fag cu colțuri ascuțite la 90 de grade. Create special pentru liniile industriale de asamblare a mobilierului, șine de dulap și componente de compartimentare arhitecturală.',
-      },
-      image: '/images/4sides2.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
-    {
-      id: 'planed-rect-v3',
-      name: {
-        nl: 'Geschaafd rechthoekig beukenhout (Variant 3)',
-        en: 'Planed Rectangular (Variant 3)',
-        de: 'Gehobelt Rechteckig (Variante 3)',
-        ro: 'Fag Rinduit Rectangular (Varianta 3)',
-      },
-      description: {
-        nl: 'Duurzame, massief beuken geschaafde planken voorbereid voor planken, meubelpanelen en zware timmerwerkzaamheden. Volledig gladde afwerking zonder uitgescheurde vezels.',
-        en: 'Durable, solid beech planed planks prepared for shelving, furniture panels, and heavy-duty carpentry tasks. Completely smooth finish with no fiber tear-out.',
-        de: 'Langlebige, gehobelte Bretter aus massivem Buchenholz, vorbereitet für Regale, Möbelplatten und schwere Holzarbeiten. Völlig glatte Oberfläche ohne Faserausrisse.',
-        ro: 'Scânduri rinduite din fag masiv, durabile, pregătite pentru rafturi, panouri de mobilier și sarcini grele de tâmplărie. Finisaj complet neted, fără rupere a fibrelor.',
-      },
-      image: '/images/4sides3.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
-    {
-      id: 'planed-rect-v4',
-      name: {
-        nl: 'Geschaafd rechthoekig beukenhout (Variant 4)',
-        en: 'Planed Rectangular (Variant 4)',
-        de: 'Gehobelt Rechteckig (Variante 4)',
-        ro: 'Fag Rinduit Rectangular (Varianta 4)',
-      },
-      description: {
-        nl: 'Nauwkeurig op dikte gemaakte rechthoekige secties ontworpen voor hoogwaardige doe-het-zelf-verpakkingen. Verpakt in op maat gemaakte bundels met individuele etiketteringsopties.',
-        en: 'Precisely thicknessed rectangular sections designed for high-end DIY retail packaging. Packaged in customized bundles with individual labeling options.',
-        de: 'Präzise dickengehobelte rechteckige Abschnitte, konzipiert für hochwertige DIY-Verpackungen. Verpackt in kundenspezifischen Bündeln mit individuellen Etikettierungsoptionen.',
-        ro: 'Secțiuni rectangulare calibrate cu precizie la grosime, proiectate pentru ambalaje de retail DIY premium. Ambalate în pachete personalizate cu opțiuni individuale de etichetare.',
-      },
-      image: '/images/4sides4.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
-    {
-      id: 'planed-sq-v1',
-      name: {
-        nl: 'Geschaafd vierkant beukenhout (Variant 1)',
-        en: 'Planed Square (Variant 1)',
-        de: 'Gehobelt Quadratisch (Variante 1)',
-        ro: 'Fag Rinduit Pătrat (Varianta 1)',
-      },
-      description: {
-        nl: 'Nauwkeurig gefreesde vierkante beukenhouten staven. Ontworpen als halffabrikaat voor houtdraaiwerk, trapsijlen, tafelpoten en kinderspeelgoed.',
-        en: 'Precision-milled square beech wood bars and rods. Designed as blanks for woodturning, stair balusters, table leg manufacturing, and children\'s toys.',
-        de: 'Präzise gefräste quadratische Buchenholzstäbe. Entworfen als Rohlinge für Holzdreharbeiten, Treppengeländerstäbe, Tischbeinherstellung und Kinderspielzeug.',
-        ro: 'Bare și tije pătrate din lemn de fag frezate cu precizie. Proiectate ca semifabricate pentru strunjirea lemnului, baluștri de scară, fabricarea picioarelor de masă și jucării pentru copii.',
-      },
-      image: '/images/4sides5.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
-    {
-      id: 'planed-sq-v2',
-      name: {
-        nl: 'Geschaafd vierkant beukenhout (Variant 2)',
-        en: 'Planed Square (Variant 2)',
-        de: 'Gehobelt Quadratisch (Variante 2)',
-        ro: 'Fag Rinduit Pătrat (Varianta 2)',
-      },
-      description: {
-        nl: 'Compacte, hoogwaardige Karpatische beuken vierkante elementen. Foutloos, noestvrij hout, ontwikkeld om zware constructieve belastingen te weerstaan.',
-        en: 'Dense, high-quality Carpathian beech square elements. Free of defects, knot-free quality options, engineered to withstand structural woodworking stresses.',
-        de: 'Dichte, hochwertige quadratische Elemente aus Karpatenbuche. Defektfreie, astfreie Qualitätsoptionen, entwickelt, um statischen Belastungen im Holzbau standzuhalten.',
-        ro: 'Elemente pătrate dense, de înaltă calitate, din fag carpatin. Fără defecte, opțiuni de calitate fără noduri, proiectate pentru a rezista la solicitările structurale ale prelucrării lemnului.',
-      },
-      image: '/images/4sides6.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
-    {
-      id: 'planed-rad3',
-      name: {
-        nl: 'Geschaafde elementen met afgeronde kanten (Variant 1)',
-        en: 'Planed elements with rounded edges (Variant 1)',
-        de: 'Gehobelte Elemente mit abgerundeten Kanten (Variante 1)',
-        ro: 'Elemente rinduite cu margini rotunjite (Varianta 1)',
-      },
-      description: {
-        nl: 'Vierzijdig geschaafde elementen met subtiele afgeronde randen. De zachte randen verminderen het risico op houtsplijten en verbeteren de handlingveiligheid voor consumenten.',
-        en: 'Four-sides planed elements featuring subtle rounded edges. The soft edges decrease wood splitting risks and improve user handling safety in retail environments.',
-        de: 'Vierseitig gehobelte Elemente mit subtil abgerundeten Kanten. Die weichen Kanten verringern das Risiko von Holzsplittern und verbessern die Handhabungssicherheit im Einzelhandel.',
-        ro: 'Elemente rinduite pe patru fețe având margini subtil rotunjite. Marginile moi reduc riscurile de despicare a lemnului și îmbunătățesc siguranța manipulării de către utilizatori în medii de retail.',
+        nl: 'Vierzijdig geschaafde beukenhouten latten met afgeronde hoeken. Leverbaar met een radius van R3 of R6. De zachte afronding vermindert het risico op houtsplijten en verbetert de hanteerbaarheid. Ideaal voor constructief speelgoed, kindvriendelijke meubelcomponenten en voorgefabriceerde timmerwerkonderdelen.',
+        en: 'Four-sides planed beechwood slats featuring rounded corner profiles. Available with a radius of R3 or R6. The smooth rounding reduces wood splitting risk and improves handling safety. Ideal for architectural toys, child-friendly furniture components, and pre-finished carpentry parts.',
+        de: 'Vierseitig gehobelte Buchenleisten mit abgerundeten Kanten. Erhältlich mit einem Radius von R3 oder R6. Die weiche Kantenabrundung verringert das Splitterrisiko und erhöht die Sicherheit beim Greifen. Ideal für Konstruktionsspielzeug, kinderfreundliche Möbel und Fertigbauteile.',
+        ro: 'Șipci din lemn de fag rinduite pe patru fețe având colțuri rotunjite. Disponibile cu o rază de R3 sau R6. Marginile rotunjite reduc riscul de aschiere a lemnului și îmbunătățesc siguranța la manipulare. Ideale pentru jucării constructive, componente de mobilier sigure pentru copii și piese de tâmplărie pre-finisate.',
       },
       image: '/images/4sides7.jpg',
       category: {
@@ -163,29 +53,7 @@ export default function FourSidesPlaned() {
         de: 'Buchenholzleisten',
         ro: 'Șipci din lemn de fag'
       },
-    },
-    {
-      id: 'planed-rad6',
-      name: {
-        nl: 'Geschaafde elementen met afgeronde kanten (Variant 2)',
-        en: 'Planed elements with rounded edges (Variant 2)',
-        de: 'Gehobelte Elemente mit abgerundeten Kanten (Variante 2)',
-        ro: 'Elemente rinduite cu margini rotunjite (Varianta 2)',
-      },
-      description: {
-        nl: 'Geschaafde beuken componenten met afgeronde randen. Ideaal voor constructief speelgoed, kindvriendelijke meubelcomponenten en voorgefabriceerde timmerwerkonderdelen.',
-        en: 'Planed beech components displaying rounded edge profiles. Ideal for structural toys, child-friendly furniture components, and pre-finished carpentry parts.',
-        de: 'Gehobelte Buchenholzkomponenten mit abgerundeten Kanten. Ideal für Konstruktionsspielzeug, kinderfreundliche Möbelkomponenten und vorgefertigte Schreinereiteile.',
-        ro: 'Componente din fag rinduit care prezintă margini rotunjite. Ideale pentru jucării structurale, componente de mobilier prietenoase cu copiii și piese de tâmplărie pre-finisate.',
-      },
-      image: '/images/4sides8.jpg',
-      category: {
-        nl: 'Beukenhouten latten',
-        en: 'Beechwood slats',
-        de: 'Buchenholzleisten',
-        ro: 'Șipci din lemn de fag'
-      },
-    },
+    }
   ];
 
   const t = {
@@ -244,7 +112,7 @@ export default function FourSidesPlaned() {
       {/* Planed Catalog Section */}
       <section className="section-padding bg-light" style={{ paddingTop: '4rem' }}>
         <div className="container">
-          <div className="grid grid-3 detail-grid">
+          <div className="grid grid-2 detail-grid">
             {planedProducts.map((p) => (
               <div className="detail-card animate-on-scroll" key={p.id}>
                 <div className="detail-img-wrapper">
