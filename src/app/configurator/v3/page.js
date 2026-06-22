@@ -1878,7 +1878,9 @@ export default function ChatbotConfigurator() {
                         </button>
                       </div>
                       <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                        {getTranslation('moqNotice').replace('{minQty}', minQty.toLocaleString(localeMap[lang] || 'en-US'))}
+                        {category === 'brichete'
+                          ? (lang === 'nl' ? 'Minimale afname: 1 pallet.' : (lang === 'ro' ? 'Comandă minimă: 1 palet.' : (lang === 'de' ? 'Mindestbestellmenge: 1 Palette.' : 'Minimum order: 1 pallet.')))
+                          : getTranslation('moqNotice').replace('{minQty}', minQty.toLocaleString(localeMap[lang] || 'en-US'))}
                       </span>
                       <button onClick={() => proceedToNextStep(localQuantity)} className="btn btn-primary btn-block" style={{ width: '100%', marginTop: '0.5rem' }}>
                         Aantal bevestigen <i className="fa-solid fa-circle-check icon-right"></i>
