@@ -472,17 +472,17 @@ export async function POST(request) {
           ["Client Phone", clientPhone].map(escapeCSV).join(','),
           ["Client Notes", clientNotes || ''].map(escapeCSV).join(','),
           ["", ""].map(escapeCSV).join(','),
-          ["Product Index", "Product Name", "Category", "Quantity", "Dimensions", "Grade", "Certification (FSC)", "Drying", "Product Notes"].map(escapeCSV).join(',')
+          ["Product Index", "Product Name", "Category", "Quantity", "Dimensions", "Radius", "Grade", "Certification (FSC)", "Drying", "Product Notes"].map(escapeCSV).join(',')
         ];
 
         items.forEach((item, index) => {
-          const displayDims = (item.dims || '') + (item.radius ? ` (Radius: ${item.radius})` : '');
           const row = [
             `Product ${index + 1}`,
             item.name || '',
             item.category || '',
             item.qty || '',
-            displayDims,
+            item.dims || '',
+            item.radius || '',
             localizeSpecValue('grade', item.grade, 'en') || '',
             localizeSpecValue('fsc', item.fsc, 'en') || '',
             localizeSpecValue('drying', item.drying, 'en') || '',

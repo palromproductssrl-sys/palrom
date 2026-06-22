@@ -501,7 +501,7 @@ export default function PortalPage() {
                               <li key={idx} style={{ marginBottom: '0.5rem', lineHeight: '1.4' }}>
                                 <strong style={{ color: 'var(--color-forest-dark)' }}>{item.name}</strong>
                                 <span style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', display: 'block' }}>
-                                  {item.dims || `${item.thickness || ''}x${item.diameter || item.width || ''}x${item.length || ''}`} • Grade {item.grade || 'A'} • AD/KD • {item.qty} pcs
+                                  {item.dims || `${item.thickness || ''}x${item.diameter || item.width || ''}x${item.length || ''}`}{item.radius ? ` (Radius: ${item.radius})` : ''} • Grade {item.grade || 'A'} • AD/KD • {item.qty} pcs
                                 </span>
                               </li>
                             ))}

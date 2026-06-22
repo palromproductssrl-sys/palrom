@@ -67,6 +67,7 @@ export async function GET(request) {
       return {
         name: item.name || `Wood Product (${item.category || 'Custom'})`,
         dims: dimsText,
+        radius: item.radius || '',
         grade: item.grade || 'A',
         drying: item.drying || 'kd',
         qty: item.qty || 1
