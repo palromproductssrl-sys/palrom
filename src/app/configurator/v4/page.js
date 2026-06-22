@@ -2525,52 +2525,7 @@ export default function OpenChatConfigurator() {
                 {getTranslation('activeSelectionTitle')}
               </h3>
 
-              {/* 3D Visualizer */}
-              <div className="visualizer-preview-box">
-                <span className="visualizer-badge-v4">{getTranslation('visualizerTitle')}</span>
-                
-                {filledFields.category ? (
-                  <svg viewBox={`0 0 ${svgW} ${svgH}`} width="100%" height="100" style={{ overflow: 'visible' }}>
-                    <defs>
-                      <linearGradient id="cylinderGradV4" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#f3e8de" />
-                        <stop offset="30%" stopColor={woodColorMain} />
-                        <stop offset="70%" stopColor={woodColorFront} />
-                        <stop offset="100%" stopColor={woodColorEnd} />
-                      </linearGradient>
-                      <linearGradient id="endGrainGradV4" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor={woodColorEnd} />
-                        <stop offset="100%" stopColor="#8d643d" />
-                      </linearGradient>
-                    </defs>
-                    {category === 'dowels' ? (
-                      <g>
-                        <path d={`M ${startX} ${startY - dRadiusY} A ${dRadiusX} ${dRadiusY} 0 0 0 ${startX} ${startY + dRadiusY}`} fill={woodColorEnd} opacity="0.6" />
-                        <rect x={startX} y={startY - dRadiusY} width={lScale} height={dRadiusY * 2} fill="url(#cylinderGradV4)" />
-                        <ellipse cx={startX + lScale} cy={startY} rx={dRadiusX} ry={dRadiusY} fill="url(#endGrainGradV4)" stroke="#cfa67f" strokeWidth="0.8" />
-                      </g>
-                    ) : category === 'brichete' ? (
-                      <g>
-                        <rect x={svgW/2 - 50} y={svgH/2 - 20} width={90} height={40} rx="4" fill="#a77d54" stroke="#8d643d" strokeWidth="1.5" />
-                        <rect x={svgW/2 - 40} y={svgH/2 - 5} width={90} height={40} rx="4" fill="#be956f" stroke="#8d643d" strokeWidth="1.5" />
-                      </g>
-                    ) : (
-                      <g>
-                        <polygon points={`${p0} ${p3} ${p5} ${p6}`} fill={woodColorEnd} stroke="rgba(141, 100, 61, 0.4)" strokeWidth="0.8" />
-                        <polygon points={`${p0} ${p1} ${p2} ${p3}`} fill="url(#cylinderGradV4)" stroke="rgba(141, 100, 61, 0.3)" strokeWidth="0.8" />
-                        <polygon points={`${p3} ${p2} ${p4} ${p5}`} fill={woodColorMain} stroke="rgba(141, 100, 61, 0.3)" strokeWidth="0.8" />
-                      </g>
-                    )}
-                  </svg>
-                ) : (
-                  <div style={{ textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem', padding: '1.25rem 0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem' }}>
-                      <i className="fa-solid fa-cubes" style={{ fontSize: '2.4rem', color: '#ffd875' }}></i>
-                    </div>
-                    {getTranslation('visualizerPlaceholder')}
-                  </div>
-                )}
-              </div>
+
 
               {/* Summary Table */}
               <div className="specs-scroll-container">
