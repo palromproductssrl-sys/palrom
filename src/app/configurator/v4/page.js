@@ -2376,7 +2376,14 @@ export default function OpenChatConfigurator() {
                     <span dangerouslySetInnerHTML={{ __html: msg.text }} />
 
                     {msg.isAddedSuccess && (
-                      <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <div style={{
+                        marginTop: '1.5rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        width: '100%'
+                      }}>
                         <button
                           onClick={() => setIsCartOpen(true)}
                           className="btn btn-primary"
@@ -2388,10 +2395,16 @@ export default function OpenChatConfigurator() {
                             border: 'none',
                             borderRadius: 'var(--border-radius-sm)',
                             fontWeight: 600,
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            width: '100%',
+                            maxWidth: '280px'
                           }}
                         >
-                          <i className="fa-solid fa-cart-shopping icon-left"></i> {getTranslation('viewCart')}
+                          <i className="fa-solid fa-cart-shopping"></i> {getTranslation('viewCart')}
                         </button>
                         <button
                           onClick={handleStartOver}
@@ -2404,16 +2417,29 @@ export default function OpenChatConfigurator() {
                             border: '2px solid var(--color-text-dark)',
                             borderRadius: 'var(--border-radius-sm)',
                             fontWeight: 600,
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            width: '100%',
+                            maxWidth: '280px'
                           }}
                         >
-                          <i className="fa-solid fa-rotate-left icon-left"></i> {getTranslation('configureAnother')}
+                          <i className="fa-solid fa-rotate-left"></i> {getTranslation('configureAnother')}
                         </button>
                       </div>
                     )}
 
                     {msg.sender === 'bot' && index === history.length - 1 && isEssentialComplete && !msg.isAddedSuccess && (
-                      <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                      <div style={{
+                        marginTop: '1.5rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        width: '100%'
+                      }}>
                         <button
                           onClick={handleAddToCart}
                           className="btn btn-primary"
@@ -2428,7 +2454,10 @@ export default function OpenChatConfigurator() {
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.5rem'
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            width: '100%',
+                            maxWidth: '280px'
                           }}
                         >
                           <i className="fa-solid fa-cart-plus"></i> {getTranslation('addToInquiry') || 'Toevoegen aan Offerteaanvraag'}
@@ -2447,7 +2476,10 @@ export default function OpenChatConfigurator() {
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.5rem'
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            width: '100%',
+                            maxWidth: '280px'
                           }}
                         >
                           <i className="fa-solid fa-pen-to-square"></i> {lang === 'nl' ? 'Ik wil nog wat veranderen' : (lang === 'ro' ? 'Vreau să modific ceva' : (lang === 'de' ? 'Ich möchte etwas ändern' : 'I want to change something'))}
