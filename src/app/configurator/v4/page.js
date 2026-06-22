@@ -129,6 +129,12 @@ const planedSubcategories = [
 
 const translations = {
   loading: { nl: 'Inladen portal...', en: 'Loading portal...', de: 'Portal wird geladen...', ro: 'Se încarcă portalul...' },
+  bricheteRomaniaOnly: {
+    nl: 'Beukenhoutbriketten zijn uitsluitend te koop in Roemenië. Buiten Roemenië leveren wij alleen onze B2B houtproducten (blanks, latten, stokken, profielen en bestekken).',
+    en: 'Beechwood briquettes are exclusively sold in Romania. Outside Romania, we only supply our B2B wood products (blanks, slats, sticks, profiles, and specials).',
+    de: 'Buchenholzbriketts werden ausschließlich in Rumänien verkauft. Außerhalb Rumäniens liefern wir nur unsere B2B-Holzprodukte (Zuschnitte, Leisten, Stäbe, Profile und Sonderanfertigungen).',
+    ro: 'Brichetele din lemn de fag sunt vândute exclusiv în România. În afara României, furnizăm doar produsele noastre din lemn B2B (piese brute, șipci, tije, profile și piese speciale).'
+  },
   v4PortalTitle: { nl: 'Willem AI - Beveiligde Toegang', en: 'Willem AI - Secured Access', de: 'Willem AI - Gesicherter Zugriff', ro: 'Willem AI - Acces Securizat' },
   v4PortalLead: { nl: 'Voer het aanvullende wachtwoord in om toegang te krijgen tot de Willem AI configurator.', en: 'Enter the additional password to access the Willem AI configurator.', de: 'Geben Sie das zusätzliche Passwort ein, um auf den Willem AI-Konfigurator zuzugreifen.', ro: 'Introduceți parola suplimentară pentru a accesa configuratorul Willem AI.' },
   v4PasswordLabel: { nl: 'Wachtwoord Willem AI *', en: 'Willem AI Password *', de: 'Willem AI Passwort *', ro: 'Parolă Willem AI *' },
@@ -1090,6 +1096,17 @@ export default function OpenChatConfigurator() {
     setTimeout(async () => {
       try {
         const cleanText = userText.toLowerCase().trim();
+
+        // Check if briquettes are discussed but geofencing restricts it (only sold in Romania)
+        const isBriquettesQuery = /(?:briket|briquette|brichete|brichet|heizbriketts)/i.test(cleanText);
+        if (isBriquettesQuery && !isRomania) {
+          const warningText = getTranslation('bricheteRomaniaOnly');
+          setHistory(prev => [...prev, { sender: 'bot', text: warningText }]);
+          if (!isMuted) speakText(warningText);
+          setIsTyping(false);
+          return;
+        }
+
         let parsed = null;
         let replyText = '';
         let useFallback = false;
@@ -1121,7 +1138,16 @@ export default function OpenChatConfigurator() {
               // Extract detected parameters
               const dp = data.detected_parameters || {};
               parsed = {};
-              if (dp.category) parsed.category = dp.category;
+              if (dp.category) {
+                if (dp.category === 'brichete' && !isRomania) {
+                  const warningText = getTranslation('bricheteRomaniaOnly');
+                  setHistory(prev => [...prev, { sender: 'bot', text: warningText }]);
+                  if (!isMuted) speakText(warningText);
+                  setIsTyping(false);
+                  return;
+                }
+                parsed.category = dp.category;
+              }
               if (dp.subCategory) {
                 const sub = dp.subCategory;
                 if (sub.startsWith('dowel-')) {
@@ -2553,15 +2579,13 @@ export default function OpenChatConfigurator() {
                   <table className="sidebar-specs-table" style={{ animation: 'slideUp 0.3s ease-out' }}>
                     <tbody>
                       {/* 1. Product */}
-                      {filledFields.category && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('productRow')}</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{categoryData[category].name[lang] || categoryData[category].name.nl}</td>
-                        </tr>
-                      )}
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('productRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{categoryData[category].name[lang] || categoryData[category].name.nl}</td>
+                      </tr>
                       
                       {/* 2. Subcategory */}
-                      {filledFields.category && category !== 'brichete' && getActiveSubCategoryCode(category) && (
+                      {category !== 'brichete' && getActiveSubCategoryCode(category) && (
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Subcategorie</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getSubcategoryName(category, getActiveSubCategoryCode(category))}</td>
@@ -2569,19 +2593,17 @@ export default function OpenChatConfigurator() {
                       )}
 
                       {/* 3. Wood Species */}
-                      {filledFields.category && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('woodSpeciesRow')}</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-                            {category === 'brichete'
-                              ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
-                              : getTranslation('beechwoodValue')}
-                          </td>
-                        </tr>
-                      )}
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('woodSpeciesRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+                          {category === 'brichete'
+                            ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+                            : getTranslation('beechwoodValue')}
+                        </td>
+                      </tr>
 
                       {/* 4. Grade */}
-                      {filledFields.grade && category !== 'brichete' && (
+                      {category !== 'brichete' && (
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('gradeRow')}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{grade === 'A' ? getTranslation('gradeAValue') : (grade === 'B' ? getTranslation('gradeBValue') : getTranslation('gradeCValue'))}</td>
@@ -2589,39 +2611,33 @@ export default function OpenChatConfigurator() {
                       )}
 
                       {/* 5. Dimensions */}
-                      {filledFields.dimensions && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dimensionsRow')}</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-                            {category === 'dowels' 
-                              ? `Ø ${diameter} x ${length} mm`
-                              : category === 'brichete'
-                              ? 'RUF Block'
-                              : `${thickness} x ${diameter} x ${length} mm`}
-                          </td>
-                        </tr>
-                      )}
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dimensionsRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+                          {category === 'dowels' 
+                            ? `Ø ${diameter} x ${length} mm`
+                            : category === 'brichete'
+                            ? 'RUF Block'
+                            : `${thickness} x ${diameter} x ${length} mm`}
+                        </td>
+                      </tr>
 
                       {/* 6. Quantity */}
-                      {filledFields.quantity && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
-                            {`${quantity} ${category === 'brichete' ? 'pallets' : getTranslation('pieces')}`}
-                          </td>
-                        </tr>
-                      )}
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+                          {`${quantity} ${category === 'brichete' ? 'pallets' : getTranslation('pieces')}`}
+                        </td>
+                      </tr>
 
                       {/* 7. Finish */}
-                      {filledFields.category && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('finishRow')}</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{categoryData[category].finish[lang] || categoryData[category].finish.nl}</td>
-                        </tr>
-                      )}
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('finishRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{categoryData[category].finish[lang] || categoryData[category].finish.nl}</td>
+                      </tr>
 
                       {/* 8. Drying */}
-                      {filledFields.drying && category !== 'brichete' && (
+                      {category !== 'brichete' && (
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dryingRow')}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getDryingLabel(drying)}</td>
@@ -2629,7 +2645,7 @@ export default function OpenChatConfigurator() {
                       )}
 
                       {/* 9. Steamed */}
-                      {filledFields.steamed && category !== 'brichete' && (
+                      {category !== 'brichete' && (
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('steamedRow')}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getSteamedLabel(steamed)}</td>
@@ -2637,7 +2653,7 @@ export default function OpenChatConfigurator() {
                       )}
 
                       {/* 10. FSC */}
-                      {filledFields.fsc && category !== 'brichete' && (
+                      {category !== 'brichete' && (
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('certificationLabel')}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getFscLabel(fsc)}</td>
