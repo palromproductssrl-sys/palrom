@@ -445,11 +445,10 @@ function WoodVisualizer({ selection, lang }) {
 }
 
 function SelectionSummary({ selection, lang }) {
-  if (!selection || !selection.category) return null;
-
   const t = {
     title: { nl: 'Uw configuratie', en: 'Your configuration', de: 'Ihre Konfiguration', ro: 'Configurația dvs.' },
     product: { nl: 'Product', en: 'Product', de: 'Produkt', ro: 'Produs' },
+    subCategory: { nl: 'Subcategorie', en: 'Subcategory', de: 'Unterkategorie', ro: 'Subcategorie' },
     woodSpecies: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
     beechwood: { nl: 'Beuken', en: 'Beechwood', de: 'Buchenholz', ro: 'Fag' },
     grade: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
@@ -461,8 +460,6 @@ function SelectionSummary({ selection, lang }) {
     steamedValueYes: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
     steamedValueNo: { nl: 'Ongestoomd', en: 'Unsteamed', de: 'Ungedämpft', ro: 'Neaburit' },
     fsc: { nl: 'FSC® Certificering', en: 'FSC® Certification', de: 'FSC®-Zertifizierung', ro: 'Certificare FSC®' },
-    yes: { nl: 'Ja', en: 'Yes', de: 'Ja', ro: 'Da' },
-    no: { nl: 'Nee', en: 'No', de: 'Nein', ro: 'Nu' },
     price: { nl: 'Richtprijs (excl. btw)', en: 'Target Price (excl. VAT)', de: 'Richtpreis (exkl. MwSt.)', ro: 'Preț Țintă (excl. TVA)' },
   };
 
@@ -480,98 +477,124 @@ function SelectionSummary({ selection, lang }) {
 
   const getVal = (dict, key) => dict[key]?.[lang] || dict[key]?.en || key;
 
+  const getSubcategoryName = (cat, subCat) => {
+    if (!subCat) return '';
+    let found = null;
+    if (cat === 'planed') {
+      found = planedSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'dowels') {
+      found = dowelSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'profiles') {
+      found = profileSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'specials') {
+      found = specialsSubcategories.find(s => s.id === subCat);
+    }
+    return found ? found.name[lang] || found.name.nl : subCat;
+  };
+
   return (
     <div className="selection-summary-card" style={{ backgroundColor: '#ffffff', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.65rem 1rem', boxShadow: 'var(--shadow-sm)', minHeight: '250px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-      <h3 style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--color-forest-dark)', marginTop: 0, marginBottom: '0.4rem', borderBottom: '1px solid #edf2f7', paddingBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-        <i className="fa-solid fa-list-check" style={{ color: 'var(--color-primary-dark)' }}></i>
+      <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', borderBottom: '2px solid var(--color-primary)', paddingBottom: '0.3rem', color: 'var(--color-text-dark)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+        <i className="fa-solid fa-list-check" style={{ color: 'var(--color-primary-dark)', fontSize: '0.9rem' }}></i>
         {getVal(t, 'title')}
       </h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', fontSize: '0.8rem' }}>
-        {/* 1. Product */}
-        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'product')}: </span>
-          <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.productName}</span>
-        </div>
-        {/* 2. Houtsoort */}
-        <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'woodSpecies')}: </span>
-          <span style={{ fontWeight: 600 }}>
-            {selection.category === 'brichete'
-              ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
-              : getVal(t, 'beechwood')}
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
+        <tbody>
+          {/* 1. Product */}
+          {selection.productName && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'product')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{selection.productName}</td>
+            </tr>
+          )}
+          {/* 2. Subcategory */}
+          {selection.category !== 'brichete' && selection.subCategory && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'subCategory')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{getSubcategoryName(selection.category, selection.subCategory)}</td>
+            </tr>
+          )}
+          {/* 3. Houtsoort */}
+          <tr>
+            <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'woodSpecies')}</td>
+            <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>
+              {selection.category === 'brichete'
+                ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+                : getVal(t, 'beechwood')}
+            </td>
+          </tr>
+          {/* 4. Kwaliteitsklasse */}
+          {selection.grade && selection.category !== 'brichete' && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'grade')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{gradeNames[lang]?.[selection.grade] || selection.grade}</td>
+            </tr>
+          )}
+          {/* 5. Afmetingen */}
+          {selection.dimensions && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'dimensions')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{selection.dimensions}</td>
+            </tr>
+          )}
+          {/* Radius */}
+          {selection.radius && selection.category === 'planed' && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>Radius</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{selection.radius}</td>
+            </tr>
+          )}
+          {/* 6. Oplage */}
+          {selection.qtyText && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'qty')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-forest-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{selection.qtyText}</td>
+            </tr>
+          )}
+          {/* 7. Afwerking */}
+          {selection.finish && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'finish')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>{selection.finish}</td>
+            </tr>
+          )}
+          {/* 8. Droging */}
+          {selection.drying && selection.category !== 'brichete' && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'drying')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>
+                {dryingValues[selection.drying]?.[lang] || dryingValues.kd[lang]}
+              </td>
+            </tr>
+          )}
+          {/* 9. Gestoomd */}
+          {selection.steamed && selection.category !== 'brichete' && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'steamed')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>
+                {selection.steamed === 'yes' ? getVal(t, 'steamedValueYes') : getVal(t, 'steamedValueNo')}
+              </td>
+            </tr>
+          )}
+          {/* 10. FSC */}
+          {selection.fsc !== undefined && selection.category !== 'brichete' && (
+            <tr>
+              <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, padding: '0.35rem 0.5rem 0.35rem 0', borderBottom: '1px solid #edf2f7' }}>{getVal(t, 'fsc')}</td>
+              <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)', padding: '0.35rem 0 0.35rem 0.5rem', borderBottom: '1px solid #edf2f7' }}>
+                {selection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {SHOW_PRICING && selection.price !== undefined && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', borderTop: '1px solid #edf2f7', paddingTop: '4px', marginTop: '4px', fontSize: '0.82rem' }}>
+          <span style={{ color: 'var(--color-text-muted)', fontWeight: 500, marginRight: '0.5rem' }}>{getVal(t, 'price')}: </span>
+          <span style={{ fontWeight: 700, color: 'var(--color-primary-dark)' }}>
+            € {formatEuro(selection.price)}
           </span>
         </div>
-        {/* 3. Kwaliteitsklasse */}
-        {selection.grade && selection.category !== 'brichete' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'grade')}: </span>
-            <span style={{ fontWeight: 600 }}>{gradeNames[lang]?.[selection.grade] || selection.grade}</span>
-          </div>
-        )}
-        {/* 4. Afmetingen */}
-        {selection.dimensions && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'dimensions')}: </span>
-            <span style={{ fontWeight: 600 }}>{selection.dimensions}</span>
-          </div>
-        )}
-        {/* Radius */}
-        {selection.radius && selection.category === 'planed' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius: </span>
-            <span style={{ fontWeight: 600 }}>{selection.radius}</span>
-          </div>
-        )}
-        {/* 5. Oplage */}
-        {selection.qtyText && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'qty')}: </span>
-            <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>{selection.qtyText}</span>
-          </div>
-        )}
-        {/* 6. Afwerking */}
-        {selection.finish && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'finish')}: </span>
-            <span style={{ fontWeight: 600 }}>{selection.finish}</span>
-          </div>
-        )}
-        {/* 7. Droging */}
-        {selection.drying && selection.category !== 'brichete' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'drying')}: </span>
-            <span style={{ fontWeight: 600 }}>
-              {dryingValues[selection.drying]?.[lang] || dryingValues.kd[lang]}
-            </span>
-          </div>
-        )}
-        {/* 8. Gestoomd */}
-        {selection.steamed && selection.category !== 'brichete' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'steamed')}: </span>
-            <span style={{ fontWeight: 600 }}>
-              {selection.steamed === 'yes' ? getVal(t, 'steamedValueYes') : getVal(t, 'steamedValueNo')}
-            </span>
-          </div>
-        )}
-        {/* 9. FSC */}
-        {selection.fsc !== undefined && selection.category !== 'brichete' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getVal(t, 'fsc')}: </span>
-            <span style={{ fontWeight: 600 }}>
-              {selection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
-            </span>
-          </div>
-        )}
-        {SHOW_PRICING && selection.price !== undefined && (
-          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', borderTop: '1px solid #edf2f7', paddingTop: '4px', marginTop: '4px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500, marginRight: '0.5rem' }}>{getVal(t, 'price')}: </span>
-            <span style={{ fontWeight: 700, color: 'var(--color-primary-dark)', fontSize: '0.95rem' }}>
-              € {formatEuro(selection.price)}
-            </span>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }
@@ -1096,6 +1119,7 @@ export default function Configurator() {
         diameter: liveDetails.diameter,
         thickness: liveDetails.thickness,
         radius: liveDetails.radius,
+        subCategory: liveDetails.subCategory
       });
     } else if (currentStep === 3) {
       const liveDetails = getActiveSelectionDetails();
@@ -1119,6 +1143,7 @@ export default function Configurator() {
         discountPercent: liveDetails.discountPercent,
         additionalInfo: liveDetails.additionalInfo,
         radius: liveDetails.radius,
+        subCategory: liveDetails.subCategory
       });
     }
   }, [currentStep, category, subCategoryDowels, subCategoryProfiles, subCategorySpecials, subCategoryPlaned, radius, woodType, grade, thickness, diameter, length, quantity, additionalInfo, fsc, drying, steamed, lang]);
@@ -1970,32 +1995,33 @@ export default function Configurator() {
               {/* Summary Table */}
               <div className="dashboard-table-wrapper" style={{ marginTop: '1rem' }}>
                 <table className="dashboard-table">
-                  <thead>
-                    <tr>
-                      <th>{getTranslation('configDetailCol')}</th>
-                      <th>{getTranslation('yourSelectionCol')}</th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {/* 1. Product */}
                     <tr>
-                      <td>{getTranslation('productRow')}</td>
-                      <td>{activeSelection.productName}</td>
+                      <td style={{ color: 'var(--color-text-muted)', fontWeight: 500, width: '40%' }}>{getTranslation('productRow')}</td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.productName}</td>
                     </tr>
-                    {/* 2. Houtsoort */}
+                    {/* 2. Subcategory */}
+                    {category !== 'brichete' && activeSelection.subCategory && (
+                      <tr>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{lang === 'nl' ? 'Subcategorie' : (lang === 'de' ? 'Unterkategorie' : (lang === 'ro' ? 'Subcategorie' : 'Subcategory'))}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getSubcategoryName(category, activeSelection.subCategory)}</td>
+                      </tr>
+                    )}
+                    {/* 3. Houtsoort */}
                     <tr>
-                      <td>{getTranslation('woodSpeciesRow')}</td>
-                      <td>
+                      <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('woodSpeciesRow')}</td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                         {category === 'brichete'
                           ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
                           : getTranslation('beechwoodValue')}
                       </td>
                     </tr>
-                    {/* 3. Kwaliteitsklasse */}
+                    {/* 4. Kwaliteitsklasse */}
                     {category !== 'brichete' && (
                       <tr>
-                        <td>{getTranslation('gradeRow')}</td>
-                        <td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('gradeRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                           {activeSelection.grade === 'A'
                             ? getTranslation('gradeAValue')
                             : activeSelection.grade === 'B'
@@ -2006,74 +2032,74 @@ export default function Configurator() {
                         </td>
                       </tr>
                     )}
-                    {/* 4. Afmetingen */}
+                    {/* 5. Afmetingen */}
                     <tr>
-                      <td>{getTranslation('dimensionsRow')}</td>
-                      <td>{activeSelection.dimensions}</td>
+                      <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dimensionsRow')}</td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.dimensions}</td>
                     </tr>
                     {/* Radius (only for planed-radius) */}
                     {category === 'planed' && subCategoryPlaned === 'planed-radius' && activeSelection.radius && (
                       <tr>
-                        <td>Radius</td>
-                        <td>{activeSelection.radius}</td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.radius}</td>
                       </tr>
                     )}
-                    {/* 5. Oplage */}
+                    {/* 6. Oplage */}
                     <tr>
-                      <td>{getTranslation('quantityRow')}</td>
-                      <td>{activeSelection.qtyText}</td>
+                      <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.qtyText}</td>
                     </tr>
-                    {/* 6. Afwerking */}
+                    {/* 7. Afwerking */}
                     <tr>
-                      <td>{getTranslation('finishRow')}</td>
-                      <td>{activeSelection.finish}</td>
+                      <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('finishRow')}</td>
+                      <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.finish}</td>
                     </tr>
-                    {/* 7. Droging */}
+                    {/* 8. Droging */}
                     {category !== 'brichete' && (
                       <tr>
-                        <td>{getTranslation('dryingRow')}</td>
-                        <td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dryingRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                           {activeSelection.drying === 'luchtdroog'
                             ? getTranslation('dryingValueAir')
                             : getTranslation('dryingValueKiln')}
                         </td>
                       </tr>
                     )}
-                    {/* 8. Gestoomd */}
+                    {/* 9. Gestoomd */}
                     {category !== 'brichete' && (
                       <tr>
-                        <td>{getTranslation('steamedRow')}</td>
-                        <td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('steamedRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                           {activeSelection.steamed === 'yes'
                             ? getTranslation('steamedValueYes')
                             : getTranslation('steamedValueNo')}
                         </td>
                       </tr>
                     )}
-                    {/* 9. FSC */}
+                    {/* 10. FSC */}
                     {category !== 'brichete' && (
                       <tr>
-                        <td>{getTranslation('fscRow')}</td>
-                        <td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('fscRow')}</td>
+                        <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                           {activeSelection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
                         </td>
                       </tr>
                     )}
                     {activeSelection.additionalInfo && (
                       <tr>
-                        <td>{getTranslation('additionalInfoLabel')}</td>
-                        <td style={{ fontStyle: 'italic', color: '#ffd700' }}>{activeSelection.additionalInfo}</td>
+                        <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('additionalInfoLabel')}</td>
+                        <td style={{ textAlign: 'right', fontStyle: 'italic', color: 'var(--color-text-dark)', fontWeight: 700 }}>{activeSelection.additionalInfo}</td>
                       </tr>
                     )}
                     {SHOW_PRICING && (
                       <>
                         <tr>
-                          <td>{getTranslation('targetPricePerPiece')}</td>
-                          <td>€ {formatEuro(activeSelection.unitPrice, 4)}</td>
+                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('targetPricePerPiece')}</td>
+                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>€ {formatEuro(activeSelection.unitPrice, 4)}</td>
                         </tr>
                         <tr>
-                          <td>{getTranslation('volumeDiscountRow')}</td>
-                          <td>
+                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('volumeDiscountRow')}</td>
+                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                             {activeSelection.discountPercent > 0 ? (
                               <span
                                 className="discount-badge"
@@ -2083,18 +2109,19 @@ export default function Configurator() {
                                   padding: '0.15rem 0.45rem',
                                   borderRadius: 'var(--border-radius-sm)',
                                   fontWeight: 600,
+                                  display: 'inline-block'
                                 }}
                               >
-                                {activeSelection.discountPercent}% {getTranslation('volumeDiscountText')}
+                                -{activeSelection.discountPercent}%
                               </span>
                             ) : (
-                              getTranslation('noDiscount')
+                              '0%'
                             )}
                           </td>
                         </tr>
                         <tr>
-                          <td>{getTranslation('totalTargetPriceRow')}</td>
-                          <td style={{ fontWeight: 700, color: 'var(--color-primary-dark)' }}>
+                          <td style={{ color: 'var(--color-forest-dark)', fontWeight: 700 }}>{getTranslation('totalTargetPrice')}</td>
+                          <td style={{ textAlign: 'right', fontWeight: 800, color: 'var(--color-primary-dark)', fontSize: '1rem' }}>
                             € {formatEuro(activeSelection.price)}
                           </td>
                         </tr>

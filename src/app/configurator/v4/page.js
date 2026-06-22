@@ -2567,7 +2567,7 @@ export default function OpenChatConfigurator() {
                       {/* 2. Subcategory */}
                       {category !== 'brichete' && getActiveSubCategoryCode(category) && (
                         <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Subcategorie</td>
+                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{lang === 'nl' ? 'Subcategorie' : (lang === 'de' ? 'Unterkategorie' : (lang === 'ro' ? 'Subcategorie' : 'Subcategory'))}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getSubcategoryName(category, getActiveSubCategoryCode(category))}</td>
                         </tr>
                       )}

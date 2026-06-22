@@ -1238,7 +1238,7 @@ export default function ChatbotConfigurator() {
         }
         .chat-summary-table td {
           padding: 0.3rem 0;
-          border-bottom: 1px solid #f1f5f9;
+          border-bottom: 1px solid #edf2f7;
         }
         .chat-footer .btn {
           padding: 0.75rem 1.5rem;
@@ -1356,6 +1356,21 @@ export default function ChatbotConfigurator() {
                 const numDiam = getNumericValue(diameter, 50);
                 const numThick = getNumericValue(thickness, 25);
 
+                const getSubcategoryName = (cat, subCat) => {
+                  if (!subCat) return '';
+                  let found = null;
+                  if (cat === 'planed') {
+                    found = planedSubcategories.find(s => s.id === subCat);
+                  } else if (cat === 'dowels') {
+                    found = dowelSubcategories.find(s => s.id === subCat);
+                  } else if (cat === 'profiles') {
+                    found = profileSubcategories.find(s => s.id === subCat);
+                  } else if (cat === 'specials') {
+                    found = specialsSubcategories.find(s => s.id === subCat);
+                  }
+                  return found ? found.name[lang] || found.name.nl : subCat;
+                };
+
                 const svgW = 320;
                 const svgH = 180;
 
@@ -1442,22 +1457,33 @@ export default function ChatbotConfigurator() {
                                 {/* 1. Product */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('productRow')}</td>
-                                  <td style={{ textAlign: 'right', fontWeight: 700 }}>{activeSelection.productName}</td>
+                                  <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.productName}</td>
                                 </tr>
-                                {/* 2. Wood Species */}
+                                {/* 2. Subcategory */}
+                                {category !== 'brichete' && activeSelection.subCategory && (
+                                  <tr>
+                                    <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>
+                                      {lang === 'nl' ? 'Subcategorie' : (lang === 'de' ? 'Unterkategorie' : (lang === 'ro' ? 'Subcategorie' : 'Subcategory'))}
+                                    </td>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+                                      {getSubcategoryName(category, activeSelection.subCategory)}
+                                    </td>
+                                  </tr>
+                                )}
+                                {/* 3. Wood Species */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('woodSpeciesRow')}</td>
-                                  <td style={{ textAlign: 'right', fontWeight: 600 }}>
+                                  <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                                     {category === 'brichete'
                                       ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
                                       : getTranslation('beechwoodValue')}
                                   </td>
                                 </tr>
-                                {/* 3. Quality Grade */}
+                                {/* 4. Quality Grade */}
                                 {category !== 'brichete' && (
                                   <tr>
                                     <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('gradeRow')}</td>
-                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                                       {activeSelection.grade === 'A'
                                         ? getTranslation('gradeAValue')
                                         : activeSelection.grade === 'B'
@@ -1468,55 +1494,55 @@ export default function ChatbotConfigurator() {
                                     </td>
                                   </tr>
                                 )}
-                                {/* 4. Dimensions */}
+                                {/* 5. Dimensions */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dimensionsRow')}</td>
-                                  <td style={{ textAlign: 'right', fontWeight: 700 }}>{activeSelection.dimensions}</td>
+                                  <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.dimensions}</td>
                                 </tr>
                                 {/* Radius (only for planed-radius) */}
                                 {category === 'planed' && subCategoryPlaned === 'planed-radius' && activeSelection.radius && (
                                   <tr>
                                     <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius</td>
-                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>{activeSelection.radius}</td>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.radius}</td>
                                   </tr>
                                 )}
-                                {/* 5. Quantity */}
+                                {/* 6. Quantity */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>
-                                  <td style={{ textAlign: 'right', fontWeight: 700 }}>{activeSelection.qtyText}</td>
+                                  <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.qtyText}</td>
                                 </tr>
-                                {/* 6. Finish */}
+                                {/* 7. Finish */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('finishRow')}</td>
-                                  <td style={{ textAlign: 'right', fontWeight: 600 }}>{activeSelection.finish}</td>
+                                  <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{activeSelection.finish}</td>
                                 </tr>
-                                {/* 7. Drying */}
+                                {/* 8. Drying */}
                                 {category !== 'brichete' && (
                                   <tr>
                                     <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dryingRow')}</td>
-                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                                       {activeSelection.drying === 'luchtdroog'
                                         ? getTranslation('dryingValueAir')
                                         : getTranslation('dryingValueKiln')}
                                     </td>
                                   </tr>
                                 )}
-                                {/* 8. Steamed */}
+                                {/* 9. Steamed */}
                                 {category !== 'brichete' && (
                                   <tr>
                                     <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('steamedRow')}</td>
-                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                                       {activeSelection.steamed === 'yes'
                                         ? getTranslation('steamedValueYes')
                                         : getTranslation('steamedValueNo')}
                                     </td>
                                   </tr>
                                 )}
-                                {/* 9. FSC */}
+                                {/* 10. FSC */}
                                 {category !== 'brichete' && (
                                   <tr>
                                     <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('fscRow')}</td>
-                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>
+                                    <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>
                                       {activeSelection.fsc
                                         ? 'FSC® 100%'
                                         : getTranslation('fscLabelNonFsc')}
