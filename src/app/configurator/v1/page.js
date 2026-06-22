@@ -18,7 +18,7 @@ const categoryData = {
       de: 'Buchenholz-Blanks',
       ro: 'Piese brute din lemn de fag (blanks)'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 25, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Fijnbezaagd', en: 'Fine-sawn / Rough-sawn', de: 'Feinschnitt / Sägerau', ro: 'Tăiat brut' },
@@ -31,7 +31,7 @@ const categoryData = {
       de: 'Buchenholzleisten',
       ro: 'Șipci din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Vierzijdig geschaafd (S4S)', en: 'Four-sides planed (S4S)', de: 'Vierseitig gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
@@ -44,7 +44,7 @@ const categoryData = {
       de: 'Buchenholzstäbe',
       ro: 'Tije din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
     finish: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
   },
@@ -56,7 +56,7 @@ const categoryData = {
       de: 'Buchenholzprofile',
       ro: 'Profile din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
@@ -93,7 +93,7 @@ const mainCategories = [
 const standardSawnThickness = [20, 25, 32, 36, 42, 47, 52, 57, 67];
 const standardSawnWidth = [45, 50, 60, 65, 70, 75, 95];
 const standardRodDiameters = [3, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 19, 20, 22, 25, 28, 30, 35, 40, 45, 50, 55, 60];
-const standardLengthRanges = ['200-250', '300-550', '600-900', '1000-1400', '1500-2000', '2100-3000'];
+const standardLengthRanges = [200, 300, 400, 500, 1000, 1500, 2000, 2500, 3000];
 
 // Specials prices
 const specialsPrices = {
@@ -1192,7 +1192,7 @@ export default function Configurator() {
         setWidthType('standard');
         setDiameter(50);
         setLengthType('standard');
-        setLength('1000-1400');
+        setLength(1000);
       } else if (category === 'planed') {
         setDrying('kd');
         setGrade('A');
@@ -1201,7 +1201,7 @@ export default function Configurator() {
         setWidthType('custom');
         setDiameter(50);
         setLengthType('standard');
-        setLength('1000-1400');
+        setLength(1000);
       } else if (category === 'dowels') {
         setDrying('kd');
         setGrade('A');
@@ -1210,7 +1210,7 @@ export default function Configurator() {
         setWidthType('standard');
         setDiameter(10);
         setLengthType('standard');
-        setLength('1000-1400');
+        setLength(1000);
       } else if (category === 'profiles') {
         setDrying('kd');
         setGrade('A');
@@ -1219,7 +1219,7 @@ export default function Configurator() {
         setWidthType('custom');
         setDiameter(40);
         setLengthType('standard');
-        setLength('1000-1400');
+        setLength(1000);
       } else if (category === 'specials') {
         setDrying('kd');
         setGrade('A');

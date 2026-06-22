@@ -16,7 +16,7 @@ const categoryData = {
       de: 'Buchenholz-Blanks',
       ro: 'Piese brute din lemn de fag (blanks)'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 25, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Fijnbezaagd', en: 'Fine-sawn / Rough-sawn', de: 'Feinschnitt / Sägerau', ro: 'Tăiat brut' },
@@ -29,7 +29,7 @@ const categoryData = {
       de: 'Buchenholzleisten',
       ro: 'Șipci din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Vierzijdig geschaafd (S4S)', en: 'Four-sides planed (S4S)', de: 'Vierseitig gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
@@ -42,7 +42,7 @@ const categoryData = {
       de: 'Buchenholzstäbe',
       ro: 'Tije din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
     finish: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
   },
@@ -54,7 +54,7 @@ const categoryData = {
       de: 'Buchenholzprofile',
       ro: 'Profile din lemn de fag'
     },
-    length: { min: 200, max: 3000, default: '1000-1400', label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
+    length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
     thickness: { min: 5, max: 200, default: 20, label: { nl: 'Dikte (mm)', en: 'Thickness (mm)', de: 'Dicke (mm)', ro: 'Grosime (mm)' } },
     finish: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
@@ -82,7 +82,7 @@ const categoryData = {
 const standardSawnThickness = [20, 25, 32, 36, 42, 47, 52, 57, 67];
 const standardSawnWidth = [45, 50, 60, 65, 70, 75, 95];
 const standardRodDiameters = [3, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 19, 20, 22, 25, 28, 30, 35, 40, 45, 50, 55, 60];
-const standardLengthRanges = ['200-250', '300-550', '600-900', '1000-1400', '1500-2000', '2100-3000'];
+const standardLengthRanges = [200, 300, 400, 500, 1000, 1500, 2000, 2500, 3000];
 
 const categoriesList = [
   { id: 'sawn', icon: 'fa-solid fa-layer-group', label: { nl: 'Beukenhouten blanks', en: 'Beechwood blanks', de: 'Buchenholz-Blanks', ro: 'Piese brute din lemn de fag (blanks)' } },
@@ -95,10 +95,10 @@ const categoriesList = [
 
 const tV3 = {
   standardRange: {
-    nl: 'Standaard range',
-    en: 'Standard range',
-    de: 'Standardbereich',
-    ro: 'Gamă standard'
+    nl: 'Standaard lengte',
+    en: 'Standard length',
+    de: 'Standardlänge',
+    ro: 'Lungime standard'
   },
   customRange: {
     nl: 'Maatwerk (exact)',
@@ -897,14 +897,14 @@ export default function ChatbotConfigurator() {
           
       case 'lengthType':
         return lang === 'nl'
-          ? `Voor de lengte: wilt u een standaardrange (bijv. 1000-1400 mm) of een exacte maat invoeren?`
-          : (lang === 'ro' ? `Pentru lungime: doriți o gamă standard (de ex. 1000-1400 mm) sau să introduceți o dimensiune exactă?`
-          : (lang === 'de' ? `Für die Länge: Möchten Sie einen Standardbereich (z. B. 1000-1400 mm) oder ein genaues Maß eingeben?`
-          : `For the length: would you like to enter a standard range (e.g. 1000-1400 mm) or an exact dimension?`));
+          ? `Voor de lengte: wilt u een standaardmaat (bijv. 1000 mm) of een exacte maat invoeren?`
+          : (lang === 'ro' ? `Pentru lungime: doriți o dimensiune standard (de ex. 1000 mm) sau să introduceți o dimensiune exactă?`
+          : (lang === 'de' ? `Für die Länge: Möchten Sie ein Standardmaß (z. B. 1000 mm) oder ein genaues Maß eingeben?`
+          : `For the length: would you like to enter a standard dimension (e.g. 1000 mm) or an exact dimension?`));
           
       case 'length':
         return stepObj.botMsgKey === 'chooseLengthStandard'
-          ? (lang === 'nl' ? `Selecteer een standaard lengte-range:` : (lang === 'ro' ? `Selectați o gamă standard de lungimi:` : (lang === 'de' ? `Wählen Sie einen Standardlängenbereich:` : `Select a standard length range:`)))
+          ? (lang === 'nl' ? `Selecteer een van onze standaardlengtes:` : (lang === 'ro' ? `Selectați una dintre lungimile noastre standard:` : (lang === 'de' ? `Wählen Sie eine unserer Standardlängen:` : `Select one of our standard lengths:`)))
           : (lang === 'nl' ? `Voer de exacte lengte in (in mm):` : (lang === 'ro' ? `Introduceți lungimea exactă (în mm):` : (lang === 'de' ? `Geben Sie die genaue Länge ein (in mm):` : `Enter the exact length (in mm):`)));
           
       case 'radius':
@@ -1010,7 +1010,7 @@ export default function ChatbotConfigurator() {
   // Sync locals when step changes
   useEffect(() => {
     if (activeStep) {
-      if (activeStep.step === 'length') setLocalInputLength(lengthType === 'custom' ? 1000 : standardLengthRanges[3]);
+      if (activeStep.step === 'length') setLocalInputLength(lengthType === 'custom' ? 1000 : standardLengthRanges[4]);
       if (activeStep.step === 'width') setLocalInputWidth(widthType === 'custom' ? 50 : standardSawnWidth[1]);
       if (activeStep.step === 'thickness') setLocalInputThickness(thicknessType === 'custom' ? 25 : standardSawnThickness[1]);
       if (activeStep.step === 'fsc') setLocalFsc(fsc);
