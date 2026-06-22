@@ -9,97 +9,6 @@ import ContactSection from '@/components/ContactSection';
 export default function Blanks() {
   const { lang } = useInquiry();
 
-  const blankProducts = [
-    {
-      id: 'blank-rough-sawn',
-      name: {
-        nl: 'Fijnbezaagde blanks / bestekken',
-        en: 'Fine-sawn beechwood blanks',
-        de: 'Feingesägte Buchenholz-Blanks',
-        ro: 'Piese brute din fag tăiate fin',
-      },
-      description: {
-        nl: 'Kwalitatief fijnbezaagde blanks en gezaagde planken van geselecteerd Roemeens beukenhout. Uitermate geschikt voor verdere machinale verwerking en componenten in de meubelindustrie.',
-        en: 'High-quality fine-sawn blanks and timber cut from selected Romanian beechwood. Perfectly suited for further mechanical processing and components in the furniture industry.',
-        de: 'Hochwertige feingesägte Kanteln und Schnittholz aus ausgewähltem rumänischem Buchenholz. Bestens geeignet für die weitere maschinelle Verarbeitung und Komponenten in der Möbelindustrie.',
-        ro: 'Piese brute de înaltă calitate tăiate fin și cherestea debitată din lemn de fag românesc selecționat. Perfect potrivite pentru prelucrări mecanice ulterioare și componente în industria mobilei.',
-      },
-      image: '/images/fine_sawn_blanks.png',
-      category: {
-        nl: 'Beukenhouten blanks',
-        en: 'Beechwood blanks',
-        de: 'Buchenholz-Blanks',
-        ro: 'Piese brute din lemn de fag (blanks)'
-      },
-    },
-    {
-      id: 'blank-turning',
-      name: {
-        nl: 'Vierkante blanks voor draaiwerk',
-        en: 'Square blanks for woodturning',
-        de: 'Quadratische Drechselkanteln',
-        ro: 'Piese brute pătrate pentru strunjire',
-      },
-      description: {
-        nl: 'Dikkere, vierkant gezaagde beukenhouten blanks speciaal geproduceerd voor houtdraaiers. Ideaal voor trapleuningen, meubelpoten, sporten en diverse gereedschapshandvatten.',
-        en: 'Thicker square-sawn beechwood blanks specifically manufactured for woodturners. Ideal for staircase balusters, furniture legs, rungs, and various tool handles.',
-        de: 'Stärkere, quadratisch gesägte Buchenholz-Blanks, speziell für Drechsler hergestellt. Ideal für Geländerstäbe, Möbelbeine, Sprossen und verschiedene Werkzeuggriffe.',
-        ro: 'Piese brute pătrate din lemn de fag mai groase, fabricate special pentru strunjire. Ideale pentru baluștri de scări, picioare de mobilier, trepte și diverse mânere de scule.',
-      },
-      image: '/images/special6.jpg',
-      category: {
-        nl: 'Beukenhouten blanks',
-        en: 'Beechwood blanks',
-        de: 'Buchenholz-Blanks',
-        ro: 'Piese brute din lemn de fag (blanks)'
-      },
-    },
-    {
-      id: 'blank-fsc',
-      name: {
-        nl: 'FSC® Gecertificeerde blanks',
-        en: 'FSC® Certified beechwood blanks',
-        de: 'FSC®-zertifizierte Buchenholz-Kanteln',
-        ro: 'Piese brute din fag certificate FSC®',
-      },
-      description: {
-        nl: 'Blanks en gezaagd hout geproduceerd onder strenge ecologische en sociale normen. 100% afkomstig uit gecertificeerde, verantwoord en duurzaam beheerde bossen in de Karpaten.',
-        en: 'Beechwood blanks produced under strict ecological and social standards. 100% sourced from certified, responsibly and sustainably managed Carpathian forests.',
-        de: 'Buchenholz-Kanteln, hergestellt unter strengen ökologischen und sozialen Standards. Zu 100% aus zertifizierten, verantwortungsvoll und nachhaltig bewirtschafteten Karpatenwäldern bezogen.',
-        ro: 'Piese brute din lemn de fag produse conform standardelor ecologice și sociale stricte. Provenite 100% din păduri din Carpați certificate și gestionate în mod responsabil și durabil.',
-      },
-      image: '/images/specials.png',
-      category: {
-        nl: 'Beukenhouten blanks',
-        en: 'Beechwood blanks',
-        de: 'Buchenholz-Blanks',
-        ro: 'Piese brute din lemn de fag (blanks)'
-      },
-    },
-    {
-      id: 'blank-custom',
-      name: {
-        nl: 'Blanks op maat gesneden',
-        en: 'Custom dimension blanks',
-        de: 'Kanteln nach Maß',
-        ro: 'Piese brute la dimensiuni personalizate',
-      },
-      description: {
-        nl: 'Volledig klantspecifieke dikte-, breedte- en lengtespecificaties om afval en zaagverlies in uw fabriek te minimaliseren. Direct geproduceerd volgens uw technische tekeningen.',
-        en: 'Fully customized thickness, width, and length specifications to minimize wood waste in your factory. Manufactured directly from your technical drawings.',
-        de: 'Vollständig kundenspezifische Dicken-, Breiten- und Längenspezifikationen, um Holzabfälle in Ihrer Fabrik zu minimieren. Direkt nach Ihren technischen Zeichnungen gefertigt.',
-        ro: 'Specificații de grosime, lățime și lungime complet personalizate pentru a minimiza deșeurile de lemn din fabrica dumneavoastră. Fabricate direct după desenele dumneavoastră tehnice.',
-      },
-      image: '/images/special5.jpg',
-      category: {
-        nl: 'Beukenhouten blanks',
-        en: 'Beechwood blanks',
-        de: 'Buchenholz-Blanks',
-        ro: 'Piese brute din lemn de fag (blanks)'
-      },
-    },
-  ];
-
   const t = {
     breadcrumb: {
       nl: 'Home / Producten / Beukenhouten blanks',
@@ -130,6 +39,30 @@ export default function Blanks() {
       en: 'Request Quote',
       de: 'Angebot anfordern',
       ro: 'Solicită Ofertă'
+    },
+    badgeText: {
+      nl: 'Beukenhouten blanks',
+      en: 'Beechwood blanks',
+      de: 'Buchenholz-Blanks',
+      ro: 'Piese brute din lemn de fag (blanks)'
+    },
+    blanksProductTitle: {
+      nl: 'Fijnbezaagde blanks / bestekken',
+      en: 'Fine-sawn beechwood blanks',
+      de: 'Feingesägte Buchenholz-Blanks',
+      ro: 'Piese brute din fag tăiate fin'
+    },
+    descText1: {
+      nl: 'Kwalitatief fijnbezaagde blanks en gezaagde planken van geselecteerd Roemeens beukenhout. Uitermate geschikt voor verdere machinale verwerking en hoogwaardige componenten in de meubelindustrie.',
+      en: 'High-quality fine-sawn blanks and timber cut from selected Romanian beechwood. Perfectly suited for further mechanical processing and premium components in the furniture industry.',
+      de: 'Hochwertige feingesägte Kanteln und Schnittholz aus ausgewähltem rumänischem Buchenholz. Bestens geeignet für die weitere maschinelle Verarbeitung und Komponenten in der Möbelindustrie.',
+      ro: 'Piese brute de înaltă calitate tăiate fin și cherestea debitată din lemn de fag românesc selecționat. Perfect potrivite pentru prelucrări mecanice ulterioare și componente în industria mobilei.'
+    },
+    descText2: {
+      nl: 'Onze fijnbezaagde blanks worden direct in onze eigen zagerij geproduceerd en gekalibreerd. Ze zijn kammergedroogd tot 8-12% vochtgehalte om een maximale stabiliteit en minimale vervorming te garanderen tijdens verdere bewerking.',
+      en: 'Our fine-sawn blanks are directly produced and calibrated in our own sawmill. They are kiln-dried to 8-12% moisture content to guarantee maximum stability and minimum deformation during subsequent processing.',
+      de: 'Unsere feingesägten Kanteln werden direkt in unserem eigenen Sägewerk produziert und kalibriert. Sie sind kammergetrocknet auf 8-12% Holzfeuchte, um maximale Stabilität und minimale Verformung bei der Weiterverarbeitung zu gewährleisten.',
+      ro: 'Piesele noastre brute tăiate fin sunt produse și calibrate direct în gaterul nostru propriu. Acestea sunt uscate în camere de uscare la un conținut de umiditate de 8-12% pentru a garanta stabilitate maximă și deformare minimă în timpul prelucrărilor ulterioare.'
     }
   };
 
@@ -156,29 +89,37 @@ export default function Blanks() {
       {/* Blanks Catalog Section */}
       <section className="section-padding bg-light" style={{ paddingTop: '4rem' }}>
         <div className="container">
-          <div className="grid grid-3 detail-grid">
-            {blankProducts.map((p) => (
-              <div className="detail-card animate-on-scroll" key={p.id}>
-                <div className="detail-img-wrapper">
-                  <Image 
-                    src={p.image} 
-                    alt={p.name[lang] || p.name.nl} 
-                    width={400}
-                    height={300}
-                  />
-                </div>
-                <div className="detail-info">
-                  <h3>{p.name[lang] || p.name.nl}</h3>
-                  <p>{p.description[lang] || p.description.nl}</p>
-                  <Link
-                    href="#contact"
-                    className="detail-cta add-to-inquiry-btn"
-                  >
-                    {getTranslation('requestQuoteBtn')} <i className="fa-solid fa-chevron-right icon-right"></i>
-                  </Link>
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-2 align-items-center" style={{ gap: '3.5rem', marginTop: '2rem' }}>
+            <div className="animate-on-scroll">
+              <Image 
+                src="/images/fine_sawn_blanks.png" 
+                alt={getTranslation('blanksProductTitle')} 
+                className="img-responsive rounded-lg shadow-lg"
+                width={600}
+                height={450}
+                style={{ width: '100%', objectFit: 'cover', height: '380px', borderRadius: '12px', display: 'block' }}
+                priority
+              />
+            </div>
+            <div className="animate-on-scroll">
+              <span className="section-badge">{getTranslation('badgeText')}</span>
+              <h2 className="section-title" style={{ fontSize: '2.2rem', marginBottom: '1.25rem', color: 'var(--color-forest-dark)' }}>
+                {getTranslation('blanksProductTitle')}
+              </h2>
+              <p style={{ color: 'var(--color-text)', marginBottom: '1.25rem', lineHeight: '1.7', fontSize: '1.02rem' }}>
+                {getTranslation('descText1')}
+              </p>
+              <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', lineHeight: '1.7' }}>
+                {getTranslation('descText2')}
+              </p>
+              <Link
+                href="#contact"
+                className="detail-cta add-to-inquiry-btn"
+                style={{ maxWidth: '280px', display: 'inline-flex' }}
+              >
+                {getTranslation('requestQuoteBtn')} <i className="fa-solid fa-chevron-right icon-right"></i>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
