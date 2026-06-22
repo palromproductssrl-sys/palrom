@@ -11,40 +11,18 @@ export default function Dowels() {
 
   const dowelProducts = [
     {
-      id: 'dowel-small',
+      id: 'dowel-smooth',
       name: {
-        nl: 'Kleine deuvelspelden (vanaf 3 mm)',
-        en: 'Small Size (3 mm and up)',
-        de: 'Kleine Holzstifte (ab 3 mm)',
-        ro: 'Dibluri de Mici Dimensiuni (de la 3 mm)',
+        nl: 'Stokken glad',
+        en: 'Smooth sticks',
+        de: 'Glatte Holzstäbe',
+        ro: 'Tije netede (glad)',
       },
       description: {
-        nl: 'Onze kleinste gekalibreerde houten pennen zijn ontworpen voor delicaat timmerwerk, architectonische modellen en knutselprojecten. Ondanks hun kleine diameter bieden ze een hoge structurele dichtheid en stabiliteit.',
-        en: 'Our smallest calibrated dowel pins are designed for delicate joinery, architectural models, and craft projects. Despite their small diameter, they offer high structural density and stability.',
-        de: 'Unsere kleinsten kalibrierten Holzdübel sind für feine Tischlerarbeiten, Architekturmodelle und Bastelprojekte konzipiert. Trotz ihres geringen Durchmessers bieten sie eine hohe Gefügedichte und Stabilität.',
-        ro: 'Cele mai mici dibluri calibrate ale noastre sunt proiectate pentru tâmplărie fină, machete arhitecturale și proiecte de artizanat. În ciuda diametrului lor mic, acestea oferă densitate structurală și stabilitate ridicate.',
-      },
-      image: '/images/dowelssmall-1.jpg',
-      category: {
-        nl: 'Beukenhouten stokken',
-        en: 'Beechwood sticks',
-        de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag'
-      },
-    },
-    {
-      id: 'dowel-medium-sticks',
-      name: {
-        nl: 'Houten staven (klein tot medium)',
-        en: 'Sticks Small to Medium',
-        de: 'Dübelstäbe (klein bis mittel)',
-        ro: 'Tije din Fag (mici spre medii)',
-      },
-      description: {
-        nl: 'Ideale deuvelstaven voor standaard timmerwerktoepassingen, speelgoedproductie en algemene meubelmontage. Precies gekalibreerd om diametervariaties te elimineren.',
-        en: 'Ideal dowel rods for standard carpentry applications, toys manufacturing, and general furniture assembly. Calibrated precisely to eliminate diameter variations.',
-        de: 'Ideale Dübelstangen für Standard-Zimmereianwendungen, Spielzeugherstellung und allgemeine Möbelmontage. Präzise kalibriert, um Durchmesservariationen auszuschließen.',
-        ro: 'Tije ideale din lemn pentru aplicații standard de tâmplărie, fabricarea jucăriilor și asamblarea generală a mobilierului. Calibrate cu precizie pentru a elimina variațiile de diametru.',
+        nl: 'Rond geschaafde, volledig gladde beukenhouten staven en deuvelstaven. Beschikbaar in diameters van 3 mm tot 60 mm. Ideaal voor meubelverbindingen, laddersporten, vlaggenstokken, handgrepen en diverse decoratieve of industriële toepassingen. Uiterst nauwkeurig gekalibreerd en gedroogd tot 8-12% vochtgehalte.',
+        en: 'Round-planed, completely smooth beech wood rods and dowel sticks. Available in diameters from 3 mm to 60 mm. Ideal for furniture joints, ladder rungs, flagpoles, handles, and decorative or industrial applications. Milled to extreme tolerances and chamber-dried to 8-12% moisture.',
+        de: 'Rund gehobelte, völlig glatte Buchenholzstäbe und Dübelstangen. Erhältlich in Durchmessern von 3 mm bis 60 mm. Ideal für Möbelverbindungen, Leitersprossen, Fahnenmasten, Griffe und dekorative oder industrielle Anwendungen. Extrem präzise kalibriert und getrocknet auf 8-12% Feuchtigkeit.',
+        ro: 'Tije și dibluri din lemn de fag rinduite rotund, complet netede. Disponibile în diametre de la 3 mm până la 60 mm. Ideale pentru îmbinări de mobilier, trepte de scară, catarge de steag, mânere și diverse aplicații decorative sau industriale. Calibrate extrem de precis și uscate la 8-12% umiditate.',
       },
       image: '/images/dowelsmedium.jpg',
       category: {
@@ -55,62 +33,18 @@ export default function Dowels() {
       },
     },
     {
-      id: 'dowel-medium',
-      name: {
-        nl: 'Medium deuvelstaven',
-        en: 'Medium Size Dowel Rods',
-        de: 'Mittlere Dübelstangen',
-        ro: 'Tije din Fag de Dimensiuni Medii',
-      },
-      description: {
-        nl: 'Deuvelstaven ontworpen voor zware meubelverbindingen, plankdragers en raamwerkverbindingen. Beukenhout biedt extra dimensionale weerstand tegen buigen.',
-        en: 'Dowel rods engineered for heavy furniture joints, shelving supports, and framework connections. High-quality beechwood provides extra dimensional resistance against bending.',
-        de: 'Dübelstangen für schwere Möbelverbindungen, Regalkonstruktionen und Rahmenverbindungen. Buchenholz bietet zusätzliche Formstabilität gegen Verbiegen.',
-        ro: 'Tije de dibluri proiectate pentru îmbinări grele de mobilier, suporturi de rafturi și conexiuni de cadre. Lemnul de fag oferă rezistență dimensională suplimentară împotriva îndoirii.',
-      },
-      image: '/images/dowels-medium-2.jpg',
-      category: {
-        nl: 'Beukenhouten stokken',
-        en: 'Beechwood sticks',
-        de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag'
-      },
-    },
-    {
-      id: 'dowel-big',
-      name: {
-        nl: 'Grote deuvelstaven (tot 60 mm)',
-        en: 'Big Size (up to 60 mm)',
-        de: 'Große Dübelstangen (bis zu 60 mm)',
-        ro: 'Tije din Fag de Mari Dimensiuni (până la 60 mm)',
-      },
-      description: {
-        nl: 'Grootformaat deuvelstaven voor industriële handgrepen, structurele scheidingskolommen en zware timmerverbindingen. Verkrijgbaar in aangepaste lengtes en maten tot 60 mm.',
-        en: 'Large-format dowel rods for industrial handles, structural partition columns, and heavy-duty carpentry connections. Available in custom lengths and sizes up to 60 mm.',
-        de: 'Großformatige Dübelstangen für Industriegriffe, Raumteilerstützen und schwere Holzbauverbindungen. Erhältlich in kundenspezifischen Längen und Größen bis zu 60 mm.',
-        ro: 'Tije de mari dimensiuni pentru mânere industriale, coloane structurale de compartimentare și conexiuni de tâmplărie de mare rezistență. Disponibile în lungimi personalizate și dimensiuni de până la 60 mm.',
-      },
-      image: '/images/dowelsbig-300x300-1.jpg',
-      category: {
-        nl: 'Beukenhouten stokken',
-        en: 'Beechwood sticks',
-        de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag'
-      },
-    },
-    {
       id: 'dowel-rilled',
       name: {
-        nl: 'Spiraal gegroefde deuvels (6 tot 20 mm)',
-        en: 'Spiral Rilled Pins (6 to 20 mm)',
-        de: 'Spiralförmig geriffelte Dübel (6 bis 20 mm)',
-        ro: 'Dibluri cu Caneluri Elicoidale (6 până la 20 mm)',
+        nl: 'Stokken gerild',
+        en: 'Rilled sticks',
+        de: 'Geriffelte Holzstäbe',
+        ro: 'Tije profilate (gerild)',
       },
       description: {
-        nl: 'Speciaal gegroefd voor geautomatiseerde meubelproductielijnen. De spiraalvormige groeven zorgen voor een gelijkmatige lijmverdeling, laten samengeperste lucht ontsnappen en garanderen een stevige verbinding.',
-        en: 'Specifically grooved for automated furniture production lines. The spiral rills allow for uniform glue distribution, venting compressed air, and ensuring a locked joint.',
-        de: 'Speziell geriffelt für automatisierte Möbelproduktionslinien. Die Spiralrillen sorgen für eine gleichmäßige Leimteilung, leiten komprimierte Luft ab und garantieren eine feste Verbindung.',
-        ro: 'Canelate special pentru liniile automate de producție de mobilier. Canelurile elicoidale permit distribuirea uniformă a lipiciului, eliminarea aerului comprimat și asigurarea unei îmbinări blocate.',
+        nl: 'Spiraalvormig gegroefde deuvelpennen en deuvelstaven, specifiek ontworpen voor geautomatiseerde meubelmontage en industriële verbindingen. Beschikbaar in diameters van 6 mm tot 20 mm. De canelures zorgen voor een gelijkmatige lijmverdeling, laten ingesloten lucht en lijm ontsnappen en garanderen een extreem sterke verbinding.',
+        en: 'Spiral-grooved dowel pins and rods, specifically designed for automated furniture assembly and industrial joint networks. Available in diameters from 6 mm to 20 mm. The spiral rills ensure even glue distribution, venting compressed air and excess adhesive for an exceptionally strong lock.',
+        de: 'Spiralförmig geriffelte Dübelstifte und Dübelstangen, speziell konzipiert für die automatische Möbelmontage und industrielle Holzverbindungen. Erhältlich in Durchmessern von 6 mm bis 20 mm. Die Spiralrillen sorgen für eine gleichmäßige Leimverteilung, leiten Luft und überschüssigen Leim ab und garantieren eine extrem feste Verbindung.',
+        ro: 'Dibluri și tije cu caneluri elicoidale, concepute special pentru asamblarea automată a mobilierului și îmbinări industriale. Disponibile în diametre de la 6 mm până la 20 mm. Canelurile asigură o distribuție uniformă a adezivului, permit evacuarea aerului și adezivului în exces și garantează o îmbinare extrem de puternică.',
       },
       image: '/images/dowelsrilled-300x300-1.jpg',
       category: {
@@ -119,7 +53,7 @@ export default function Dowels() {
         de: 'Buchenholzstäbe',
         ro: 'Tije din lemn de fag'
       },
-    },
+    }
   ];
 
   const t = {
@@ -178,7 +112,7 @@ export default function Dowels() {
       {/* Dowels Catalog Section */}
       <section className="section-padding bg-light" style={{ paddingTop: '4rem' }}>
         <div className="container">
-          <div className="grid grid-3 detail-grid">
+          <div className="grid grid-2 detail-grid">
             {dowelProducts.map((p) => (
               <div className="detail-card animate-on-scroll" key={p.id}>
                 <div className="detail-img-wrapper">
