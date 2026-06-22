@@ -1689,6 +1689,66 @@ ul {
         grid-template-columns: 1fr;
         gap: 3rem;
     }
+    
+    /* Navigation drawer menu for mobile (Triggered at 1024px) */
+    .mobile-nav-toggle {
+        display: flex;
+    }
+    
+    .logo {
+        margin-right: 0;
+    }
+    
+    .header-logo-img {
+        height: 56px;
+    }
+    
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-bg-white);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        box-shadow: var(--shadow-md);
+        clip-path: circle(0px at 90% 0%);
+        transition: transform 0.5s ease-out, clip-path 0.5s ease-out;
+        z-index: 99;
+        margin-right: 0;
+    }
+    
+    .nav-menu.open {
+        clip-path: circle(1200px at 90% 0%);
+    }
+    
+    .header-actions {
+        gap: 1rem;
+    }
+}
+
+/* Optimization for Desktop Navigation on Medium Screen Widths (1025px - 1200px) */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .logo {
+        margin-right: 1.5rem;
+    }
+    .header-logo-img {
+        height: 64px;
+    }
+    .nav-menu {
+        gap: 1rem;
+    }
+    .nav-link {
+        font-size: 0.85rem;
+    }
+    .header-actions {
+        gap: 1rem;
+    }
+    .action-btn {
+        padding: 0.5rem 1.1rem;
+        font-size: 0.8rem;
+    }
 }
 
 /* Mobile Viewports */
@@ -1739,52 +1799,18 @@ ul {
         gap: 1.5rem;
     }
     
-    /* Navigation drawer menu for mobile */
-    .mobile-nav-toggle {
-        display: flex;
-    }
-    
-    .logo {
-        margin-right: 0;
-    }
-    
-    .header-logo-img {
-        height: 56px;
-    }
-    
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: var(--color-bg-white);
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 0;
-        box-shadow: var(--shadow-md);
-        clip-path: circle(0px at 90% 0%);
-        transition: transform 0.5s ease-out, clip-path 0.5s ease-out;
-        z-index: 99;
-        margin-right: 0;
-    }
-    
-    .nav-menu.open {
-        clip-path: circle(1200px at 90% 0%);
-    }
-    
-    .header-actions {
-        gap: 1rem;
-    }
-    
-    .header-actions .action-btn {
-        display: none; /* Hide Quote button on extremely small mobile screen actions */
-    }
-    
     .cookie-modal {
         left: 1rem;
         right: 1rem;
         bottom: 1rem;
         max-width: none;
+    }
+}
+
+/* Hide Quote button on extremely small mobile screens (under 600px width) */
+@media (max-width: 600px) {
+    .header-actions .action-btn {
+        display: none;
     }
 }
 
