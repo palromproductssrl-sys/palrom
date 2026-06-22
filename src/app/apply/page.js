@@ -137,10 +137,10 @@ function ApplyFormContent() {
       ro: 'Candidatură Spontană'
     },
     labelResume: {
-      nl: 'Upload uw cv / resume *',
-      en: 'Upload Your CV / Resume *',
-      de: 'Lebenslauf hochladen *',
-      ro: 'Încărcați CV-ul *'
+      nl: 'Upload uw cv / resume (optioneel)',
+      en: 'Upload Your CV / Resume (optional)',
+      de: 'Lebenslauf hochladen (optional)',
+      ro: 'Încărcați CV-ul (opțional)'
     },
     dropzoneText: {
       nl: 'Sleep uw cv hiernaartoe, of klik om te bladeren',
@@ -277,10 +277,7 @@ function ApplyFormContent() {
       return;
     }
 
-    if (!selectedFile) {
-      setFeedback({ text: getTranslation('validationCV'), type: 'error' });
-      return;
-    }
+
 
     setIsSubmitting(true);
     setFeedback(null);
@@ -325,14 +322,18 @@ function ApplyFormContent() {
       const formattedJobName = jobNames[position]?.[lang] || jobNames[position]?.nl || position;
 
       let successMsg = '';
+      const cvText = selectedFile ? ` en uw cv (${selectedFile.name})` : '';
       if (lang === 'nl') {
-        successMsg = `Bedankt, ${name}! Uw sollicitatie voor de functie "${formattedJobName}" en uw cv (${selectedFile.name}) zijn succesvol ontvangen door Anca Mihuț. We zullen deze beoordelen en binnen 2 werkdagen contact met u opnemen via ${email} of ${phone}.`;
+        successMsg = `Bedankt, ${name}! Uw sollicitatie voor de functie "${formattedJobName}"${cvText} zijn succesvol ontvangen door Anca Mihuț. We zullen deze beoordelen en binnen 2 werkdagen contact met u opnemen via ${email} of ${phone}.`;
       } else if (lang === 'de') {
-        successMsg = `Vielen Dank, ${name}! Ihre Bewerbung für die Position "${formattedJobName}" und Ihr Lebenslauf (${selectedFile.name}) sind erfolgreich bei Anca Mihuț eingegangen. Wir werden sie prüfen und uns innerhalb von 2 Werktagen unter ${email} oder ${phone} bei Ihnen melden.`;
+        const cvTextDe = selectedFile ? ` und Ihr Lebenslauf (${selectedFile.name})` : '';
+        successMsg = `Vielen Dank, ${name}! Ihre Bewerbung für die Position "${formattedJobName}"${cvTextDe} sind erfolgreich bei Anca Mihuț eingegangen. Wir werden sie prüfen und uns innerhalb von 2 Werktagen unter ${email} oder ${phone} bei Ihnen melden.`;
       } else if (lang === 'ro') {
-        successMsg = `Vă mulțumim, ${name}! Candidatura dvs. pentru funcția "${formattedJobName}" și CV-ul dvs. (${selectedFile.name}) au fost primite cu succes de Anca Mihuț. O vom examina și vă vom contacta la ${email} sau ${phone} în termen de 2 zile lucrătoare.`;
+        const cvTextRo = selectedFile ? ` și CV-ul dvs. (${selectedFile.name})` : '';
+        successMsg = `Vă mulțumim, ${name}! Candidatura dvs. pentru funcția "${formattedJobName}"${cvTextRo} au fost primite cu succes de Anca Mihuț. O vom examina și vă vom contacta la ${email} sau ${phone} în termen de 2 zile lucrătoare.`;
       } else {
-        successMsg = `Thank you, ${name}! Your application for the "${formattedJobName}" position and your resume (${selectedFile.name}) have been successfully received by Anca Mihuț. We will review it and contact you at ${email} or ${phone} within 2 days.`;
+        const cvTextEn = selectedFile ? ` and your resume (${selectedFile.name})` : '';
+        successMsg = `Thank you, ${name}! Your application for the "${formattedJobName}" position${cvTextEn} have been successfully received by Anca Mihuț. We will review it and contact you at ${email} or ${phone} within 2 days.`;
       }
 
       setFeedback({

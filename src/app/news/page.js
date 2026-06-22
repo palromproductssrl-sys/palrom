@@ -29,6 +29,44 @@ export default function News() {
   }, [selectedArticle]);
 
   const newsItems = [
+    {
+      id: 'fsc-commitment',
+      tag: lang === 'nl' ? 'Kwaliteit' : (lang === 'de' ? 'Qualität' : (lang === 'ro' ? 'Calitate' : 'Quality')),
+      date: lang === 'nl' ? '22 juni 2026' : (lang === 'de' ? '22. Juni 2026' : (lang === 'ro' ? '22 iunie 2026' : 'June 22, 2026')),
+      author: 'Quality Assurance',
+      title: lang === 'nl'
+        ? 'Kwaliteitsgarantie: Waarom wij FSC®-certificering serieus nemen'
+        : (lang === 'de' ? 'Qualitätsgarantie: Warum wir die FSC®-Zertifizierung ernst nehmen' : (lang === 'ro' ? 'Garanția Calității: De ce luăm în serios certificarea FSC®' : 'Quality Guarantee: Why we take FSC® certification seriously')),
+      content: (
+        <>
+          {lang === 'nl' && (
+            <p>
+              Bij PALROM Products is kwaliteit onlosmakelijk verbonden met duurzaamheid. Wij nemen onze FSC®-certificering (FSC® 100%) uiterst serieus. Dit garandeert dat al ons beukenhout afkomstig is uit verantwoord beheerde bossen die voldoen aan strenge ecologische, sociale en economische normen. Het is een herinnering aan de hoge kwaliteit en betrouwbaarheid van onze producten.
+            </p>
+          )}
+          {lang === 'de' && (
+            <p>
+              Bei PALROM Products ist Qualität untrennbar mit Nachhaltigkeit verbunden. Wir nehmen unsere FSC®-Zertifizierung (FSC® 100%) sehr ernst. Dies garantiert, dass unser gesamtes Buchenholz aus verantwortungsvoll bewirtschafteten Wäldern stammt, die strengen ökologischen, sozialen und wirtschaftlichen Standards entsprechen. Es ist eine Erinnerung an die hohe Qualität und Zuverlässigkeit unserer Produkte.
+            </p>
+          )}
+          {lang === 'ro' && (
+            <p>
+              La PALROM Products, calitatea este inseparabilă de sustenabilitate. Luăm foarte în serios certificarea noastră FSC® (FSC® 100%). Aceasta garantează că tot lemnul nostru de fag provine din păduri gestionate responsabil, care respectă standarde ecologice, sociale și economice stricte. Este o reamintire a calității înalte și a fiabilității produselor noastre.
+            </p>
+          )}
+          {lang !== 'nl' && lang !== 'de' && lang !== 'ro' && (
+            <p>
+              At PALROM Products, quality is inseparable from sustainability. We take our FSC® certification (FSC® 100%) extremely seriously. This guarantees that all of our beechwood originates from responsibly managed forests meeting strict ecological, social, and economic standards. It is a reminder of the high quality and reliability of our products.
+            </p>
+          )}
+          <Link href="/configurator" className="news-link">
+            {lang === 'nl' ? 'Configureren met FSC' : (lang === 'de' ? 'Mit FSC konfigurieren' : (lang === 'ro' ? 'Configurați cu FSC' : 'Configure with FSC'))}{' '}
+            <i className="fa-solid fa-arrow-right"></i>
+          </Link>
+        </>
+      ),
+      image: '/images/hero_bg.jpg',
+    },
     ...(isRomania ? [
       {
         id: 'briquettes-summer',
@@ -318,6 +356,10 @@ export default function News() {
                 {selectedArticle.id === 'briquettes-summer' ? (
                   <Link href="/configurator/v4?category=brichete" onClick={() => setSelectedArticle(null)} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
                     {lang === 'nl' ? 'Briketten configureren' : (lang === 'de' ? 'Briketts konfigurieren' : (lang === 'ro' ? 'Configurați brichete' : 'Configure briquettes'))} <i className="fa-solid fa-arrow-right icon-right"></i>
+                  </Link>
+                ) : selectedArticle.id === 'fsc-commitment' ? (
+                  <Link href="/configurator" onClick={() => setSelectedArticle(null)} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {lang === 'nl' ? 'Configureren met FSC' : (lang === 'de' ? 'Mit FSC konfigurieren' : (lang === 'ro' ? 'Configurați cu FSC' : 'Configure with FSC'))} <i className="fa-solid fa-arrow-right icon-right"></i>
                   </Link>
                 ) : selectedArticle.id === 'configurator' ? (
                   <Link href="/configurator" onClick={() => setSelectedArticle(null)} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
