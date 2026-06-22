@@ -4,6 +4,7 @@
 
 /* 1. Design Tokens & CSS Custom Properties */
 :root {
+    color-scheme: light;
     /* Color Palette */
     --color-primary: rgb(231, 177, 36);       /* Brand Golden Yellow (#e7b124) */
     --color-primary-light: rgb(231, 177, 36); /* Brand Golden Yellow (#e7b124) */

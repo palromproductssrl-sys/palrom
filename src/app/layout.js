@@ -30,6 +30,11 @@ export const metadata = {
   description: "B2B-fabrikant van beukenhouten bestekken, stokken, latten en profielen. FSC®-gecertificeerd lokaal beukenhout.",
 };
 
+export const viewport = {
+  themeColor: "#fdf7f2",
+  colorScheme: "light",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
