@@ -515,6 +515,13 @@ function SelectionSummary({ selection, lang }) {
             <span style={{ fontWeight: 600 }}>{selection.dimensions}</span>
           </div>
         )}
+        {/* Radius */}
+        {selection.radius && selection.category === 'planed' && (
+          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
+            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius: </span>
+            <span style={{ fontWeight: 600 }}>{selection.radius}</span>
+          </div>
+        )}
         {/* 5. Oplage */}
         {selection.qtyText && (
           <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
@@ -554,13 +561,6 @@ function SelectionSummary({ selection, lang }) {
             <span style={{ fontWeight: 600 }}>
               {selection.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'ro' ? 'Fără FSC' : (lang === 'de' ? 'Kein FSC' : 'No FSC')))}
             </span>
-          </div>
-        )}
-        {/* Radius */}
-        {selection.radius && selection.category === 'planed' && (
-          <div style={{ borderBottom: '1px solid #f8fafc', paddingBottom: '3px' }}>
-            <span style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius: </span>
-            <span style={{ fontWeight: 600 }}>{selection.radius}</span>
           </div>
         )}
         {SHOW_PRICING && selection.price !== undefined && (
@@ -2011,6 +2011,13 @@ export default function Configurator() {
                       <td>{getTranslation('dimensionsRow')}</td>
                       <td>{activeSelection.dimensions}</td>
                     </tr>
+                    {/* Radius (only for planed-radius) */}
+                    {category === 'planed' && subCategoryPlaned === 'planed-radius' && activeSelection.radius && (
+                      <tr>
+                        <td>Radius</td>
+                        <td>{activeSelection.radius}</td>
+                      </tr>
+                    )}
                     {/* 5. Oplage */}
                     <tr>
                       <td>{getTranslation('quantityRow')}</td>

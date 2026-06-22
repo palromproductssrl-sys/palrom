@@ -1473,6 +1473,13 @@ export default function ChatbotConfigurator() {
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('dimensionsRow')}</td>
                                   <td style={{ textAlign: 'right', fontWeight: 700 }}>{activeSelection.dimensions}</td>
                                 </tr>
+                                {/* Radius (only for planed-radius) */}
+                                {category === 'planed' && subCategoryPlaned === 'planed-radius' && activeSelection.radius && (
+                                  <tr>
+                                    <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius</td>
+                                    <td style={{ textAlign: 'right', fontWeight: 600 }}>{activeSelection.radius}</td>
+                                  </tr>
+                                )}
                                 {/* 5. Quantity */}
                                 <tr>
                                   <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>

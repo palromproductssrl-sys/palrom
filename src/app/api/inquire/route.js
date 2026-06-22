@@ -90,7 +90,9 @@ export function generatePdfBuffer(clientName, clientEmail, clientPhone, clientNo
         
         doc.fillColor('#000000');
         doc.text(item.name || '', 45, currentY + 7, { width: 180 });
-        doc.text(item.dims || '', 230, currentY + 7, { width: 140 });
+        
+        const displayDims = (item.dims || '') + (item.radius ? ` (Radius: ${item.radius})` : '');
+        doc.text(displayDims, 230, currentY + 7, { width: 140 });
         doc.text(item.grade || 'A', 380, currentY + 7, { width: 50 });
         
         const dryText = item.drying === 'luchtdroog' ? 'AD' : 'KD';
@@ -133,6 +135,7 @@ const localizeSpecKey = (key, lang = 'nl') => {
     woodType: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
     grade: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
     dims: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
+    radius: { nl: 'Radius', en: 'Radius', de: 'Radius', ro: 'Rază' },
     finish: { nl: 'Afwerking', en: 'Finish', de: 'Oberfläche', ro: 'Finisaj' },
     drying: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
     steamed: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
@@ -303,7 +306,7 @@ export async function POST(request) {
               acc[`Nume produs ${index + 1} (Product ${index + 1} Name)`] = item.name;
               acc[`Cantitate produs ${index + 1} (Product ${index + 1} Qty)`] = item.qty;
               
-              const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+              const orderedKeys = ['woodType', 'grade', 'dims', 'radius', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
               orderedKeys.forEach((k) => {
                 const v = item[k];
                 if (v === undefined || v === null || v === '') return;
@@ -338,7 +341,7 @@ export async function POST(request) {
       // 1. Send internal notification email to sales office (always in English for tests)
       try {
         const itemsHtml = items.map((item, index) => {
-          const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+          const orderedKeys = ['woodType', 'grade', 'dims', 'radius', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
           const specsList = orderedKeys.map((k) => {
             const v = item[k];
             if (v === undefined || v === null || v === '') return null;
@@ -473,12 +476,13 @@ export async function POST(request) {
         ];
 
         items.forEach((item, index) => {
+          const displayDims = (item.dims || '') + (item.radius ? ` (Radius: ${item.radius})` : '');
           const row = [
             `Product ${index + 1}`,
             item.name || '',
             item.category || '',
             item.qty || '',
-            item.dims || '',
+            displayDims,
             localizeSpecValue('grade', item.grade, 'en') || '',
             localizeSpecValue('fsc', item.fsc, 'en') || '',
             localizeSpecValue('drying', item.drying, 'en') || '',
@@ -652,7 +656,7 @@ export async function POST(request) {
         }[emailLang] || 'Dit is een geautomatiseerde bevestiging van uw aanvraag. We nemen zo snel mogelijk contact met u op.';
 
         const clientItemsHtml = items.map((item, index) => {
-          const orderedKeys = ['woodType', 'grade', 'dims', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+          const orderedKeys = ['woodType', 'grade', 'dims', 'radius', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
           const specsList = orderedKeys.map((k) => {
             const v = item[k];
             if (v === undefined || v === null || v === '') return null;

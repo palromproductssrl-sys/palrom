@@ -588,6 +588,13 @@ export default function CartSidebar() {
                           <div>
                             <strong>{lang === 'nl' ? 'Afmetingen' : (lang === 'de' ? 'Maße' : (lang === 'ro' ? 'Dimensiuni' : 'Dimensions'))}:</strong> {displayDims}
                           </div>
+                          {/* Radius (only for planed-radius) */}
+                          {item.categoryKey === 'planed' && item.subCategory === 'planed-radius' && item.radius && (
+                            <div>
+                              <strong>{lang === 'nl' ? 'Radius' : (lang === 'de' ? 'Radius' : (lang === 'ro' ? 'Rază' : 'Radius'))}:</strong>{' '}
+                              {item.radius}
+                            </div>
+                          )}
                           {/* 5. Oplage */}
                           <div>
                             <strong>{getTranslation('quantityLabel')}:</strong>{' '}
@@ -626,13 +633,6 @@ export default function CartSidebar() {
                             <div>
                               <strong>{lang === 'nl' ? 'FSC® Certificering' : (lang === 'de' ? 'FSC®-Zertifizierung' : (lang === 'ro' ? 'Certificare FSC®' : 'FSC® Certification'))}:</strong>{' '}
                               {item.fsc ? 'FSC® 100%' : (lang === 'nl' ? 'Geen FSC' : (lang === 'de' ? 'Kein FSC' : (lang === 'ro' ? 'Fără FSC' : 'No FSC')))}
-                            </div>
-                          )}
-                          {/* Radius (only for planed-radius) */}
-                          {item.categoryKey === 'planed' && item.subCategory === 'planed-radius' && item.radius && (
-                            <div>
-                              <strong>{lang === 'nl' ? 'Radius' : (lang === 'de' ? 'Radius' : (lang === 'ro' ? 'Rază' : 'Radius'))}:</strong>{' '}
-                              {item.radius}
                             </div>
                           )}
                           {/* 10. Additional Info */}

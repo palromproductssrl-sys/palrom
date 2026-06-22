@@ -2602,6 +2602,14 @@ export default function OpenChatConfigurator() {
                         </td>
                       </tr>
 
+                      {/* Radius */}
+                      {category === 'planed' && subCategoryPlaned === 'planed-radius' && radius && (
+                        <tr>
+                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius</td>
+                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{radius}</td>
+                        </tr>
+                      )}
+
                       {/* 6. Quantity */}
                       <tr>
                         <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('quantityRow')}</td>
@@ -2637,14 +2645,6 @@ export default function OpenChatConfigurator() {
                         <tr>
                           <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>{getTranslation('certificationLabel')}</td>
                           <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{getFscLabel(fsc)}</td>
-                        </tr>
-                      )}
-
-                      {/* Radius */}
-                      {category === 'planed' && subCategoryPlaned === 'planed-radius' && radius && (
-                        <tr>
-                          <td style={{ color: 'var(--color-text-muted)', fontWeight: 500 }}>Radius</td>
-                          <td style={{ textAlign: 'right', fontWeight: 700, color: 'var(--color-text-dark)' }}>{radius}</td>
                         </tr>
                       )}
                     </tbody>
