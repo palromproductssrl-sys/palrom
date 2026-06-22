@@ -714,6 +714,7 @@ export default function ChatbotConfigurator() {
 
     setNotification(getTranslation('addSuccess'));
     setTimeout(() => setNotification(null), 4000);
+    setIsCartOpen(true);
     handleStartOver();
   };
 
