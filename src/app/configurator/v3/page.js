@@ -1191,7 +1191,7 @@ export default function ChatbotConfigurator() {
           justify-content: space-between;
           min-height: 110px;
           position: relative;
-          overflow: hidden;
+          overflow: visible;
         }
         .chip-button-subcat:hover {
           border-color: var(--color-primary);
@@ -1216,6 +1216,49 @@ export default function ChatbotConfigurator() {
           text-align: center;
           margin-top: auto;
           word-break: break-word;
+        }
+        .chip-subcat-popover {
+          position: absolute;
+          bottom: 118%;
+          left: 50%;
+          transform: translate(-50%, 8px);
+          width: 140px;
+          background: #ffffff;
+          border: 1.5px solid var(--color-border);
+          border-radius: 8px;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+          z-index: 99;
+          padding: 6px;
+          pointer-events: none;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.15s ease-out, transform 0.15s ease-out, visibility 0.15s ease-out;
+        }
+        .chip-button-subcat:hover .chip-subcat-popover {
+          opacity: 1;
+          visibility: visible;
+          transform: translate(-50%, 0);
+        }
+        .chip-subcat-popover::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 6px;
+          border-style: solid;
+          border-color: #ffffff transparent transparent transparent;
+        }
+        .chip-subcat-popover::before {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 8px;
+          border-style: solid;
+          border-color: var(--color-border) transparent transparent transparent;
+          margin-top: 1px;
         }
         .slider-control-row {
           display: flex;
@@ -1627,6 +1670,14 @@ export default function ChatbotConfigurator() {
                             </div>
                           )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
+                          {s.img && (
+                            <div className="chip-subcat-popover">
+                              <div style={{ position: 'relative', width: '100%', height: '100px', overflow: 'hidden', borderRadius: '6px' }}>
+                                <img src={s.img} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                                <ProfileDrawingOverlay subCategoryId={s.id} />
+                              </div>
+                            </div>
+                          )}
                         </button>
                       ))}
                       {category === 'planed' && planedSubcategories.map(s => (
@@ -1638,6 +1689,14 @@ export default function ChatbotConfigurator() {
                             </div>
                           )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
+                          {s.img && (
+                            <div className="chip-subcat-popover">
+                              <div style={{ position: 'relative', width: '100%', height: '100px', overflow: 'hidden', borderRadius: '6px' }}>
+                                <img src={s.img} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                                <ProfileDrawingOverlay subCategoryId={s.id} />
+                              </div>
+                            </div>
+                          )}
                         </button>
                       ))}
                       {category === 'profiles' && profileSubcategories.map(s => (
@@ -1649,6 +1708,14 @@ export default function ChatbotConfigurator() {
                             </div>
                           )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
+                          {s.img && (
+                            <div className="chip-subcat-popover">
+                              <div style={{ position: 'relative', width: '100%', height: '100px', overflow: 'hidden', borderRadius: '6px' }}>
+                                <img src={s.img} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                                <ProfileDrawingOverlay subCategoryId={s.id} />
+                              </div>
+                            </div>
+                          )}
                         </button>
                       ))}
                       {category === 'specials' && specialsSubcategories.map(s => (
@@ -1660,6 +1727,14 @@ export default function ChatbotConfigurator() {
                             </div>
                           )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
+                          {s.img && (
+                            <div className="chip-subcat-popover">
+                              <div style={{ position: 'relative', width: '100%', height: '100px', overflow: 'hidden', borderRadius: '6px' }}>
+                                <img src={s.img} alt="" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                                <ProfileDrawingOverlay subCategoryId={s.id} />
+                              </div>
+                            </div>
+                          )}
                         </button>
                       ))}
                     </div>
