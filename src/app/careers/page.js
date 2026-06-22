@@ -122,62 +122,7 @@ export default function Careers() {
         ro: 'Salariu Stabil'
       },
     },
-    {
-      id: 'logistics',
-      title: {
-        nl: 'Coördinator Logistiek & Inventaris',
-        en: 'Logistics & Inventory Coordinator',
-        de: 'Logistik- & Bestands-Koordinator',
-        ro: 'Coordonator Logistică & Inventar'
-      },
-      department: {
-        nl: 'Administratie',
-        en: 'Administration',
-        de: 'Verwaltung',
-        ro: 'Administrație'
-      },
-      location: 'Brad, RO',
-      type: {
-        nl: 'Fulltime',
-        en: 'Full-Time',
-        de: 'Vollzeit',
-        ro: 'Normă Întreagă'
-      },
-      description: {
-        nl: 'Coördineren van binnenlands transport en Europese exportzendingen (voornamelijk naar onze centrale Nederlandse logistieke partner). Beheren van houtvoorraden, droogkamerrapportages en laadlijsten.',
-        en: 'Coordinate domestic transport and European export shipping (primarily to our central Dutch warehouse partner). Manage wood inventory levels, drying chamber records, and loading manifests.',
-        de: 'Koordinierung des inländischen Transports und des europäischen Exportversands (hauptsächlich an unseren zentralen niederländischen Lagerpartner). Verwalten von Holzbeständen, Trockenkammerprotokollen und Ladelisten.',
-        ro: 'Coordonarea transportului intern și a transportului european de export (în principal către partenerul nostru central de depozitare din Olanda). Gestionarea nivelurilor stocurilor de lemn, a evidențelor camerelor de uscare și a manifestelor de încărcare.'
-      },
-      requirements: {
-        nl: [
-          'Ervaring met magazijnbeheer, verzenddocumenten of transportplanning.',
-          'Basis computervaardigheden (Excel/Word) en bekendheid met logistieke software.',
-          'Goede communicatieve vaardigheden in het Roemeens en basis Engels voor logistieke contacten.',
-        ],
-        en: [
-          'Experience in warehouse management, shipping paperwork, or transportation planning.',
-          'Basic computer skills (Excel/Word) and familiarity with logistics software.',
-          'Conversational Romanian & basic English for international logistics communication.',
-        ],
-        de: [
-          'Erfahrung in der Lagerverwaltung, im Versandpapierkram oder in der Transportplanung.',
-          'Grundlegende Computerkenntnisse (Excel/Word) und Vertrautheit mit Logistiksoftware.',
-          'Konversationssicheres Rumänisch und Grundkenntnisse in Englisch für die internationale Logistikkommunikation.',
-        ],
-        ro: [
-          'Experiență în managementul depozitelor, documente de expediere sau planificarea transportului.',
-          'Abilități de bază de operare PC (Excel/Word) și familiaritate cu software-ul logistic.',
-          'Limba română la nivel conversațional și engleza de bază pentru comunicarea logistică internațională.',
-        ]
-      },
-      salary: {
-        nl: 'Aantrekkelijk salarispakket',
-        en: 'Attractive Salary Package',
-        de: 'Attraktives Gehaltspaket',
-        ro: 'Pachet Salarial Atractiv'
-      },
-    },
+
     {
       id: 'maintenance',
       title: {

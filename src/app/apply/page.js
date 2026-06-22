@@ -32,7 +32,6 @@ function ApplyFormContent() {
       const validJobs = {
         planing: 'planing_operator',
         quality: 'quality_inspector',
-        logistics: 'logistics_coordinator',
         maintenance: 'maintenance_mechanic',
       };
       if (validJobs[jobParam]) {
@@ -118,12 +117,7 @@ function ApplyFormContent() {
       de: 'Qualitäts- und Mängelprüfer',
       ro: 'Inspector Calitate & Defecte'
     },
-    optionLogistics: {
-      nl: 'Coördinator Logistiek & Inventaris',
-      en: 'Logistics & Inventory Coordinator',
-      de: 'Logistik- & Bestands-Koordinator',
-      ro: 'Coordonator Logistică & Inventar'
-    },
+
     optionMaintenance: {
       nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
       en: 'Maintenance Mechanic / Millwright',
@@ -299,12 +293,7 @@ function ApplyFormContent() {
           de: 'Qualitäts- und Mängelprüfer',
           ro: 'Inspector Calitate & Defecte'
         },
-        logistics_coordinator: {
-          nl: 'Coördinator Logistiek & Inventaris',
-          en: 'Logistics & Inventory Coordinator',
-          de: 'Logistik- & Bestands-Koordinator',
-          ro: 'Coordonator Logistică & Inventar'
-        },
+
         maintenance_mechanic: {
           nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
           en: 'Maintenance Mechanic / Millwright',
@@ -433,7 +422,6 @@ function ApplyFormContent() {
                   { value: '', label: getTranslation('selectPositionDefault') },
                   { value: 'planing_operator', label: getTranslation('optionPlaning') },
                   { value: 'quality_inspector', label: getTranslation('optionQuality') },
-                  { value: 'logistics_coordinator', label: getTranslation('optionLogistics') },
                   { value: 'maintenance_mechanic', label: getTranslation('optionMaintenance') },
                   { value: 'general_application', label: getTranslation('optionGeneral') }
                 ]}
