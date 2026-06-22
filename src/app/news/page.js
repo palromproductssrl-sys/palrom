@@ -9,7 +9,7 @@ import { useInquiry } from '@/components/InquiryContext';
 
 
 export default function News() {
-  const { lang } = useInquiry();
+  const { lang, isRomania } = useInquiry();
   const [selectedArticle, setSelectedArticle] = React.useState(null);
 
   React.useEffect(() => {
@@ -29,6 +29,46 @@ export default function News() {
   }, [selectedArticle]);
 
   const newsItems = [
+    ...(isRomania ? [
+      {
+        id: 'briquettes-summer',
+        tag: lang === 'nl' ? 'Aanbieding' : (lang === 'de' ? 'Angebot' : (lang === 'ro' ? 'Promoție' : 'Offer')),
+        date: lang === 'nl' ? '22 juni 2026' : (lang === 'de' ? '22. Juni 2026' : (lang === 'ro' ? '22 iunie 2026' : 'June 22, 2026')),
+        author: 'Sales Team',
+        title: lang === 'nl'
+          ? 'Zomeraanbieding: Beukenhoutbriketten voor een lage prijs!'
+          : (lang === 'de' ? 'Sommerangebot: Buchenholzbriketts zum günstigen Preis!' : (lang === 'ro' ? 'Ofertă de Vară: Brichete din Lemn de Fag la Preț Redus!' : 'Summer Offer: Beechwood Heating Briquettes at a Low Price!')),
+        content: (
+          <>
+            {lang === 'nl' && (
+              <p>
+                Profiteer nu van onze zomeraanbieding! Omdat het zomer is, verkopen we onze hoogwaardige beukenhoutbriketten tegen een extra lage prijs. Dit is het ideale moment om uw voorraad in te slaan voor de winter. Deze aanbieding is exclusief geldig voor bestellingen en leveringen binnen Roemenië.
+              </p>
+            )}
+            {lang === 'de' && (
+              <p>
+                Profitieren Sie jetzt von unserem Sommerangebot! Da es Sommer ist, verkaufen wir unsere hochwertigen Buchenholzbriketts zu einem besonders günstigen Preis. Dies ist der ideale Zeitpunkt, um sich für den Winter einzudecken. Dieses Angebot gilt ausschließlich für Bestellungen und Lieferungen innerhalb Rumäniens.
+              </p>
+            )}
+            {lang === 'ro' && (
+              <p>
+                Profitați acum de oferta noastră de vară! Deoarece este vară, comercializăm brichetele noastre din lemn de fag de înaltă calitate la un preț special redus. Este momentul ideal pentru a vă face stocul pentru iarnă. Această ofertă este valabilă exclusiv pentru comenzi și livrări pe teritoriul României.
+              </p>
+            )}
+            {lang !== 'nl' && lang !== 'de' && lang !== 'ro' && (
+              <p>
+                Take advantage of our summer offer now! Because it is summer, we are selling our premium beechwood heating briquettes at an extra low price. This is the perfect time to stock up for winter. This offer is valid exclusively for orders and deliveries within Romania.
+              </p>
+            )}
+            <Link href="/configurator/v4?category=brichete" className="news-link">
+              {lang === 'nl' ? 'Briketten configureren' : (lang === 'de' ? 'Briketts konfigurieren' : (lang === 'ro' ? 'Configurați brichete' : 'Configure briquettes'))}{' '}
+              <i className="fa-solid fa-arrow-right"></i>
+            </Link>
+          </>
+        ),
+        image: '/images/brichete_fag.png',
+      }
+    ] : []),
     {
       id: 'configurator',
       tag: lang === 'nl' ? 'Innovatie' : (lang === 'de' ? 'Innovation' : (lang === 'ro' ? 'Inovație' : 'Innovation')),
@@ -275,7 +315,11 @@ export default function News() {
                 {selectedArticle.content}
               </div>
               <div className="news-modal-actions" style={{ marginTop: '1.5rem' }}>
-                {selectedArticle.id === 'configurator' ? (
+                {selectedArticle.id === 'briquettes-summer' ? (
+                  <Link href="/configurator/v4?category=brichete" onClick={() => setSelectedArticle(null)} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                    {lang === 'nl' ? 'Briketten configureren' : (lang === 'de' ? 'Briketts konfigurieren' : (lang === 'ro' ? 'Configurați brichete' : 'Configure briquettes'))} <i className="fa-solid fa-arrow-right icon-right"></i>
+                  </Link>
+                ) : selectedArticle.id === 'configurator' ? (
                   <Link href="/configurator" onClick={() => setSelectedArticle(null)} className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
                     {lang === 'nl' ? 'Probeer de configurator' : (lang === 'de' ? 'Konfigurator ausprobieren' : (lang === 'ro' ? 'Încercați configuratorul' : 'Try the configurator'))} <i className="fa-solid fa-arrow-right icon-right"></i>
                   </Link>

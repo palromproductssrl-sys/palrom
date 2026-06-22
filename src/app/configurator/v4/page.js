@@ -668,14 +668,39 @@ export default function OpenChatConfigurator() {
     }
   };
 
-  // Initialize chat history with welcome message
+  // Initialize chat history with welcome message and query params check
   useEffect(() => {
     if (isV4Authenticated) {
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        const catParam = params.get('category');
+        if (catParam === 'brichete' && isRomania) {
+          setCategory('brichete');
+          setQuantity(1);
+          setFilledFields(prev => ({
+            ...prev,
+            category: true
+          }));
+          setHistory([
+            { sender: 'bot', text: getTranslation('welcomeMessage') },
+            { sender: 'user', text: lang === 'nl' ? 'Ik wil briketten configureren' : (lang === 'ro' ? 'Vreau să configurez brichete' : (lang === 'de' ? 'Ich möchte Briketts konfigurieren' : 'I want to configure briquettes')) },
+            { sender: 'bot', text: lang === 'nl' ? 'Ik heb de categorie aangepast naar **Beukenhoutbriketten**. Hoeveel pallets heeft u nodig? (Aanlevering uitsluitend in Roemenië)' : (lang === 'ro' ? 'Am schimbat categoria la **Brichete din lemn de fag**. De câți paleți aveți nevoie? (Livrare exclusivă în România)' : (lang === 'de' ? 'Ich habe die Kategorie auf **Buchenholzbriketts** geändert. Wie viele Paletten benötigen Sie? (Lieferung nur in Rumänien)' : 'I have changed the category to **Beechwood heating briquettes**. How many pallets do you need? (Delivery strictly in Romania)')) }
+          ]);
+          return;
+        } else if (catParam && ['sawn', 'planed', 'dowels', 'profiles', 'specials'].includes(catParam)) {
+          setCategory(catParam);
+          setFilledFields(prev => ({
+            ...prev,
+            category: true
+          }));
+        }
+      }
+      
       setHistory([
         { sender: 'bot', text: getTranslation('welcomeMessage') }
       ]);
     }
-  }, [isV4Authenticated, lang]);
+  }, [isV4Authenticated, lang, isRomania]);
 
   const scrollToBottom = () => {
     if (chatHistoryRef.current) {
