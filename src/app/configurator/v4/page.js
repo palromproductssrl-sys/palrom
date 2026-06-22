@@ -1866,6 +1866,8 @@ export default function OpenChatConfigurator() {
   const isConfigComplete = isConfigCompleteFor(category, filledFields);
   const isEssentialComplete = category === 'brichete'
     ? (filledFields.category && filledFields.quantity)
+    : (category === 'planed' && subCategoryPlaned === 'planed-radius')
+    ? (filledFields.category && filledFields.dimensions && filledFields.quantity && filledFields.radius)
     : (filledFields.category && filledFields.dimensions && filledFields.quantity);
   const hasAnyDetected = filledFields.category || filledFields.dimensions || filledFields.grade || filledFields.drying || filledFields.fsc || filledFields.quantity || filledFields.steamed;
 

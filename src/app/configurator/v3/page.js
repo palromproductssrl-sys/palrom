@@ -287,7 +287,7 @@ export default function ChatbotConfigurator() {
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
   const [subCategoryPlaned, setSubCategoryPlaned] = useState('planed-rect');
-  const [radius, setRadius] = useState('R3');
+  const [radius, setRadius] = useState(null);
   
   const [woodType, setWoodType] = useState('beech');
   const [steamed, setSteamed] = useState('no');
@@ -347,7 +347,7 @@ export default function ChatbotConfigurator() {
     setSubCategoryProfiles('profile-semiround');
     setSubCategorySpecials('special-keeplat-spruce');
     setSubCategoryPlaned('planed-rect');
-    setRadius('R3');
+    setRadius(null);
     setWoodType('beech');
     setSteamed('no');
     setDrying('kd');
@@ -1620,25 +1620,45 @@ export default function ChatbotConfigurator() {
                     <div className="chip-grid">
                       {category === 'dowels' && dowelSubcategories.map(s => (
                         <button key={s.id} onClick={() => proceedToNextStep(s.id)} className="chip-button-subcat">
-                          {s.img && <img src={s.img} alt="" className="chip-subcat-img" />}
+                          {s.img && (
+                            <div className="chip-subcat-img-wrapper" style={{ position: 'relative', width: '100%', height: '52px', overflow: 'hidden', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                              <img src={s.img} alt="" className="chip-subcat-img" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                              <ProfileDrawingOverlay subCategoryId={s.id} />
+                            </div>
+                          )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
                         </button>
                       ))}
                       {category === 'planed' && planedSubcategories.map(s => (
                         <button key={s.id} onClick={() => proceedToNextStep(s.id)} className="chip-button-subcat">
-                          {s.img && <img src={s.img} alt="" className="chip-subcat-img" />}
+                          {s.img && (
+                            <div className="chip-subcat-img-wrapper" style={{ position: 'relative', width: '100%', height: '52px', overflow: 'hidden', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                              <img src={s.img} alt="" className="chip-subcat-img" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                              <ProfileDrawingOverlay subCategoryId={s.id} />
+                            </div>
+                          )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
                         </button>
                       ))}
                       {category === 'profiles' && profileSubcategories.map(s => (
                         <button key={s.id} onClick={() => proceedToNextStep(s.id)} className="chip-button-subcat">
-                          {s.img && <img src={s.img} alt="" className="chip-subcat-img" />}
+                          {s.img && (
+                            <div className="chip-subcat-img-wrapper" style={{ position: 'relative', width: '100%', height: '52px', overflow: 'hidden', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                              <img src={s.img} alt="" className="chip-subcat-img" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                              <ProfileDrawingOverlay subCategoryId={s.id} />
+                            </div>
+                          )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
                         </button>
                       ))}
                       {category === 'specials' && specialsSubcategories.map(s => (
                         <button key={s.id} onClick={() => proceedToNextStep(s.id)} className="chip-button-subcat">
-                          {s.img && <img src={s.img} alt="" className="chip-subcat-img" />}
+                          {s.img && (
+                            <div className="chip-subcat-img-wrapper" style={{ position: 'relative', width: '100%', height: '52px', overflow: 'hidden', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                              <img src={s.img} alt="" className="chip-subcat-img" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', margin: 0 }} />
+                              <ProfileDrawingOverlay subCategoryId={s.id} />
+                            </div>
+                          )}
                           <div className="chip-subcat-label">{s.name[lang] || s.name.nl}</div>
                         </button>
                       ))}
@@ -1909,5 +1929,86 @@ export default function ChatbotConfigurator() {
         </div>
       )}
     </>
+  );
+}
+
+function ProfileDrawingOverlay({ subCategoryId }) {
+  const getShape = () => {
+    switch (subCategoryId) {
+      case 'dowel-smooth':
+        return <circle cx="50" cy="50" r="28" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'dowel-rilled':
+        return (
+          <>
+            <circle cx="50" cy="50" r="28" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" strokeDasharray="3 2" />
+            <circle cx="50" cy="50" r="24" fill="none" stroke="#ffd875" strokeWidth="1" opacity="0.6" />
+          </>
+        );
+      case 'planed-rect':
+        return <rect x="20" y="32" width="60" height="36" rx="1" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'planed-radius':
+        return <rect x="20" y="32" width="60" height="36" rx="8" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-semiround':
+        return <path d="M 20 65 A 30 30 0 0 1 80 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-strip':
+        return <rect x="15" y="40" width="70" height="20" rx="1" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-finish-v1':
+        return <path d="M 20 65 L 20 50 C 30 50 35 40 45 40 H 80 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-quarter-v1':
+        return <path d="M 30 65 A 40 40 0 0 1 70 25 L 70 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-finish-v2':
+        return <path d="M 20 65 V 55 C 30 55 35 40 45 40 H 80 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-plinth-v1':
+        return <path d="M 35 75 V 25 C 45 25 55 35 55 45 V 75 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-corner-v1':
+      case 'profile-corner-v2':
+        return <path d="M 25 25 H 42 V 60 H 75 V 75 H 25 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-triangular':
+        return <path d="M 25 70 H 75 V 20 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-quarter-v2':
+        return <path d="M 30 65 A 40 40 0 0 1 70 25 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'profile-thread':
+        return (
+          <>
+            <circle cx="50" cy="50" r="26" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />
+            <circle cx="50" cy="50" r="31" fill="none" stroke="#ffd875" strokeWidth="1" strokeDasharray="3 3" />
+          </>
+        );
+      case 'profile-calbat':
+        return <path d="M 20 65 V 35 H 35 L 40 45 H 60 L 65 35 H 80 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'special-keeplat-spruce':
+      case 'special-keeplat-beech':
+        return <path d="M 20 65 L 80 45 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'special-distancer-mix':
+        return <rect x="30" y="40" width="40" height="20" rx="1" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'special-threshold':
+        return <path d="M 20 65 V 40 L 80 48 V 65 Z" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'special-distancer-ind':
+        return <rect x="25" y="35" width="50" height="30" rx="2" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      case 'special-wood-iron':
+        return <rect x="15" y="32" width="70" height="36" rx="0" fill="rgba(255, 216, 117, 0.15)" stroke="#ffd875" strokeWidth="4" />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'rgba(29, 58, 36, 0.45)',
+      transition: 'background 0.2s ease',
+    }}>
+      <svg style={{ width: '80%', height: '80%', filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.5))' }} viewBox="0 0 100 100">
+        {getShape()}
+      </svg>
+    </div>
   );
 }

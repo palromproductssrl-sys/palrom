@@ -636,7 +636,7 @@ export default function Configurator() {
   const [subCategoryProfiles, setSubCategoryProfiles] = useState('profile-semiround');
   const [subCategorySpecials, setSubCategorySpecials] = useState('special-keeplat-spruce');
   const [subCategoryPlaned, setSubCategoryPlaned] = useState('planed-rect');
-  const [radius, setRadius] = useState('R3');
+  const [radius, setRadius] = useState('');
   
   const [woodType, setWoodType] = useState('beech');
   const [steamed, setSteamed] = useState('no');
@@ -659,7 +659,7 @@ export default function Configurator() {
     setSubCategoryProfiles('profile-semiround');
     setSubCategorySpecials('special-keeplat-spruce');
     setSubCategoryPlaned('planed-rect');
-    setRadius('R3');
+    setRadius('');
     setWoodType('beech');
     setSteamed('no');
     setDrying('kd');
@@ -685,6 +685,14 @@ export default function Configurator() {
   }, [shouldResetConfigurator, setShouldResetConfigurator]);
 
   const getValidationError = () => {
+    if (category === 'planed' && subCategoryPlaned === 'planed-radius' && !radius) {
+      return {
+        nl: 'Kies a.u.b. een radius (R3 of R6).',
+        en: 'Please choose a radius (R3 or R6).',
+        de: 'Bitte wählen Sie einen Radius (R3 oder R6).',
+        ro: 'Vă rugăm să alegeți o rază (R3 sau R6).'
+      };
+    }
     if (category === 'planed' && grade === 'A') {
       const parsedLength = typeof length === 'string' && length.includes('-')
         ? parseInt(length.split('-')[1])
@@ -1845,6 +1853,7 @@ export default function Configurator() {
                       value={radius}
                       onChange={(e) => setRadius(e.target.value)}
                       options={[
+                        { value: '', label: lang === 'nl' ? 'Kies radius...' : (lang === 'de' ? 'Radius wählen...' : (lang === 'ro' ? 'Alege rază...' : 'Choose radius...')) },
                         { value: 'R3', label: 'R3 (3mm)' },
                         { value: 'R6', label: 'R6 (6mm)' }
                       ]}
