@@ -2031,7 +2031,7 @@ export default function ChatbotConfigurator() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '4rem', color: '#9ca3af', fontSize: '0.8rem' }}>
-            <span>Configurator v3.0.0 (Chatbot)</span>
+            <span>Configurator v3.1.0 (PAL Chatbot)</span>
           </div>
 
         </div>
