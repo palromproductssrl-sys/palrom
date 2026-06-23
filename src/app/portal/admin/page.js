@@ -768,6 +768,45 @@ export default function AdminPortal() {
     }));
   };
 
+  const handleSyncDatabase = async () => {
+    if (!confirm(lang === 'ro' ? 'Sigur doriți să actualizați baza de date cu traducerile locale?' : lang === 'nl' ? 'Weet u zeker dat u de database wilt synchroniseren met de lokale bestanden?' : 'Are you sure you want to sync the database with local JSON files?')) return;
+    
+    setLoadingData(true);
+    try {
+      const vRes = await fetch('/api/vacancies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-passcode': passcode
+        },
+        body: JSON.stringify({ action: 'sync_local' })
+      });
+      const vData = await vRes.json();
+
+      const nRes = await fetch('/api/news', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-passcode': passcode
+        },
+        body: JSON.stringify({ action: 'sync_local' })
+      });
+      const nData = await nRes.json();
+
+      if (vRes.ok && nRes.ok && vData.success && nData.success) {
+        showMessage('success', lang === 'ro' ? 'Sincronizarea s-a realizat cu succes!' : lang === 'nl' ? 'Database succesvol gesynchroniseerd!' : 'Database successfully synced!');
+        loadDatabase(passcode);
+      } else {
+        showMessage('error', vData.error || nData.error || 'Failed to sync database');
+      }
+    } catch (err) {
+      console.error(err);
+      showMessage('error', 'Network error during database sync');
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fdfbf7' }}>
@@ -988,6 +1027,26 @@ export default function AdminPortal() {
                   </button>
                 ))}
               </div>
+
+              <button
+                onClick={handleSyncDatabase}
+                disabled={loadingData}
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  color: 'var(--color-primary-dark)',
+                  padding: '0.5rem 1rem',
+                  border: '1px solid var(--color-primary-dark)',
+                  borderRadius: '6px',
+                  backgroundColor: 'transparent',
+                  cursor: loadingData ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem'
+                }}
+              >
+                <i className="fa-solid fa-arrows-rotate"></i> {lang === 'ro' ? 'Sincronizează DB' : lang === 'nl' ? 'Sync Database' : 'Sync Database'}
+              </button>
 
               <Link href="/" target="_blank" style={{
                 fontSize: '0.85rem',

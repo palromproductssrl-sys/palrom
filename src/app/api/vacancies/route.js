@@ -139,6 +139,20 @@ export async function POST(request) {
             throw error;
           }
           return NextResponse.json({ success: true, message: 'Vacancy deleted successfully' });
+        } else if (action === 'sync_local') {
+          const localVacancies = readVacancies();
+          if (localVacancies.length > 0) {
+            const { error } = await supabase
+              .from('vacancies')
+              .upsert(localVacancies);
+
+            if (error) {
+              console.error('Supabase vacancies sync error:', error);
+              throw error;
+            }
+            return NextResponse.json({ success: true, message: 'Vacancies synced successfully' });
+          }
+          return NextResponse.json({ success: false, error: 'No local vacancies found to sync' }, { status: 400 });
         }
       } catch (dbErr) {
         console.error('Supabase vacancies write error:', dbErr);
@@ -192,6 +206,8 @@ export async function POST(request) {
       } else {
         return NextResponse.json({ success: false, error: 'Failed to write to file database' }, { status: 500 });
       }
+    } else if (action === 'sync_local') {
+      return NextResponse.json({ success: true, message: 'Local JSON database active. No database to sync.' });
     }
 
     return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
