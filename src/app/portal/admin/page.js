@@ -742,6 +742,34 @@ export default function AdminPortal() {
     }
   };
 
+  const handleTitleBlur = async (isVacancy) => {
+    const titleVal = isVacancy ? vacTitle[activeFormLang] : newsTitle[activeFormLang];
+    const cleanTitle = (titleVal || '').trim();
+    if (!cleanTitle) return;
+
+    const targetLangs = ['nl', 'en', 'de', 'ro'].filter(lang => lang !== activeFormLang);
+
+    await Promise.all(targetLangs.map(async (toLang) => {
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: cleanTitle, from: activeFormLang, to: toLang })
+        });
+        const data = await res.json();
+        if (res.ok && data.success && data.translatedText) {
+          if (isVacancy) {
+            setVacTitle(prev => ({ ...prev, [toLang]: data.translatedText }));
+          } else {
+            setNewsTitle(prev => ({ ...prev, [toLang]: data.translatedText }));
+          }
+        }
+      } catch (err) {
+        console.error(`Failed to auto-translate title to ${toLang}:`, err);
+      }
+    }));
+  };
+
   if (isLoading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fdfbf7' }}>
@@ -1443,6 +1471,7 @@ export default function AdminPortal() {
                         type="text"
                         value={vacTitle[activeFormLang] || ''}
                         onChange={(e) => setVacTitle(prev => ({ ...prev, [activeFormLang]: e.target.value }))}
+                        onBlur={() => handleTitleBlur(true)}
                         placeholder={`e.g. Planing Machine Operator (${activeFormLang})`}
                         required={activeFormLang === 'nl' || activeFormLang === 'en'}
                         style={{ width: '100%', padding: '0.65rem', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '0.9rem' }}
@@ -1655,6 +1684,7 @@ export default function AdminPortal() {
                         type="text"
                         value={newsTitle[activeFormLang] || ''}
                         onChange={(e) => setNewsTitle(prev => ({ ...prev, [activeFormLang]: e.target.value }))}
+                        onBlur={() => handleTitleBlur(false)}
                         placeholder={`Headline in ${activeFormLang}`}
                         required={activeFormLang === 'nl' || activeFormLang === 'en'}
                         style={{ width: '100%', padding: '0.65rem', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '0.9rem' }}
