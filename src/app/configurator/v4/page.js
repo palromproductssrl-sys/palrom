@@ -319,10 +319,7 @@ const translations = {
 export default function OpenChatConfigurator() {
   const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator, isRomania } = useInquiry();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isV4Authenticated, setIsV4Authenticated] = useState(false);
-  const [v4Password, setV4Password] = useState('');
-  const [showV4Password, setShowV4Password] = useState(false);
-  const [v4AuthError, setV4AuthError] = useState(false);
+  const [isV4Authenticated, setIsV4Authenticated] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   // Configurator States (parsed from open chat)
@@ -682,25 +679,10 @@ export default function OpenChatConfigurator() {
         window.location.href = '/configurator';
       } else {
         setIsAuthenticated(true);
-        const v4Auth = sessionStorage.getItem('palrom_configurator_v4_auth') === 'true';
-        setIsV4Authenticated(v4Auth);
         setIsLoading(false);
       }
     }
   }, []);
-
-  const handleV4PasswordSubmit = (e) => {
-    e.preventDefault();
-    const cleanPw = v4Password.trim().toLowerCase();
-    if (['willem2026', 'willemai2026', 'palromv4', 'pal2026', 'palai2026'].includes(cleanPw)) {
-      sessionStorage.setItem('palrom_configurator_v4_auth', 'true');
-      setIsV4Authenticated(true);
-      setV4AuthError(false);
-    } else {
-      setV4AuthError(true);
-      setV4Password('');
-    }
-  };
 
   // Initialize chat history with welcome message and query params check
   useEffect(() => {
@@ -1913,70 +1895,7 @@ export default function OpenChatConfigurator() {
     );
   }
 
-  if (!isV4Authenticated) {
-    return (
-      <>
-        {/* Style injection to hide Header, Footer and Widget when auth is locked */}
-        <style>{`
-          .main-header, .main-footer, .floating-contact-widget { display: none !important; }
-        `}</style>
 
-        <div className="auth-gate-container" style={{ minHeight: '100vh', background: '#f8fafc' }}>
-          <div className="auth-gate-card">
-            <div className="auth-lock-icon">
-              <i className="fa-solid fa-lock"></i>
-            </div>
-            <h2>{getTranslation('v4PortalTitle')}</h2>
-            <p>
-              {getTranslation('v4PortalLead')}
-            </p>
-            <form onSubmit={handleV4PasswordSubmit}>
-              <div className="form-group" style={{ textAlign: 'left', marginBottom: '1.5rem' }}>
-                <label
-                  htmlFor="authPassword"
-                  style={{
-                    display: 'block',
-                    marginBottom: '0.5rem',
-                    fontWeight: 500,
-                    fontSize: '0.9rem',
-                    color: 'var(--color-text-dark)',
-                  }}
-                >
-                  {getTranslation('v4PasswordLabel')}
-                </label>
-                <div className="password-input-wrapper">
-                  <input
-                    type={showV4Password ? 'text' : 'password'}
-                    id="authPassword"
-                    required
-                    placeholder="••••••••"
-                    value={v4Password}
-                    onChange={(e) => setV4Password(e.target.value)}
-                  />
-                  <button
-                    type="button"
-                    className="toggle-password-btn"
-                    onClick={() => setShowV4Password(!showV4Password)}
-                    aria-label={getTranslation('v4ShowPasswordAria')}
-                  >
-                    <i className={showV4Password ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'}></i>
-                  </button>
-                </div>
-                {v4AuthError && (
-                  <div className="error-message">
-                    <i className="fa-solid fa-triangle-exclamation"></i> {getTranslation('v4PasswordError')}
-                  </div>
-                )}
-              </div>
-              <button type="submit" className="btn btn-primary btn-block" style={{ width: '100%' }}>
-                {getTranslation('v4UnlockButton')} <i className="fa-solid fa-key icon-right"></i>
-              </button>
-            </form>
-          </div>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -2752,7 +2671,7 @@ export default function OpenChatConfigurator() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '4rem', color: '#9ca3af', fontSize: '0.8rem', opacity: 0.8 }}>
-            Configurator v4.1.2 (PAL AI)
+            Configurator v4.1.3 (PAL AI)
           </div>
 
         </div>
