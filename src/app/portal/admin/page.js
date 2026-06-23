@@ -26,8 +26,9 @@ const t = {
   
   // Tabs
   vacanciesTab: { nl: 'Vacatures', en: 'Vacancies', ro: 'Locuri de muncă' },
-  newsTab: { nl: 'Nieuws & Artikelen', en: 'News & Articles', ro: 'Știri și Articole' },
+  newsTab: { nl: 'Nieuws & Updates', en: 'News & Articles', ro: 'Știri și Noutăți' },
   statsTab: { nl: 'Statistieken', en: 'Statistics', ro: 'Statistici' },
+  quotesTab: { nl: 'Offertes', en: 'B2B Quotes', ro: 'Cereri de Ofertă' },
   
   // Vacancies Table
   activeOpenings: { nl: 'Actieve Vacatures', en: 'Active Career Openings', ro: 'Locuri de Muncă Active' },
@@ -116,6 +117,9 @@ export default function AdminPortal() {
   // Database lists
   const [vacancies, setVacancies] = useState([]);
   const [newsItems, setNewsItems] = useState([]);
+  const [quotes, setQuotes] = useState([]);
+  const [selectedQuote, setSelectedQuote] = useState(null);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
 
   // Statistics
@@ -245,6 +249,20 @@ export default function AdminPortal() {
       const nRes = await fetch('/api/news');
       const nData = await nRes.json();
 
+      // Fetch quotes
+      let quotesData = [];
+      try {
+        const qRes = await fetch('/api/portal/admin/inquiries', {
+          headers: { 'x-admin-passcode': authPasscode }
+        });
+        const qData = await qRes.json();
+        if (qRes.ok && qData.success) {
+          quotesData = qData.inquiries || [];
+        }
+      } catch (qErr) {
+        console.error('Failed to load quotes:', qErr);
+      }
+
       // Load stats as well if activeTab is 'stats'
       if (activeTab === 'stats') {
         loadStats(authPasscode);
@@ -259,6 +277,7 @@ export default function AdminPortal() {
       if (vRes.ok && nRes.ok) {
         setVacancies(vData.vacancies || []);
         setNewsItems(nData.news || []);
+        setQuotes(quotesData);
         return true;
       }
     } catch (err) {
@@ -1168,6 +1187,25 @@ export default function AdminPortal() {
               <i className="fa-regular fa-newspaper"></i> {t.newsTab[consoleLang]} ({newsItems.length})
             </button>
             <button
+              onClick={() => setActiveTab('quotes')}
+              style={{
+                padding: '0.85rem 1.5rem',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: activeTab === 'quotes' ? 'var(--color-forest-dark)' : 'var(--color-text-muted)',
+                borderBottom: activeTab === 'quotes' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              <i className="fa-solid fa-file-invoice-dollar"></i> {t.quotesTab[consoleLang]} ({quotes.length})
+            </button>
+            <button
               onClick={() => { setActiveTab('stats'); if (passcode) loadStats(passcode); }}
               style={{
                 padding: '0.85rem 1.5rem',
@@ -1418,6 +1456,139 @@ export default function AdminPortal() {
                           </td>
                         </tr>
                       ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          ) : activeTab === 'quotes' ? (
+            
+            // B2B QUOTES LIST VIEW
+            <div style={{
+              backgroundColor: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #edf2f7',
+              boxShadow: '0 4px 15px rgba(42, 42, 42, 0.02)',
+              overflow: 'hidden',
+              padding: '1.5rem'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                  {consoleLang === 'ro' ? 'Cereri de Ofertă B2B' : consoleLang === 'nl' ? 'B2B Offerteaanvragen' : 'B2B Quote Inquiries'}
+                </h3>
+              </div>
+
+              {quotes.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--color-text-muted)' }}>
+                  <i className="fa-solid fa-file-invoice-dollar fa-3x" style={{ opacity: 0.3, marginBottom: '1rem' }}></i>
+                  <p>{consoleLang === 'ro' ? 'Nu s-au găsit cereri de ofertă.' : consoleLang === 'nl' ? 'Geen offerteaanvragen gevonden.' : 'No quote inquiries found.'}</p>
+                </div>
+              ) : (
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                        <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Client' : consoleLang === 'nl' ? 'Klant' : 'Client'}</th>
+                        <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Contact' : consoleLang === 'nl' ? 'Contact' : 'Contact'}</th>
+                        <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Data' : consoleLang === 'nl' ? 'Datum' : 'Date'}</th>
+                        <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Produse' : consoleLang === 'nl' ? 'Producten' : 'Products'}</th>
+                        <th style={{ padding: '0.8rem' }}>Status</th>
+                        <th style={{ padding: '0.8rem', textAlign: 'center' }}>{consoleLang === 'ro' ? 'Acțiuni' : consoleLang === 'nl' ? 'Acties' : 'Actions'}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {quotes.map((quote) => {
+                        const statusColors = {
+                          'New': { bg: '#e0f2fe', text: '#0369a1', label: consoleLang === 'nl' ? 'Nieuw' : (consoleLang === 'ro' ? 'Nou' : 'New') },
+                          'In Review': { bg: '#fef3c7', text: '#b45309', label: consoleLang === 'nl' ? 'In Beoordeling' : (consoleLang === 'ro' ? 'În Analiză' : 'In Review') },
+                          'Replied': { bg: '#dcfce7', text: '#15803d', label: consoleLang === 'nl' ? 'Beantwoord' : (consoleLang === 'ro' ? 'Răspuns' : 'Replied') },
+                          'Archived': { bg: '#f1f5f9', text: '#475569', label: consoleLang === 'nl' ? 'Gearchiveerd' : (consoleLang === 'ro' ? 'Arhivat' : 'Archived') }
+                        }[quote.status || 'New'] || { bg: '#e0f2fe', text: '#0369a1', label: quote.status };
+
+                        const dateStr = quote.created_at 
+                          ? new Date(quote.created_at).toLocaleString(consoleLang === 'nl' ? 'nl-NL' : (consoleLang === 'ro' ? 'ro-RO' : 'en-US'), {
+                              year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+                            })
+                          : '-';
+
+                        return (
+                          <tr key={quote.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '1rem 0.8rem', fontWeight: 700, color: 'var(--color-text-dark)' }}>
+                              {quote.client_name}
+                            </td>
+                            <td style={{ padding: '1rem 0.8rem' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                                <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{quote.client_email}</span>
+                                <span style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>{quote.client_phone}</span>
+                              </div>
+                            </td>
+                            <td style={{ padding: '1rem 0.8rem', color: '#475569' }}>
+                              {dateStr}
+                            </td>
+                            <td style={{ padding: '1rem 0.8rem' }}>
+                              <span style={{ fontWeight: 600, color: 'var(--color-forest-dark)' }}>
+                                {(quote.items || []).length} {consoleLang === 'nl' ? 'items' : 'items'}
+                              </span>
+                            </td>
+                            <td style={{ padding: '1rem 0.8rem' }}>
+                              <span style={{
+                                display: 'inline-block',
+                                padding: '0.25rem 0.6rem',
+                                borderRadius: '50px',
+                                fontSize: '0.78rem',
+                                fontWeight: 700,
+                                backgroundColor: statusColors.bg,
+                                color: statusColors.text
+                              }}>
+                                {statusColors.label}
+                              </span>
+                            </td>
+                            <td style={{ padding: '1rem 0.8rem' }}>
+                              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                                <button
+                                  onClick={() => { setSelectedQuote(quote); setIsQuoteModalOpen(true); }}
+                                  style={{
+                                    padding: '0.4rem 0.8rem',
+                                    border: '1.5px solid var(--color-primary)',
+                                    backgroundColor: '#ffffff',
+                                    color: 'var(--color-forest-dark)',
+                                    borderRadius: '6px',
+                                    fontWeight: 700,
+                                    fontSize: '0.8rem',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.3rem'
+                                  }}
+                                >
+                                  <i className="fa-solid fa-magnifying-glass"></i> {consoleLang === 'ro' ? 'Detalii' : consoleLang === 'nl' ? 'Details' : 'Details'}
+                                </button>
+                                <a
+                                  href={`/api/portal/download-pdf?id=${quote.id}&token=${passcode}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    padding: '0.4rem 0.8rem',
+                                    backgroundColor: '#f1f5f9',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#475569',
+                                    borderRadius: '6px',
+                                    fontWeight: 700,
+                                    fontSize: '0.8rem',
+                                    cursor: 'pointer',
+                                    textDecoration: 'none',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.3rem'
+                                  }}
+                                >
+                                  <i className="fa-solid fa-file-pdf"></i> PDF
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -2592,6 +2763,252 @@ export default function AdminPortal() {
           </div>
         </div>
       )}
+
+      {/* RENDER B2B QUOTE DETAILS MODAL */}
+      {isQuoteModalOpen && selectedQuote && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(26, 32, 44, 0.4)',
+          backdropFilter: 'blur(4px)',
+          zIndex: 10000,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '20px',
+          fontFamily: 'Inter, sans-serif'
+        }}>
+          <div style={{
+            maxWidth: '650px',
+            width: '100%',
+            maxHeight: '90vh',
+            backgroundColor: '#ffffff',
+            borderRadius: '16px',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)',
+            border: '1px solid #edf2f7',
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden'
+          }}>
+            {/* Modal Header */}
+            <div style={{
+              padding: '1.25rem 2rem',
+              backgroundColor: 'var(--color-forest-dark)',
+              color: '#ffffff',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <h3 style={{ margin: 0, fontSize: '1.15rem', color: '#ffffff', fontWeight: 800 }}>
+                {consoleLang === 'ro' ? 'Detalii Cerere Ofertă' : consoleLang === 'nl' ? 'Details Offerteaanvraag' : 'Quote Inquiry Details'}
+              </h3>
+              <button
+                onClick={() => setIsQuoteModalOpen(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#ffffff',
+                  fontSize: '1.4rem',
+                  cursor: 'pointer',
+                  opacity: 0.8
+                }}
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div style={{ overflowY: 'auto', padding: '2rem', flex: 1 }}>
+              {/* Client information */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem', backgroundColor: '#f8fafc', padding: '1.25rem', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                    {consoleLang === 'ro' ? 'Nume Client' : consoleLang === 'nl' ? 'Klantnaam' : 'Client Name'}
+                  </div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)', marginTop: '0.2rem' }}>{selectedQuote.client_name}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                    {consoleLang === 'ro' ? 'E-mail' : consoleLang === 'nl' ? 'E-mailadres' : 'Email Address'}
+                  </div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1e293b', marginTop: '0.2rem' }}>{selectedQuote.client_email}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                    {consoleLang === 'ro' ? 'Telefon' : consoleLang === 'nl' ? 'Telefoonnummer' : 'Phone Number'}
+                  </div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1e293b', marginTop: '0.2rem' }}>{selectedQuote.client_phone}</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+                    {consoleLang === 'ro' ? 'Data Trimitere' : consoleLang === 'nl' ? 'Verzonden op' : 'Submitted on'}
+                  </div>
+                  <div style={{ fontSize: '0.95rem', color: '#1e293b', marginTop: '0.2rem' }}>
+                    {new Date(selectedQuote.created_at).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Update section */}
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '2rem', padding: '1rem', border: '1.5px solid var(--color-primary)', borderRadius: '8px', backgroundColor: '#f0fdf4' }}>
+                <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                  {consoleLang === 'ro' ? 'Actualizează Status:' : consoleLang === 'nl' ? 'Status bijwerken:' : 'Update Status:'}
+                </span>
+                <select
+                  value={selectedQuote.status || 'New'}
+                  onChange={async (e) => {
+                    const newStatus = e.target.value;
+                    try {
+                      const res = await fetch('/api/portal/admin/inquiries', {
+                        method: 'PATCH',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'x-admin-passcode': passcode
+                        },
+                        body: JSON.stringify({ id: selectedQuote.id, status: newStatus })
+                      });
+                      const data = await res.json();
+                      if (res.ok && data.success) {
+                        setQuotes(prev => prev.map(q => q.id === selectedQuote.id ? { ...q, status: newStatus } : q));
+                        setSelectedQuote(prev => ({ ...prev, status: newStatus }));
+                        showMessage('success', consoleLang === 'nl' ? 'Status succesvol bijgewerkt!' : 'Status updated successfully!');
+                      } else {
+                        showMessage('error', data.error || 'Failed to update status.');
+                      }
+                    } catch (err) {
+                      console.error(err);
+                      showMessage('error', 'Network error while updating status.');
+                    }
+                  }}
+                  style={{
+                    padding: '0.4rem 1rem',
+                    borderRadius: '6px',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '0.88rem',
+                    fontWeight: 600,
+                    backgroundColor: '#ffffff',
+                    color: 'var(--color-forest-dark)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="New">{consoleLang === 'nl' ? 'Nieuw' : (consoleLang === 'ro' ? 'Nou' : 'New')}</option>
+                  <option value="In Review">{consoleLang === 'nl' ? 'In Beoordeling' : (consoleLang === 'ro' ? 'În Analiză' : 'In Review')}</option>
+                  <option value="Replied">{consoleLang === 'nl' ? 'Beantwoord' : (consoleLang === 'ro' ? 'Răspuns' : 'Replied')}</option>
+                  <option value="Archived">{consoleLang === 'nl' ? 'Gearchiveerd' : (consoleLang === 'ro' ? 'Arhivat' : 'Archived')}</option>
+                </select>
+              </div>
+
+              {/* Notes */}
+              {selectedQuote.client_notes && (
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <h4 style={{ margin: '0 0 0.5rem', fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-forest-dark)', textTransform: 'uppercase' }}>
+                    {consoleLang === 'ro' ? 'Observații' : consoleLang === 'nl' ? 'Opmerkingen' : 'Client Notes'}
+                  </h4>
+                  <div style={{ padding: '1rem', backgroundColor: '#fdfaee', border: '1px solid #f3e8c4', borderRadius: '8px', fontSize: '0.88rem', color: '#1e293b', whiteSpace: 'pre-line', fontStyle: 'italic' }}>
+                    "{selectedQuote.client_notes}"
+                  </div>
+                </div>
+              )}
+
+              {/* Configured Products */}
+              <div>
+                <h4 style={{ margin: '0 0 0.75rem', fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-forest-dark)', textTransform: 'uppercase' }}>
+                  {consoleLang === 'ro' ? 'Produse Solicitate' : consoleLang === 'nl' ? 'Geconfigureerde Producten' : 'Configured Products'}
+                </h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {(selectedQuote.items || []).map((item, index) => {
+                    const specKeys = ['woodType', 'grade', 'dims', 'radius', 'finish', 'drying', 'steamed', 'fsc', 'additionalInfo'];
+                    
+                    return (
+                      <div key={index} style={{ border: '1px solid #e2e8f0', borderRadius: '8px', overflow: 'hidden' }}>
+                        <div style={{ padding: '0.75rem 1rem', backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-forest-dark)' }}>
+                            {index + 1}. {item.name}
+                          </span>
+                          <span style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-primary-dark)', backgroundColor: '#f0fdf4', padding: '0.2rem 0.6rem', borderRadius: '4px', border: '1px solid #dcfce7' }}>
+                            {consoleLang === 'ro' ? 'Cant:' : consoleLang === 'nl' ? 'Aantal:' : 'Qty:'} {item.qty}
+                          </span>
+                        </div>
+                        <div style={{ padding: '1rem', fontSize: '0.82rem' }}>
+                          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <tbody>
+                              {specKeys.map(k => {
+                                const rawVal = item[k];
+                                if (rawVal === undefined || rawVal === null || rawVal === '') return null;
+                                if (item.categoryKey === 'brichete' && ['grade', 'drying', 'steamed', 'fsc'].includes(k)) return null;
+
+                                const label = localizeSpecKey(k, consoleLang);
+                                const val = localizeSpecValue(k, rawVal, consoleLang, item.categoryKey);
+
+                                return (
+                                  <tr key={k} style={{ borderBottom: '1px solid #f8fafc' }}>
+                                    <td style={{ padding: '4px 0', color: 'var(--color-text-muted)', fontWeight: 600, width: '160px' }}>{label}</td>
+                                    <td style={{ padding: '4px 0', color: '#1e293b', fontWeight: 700 }}>{val}</td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div style={{
+              padding: '1.25rem 2rem',
+              borderTop: '1px solid #edf2f7',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '1rem',
+              backgroundColor: '#f8fafc'
+            }}>
+              <a
+                href={`/api/portal/download-pdf?id=${selectedQuote.id}&token=${passcode}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: '0.6rem 1.25rem',
+                  backgroundColor: 'var(--color-primary)',
+                  color: 'var(--color-forest-dark)',
+                  borderRadius: '6px',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  border: 'none'
+                }}
+              >
+                <i className="fa-solid fa-file-pdf"></i> Download PDF
+              </a>
+              <button
+                onClick={() => setIsQuoteModalOpen(false)}
+                style={{
+                  padding: '0.6rem 1.25rem',
+                  backgroundColor: '#ffffff',
+                  border: '1.5px solid #cbd5e1',
+                  color: 'var(--color-text-muted)',
+                  borderRadius: '6px',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer'
+                }}
+              >
+                {consoleLang === 'ro' ? 'Închide' : consoleLang === 'nl' ? 'Sluiten' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
@@ -3090,3 +3507,68 @@ function UserFlowDiagram({ userFlow, consoleLang }) {
     </div>
   );
 }
+
+const localizeSpecKey = (key, lang = 'nl') => {
+  const dict = {
+    woodType: { nl: 'Houtsoort', en: 'Wood species', de: 'Holzart', ro: 'Specie de lemn' },
+    grade: { nl: 'Kwaliteitsklasse', en: 'Quality Grade', de: 'Qualitätsklasse', ro: 'Clasă de calitate' },
+    dims: { nl: 'Afmetingen', en: 'Dimensions', de: 'Maße', ro: 'Dimensiuni' },
+    radius: { nl: 'Radius', en: 'Radius', de: 'Radius', ro: 'Rază' },
+    finish: { nl: 'Afwerking', en: 'Finish', de: 'Oberfläche', ro: 'Finisaj' },
+    drying: { nl: 'Droging', en: 'Drying', de: 'Trocknung', ro: 'Uscare' },
+    steamed: { nl: 'Gestoomd', en: 'Steamed', de: 'Gedämpft', ro: 'Aburit' },
+    fsc: { nl: 'FSC® Certificering', en: 'FSC® Certification', de: 'FSC®-Zertifizierung', ro: 'Certificare FSC®' },
+    additionalInfo: { nl: 'Aanvullende info', en: 'Additional info', de: 'Zusatzinfo', ro: 'Info suplimentare' }
+  };
+  return dict[key]?.[lang] || dict[key]?.nl || key;
+};
+
+const localizeSpecValue = (key, val, lang = 'nl', categoryKey = '') => {
+  if (key === 'woodType') {
+    return categoryKey === 'brichete'
+      ? (lang === 'nl' ? 'Beuken (Surplus zaagsel)' : (lang === 'ro' ? 'Fag (Surplus de rumeguș)' : (lang === 'de' ? 'Buche (Sägemehl)' : 'Beechwood (Sawdust surplus)')))
+      : (lang === 'nl' ? 'Beuken' : (lang === 'en' ? 'Beechwood' : (lang === 'de' ? 'Buchenholz' : 'Fag')));
+  }
+  if (key === 'grade') {
+    const grades = {
+      A: { nl: 'Klasse A (Foutvrij)', en: 'Class A (Clear)', de: 'Klasse A (Astfrei)', ro: 'Clasa A (Fără noduri)' },
+      B: { nl: 'Klasse B (Meubelhout)', en: 'Class B (Cabinet)', de: 'Klasse B (Möbelholz)', ro: 'Clasa B (Lemn pentru mobilă)' },
+      C: { nl: 'Klasse C (Constructief)', en: 'Class C (Structural)', de: 'Klasse C (Konstruktive Qualität)', ro: 'Clasa C (Calitate constructivă)' }
+    };
+    return grades[val]?.[lang] || grades[val]?.nl || val;
+  }
+  if (key === 'finish') {
+    const finishes = {
+      sawn: { nl: 'Fijnbezaagd', en: 'Fine-sawn / Rough-sawn', de: 'Feinschnitt / Sägerau', ro: 'Tăiat brut' },
+      planed: { nl: 'Vierzijdig geschaafd (S4S)', en: 'Four-sides planed (S4S)', de: 'Vierseitig gehobelt (S4S)', ro: 'Rinduit pe patru fețe (S4S)' },
+      dowels: { nl: 'Rond geschaafd', en: 'Round planed', de: 'Rund gehobelt', ro: 'Rinduit rotund' },
+      profiles: { nl: 'Geprofileerd', en: 'Moulded/Profiled', de: 'Profiliert', ro: 'Profilat' },
+      specials: { nl: 'Op specificatie', en: 'On custom specification', de: 'Nach Spezifikation', ro: 'Conform specificației' },
+      brichete: { nl: 'Natuurlijk geperst, zonder chemische toevoegingen', en: '100% Natural, chemical-free', de: '100% Natürlich, ohne chemische Bindemittel', ro: '100% Natural, fără lianți chimici' }
+    };
+    return finishes[categoryKey]?.[lang] || finishes[val]?.[lang] || val;
+  }
+  if (key === 'fsc') {
+    const fscVals = {
+      true: { nl: 'FSC® 100%', en: 'FSC® 100%', de: 'FSC® 100%', ro: 'FSC® 100%' },
+      false: { nl: 'Geen FSC', en: 'No FSC', de: 'Kein FSC', ro: 'Fără FSC' }
+    };
+    const fscKey = val ? 'true' : 'false';
+    return fscVals[fscKey]?.[lang] || fscVals[fscKey]?.nl || (val ? 'FSC® 100%' : 'No FSC');
+  }
+  if (key === 'drying') {
+    const dryingVals = {
+      luchtdroog: { nl: 'Luchtdroog', en: 'Air-dried', de: 'Luftgetrocknet', ro: 'Uscat la aer' },
+      kd: { nl: 'Kamerdroog (KD 10-12%)', en: 'Kiln-dried (KD 10-12%)', de: 'Kammergetrocknet (KD 10-12%)', ro: 'Uscat în cuptor (KD 10-12%)' }
+    };
+    return dryingVals[val]?.[lang] || dryingVals[val]?.nl || val;
+  }
+  if (key === 'steamed') {
+    if (val === 'yes') {
+      return lang === 'nl' ? 'Gestoomd' : (lang === 'en' ? 'Steamed' : (lang === 'de' ? 'Gedämpft' : 'Aburit'));
+    }
+    return lang === 'nl' ? 'Ongestoomd' : (lang === 'en' ? 'Unsteamed' : (lang === 'de' ? 'Ungedämpft' : 'Neaburit'));
+  }
+  return val;
+};
+

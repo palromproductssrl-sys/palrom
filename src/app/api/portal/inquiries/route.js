@@ -1,6 +1,19 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+
+let supabase = null;
+if (supabaseUrl && supabaseKey) {
+  try {
+    supabase = createClient(supabaseUrl, supabaseKey);
+  } catch (err) {
+    console.error('Failed to initialize Supabase client:', err);
+  }
+}
 
 export async function GET(request) {
   try {
@@ -23,20 +36,35 @@ export async function GET(request) {
       return NextResponse.json({ error: 'Invalid authenticated email' }, { status: 401 });
     }
 
-    const localDbPath = path.join(process.cwd(), 'inquiries.json');
     let inquiries = [];
 
-    if (fs.existsSync(localDbPath)) {
-      try {
-        const fileContent = fs.readFileSync(localDbPath, 'utf8');
-        const allRecords = JSON.parse(fileContent);
-        
-        // Filter records matching authenticated email in reverse chronological order
-        inquiries = allRecords
-          .filter(record => record.client_email?.toLowerCase().trim() === authEmail)
-          .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
-      } catch (err) {
-        console.error('Failed to read or parse local inquiries file:', err);
+    if (supabase) {
+      // Fetch matching inquiries from Supabase sorted by created_at desc
+      const { data, error } = await supabase
+        .from('quote_inquiries')
+        .select('*')
+        .eq('client_email', authEmail)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Supabase query error fetching inquiries:', error);
+      } else {
+        inquiries = data || [];
+      }
+    } else {
+      // Fallback to local inquiries file
+      const localDbPath = path.join(process.cwd(), 'inquiries.json');
+      if (fs.existsSync(localDbPath)) {
+        try {
+          const fileContent = fs.readFileSync(localDbPath, 'utf8');
+          const allRecords = JSON.parse(fileContent);
+          
+          inquiries = allRecords
+            .filter(record => record.client_email?.toLowerCase().trim() === authEmail)
+            .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+        } catch (err) {
+          console.error('Failed to read or parse local inquiries file:', err);
+        }
       }
     }
 
