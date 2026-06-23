@@ -175,3 +175,14 @@ USING (true)
 WITH CHECK (true);
 
 
+-- =========================================================================
+-- Database Migrations (Schema updates)
+-- =========================================================================
+
+-- Add FSC certified column to configurator events
+ALTER TABLE public.configurator_events ADD COLUMN IF NOT EXISTS fsc BOOLEAN;
+
+-- Add fallback messages logger column to chatbot conversations
+ALTER TABLE public.chatbot_conversations ADD COLUMN IF NOT EXISTS fallback_messages JSONB DEFAULT '[]'::jsonb;
+
+

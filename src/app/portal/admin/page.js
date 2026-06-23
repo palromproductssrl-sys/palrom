@@ -1689,11 +1689,20 @@ export default function AdminPortal() {
                             v3: consoleLang === 'nl' ? 'V3: Scripted Chatbot' : 'V3: Scripted Chatbot',
                             v4: consoleLang === 'nl' ? 'V4: Open AI Chatbot' : 'V4: Open AI Chatbot'
                           }[version] || version;
+
+                          const vStat = stats.configurator.versionStats?.[version] || { started: 0, submitted: 0 };
+                          const convPct = vStat.started > 0 ? Math.round((vStat.submitted / vStat.started) * 100) : 0;
+
                           return (
                             <div key={idx}>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8.rem', marginBottom: '0.25rem' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
                                 <span style={{ fontWeight: 500 }}>{verFriendly}</span>
-                                <span style={{ fontWeight: 700 }}>{count} ({pct}%)</span>
+                                <span style={{ fontWeight: 700 }}>
+                                  {count} ({pct}%)
+                                  <span style={{ color: 'var(--color-primary-dark)', marginLeft: '0.4rem', fontSize: '0.72rem', fontWeight: 600 }}>
+                                    [Conv: {convPct}%]
+                                  </span>
+                                </span>
                               </div>
                               <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
                                 <div style={{ height: '100%', width: `${pct}%`, backgroundColor: '#3b82f6', borderRadius: '10px' }} />
@@ -1732,6 +1741,232 @@ export default function AdminPortal() {
                             </span>
                           </strong>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Advanced Wood & FSC Deep-Dive */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginTop: '1.5rem' }}>
+                    
+                    {/* Card: Popular Dimensions per Group */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Dimensiuni Populare per Categorie' : consoleLang === 'nl' ? 'Populaire Afmetingen per Productgroep' : 'Popular Dimensions by Category'}
+                      </h4>
+                      <div style={{ maxHeight: '250px', overflowY: 'auto' }}>
+                        {Object.entries(stats.configurator.popularDimensions || {}).length === 0 ? (
+                          <div style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted)', padding: '2rem 0' }}>
+                            {consoleLang === 'nl' ? 'Geen afmetingsgegevens beschikbaar' : 'No dimensions configured yet'}
+                          </div>
+                        ) : (
+                          Object.entries(stats.configurator.popularDimensions || {}).map(([cat, dimsObj], idx) => {
+                            const sortedDims = Object.entries(dimsObj).sort((a, b) => b[1] - a[1]).slice(0, 3);
+                            const catFriendly = {
+                              sawn: consoleLang === 'ro' ? 'Piese brute' : 'Blanks',
+                              planed: consoleLang === 'ro' ? 'Șipci geschaafd' : 'Planed slats',
+                              dowels: consoleLang === 'ro' ? 'Tije/Stokken' : 'Dowel sticks',
+                              profiles: consoleLang === 'ro' ? 'Profile' : 'Profiles',
+                              specials: consoleLang === 'ro' ? 'Piese speciale' : 'Specials'
+                            }[cat] || cat;
+                            
+                            return (
+                              <div key={idx} style={{ marginBottom: '1rem', borderBottom: '1px solid #f8fafc', paddingBottom: '0.75rem' }}>
+                                <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-primary-dark)', marginBottom: '0.35rem' }}>{catFriendly}</div>
+                                {sortedDims.map(([dimStr, count], dIdx) => (
+                                  <div key={dIdx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', paddingLeft: '0.5rem', margin: '2px 0' }}>
+                                    <span style={{ fontFamily: 'monospace' }}>{dimStr}</span>
+                                    <span style={{ fontWeight: 600, color: 'var(--color-text-muted)' }}>{count}x</span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Card: Quantity & FSC Distribution */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Volum Cumpărături & FSC' : consoleLang === 'nl' ? 'Oplageverdeling & FSC® Ratio' : 'Volume & FSC® Distribution'}
+                      </h4>
+                      
+                      {/* Volume ranges */}
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-dark)', marginBottom: '0.75rem' }}>
+                          {consoleLang === 'ro' ? 'Oplage Verdeling (B2B)' : consoleLang === 'nl' ? 'Oplageverdeling per Bestelling' : 'Order Quantity Split'}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.8rem' }}>
+                          <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+                              <span>500 - 1.000 {consoleLang === 'nl' ? 'stuks' : 'pcs'}</span>
+                              <strong>{stats.configurator.quantityDist?.range500to1000 || 0}</strong>
+                            </div>
+                            <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
+                              <div style={{ 
+                                height: '100%', 
+                                width: `${stats.configurator.totalEvents > 0 ? Math.round(((stats.configurator.quantityDist?.range500to1000 || 0) / stats.configurator.totalEvents) * 100) : 0}%`, 
+                                backgroundColor: 'var(--color-primary)', 
+                                borderRadius: '10px' 
+                              }} />
+                            </div>
+                          </div>
+                          <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+                              <span>1.001 - 5.000 {consoleLang === 'nl' ? 'stuks' : 'pcs'}</span>
+                              <strong>{stats.configurator.quantityDist?.range1000to5000 || 0}</strong>
+                            </div>
+                            <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
+                              <div style={{ 
+                                height: '100%', 
+                                width: `${stats.configurator.totalEvents > 0 ? Math.round(((stats.configurator.quantityDist?.range1000to5000 || 0) / stats.configurator.totalEvents) * 100) : 0}%`, 
+                                backgroundColor: 'var(--color-primary)', 
+                                borderRadius: '10px' 
+                              }} />
+                            </div>
+                          </div>
+                          <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2px' }}>
+                              <span>&gt; 5.000 {consoleLang === 'nl' ? 'stuks' : 'pcs'}</span>
+                              <strong>{stats.configurator.quantityDist?.range5000plus || 0}</strong>
+                            </div>
+                            <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
+                              <div style={{ 
+                                height: '100%', 
+                                width: `${stats.configurator.totalEvents > 0 ? Math.round(((stats.configurator.quantityDist?.range5000plus || 0) / stats.configurator.totalEvents) * 100) : 0}%`, 
+                                backgroundColor: 'var(--color-primary)', 
+                                borderRadius: '10px' 
+                              }} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* FSC certified ratio */}
+                      <div>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-dark)', marginBottom: '0.5rem' }}>
+                          {consoleLang === 'ro' ? 'Certificare FSC® 100%' : consoleLang === 'nl' ? 'FSC® Houtcertificering Ratio' : 'FSC® 100% Demand'}
+                        </div>
+                        {(() => {
+                          const fsc = stats.configurator.fscRatio?.fscCertified || 0;
+                          const nonFsc = stats.configurator.fscRatio?.nonFsc || 0;
+                          const total = fsc + nonFsc || 1;
+                          const fscPct = Math.round((fsc / total) * 100);
+                          const nonFscPct = Math.round((nonFsc / total) * 100);
+
+                          return (
+                            <div>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
+                                <span style={{ color: '#16a34a', fontWeight: 600 }}>FSC® 100%: {fscPct}%</span>
+                                <span style={{ color: 'var(--color-text-muted)' }}>Geen FSC: {nonFscPct}%</span>
+                              </div>
+                              <div style={{ display: 'flex', height: '12px', width: '100%', backgroundColor: '#e2e8f0', borderRadius: '50px', overflow: 'hidden' }}>
+                                <div style={{ height: '100%', width: `${fscPct}%`, backgroundColor: '#16a34a' }} />
+                                <div style={{ height: '100%', width: `${nonFscPct}%`, backgroundColor: '#94a3b8' }} />
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Traffic Sources, Devices & Chat Diagnostics */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
+                    
+                    {/* Traffic Sources & Devices */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Surse Trafic & Dispozitive' : consoleLang === 'nl' ? 'Verkeersbronnen & Apparaten' : 'Traffic Sources & Devices'}
+                      </h4>
+                      
+                      <div style={{ maxHeight: '120px', overflowY: 'auto', marginBottom: '1.25rem' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
+                          <tbody>
+                            {Object.entries(stats.traffic.referrers || {})
+                              .sort((a, b) => b[1] - a[1])
+                              .slice(0, 4)
+                              .map(([ref, count], idx) => (
+                                <tr key={idx} style={{ borderBottom: '1px solid #f8fafc' }}>
+                                  <td style={{ padding: '4px 0', color: 'var(--color-text-muted)' }}>{ref}</td>
+                                  <td style={{ padding: '4px 0', textAlign: 'right', fontWeight: 700 }}>{count}x</td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.25rem', fontWeight: 600 }}>
+                          <span>Desktop ({stats.traffic.devices?.desktop || 0})</span>
+                          <span>Mobiel ({stats.traffic.devices?.mobile || 0})</span>
+                        </div>
+                        {(() => {
+                          const mob = stats.traffic.devices?.mobile || 0;
+                          const desk = stats.traffic.devices?.desktop || 0;
+                          const total = mob + desk || 1;
+                          const deskPct = Math.round((desk / total) * 100);
+                          const mobPct = Math.round((mob / total) * 100);
+
+                          return (
+                            <div style={{ display: 'flex', height: '8px', width: '100%', backgroundColor: '#e2e8f0', borderRadius: '50px', overflow: 'hidden' }}>
+                              <div style={{ height: '100%', width: `${deskPct}%`, backgroundColor: '#3b82f6' }} />
+                              <div style={{ height: '100%', width: `${mobPct}%`, backgroundColor: '#ec4899' }} />
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+
+                    {/* Chatbot Language Conversion */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Conversie Chatbot per Limbă' : consoleLang === 'nl' ? 'Chatbot Conversie per Taal' : 'Chatbot Conversion by Language'}
+                      </h4>
+                      <div style={{ maxHeight: '180px', overflowY: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                              <th style={{ padding: '4px 0' }}>{consoleLang === 'nl' ? 'Taal' : 'Language'}</th>
+                              <th style={{ padding: '4px 0', textAlign: 'center' }}>Chats</th>
+                              <th style={{ padding: '4px 0', textAlign: 'right' }}>{consoleLang === 'nl' ? 'Voltooid' : 'Completed'}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Object.entries(stats.chatbot.byLanguage || {}).map(([cLang, item], idx) => {
+                              const pct = item.total > 0 ? Math.round((item.completed / item.total) * 100) : 0;
+                              return (
+                                <tr key={idx} style={{ borderBottom: '1px solid #f8fafc' }}>
+                                  <td style={{ padding: '6px 0', fontWeight: 700, textTransform: 'uppercase' }}>{cLang}</td>
+                                  <td style={{ padding: '6px 0', textAlign: 'center' }}>{item.total}</td>
+                                  <td style={{ padding: '6px 0', textAlign: 'right', color: '#16a34a', fontWeight: 600 }}>{item.completed} ({pct}%)</td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Unresolved Chat Queries (AI Fallbacks) */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Mesaje Neînțelese de PAL' : consoleLang === 'nl' ? 'Niet-begrepen Chat Vragen' : 'Unresolved Chat Queries'}
+                      </h4>
+                      <div style={{ maxHeight: '150px', overflowY: 'auto', fontSize: '0.78rem', color: '#475569' }}>
+                        {!stats.chatbot.fallbackMessages || stats.chatbot.fallbackMessages.length === 0 ? (
+                          <div style={{ textAlign: 'center', color: 'var(--color-text-muted)', padding: '2rem 0' }}>
+                            {consoleLang === 'nl' ? 'Geen niet-begrepen vragen gevonden.' : 'No fallback messages logged yet.'}
+                          </div>
+                        ) : (
+                          <ul style={{ paddingLeft: '1rem', margin: 0 }}>
+                            {stats.chatbot.fallbackMessages.map((msg, idx) => (
+                              <li key={idx} style={{ marginBottom: '6px', fontStyle: 'italic' }}>
+                                "{msg}"
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
                   </div>

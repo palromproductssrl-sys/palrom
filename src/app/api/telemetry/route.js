@@ -98,6 +98,7 @@ export async function POST(request) {
           dimensions: payload.dimensions || null,
           grade: payload.grade || null,
           drying: payload.drying || null,
+          fsc: payload.fsc !== undefined ? !!payload.fsc : null,
           quantity: payload.quantity ? Number(payload.quantity) : null,
           language: payload.lang || 'nl',
           created_at: timestamp
@@ -160,17 +161,31 @@ export async function POST(request) {
           .eq('session_id', sessionId)
           .maybeSingle();
 
+        const fallbackMsg = payload.message || null;
+        let messages = [];
         if (existing) {
+          if (existing.fallback_messages) {
+            messages = Array.isArray(existing.fallback_messages)
+              ? existing.fallback_messages
+              : [];
+          }
+          if (fallbackMsg) messages.push(fallbackMsg);
+
           await supabase
             .from('chatbot_conversations')
-            .update({ had_fallback: true })
+            .update({ 
+              had_fallback: true,
+              fallback_messages: messages
+            })
             .eq('session_id', sessionId);
         } else {
+          if (fallbackMsg) messages.push(fallbackMsg);
           await supabase
             .from('chatbot_conversations')
             .insert({
               session_id: sessionId,
               had_fallback: true,
+              fallback_messages: messages,
               language: payload.lang || 'nl',
               created_at: timestamp
             });
@@ -207,6 +222,7 @@ export async function POST(request) {
           dimensions: payload.dimensions || null,
           grade: payload.grade || null,
           drying: payload.drying || null,
+          fsc: payload.fsc !== undefined ? !!payload.fsc : null,
           quantity: payload.quantity ? Number(payload.quantity) : null,
           language: payload.lang || 'nl',
           created_at: timestamp
@@ -222,6 +238,7 @@ export async function POST(request) {
             message_count: type === 'chatbot_message' ? 1 : 0,
             completed_configuration: type === 'chatbot_config_complete',
             had_fallback: type === 'chatbot_fallback',
+            fallback_messages: type === 'chatbot_fallback' && payload.message ? [payload.message] : [],
             language: payload.lang || 'nl',
             created_at: timestamp
           };
@@ -230,7 +247,11 @@ export async function POST(request) {
           const chat = data.chatbotConversations[index];
           if (type === 'chatbot_message') chat.message_count++;
           if (type === 'chatbot_config_complete') chat.completed_configuration = true;
-          if (type === 'chatbot_fallback') chat.had_fallback = true;
+          if (type === 'chatbot_fallback') {
+            chat.had_fallback = true;
+            if (!chat.fallback_messages) chat.fallback_messages = [];
+            if (payload.message) chat.fallback_messages.push(payload.message);
+          }
         }
       }
 
@@ -292,11 +313,25 @@ export async function GET(request) {
 }
 
 function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quoteInquiries) {
+  // Helper to resolve domains safely
+  const getReferrerDomain = (ref) => {
+    if (!ref) return 'Direct / Unknown';
+    try {
+      const url = new URL(ref);
+      return url.hostname.replace('www.', '') || 'Direct / Unknown';
+    } catch (e) {
+      if (ref.includes('google')) return 'google.com';
+      return ref;
+    }
+  };
+
   // 1. Traffic Aggregation
   const totalViews = pageViews.length;
   const viewsByPage = {};
   const viewsByLang = {};
   const viewsByDay = {};
+  const referrers = {};
+  const devices = { mobile: 0, desktop: 0 };
 
   pageViews.forEach(pv => {
     const cleanPath = pv.page_path ? pv.page_path.split('?')[0] : '/';
@@ -308,6 +343,17 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
     if (pv.created_at) {
       const day = pv.created_at.substring(0, 10);
       viewsByDay[day] = (viewsByDay[day] || 0) + 1;
+    }
+
+    // Referrers
+    const domain = getReferrerDomain(pv.referrer);
+    referrers[domain] = (referrers[domain] || 0) + 1;
+
+    // Devices
+    if (pv.is_mobile) {
+      devices.mobile++;
+    } else {
+      devices.desktop++;
     }
   });
 
@@ -329,13 +375,24 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
   const cartSessions = new Set();
   const inquirySessions = new Set();
 
+  // New deeper insights
+  const popularDimensions = {}; // category -> { [dimStr]: count }
+  const quantityDist = { range500to1000: 0, range1000to5000: 0, range5000plus: 0 };
+  let fscCertified = 0;
+  let nonFsc = 0;
+
+  // Track session conversions per version
+  const sessionVersions = {}; // sessionId -> version
+  const sessionSubmissions = new Set(); // sessionIds that submitted a quote
+
   configuratorEvents.forEach(evt => {
     const sId = evt.session_id;
     if (sId) startedSessions.add(sId);
 
     if (evt.event_type === 'configurator_start') {
-      const version = evt.category || 'v1'; // v1, v2, v3, v4 stored here
+      const version = evt.category || 'v1'; // version code stored here
       configByVersion[version] = (configByVersion[version] || 0) + 1;
+      if (sId) sessionVersions[sId] = version;
     } else {
       if (evt.category) {
         configByCat[evt.category] = (configByCat[evt.category] || 0) + 1;
@@ -351,6 +408,52 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
       }
       if (evt.event_type === 'quote_submitted' && sId) {
         inquirySessions.add(sId);
+        sessionSubmissions.add(sId);
+      }
+
+      // Track dimensions popularity
+      if (evt.category && evt.dimensions) {
+        const dims = evt.dimensions;
+        let dimStr = '';
+        if (evt.category === 'dowels' && dims.diameter) {
+          dimStr = `Ø ${dims.diameter} x ${dims.length || 0} mm`;
+        } else if (dims.thickness) {
+          dimStr = `${dims.thickness} x ${dims.width || dims.diameter || 0} x ${dims.length || 0} mm`;
+        }
+        if (dimStr) {
+          if (!popularDimensions[evt.category]) {
+            popularDimensions[evt.category] = {};
+          }
+          popularDimensions[evt.category][dimStr] = (popularDimensions[evt.category][dimStr] || 0) + 1;
+        }
+      }
+
+      // Quantity distribution
+      if (evt.quantity) {
+        const q = Number(evt.quantity);
+        if (q <= 1000) quantityDist.range500to1000++;
+        else if (q <= 5000) quantityDist.range1000to5000++;
+        else quantityDist.range5000plus++;
+      }
+
+      // FSC count
+      if (evt.fsc === true) fscCertified++;
+      else if (evt.fsc === false) nonFsc++;
+    }
+  });
+
+  // Calculate versionStats
+  const versionStats = {
+    v1: { started: 0, submitted: 0 },
+    v2: { started: 0, submitted: 0 },
+    v3: { started: 0, submitted: 0 },
+    v4: { started: 0, submitted: 0 }
+  };
+  Object.entries(sessionVersions).forEach(([sId, ver]) => {
+    if (versionStats[ver]) {
+      versionStats[ver].started++;
+      if (sessionSubmissions.has(sId)) {
+        versionStats[ver].submitted++;
       }
     }
   });
@@ -360,11 +463,31 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
   let totalChatMessages = 0;
   let chatsCompleted = 0;
   let chatsFallback = 0;
+  const fallbackMessages = [];
+  const chatbotByLang = {};
 
   chatbotConversations.forEach(chat => {
     totalChatMessages += chat.message_count || 0;
     if (chat.completed_configuration) chatsCompleted++;
     if (chat.had_fallback) chatsFallback++;
+
+    // Collect fallback messages if any exist
+    if (chat.fallback_messages) {
+      const msgs = Array.isArray(chat.fallback_messages) 
+        ? chat.fallback_messages 
+        : [];
+      fallbackMessages.push(...msgs);
+    }
+
+    // Language split
+    const l = chat.language || 'nl';
+    if (!chatbotByLang[l]) {
+      chatbotByLang[l] = { total: 0, completed: 0 };
+    }
+    chatbotByLang[l].total++;
+    if (chat.completed_configuration) {
+      chatbotByLang[l].completed++;
+    }
   });
 
   const avgMessages = totalChats > 0 ? Math.round((totalChatMessages / totalChats) * 10) / 10 : 0;
@@ -386,7 +509,9 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
       totalViews,
       viewsByPage,
       viewsByLang,
-      viewsByDay: chronologicalViewsByDay
+      viewsByDay: chronologicalViewsByDay,
+      referrers,
+      devices
     },
     configurator: {
       totalEvents: totalConfigEvents,
@@ -398,14 +523,20 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
         started: startedSessions.size,
         addedToCart: cartSessions.size,
         submitted: inquirySessions.size
-      }
+      },
+      popularDimensions,
+      quantityDist,
+      fscRatio: { fscCertified, nonFsc },
+      versionStats
     },
     chatbot: {
       totalChats,
       avgMessages,
       completedCount: chatsCompleted,
       fallbackCount: chatsFallback,
-      fallbackRate: chatbotFallbackRate
+      fallbackRate: chatbotFallbackRate,
+      fallbackMessages: fallbackMessages.slice(-25), // Keep latest 25 fallbacks
+      byLanguage: chatbotByLang
     },
     quotes: {
       totalQuotes,

@@ -113,6 +113,7 @@ export function InquiryProvider({ children }) {
         },
         grade: item.grade || null,
         drying: item.drying || null,
+        fsc: item.fsc !== undefined ? !!item.fsc : null,
         quantity: item.qty || 1
       });
     } catch (e) {

@@ -1237,7 +1237,7 @@ export default function OpenChatConfigurator() {
               body: JSON.stringify({
                 type: 'chatbot_fallback',
                 sessionId: localStorage.getItem('palrom_session_id') || crypto.randomUUID(),
-                payload: { lang }
+                payload: { lang, message: userText }
               })
             });
           } catch(e) {}
