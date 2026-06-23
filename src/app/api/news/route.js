@@ -92,6 +92,21 @@ export async function GET() {
         .order('created_at', { ascending: false });
 
       if (!error && data) {
+        // Auto-seed: If database is connected but empty, insert local seed data
+        if (data.length === 0) {
+          const localNews = readNews();
+          if (localNews.length > 0) {
+            console.log('Supabase news table is empty. Seeding local news...');
+            const dbRecords = localNews.map(mapNewsToDb);
+            const { error: seedErr } = await supabase
+              .from('news')
+              .upsert(dbRecords);
+            if (!seedErr) {
+              return NextResponse.json({ success: true, news: localNews });
+            }
+            console.error('Failed to seed news to Supabase:', seedErr);
+          }
+        }
         const mappedNews = data.map(mapNewsFromDb);
         return NextResponse.json({ success: true, news: mappedNews });
       }
