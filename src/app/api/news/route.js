@@ -83,13 +83,79 @@ function writeNews(data) {
   }
 }
 
+function parseLocalizedDate(dateObj) {
+  if (!dateObj) return null;
+  
+  if (dateObj.en) {
+    const d = new Date(dateObj.en);
+    if (!isNaN(d.getTime())) return d;
+  }
+  
+  if (dateObj.nl) {
+    const d = new Date(dateObj.nl);
+    if (!isNaN(d.getTime())) return d;
+    
+    const nlMonths = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+    const enMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    let str = dateObj.nl.toLowerCase();
+    for (let i = 0; i < 12; i++) {
+      if (str.includes(nlMonths[i])) {
+        str = str.replace(nlMonths[i], enMonths[i]);
+        const d2 = new Date(str);
+        if (!isNaN(d2.getTime())) return d2;
+        break;
+      }
+    }
+  }
+  
+  if (dateObj.ro) {
+    const roMonths = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'];
+    const enMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    let str = dateObj.ro.toLowerCase();
+    for (let i = 0; i < 12; i++) {
+      if (str.includes(roMonths[i])) {
+        str = str.replace(roMonths[i], enMonths[i]);
+        const d2 = new Date(str);
+        if (!isNaN(d2.getTime())) return d2;
+        break;
+      }
+    }
+  }
+
+  for (const lang of ['en', 'nl', 'de', 'ro']) {
+    if (dateObj[lang]) {
+      const d = new Date(dateObj[lang]);
+      if (!isNaN(d.getTime())) return d;
+    }
+  }
+  
+  return null;
+}
+
+function sortNewsItems(items) {
+  return [...items].sort((a, b) => {
+    const dateA = parseLocalizedDate(a.date);
+    const dateB = parseLocalizedDate(b.date);
+
+    const timeA = dateA ? dateA.getTime() : 0;
+    const timeB = dateB ? dateB.getTime() : 0;
+
+    if (timeA !== timeB) {
+      return timeB - timeA; // Descending (newest first)
+    }
+
+    return (b.id || '').localeCompare(a.id || '');
+  });
+}
+
 export async function GET() {
   if (supabase) {
     try {
       const { data, error } = await supabase
         .from('news')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .select('*');
 
       if (!error && data) {
         // Auto-seed: If database is connected but empty, insert local seed data
@@ -102,13 +168,13 @@ export async function GET() {
               .from('news')
               .upsert(dbRecords);
             if (!seedErr) {
-              return NextResponse.json({ success: true, news: localNews });
+              return NextResponse.json({ success: true, news: sortNewsItems(localNews) });
             }
             console.error('Failed to seed news to Supabase:', seedErr);
           }
         }
         const mappedNews = data.map(mapNewsFromDb);
-        return NextResponse.json({ success: true, news: mappedNews });
+        return NextResponse.json({ success: true, news: sortNewsItems(mappedNews) });
       }
       console.error('Supabase fetch news error:', error);
     } catch (err) {
@@ -117,7 +183,7 @@ export async function GET() {
   }
 
   const news = readNews();
-  return NextResponse.json({ success: true, news });
+  return NextResponse.json({ success: true, news: sortNewsItems(news) });
 }
 
 export async function POST(request) {
