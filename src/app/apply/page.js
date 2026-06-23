@@ -32,7 +32,6 @@ function ApplyFormContent() {
       const validJobs = {
         planing: 'planing_operator',
         quality: 'quality_inspector',
-        owner: 'owner_director',
         maintenance: 'maintenance_mechanic',
       };
       if (validJobs[jobParam]) {
@@ -117,12 +116,6 @@ function ApplyFormContent() {
       en: 'Quality & Defect Inspector',
       de: 'Qualitäts- und Mängelprüfer',
       ro: 'Inspector Calitate & Defecte'
-    },
-    optionOwner: {
-      nl: 'Eigenaar / Algemeen Directeur',
-      en: 'Owner / Managing Director',
-      de: 'Eigentümer / Geschäftsführer',
-      ro: 'Proprietar / Director General'
     },
     optionMaintenance: {
       nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
@@ -299,12 +292,6 @@ function ApplyFormContent() {
           de: 'Qualitäts- und Mängelprüfer',
           ro: 'Inspector Calitate & Defecte'
         },
-        owner_director: {
-          nl: 'Eigenaar / Algemeen Directeur',
-          en: 'Owner / Managing Director',
-          de: 'Eigentümer / Geschäftsführer',
-          ro: 'Proprietar / Director General'
-        },
         maintenance_mechanic: {
           nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
           en: 'Maintenance Mechanic / Millwright',
@@ -433,7 +420,6 @@ function ApplyFormContent() {
                   { value: '', label: getTranslation('selectPositionDefault') },
                   { value: 'planing_operator', label: getTranslation('optionPlaning') },
                   { value: 'quality_inspector', label: getTranslation('optionQuality') },
-                  { value: 'owner_director', label: getTranslation('optionOwner') },
                   { value: 'maintenance_mechanic', label: getTranslation('optionMaintenance') },
                   { value: 'general_application', label: getTranslation('optionGeneral') }
                 ]}

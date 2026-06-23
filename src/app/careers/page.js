@@ -123,63 +123,6 @@ export default function Careers() {
       },
     },
     {
-      id: 'owner',
-      title: {
-        nl: 'Eigenaar / Algemeen Directeur',
-        en: 'Owner / Managing Director',
-        de: 'Eigentümer / Geschäftsführer',
-        ro: 'Proprietar / Director General'
-      },
-      department: {
-        nl: 'Directie',
-        en: 'Executive',
-        de: 'Geschäftsführung',
-        ro: 'Conducere'
-      },
-      location: 'Brad, RO & NL',
-      type: {
-        nl: 'Fulltime / Partner',
-        en: 'Full-Time / Partner',
-        de: 'Vollzeit / Partner',
-        ro: 'Normă Întreagă / Partener'
-      },
-      description: {
-        nl: 'Als eigenaar en directeur bent u verantwoordelijk voor de strategische visie, de dagelijkse operationele leiding en de internationale groei van onze beukenhoutfabriek en zagerij in Brad, Roemenië.',
-        en: 'As owner and managing director, you will be responsible for the strategic vision, day-to-day operations, and international growth of our beechwood processing facility and sawmill in Brad, Romania.',
-        de: 'Als Eigentümer und Geschäftsführer sind Sie verantwortlich für die strategische Vision, das operative Tagesgeschäft und das internationale Wachstum unseres Buchenholz-Verarbeitungswerks und Sägewerks in Brad, Rumänien.',
-        ro: 'În calitate de proprietar și director general, veți fi responsabil de viziunea strategică, operațiunile zilnice și creșterea internațională a unității noastre de procesare a lemnului de fag și a gaterului din Brad, România.'
-      },
-      requirements: {
-        nl: [
-          'Bewezen ondernemersgeest en ruime ervaring in de houtverwerking of industriële sector.',
-          'Sterke leiderschapskwaliteiten en het vermogen om multinationale teams te motiveren.',
-          'Vloeiend in het Nederlands en Engels, basiskennis van het Roemeens of Duits is een voordeel.',
-        ],
-        en: [
-          'Proven entrepreneurial mindset and extensive experience in the wood processing or industrial sector.',
-          'Strong leadership skills and the ability to motivate multinational teams.',
-          'Fluent in Dutch and English, basic knowledge of Romanian or German is a plus.',
-        ],
-        de: [
-          'Nachgewiesene unternehmerische Denkweise und umfassende Erfahrung in der Holzverarbeitung oder im industriellen Sektor.',
-          'Starke Führungsqualitäten und die Fähigkeit, multinationale Teams zu motivieren.',
-          'Fließend in Niederländisch und Englisch, Grundkenntnisse in Rumänisch oder Deutsch sind von Vorteil.',
-        ],
-        ro: [
-          'Mentalitate antreprenorială dovedită și experiență vastă în prelucrarea lemnului sau în sectorul industrial.',
-          'Abilități puternice de leadership și capacitatea de a motiva echipe multinaționale.',
-          'Fluent în olandeză și engleză, cunoștințele de bază de limbă română sau germană constituie un avantaj.',
-        ]
-      },
-      salary: {
-        nl: 'Winstaandeel / Partnerpakket',
-        en: 'Equity Share / Partner Package',
-        de: 'Gewinnbeteiligung / Partner-Paket',
-        ro: 'Cotă de Profit / Pachet Partener'
-      },
-    },
-
-    {
       id: 'maintenance',
       title: {
         nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
