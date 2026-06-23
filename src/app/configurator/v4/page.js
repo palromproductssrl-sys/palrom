@@ -1118,6 +1118,19 @@ export default function OpenChatConfigurator() {
       value: 'v4',
     });
 
+    // Log chatbot message event in telemetry
+    try {
+      fetch('/api/telemetry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'chatbot_message',
+          sessionId: localStorage.getItem('palrom_session_id') || crypto.randomUUID(),
+          payload: { lang }
+        })
+      });
+    } catch (e) {}
+
     // Stop speech recognition and ignore any late transcription events
     ignoreSpeechResultsRef.current = true;
     if (recognitionRef.current && isListening) {
@@ -1223,6 +1236,19 @@ export default function OpenChatConfigurator() {
         }
 
         if (useFallback) {
+          // Log chatbot fallback event in telemetry
+          try {
+            fetch('/api/telemetry', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                type: 'chatbot_fallback',
+                sessionId: localStorage.getItem('palrom_session_id') || crypto.randomUUID(),
+                payload: { lang }
+              })
+            });
+          } catch(e) {}
+
           // 1. Run local NLP Parser
           parsed = parseFreeText(userText, category);
         }
@@ -1347,6 +1373,19 @@ export default function OpenChatConfigurator() {
 
         // Check if everything complete
         const isEssentialComplete = isConfigCompleteFor(activeCat, updatedFields);
+        if (isEssentialComplete) {
+          try {
+            fetch('/api/telemetry', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                type: 'chatbot_config_complete',
+                sessionId: localStorage.getItem('palrom_session_id') || crypto.randomUUID(),
+                payload: { lang }
+              })
+            });
+          } catch(e) {}
+        }
         const isAffirmative = /^(?:ja|yes|oui|da|ok|toevoegen|bestellen|offerte|in winkelwagen|add|submit|klaar|ready|finish)/i.test(cleanText) || cleanText.includes('voeg toe') || cleanText.includes('ben klaar') || cleanText.includes('ik ben klaar') || cleanText.includes('toevoegen');
         
         if (isEssentialComplete && isAffirmative) {

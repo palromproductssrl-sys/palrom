@@ -1,7 +1,9 @@
 import { Inter, Outfit, Poppins } from "next/font/google";
+import { Suspense } from 'react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 import { InquiryProvider } from "@/components/InquiryContext";
+import TelemetryTracker from "@/components/TelemetryTracker";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartSidebar from "@/components/CartSidebar";
@@ -45,6 +47,9 @@ export default function RootLayout({ children }) {
       <head />
       <body>
         <InquiryProvider>
+          <Suspense fallback={null}>
+            <TelemetryTracker />
+          </Suspense>
           <ScrollObserver />
           <Header />
           {children}

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useInquiry } from './InquiryContext';
 import { sendGAEvent } from "@next/third-parties/google";
+import { trackTelemetryEvent } from './TelemetryTracker';
 
 function formatEuro(val, decimals = 2) {
   return new Intl.NumberFormat('nl-NL', {
@@ -395,6 +396,15 @@ export default function CartSidebar() {
         event: 'quote_inquiry_submission',
         value: cartItems.length,
       });
+
+      // Track quote submission telemetry
+      try {
+        trackTelemetryEvent('quote_submitted', {
+          quantity: cartItems.length
+        });
+      } catch (e) {
+        console.warn('Failed to log quote submission telemetry:', e);
+      }
 
       // Format items for success alert
       const itemsList = cartItems

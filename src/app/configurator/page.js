@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useInquiry } from '@/components/InquiryContext';
 import { sendGAEvent } from "@next/third-parties/google";
+import { trackTelemetryEvent } from '@/components/TelemetryTracker';
+
 
 
 const t = {
@@ -296,7 +298,7 @@ export default function ConfiguratorSelector() {
           
           <div className="selector-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
             {/* Card V1: Classic */}
-            <Link href="/configurator/v1" className="selector-card" onClick={() => sendGAEvent({ event: 'configurator_start', value: 'v1' })}>
+            <Link href="/configurator/v1" className="selector-card" onClick={() => { sendGAEvent({ event: 'configurator_start', value: 'v1' }); trackTelemetryEvent('configurator_start', { category: 'v1' }); }}>
               <span className="card-badge badge-classic">{getTranslation('v1Badge')}</span>
               <div className="card-content">
                 <div className="card-icon-wrapper">
@@ -311,7 +313,7 @@ export default function ConfiguratorSelector() {
             </Link>
 
             {/* Card V2: Stepper Wizard */}
-            <Link href="/configurator/v2" className="selector-card" onClick={() => sendGAEvent({ event: 'configurator_start', value: 'v2' })}>
+            <Link href="/configurator/v2" className="selector-card" onClick={() => { sendGAEvent({ event: 'configurator_start', value: 'v2' }); trackTelemetryEvent('configurator_start', { category: 'v2' }); }}>
               <span className="card-badge badge-new">{getTranslation('v2Badge')}</span>
               <div className="card-content">
                 <div className="card-icon-wrapper">
@@ -326,7 +328,7 @@ export default function ConfiguratorSelector() {
             </Link>
 
             {/* Card V3: Chatbot Assistent */}
-            <Link href="/configurator/v3" className="selector-card" onClick={() => sendGAEvent({ event: 'configurator_start', value: 'v3' })}>
+            <Link href="/configurator/v3" className="selector-card" onClick={() => { sendGAEvent({ event: 'configurator_start', value: 'v3' }); trackTelemetryEvent('configurator_start', { category: 'v3' }); }}>
               <span className="card-badge badge-classic">{getTranslation('v3Badge')}</span>
               <div className="card-content">
                 <div className="card-icon-wrapper">
@@ -341,7 +343,7 @@ export default function ConfiguratorSelector() {
             </Link>
 
             {/* Card V4: Open Chatbot Assistent */}
-            <Link href="/configurator/v4" className="selector-card" style={{ border: '1px dashed var(--color-primary)' }} onClick={() => sendGAEvent({ event: 'configurator_start', value: 'v4' })}>
+            <Link href="/configurator/v4" className="selector-card" style={{ border: '1px dashed var(--color-primary)' }} onClick={() => { sendGAEvent({ event: 'configurator_start', value: 'v4' }); trackTelemetryEvent('configurator_start', { category: 'v4' }); }}>
               <span className="card-badge badge-new" style={{ background: 'rgba(231, 177, 36, 0.25)' }}>{getTranslation('v4Badge')}</span>
               <div className="card-content">
                 <div className="card-icon-wrapper" style={{ borderColor: 'var(--color-primary)' }}>

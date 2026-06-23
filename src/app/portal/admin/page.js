@@ -27,6 +27,7 @@ const t = {
   // Tabs
   vacanciesTab: { nl: 'Vacatures', en: 'Vacancies', ro: 'Locuri de muncă' },
   newsTab: { nl: 'Nieuws & Artikelen', en: 'News & Articles', ro: 'Știri și Articole' },
+  statsTab: { nl: 'Statistieken', en: 'Statistics', ro: 'Statistici' },
   
   // Vacancies Table
   activeOpenings: { nl: 'Actieve Vacatures', en: 'Active Career Openings', ro: 'Locuri de Muncă Active' },
@@ -109,13 +110,18 @@ export default function AdminPortal() {
   const [authError, setAuthError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Dashboard Tabs: 'vacancies' or 'news'
+  // Dashboard Tabs: 'vacancies', 'news', or 'stats'
   const [activeTab, setActiveTab] = useState('vacancies');
 
   // Database lists
   const [vacancies, setVacancies] = useState([]);
   const [newsItems, setNewsItems] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
+
+  // Statistics
+  const [stats, setStats] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(false);
+  const [statsError, setStatsError] = useState(null);
 
   // Alerts
   const [alert, setAlert] = useState(null); // { type: 'success'|'error', text: '' }
@@ -206,6 +212,29 @@ export default function AdminPortal() {
     setNewsItems([]);
   };
 
+  const loadStats = async (authPasscode) => {
+    setStatsLoading(true);
+    setStatsError(null);
+    try {
+      const res = await fetch('/api/telemetry', {
+        headers: {
+          'x-admin-passcode': authPasscode
+        }
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setStats(data.stats);
+      } else {
+        setStatsError(data.error || 'Failed to load statistics');
+      }
+    } catch (err) {
+      console.error('Failed to fetch statistics:', err);
+      setStatsError('Network error when fetching stats');
+    } finally {
+      setStatsLoading(false);
+    }
+  };
+
   const loadDatabase = async (authPasscode) => {
     try {
       // Fetch vacancies
@@ -215,6 +244,17 @@ export default function AdminPortal() {
       // Fetch news
       const nRes = await fetch('/api/news');
       const nData = await nRes.json();
+
+      // Load stats as well if activeTab is 'stats'
+      if (activeTab === 'stats') {
+        loadStats(authPasscode);
+      } else {
+        // Just pre-fetch stats in background so switching is instant
+        fetch('/api/telemetry', { headers: { 'x-admin-passcode': authPasscode } })
+          .then(res => res.json())
+          .then(data => { if (data.success) setStats(data.stats); })
+          .catch(() => {});
+      }
 
       if (vRes.ok && nRes.ok) {
         setVacancies(vData.vacancies || []);
@@ -1127,6 +1167,25 @@ export default function AdminPortal() {
             >
               <i className="fa-regular fa-newspaper"></i> {t.newsTab[consoleLang]} ({newsItems.length})
             </button>
+            <button
+              onClick={() => { setActiveTab('stats'); if (passcode) loadStats(passcode); }}
+              style={{
+                padding: '0.85rem 1.5rem',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                backgroundColor: 'transparent',
+                border: 'none',
+                color: activeTab === 'stats' ? 'var(--color-forest-dark)' : 'var(--color-text-muted)',
+                borderBottom: activeTab === 'stats' ? '3px solid var(--color-primary)' : '3px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              <i className="fa-solid fa-chart-line"></i> {t.statsTab[consoleLang]}
+            </button>
           </div>
 
           {/* DATA VIEW AREA */}
@@ -1239,7 +1298,7 @@ export default function AdminPortal() {
                 </div>
               )}
             </div>
-          ) : (
+          ) : activeTab === 'news' ? (
             
             // NEWS ARTICLES LIST
             <div style={{
@@ -1362,6 +1421,321 @@ export default function AdminPortal() {
                     </tbody>
                   </table>
                 </div>
+              )}
+            </div>
+          ) : (
+            
+            // STATISTICS DASHBOARD VIEW
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                  {consoleLang === 'ro' ? 'Analize & Statistici Website' : consoleLang === 'nl' ? 'Website Statistieken & Analyses' : 'Website Analytics & Statistics'}
+                </h3>
+                <button
+                  onClick={() => passcode && loadStats(passcode)}
+                  disabled={statsLoading}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    backgroundColor: 'transparent',
+                    border: '1px solid var(--color-border)',
+                    color: 'var(--color-text-dark)',
+                    borderRadius: '6px',
+                    fontWeight: 600,
+                    fontSize: '0.82rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem'
+                  }}
+                >
+                  <i className={`fa-solid fa-arrows-rotate ${statsLoading ? 'fa-spin' : ''}`}></i>{' '}
+                  {consoleLang === 'ro' ? 'Actualizează' : consoleLang === 'nl' ? 'Vernieuwen' : 'Refresh'}
+                </button>
+              </div>
+
+              {statsLoading && !stats ? (
+                <div style={{ textAlign: 'center', padding: '6rem 0', color: 'var(--color-text-muted)' }}>
+                  <i className="fa-solid fa-spinner fa-spin fa-2x" style={{ color: 'var(--color-primary-dark)', marginBottom: '1rem' }}></i>
+                  <p>{consoleLang === 'ro' ? 'Se încarcă statisticile...' : consoleLang === 'nl' ? 'Statistieken laden...' : 'Loading statistics...'}</p>
+                </div>
+              ) : statsError ? (
+                <div style={{
+                  padding: '2rem',
+                  textAlign: 'center',
+                  border: '1px solid #fee2e2',
+                  backgroundColor: '#fef2f2',
+                  color: '#b91c1c',
+                  borderRadius: '8px'
+                }}>
+                  <i className="fa-solid fa-circle-exclamation fa-2x" style={{ marginBottom: '0.75rem' }}></i>
+                  <p style={{ fontWeight: 600 }}>{statsError}</p>
+                </div>
+              ) : !stats ? (
+                <div style={{ textAlign: 'center', padding: '4rem', border: '1px dashed var(--color-border)', borderRadius: '8px', color: 'var(--color-text-muted)' }}>
+                  <i className="fa-solid fa-chart-bar fa-3x" style={{ opacity: 0.3, marginBottom: '1rem' }}></i>
+                  <p>{consoleLang === 'ro' ? 'Nu există date statistice disponibile.' : consoleLang === 'nl' ? 'Geen statistische gegevens beschikbaar.' : 'No statistical data available.'}</p>
+                </div>
+              ) : (
+                <>
+                  {/* Key Performance Indicators (KPIs) */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gap: '1.5rem'
+                  }}>
+                    {/* Metric 1: Page Views */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {consoleLang === 'ro' ? 'Vizualizări Pagină' : consoleLang === 'nl' ? 'Paginaweergaven' : 'Page Views'}
+                        </span>
+                        <i className="fa-solid fa-eye" style={{ color: 'var(--color-primary)' }}></i>
+                      </div>
+                      <h4 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                        {stats.traffic.totalViews}
+                      </h4>
+                    </div>
+
+                    {/* Metric 2: Quotes Count */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {consoleLang === 'ro' ? 'Oferte Inregistrate' : consoleLang === 'nl' ? 'Offerteaanvragen' : 'Quotes Submitted'}
+                        </span>
+                        <i className="fa-solid fa-file-invoice-dollar" style={{ color: 'var(--color-primary)' }}></i>
+                      </div>
+                      <h4 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                        {stats.quotes.totalQuotes}
+                      </h4>
+                    </div>
+
+                    {/* Metric 3: Conversion Rate */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {consoleLang === 'ro' ? 'Rată Conversie Funnel' : consoleLang === 'nl' ? 'Conversiepercentage' : 'Funnel Conversion Rate'}
+                        </span>
+                        <i className="fa-solid fa-filter" style={{ color: 'var(--color-primary)' }}></i>
+                      </div>
+                      <h4 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                        {stats.configurator.funnel.started > 0
+                          ? Math.round((stats.configurator.funnel.submitted / stats.configurator.funnel.started) * 100)
+                          : 0}%
+                      </h4>
+                    </div>
+
+                    {/* Metric 4: Chatbot Sessions */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {consoleLang === 'ro' ? 'Conversații Chatbot' : consoleLang === 'nl' ? 'Chatbot Sessies' : 'Chatbot Conversations'}
+                        </span>
+                        <i className="fa-solid fa-comments" style={{ color: 'var(--color-primary)' }}></i>
+                      </div>
+                      <h4 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-forest-dark)' }}>
+                        {stats.chatbot.totalChats} <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'var(--color-text-muted)' }}>({stats.chatbot.avgMessages} msg/chat)</span>
+                      </h4>
+                    </div>
+                  </div>
+
+                  {/* Funnel chart and top pages split */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginTop: '1rem' }}>
+                    
+                    {/* Funnel Widget */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1.5rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Pâlnia de Conversie B2B' : consoleLang === 'nl' ? 'B2B Conversietrechter (Funnel)' : 'B2B Conversion Funnel'}
+                      </h4>
+                      
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                        {/* Step 1: Configurator start */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.35rem', fontWeight: 600 }}>
+                            <span>1. {consoleLang === 'ro' ? 'Configurator Inițiat' : consoleLang === 'nl' ? 'Configurator Gestart' : 'Configurator Started'}</span>
+                            <span style={{ color: 'var(--color-forest-dark)' }}>{stats.configurator.funnel.started} {consoleLang === 'ro' ? 'sesiuni' : consoleLang === 'nl' ? 'sessies' : 'sessions'}</span>
+                          </div>
+                          <div style={{ height: '12px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '50px', overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: '100%', backgroundColor: '#94a3b8', borderRadius: '50px' }} />
+                          </div>
+                        </div>
+
+                        {/* Step 2: Added to cart */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.35rem', fontWeight: 600 }}>
+                            <span>2. {consoleLang === 'ro' ? 'Adăugat în Coș (Cart)' : consoleLang === 'nl' ? 'Toegevoegd aan Cart' : 'Added to Cart'}</span>
+                            <span style={{ color: 'var(--color-forest-dark)' }}>
+                              {stats.configurator.funnel.addedToCart} {consoleLang === 'ro' ? 'sesiuni' : consoleLang === 'nl' ? 'sessies' : 'sessions'}
+                              <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--color-text-muted)', marginLeft: '0.5rem' }}>
+                                ({stats.configurator.funnel.started > 0 ? Math.round((stats.configurator.funnel.addedToCart / stats.configurator.funnel.started) * 100) : 0}%)
+                              </span>
+                            </span>
+                          </div>
+                          <div style={{ height: '12px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '50px', overflow: 'hidden' }}>
+                            <div style={{ 
+                              height: '100%', 
+                              width: `${stats.configurator.funnel.started > 0 ? (stats.configurator.funnel.addedToCart / stats.configurator.funnel.started) * 100 : 0}%`, 
+                              backgroundColor: 'var(--color-primary)', 
+                              borderRadius: '50px' 
+                            }} />
+                          </div>
+                        </div>
+
+                        {/* Step 3: Submitted */}
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.35rem', fontWeight: 600 }}>
+                            <span>3. {consoleLang === 'ro' ? 'Cerere Ofertă Trimisă' : consoleLang === 'nl' ? 'Offerteaanvraag Ingediend' : 'Quote Inquiry Submitted'}</span>
+                            <span style={{ color: 'var(--color-forest-dark)' }}>
+                              {stats.configurator.funnel.submitted} {consoleLang === 'ro' ? 'sesiuni' : consoleLang === 'nl' ? 'sessies' : 'sessions'}
+                              <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--color-text-muted)', marginLeft: '0.5rem' }}>
+                                ({stats.configurator.funnel.started > 0 ? Math.round((stats.configurator.funnel.submitted / stats.configurator.funnel.started) * 100) : 0}%)
+                              </span>
+                            </span>
+                          </div>
+                          <div style={{ height: '12px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '50px', overflow: 'hidden' }}>
+                            <div style={{ 
+                              height: '100%', 
+                              width: `${stats.configurator.funnel.started > 0 ? (stats.configurator.funnel.submitted / stats.configurator.funnel.started) * 100 : 0}%`, 
+                              backgroundColor: 'var(--color-forest-dark)', 
+                              borderRadius: '50px' 
+                            }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Top Pages Widget */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Weergaven per Pagină' : consoleLang === 'nl' ? 'Weergaven per Pagina' : 'Page Views by Path'}
+                      </h4>
+                      
+                      <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                              <th style={{ padding: '6px 4px', fontWeight: 600 }}>{consoleLang === 'ro' ? 'Pagină' : consoleLang === 'nl' ? 'Pagina' : 'Page'}</th>
+                              <th style={{ padding: '6px 4px', fontWeight: 600, textAlign: 'right', width: '80px' }}>{consoleLang === 'ro' ? 'Weergaven' : consoleLang === 'nl' ? 'Weergaven' : 'Views'}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Object.entries(stats.traffic.viewsByPage)
+                              .sort((a, b) => b[1] - a[1])
+                              .map(([path, count], idx) => (
+                                <tr key={idx} style={{ borderBottom: '1px solid #f8fafc' }}>
+                                  <td style={{ padding: '8px 4px', fontFamily: 'monospace', color: '#334155' }}>{path}</td>
+                                  <td style={{ padding: '8px 4px', textAlign: 'right', fontWeight: 700, color: 'var(--color-forest-dark)' }}>{count}</td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Breakdown grids */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '1rem' }}>
+                    {/* Popular Products Configured */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Categorii de Lemn Configurate' : consoleLang === 'nl' ? 'Populaire Productgroepen' : 'Popular Categories Configured'}
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {Object.entries(stats.configurator.byCategory).length === 0 ? (
+                          <div style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--color-text-muted)', padding: '1rem 0' }}>
+                            {consoleLang === 'nl' ? 'Geen configuratie-events gevonden' : 'No configurator events recorded'}
+                          </div>
+                        ) : (
+                          Object.entries(stats.configurator.byCategory)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([cat, count], idx) => {
+                              const total = Object.values(stats.configurator.byCategory).reduce((x, y) => x + y, 0) || 1;
+                              const pct = Math.round((count / total) * 100);
+                              const catFriendly = {
+                                sawn: consoleLang === 'ro' ? 'Piese brute' : 'Blanks',
+                                planed: consoleLang === 'ro' ? 'Șipci geschaafd' : 'Planed slats',
+                                dowels: consoleLang === 'ro' ? 'Tije/Stokken' : 'Dowel sticks',
+                                profiles: consoleLang === 'ro' ? 'Profile' : 'Profiles',
+                                specials: consoleLang === 'ro' ? 'Piese speciale' : 'Specials',
+                                brichete: consoleLang === 'ro' ? 'Brichete' : 'Briquettes'
+                              }[cat] || cat;
+                              return (
+                                <div key={idx}>
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.25rem' }}>
+                                    <span style={{ fontWeight: 500 }}>{catFriendly}</span>
+                                    <span style={{ fontWeight: 700 }}>{count} ({pct}%)</span>
+                                  </div>
+                                  <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
+                                    <div style={{ height: '100%', width: `${pct}%`, backgroundColor: 'var(--color-primary)', borderRadius: '10px' }} />
+                                  </div>
+                                </div>
+                              );
+                            })
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Configurator interface usage */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Popularitate Versiune Configurator' : consoleLang === 'nl' ? 'Prestaties per Configuratortype' : 'Configurator Version Usage'}
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                        {Object.entries(stats.configurator.byVersion).map(([version, count], idx) => {
+                          const total = Object.values(stats.configurator.byVersion).reduce((x, y) => x + y, 0) || 1;
+                          const pct = Math.round((count / total) * 100);
+                          const verFriendly = {
+                            v1: consoleLang === 'nl' ? 'V1: Klassieke Accordeon' : 'V1: Classic Accordion',
+                            v2: consoleLang === 'nl' ? 'V2: Multi-step Wizard' : 'V2: Multi-step Wizard',
+                            v3: consoleLang === 'nl' ? 'V3: Scripted Chatbot' : 'V3: Scripted Chatbot',
+                            v4: consoleLang === 'nl' ? 'V4: Open AI Chatbot' : 'V4: Open AI Chatbot'
+                          }[version] || version;
+                          return (
+                            <div key={idx}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8.rem', marginBottom: '0.25rem' }}>
+                                <span style={{ fontWeight: 500 }}>{verFriendly}</span>
+                                <span style={{ fontWeight: 700 }}>{count} ({pct}%)</span>
+                              </div>
+                              <div style={{ height: '6px', width: '100%', backgroundColor: '#f1f5f9', borderRadius: '10px' }}>
+                                <div style={{ height: '100%', width: `${pct}%`, backgroundColor: '#3b82f6', borderRadius: '10px' }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Chatbot specific statistics */}
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                      <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
+                        {consoleLang === 'ro' ? 'Statistici Asistent PAL AI' : consoleLang === 'nl' ? 'PAL AI Chatbot Telemetrie' : 'PAL AI Chatbot Diagnostics'}
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.82rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f8fafc', paddingBottom: '0.4rem' }}>
+                          <span style={{ color: 'var(--color-text-muted)' }}>{consoleLang === 'ro' ? 'Total Conversații' : consoleLang === 'nl' ? 'Totaal Aantal Chats' : 'Total Chat Sessions'}</span>
+                          <strong style={{ color: 'var(--color-forest-dark)' }}>{stats.chatbot.totalChats}</strong>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f8fafc', paddingBottom: '0.4rem' }}>
+                          <span style={{ color: 'var(--color-text-muted)' }}>{consoleLang === 'ro' ? 'Configurări Finalizate' : consoleLang === 'nl' ? 'Succesvol Geconfigureerd' : 'Configured via Chat'}</span>
+                          <strong style={{ color: '#16a34a' }}>
+                            {stats.chatbot.completedCount} 
+                            <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--color-text-muted)', marginLeft: '0.3rem' }}>
+                              ({stats.chatbot.totalChats > 0 ? Math.round((stats.chatbot.completedCount / stats.chatbot.totalChats) * 100) : 0}%)
+                            </span>
+                          </strong>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f8fafc', paddingBottom: '0.4rem' }}>
+                          <span style={{ color: 'var(--color-text-muted)' }}>{consoleLang === 'ro' ? 'Rată Fallback Regex' : consoleLang === 'nl' ? 'Lokale Regex Fallbacks' : 'Regex Fallback Rate'}</span>
+                          <strong style={{ color: stats.chatbot.fallbackRate > 30 ? '#dc2626' : '#b45309' }}>
+                            {stats.chatbot.fallbackRate}%
+                            <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 500, marginLeft: '0.3rem' }}>
+                              ({stats.chatbot.fallbackCount} chats)
+                            </span>
+                          </strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           )}

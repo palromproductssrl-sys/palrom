@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { trackTelemetryEvent } from './TelemetryTracker';
 
 const InquiryContext = createContext();
 
@@ -98,6 +99,25 @@ export function InquiryProvider({ children }) {
       }
       return [...prev, item];
     });
+
+    // Track configurator event in telemetry database
+    try {
+      trackTelemetryEvent('added_to_cart', {
+        category: item.category || null,
+        subCategory: item.subCategory || null,
+        dimensions: {
+          thickness: item.thickness || null,
+          width: item.width || item.diameter || null,
+          length: item.length || null,
+          radius: item.radius || null
+        },
+        grade: item.grade || null,
+        drying: item.drying || null,
+        quantity: item.qty || 1
+      });
+    } catch (e) {
+      console.warn('Failed to log add to cart telemetry:', e);
+    }
   };
 
   const removeFromCart = (index) => {
