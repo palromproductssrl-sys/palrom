@@ -28,3 +28,46 @@ FOR ALL
 TO authenticated 
 USING (true) 
 WITH CHECK (true);
+
+-- Create the Vacancies table in Supabase PostgreSQL
+CREATE TABLE IF NOT EXISTS public.vacancies (
+    id TEXT PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    title JSONB NOT NULL DEFAULT '{}'::jsonb,
+    department JSONB NOT NULL DEFAULT '{}'::jsonb,
+    location TEXT NOT NULL DEFAULT 'Brad, RO',
+    type JSONB NOT NULL DEFAULT '{}'::jsonb,
+    description JSONB NOT NULL DEFAULT '{}'::jsonb,
+    requirements JSONB NOT NULL DEFAULT '{}'::jsonb,
+    salary JSONB NOT NULL DEFAULT '{}'::jsonb
+);
+
+-- Enable RLS for vacancies
+ALTER TABLE public.vacancies ENABLE ROW LEVEL SECURITY;
+
+-- Enable public read, admin write policies for vacancies
+CREATE POLICY "Allow public select on vacancies" ON public.vacancies FOR SELECT TO public USING (true);
+CREATE POLICY "Allow full access to authenticated admins on vacancies" ON public.vacancies FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+-- Create the News table in Supabase PostgreSQL
+CREATE TABLE IF NOT EXISTS public.news (
+    id TEXT PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    tag JSONB NOT NULL DEFAULT '{}'::jsonb,
+    date JSONB NOT NULL DEFAULT '{}'::jsonb,
+    author TEXT NOT NULL DEFAULT 'Digital Team',
+    title JSONB NOT NULL DEFAULT '{}'::jsonb,
+    content JSONB NOT NULL DEFAULT '{}'::jsonb,
+    link_url TEXT,
+    link_text JSONB NOT NULL DEFAULT '{}'::jsonb,
+    image TEXT NOT NULL DEFAULT '/images/hero_bg.jpg',
+    is_romania_only BOOLEAN NOT NULL DEFAULT false
+);
+
+-- Enable RLS for news
+ALTER TABLE public.news ENABLE ROW LEVEL SECURITY;
+
+-- Enable public read, admin write policies for news
+CREATE POLICY "Allow public select on news" ON public.news FOR SELECT TO public USING (true);
+CREATE POLICY "Allow full access to authenticated admins on news" ON public.news FOR ALL TO authenticated USING (true) WITH CHECK (true);
+

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
 const VALID_PASSCODES = ['palromadmin2026', 'admin2026'];
 
@@ -12,6 +13,19 @@ function verifyAuth(request) {
   const passcode = request.headers.get('x-admin-passcode');
   const allowed = [...VALID_PASSCODES, getPasscode()];
   return allowed.includes(passcode);
+}
+
+// Load Supabase environment variables if present
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+
+let supabase = null;
+if (supabaseUrl && supabaseKey) {
+  try {
+    supabase = createClient(supabaseUrl, supabaseKey);
+  } catch (err) {
+    console.error('Failed to initialize Supabase client:', err);
+  }
 }
 
 const dbPath = path.join(process.cwd(), 'vacancies.json');
@@ -39,6 +53,23 @@ function writeVacancies(data) {
 }
 
 export async function GET() {
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('vacancies')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (!error && data) {
+        return NextResponse.json({ success: true, vacancies: data });
+      }
+      console.error('Supabase fetch vacancies error:', error);
+      // Fallback to local files if Supabase fails (e.g. table not created yet)
+    } catch (err) {
+      console.error('Failed to fetch vacancies from Supabase:', err);
+    }
+  }
+
   const vacancies = readVacancies();
   return NextResponse.json({ success: true, vacancies });
 }
@@ -52,6 +83,60 @@ export async function POST(request) {
     const body = await request.json();
     const { action, vacancy } = body;
 
+    if (supabase) {
+      try {
+        if (action === 'save') {
+          if (!vacancy || !vacancy.title) {
+            return NextResponse.json({ success: false, error: 'Invalid vacancy data' }, { status: 400 });
+          }
+
+          if (!vacancy.id) {
+            const titleSlug = (vacancy.title.en || vacancy.title.nl || 'job')
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/(^-|-$)/g, '');
+            vacancy.id = `${titleSlug}-${Date.now().toString().slice(-4)}`;
+          }
+
+          const { error } = await supabase
+            .from('vacancies')
+            .upsert([vacancy]);
+
+          if (error) {
+            console.error('Supabase vacancies save error:', error);
+            throw error;
+          }
+          return NextResponse.json({ success: true, vacancy });
+
+        } else if (action === 'delete') {
+          const { id } = body;
+          if (!id) {
+            return NextResponse.json({ success: false, error: 'Missing vacancy ID' }, { status: 400 });
+          }
+
+          const { error } = await supabase
+            .from('vacancies')
+            .delete()
+            .eq('id', id);
+
+          if (error) {
+            console.error('Supabase vacancies delete error:', error);
+            throw error;
+          }
+          return NextResponse.json({ success: true, message: 'Vacancy deleted successfully' });
+        }
+      } catch (dbErr) {
+        console.error('Supabase vacancies write error:', dbErr);
+        if (process.env.VERCEL) {
+          return NextResponse.json({ 
+            success: false, 
+            error: `Database error: ${dbErr.message || 'Supabase error'}. Please verify that the 'vacancies' table exists in Supabase by running the SQL in schema.sql.` 
+          }, { status: 500 });
+        }
+        console.log('Falling back to local file database...');
+      }
+    }
+
     let vacancies = readVacancies();
 
     if (action === 'save') {
@@ -59,7 +144,6 @@ export async function POST(request) {
         return NextResponse.json({ success: false, error: 'Invalid vacancy data' }, { status: 400 });
       }
 
-      // If no ID is provided, create a slug from title or generate UUID
       if (!vacancy.id) {
         const titleSlug = (vacancy.title.en || vacancy.title.nl || 'job')
           .toLowerCase()
