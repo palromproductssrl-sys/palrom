@@ -32,8 +32,7 @@ const t = {
   addVacancy: { nl: 'Vacature Toevoegen', en: 'Add Vacancy', ro: 'Adaugă Job' },
   noVacancies: { nl: 'Geen actieve vacatures gevonden. Klik op "Vacature Toevoegen" om er een te maken.', en: 'No active openings found. Click "Add Vacancy" to create one.', ro: 'Nu au fost găsite locuri de muncă active. Faceți clic pe "Adaugă Job" pentru a crea unul.' },
   idCode: { nl: 'ID / Code', en: 'ID / Code', ro: 'ID / Cod' },
-  titleNl: { nl: 'Titel (NL)', en: 'Title (NL)', ro: 'Titlu (NL)' },
-  titleEn: { nl: 'Titel (EN)', en: 'Title (EN)', ro: 'Titlu (EN)' },
+  titleCol: { nl: 'Titel', en: 'Title', ro: 'Titlu' },
   departmentCol: { nl: 'Afdeling', en: 'Department', ro: 'Departament' },
   typeCol: { nl: 'Type', en: 'Type', ro: 'Tip' },
   actionsCol: { nl: 'Acties', en: 'Actions', ro: 'Acțiuni' },
@@ -45,8 +44,7 @@ const t = {
   addArticle: { nl: 'Artikel Toevoegen', en: 'Add Article', ro: 'Adaugă Articol' },
   noNews: { nl: 'Geen nieuwsartikelen gevonden. Klik op "Artikel Toevoegen" om er een te publiceren.', en: 'No news articles found. Click "Add Article" to publish one.', ro: 'Nu au fost găsite articole de știri. Faceți clic pe "Adaugă Articol" pentru a publica unul.' },
   thumbnail: { nl: 'Miniatuur', en: 'Thumbnail', ro: 'Miniatură' },
-  tagDate: { nl: 'Tag / Datum (NL)', en: 'Tag / Date (NL)', ro: 'Etichetă / Dată (NL)' },
-  titleNlCol: { nl: 'Titel (NL)', en: 'Title (NL)', ro: 'Titlu (NL)' },
+  tagDate: { nl: 'Tag / Datum', en: 'Tag / Date', ro: 'Etichetă / Dată' },
   authorCol: { nl: 'Auteur', en: 'Author', ro: 'Autor' },
   targetLink: { nl: 'Doel Link', en: 'Target Link', ro: 'Link Destinație' },
   targeting: { nl: 'Doelgroep', en: 'Targeting', ro: 'Targetare' },
@@ -1122,11 +1120,10 @@ export default function AdminPortal() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', textAlign: 'left' }}>
                     <thead>
                       <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
-                        <th style={{ padding: '12px 10px' }}>ID / Code</th>
-                        <th style={{ padding: '12px 10px' }}>{t.titleNl[consoleLang]}</th>
-                        <th style={{ padding: '12px 10px' }}>{t.titleEn[consoleLang]}</th>
-                        <th style={{ padding: '12px 10px' }}>Department</th>
-                        <th style={{ padding: '12px 10px' }}>Type</th>
+                        <th style={{ padding: '12px 10px' }}>{t.idCode[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.titleCol[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.departmentCol[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.typeCol[consoleLang]}</th>
                         <th style={{ padding: '12px 10px', textAlign: 'right' }}>{t.actionsCol[consoleLang]}</th>
                       </tr>
                     </thead>
@@ -1134,14 +1131,13 @@ export default function AdminPortal() {
                       {vacancies.map((vac) => (
                         <tr key={vac.id} style={{ borderBottom: '1px solid #f7fafc' }}>
                           <td style={{ padding: '14px 10px', fontWeight: 600, color: 'var(--color-primary-dark)' }}>{vac.id}</td>
-                          <td style={{ padding: '14px 10px', fontWeight: 600 }}>{vac.title.nl}</td>
-                          <td style={{ padding: '14px 10px', color: 'var(--color-text-muted)' }}>{vac.title.en}</td>
+                          <td style={{ padding: '14px 10px', fontWeight: 600 }}>{vac.title[consoleLang] || vac.title.nl || vac.title.en}</td>
                           <td style={{ padding: '14px 10px' }}>
                             <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.5rem', backgroundColor: '#edf2f7', borderRadius: '4px' }}>
-                              {vac.department.en || vac.department.nl}
+                              {vac.department[consoleLang] || vac.department.nl || vac.department.en || ''}
                             </span>
                           </td>
-                          <td style={{ padding: '14px 10px', color: 'var(--color-text-muted)' }}>{vac.type.en || vac.type.nl}</td>
+                          <td style={{ padding: '14px 10px', color: 'var(--color-text-muted)' }}>{vac.type[consoleLang] || vac.type.nl || vac.type.en || ''}</td>
                           <td style={{ padding: '14px 10px', textAlign: 'right' }}>
                             <div style={{ display: 'flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
                               <button
@@ -1228,13 +1224,13 @@ export default function AdminPortal() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', textAlign: 'left' }}>
                     <thead>
                       <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
-                        <th style={{ padding: '12px 10px' }}>Thumbnail</th>
+                        <th style={{ padding: '12px 10px' }}>{t.thumbnail[consoleLang]}</th>
                         <th style={{ padding: '12px 10px' }}>{t.tagDate[consoleLang]}</th>
-                        <th style={{ padding: '12px 10px' }}>Title (NL)</th>
-                        <th style={{ padding: '12px 10px' }}>Author</th>
-                        <th style={{ padding: '12px 10px' }}>Target Link</th>
-                        <th style={{ padding: '12px 10px' }}>Targeting</th>
-                        <th style={{ padding: '12px 10px', textAlign: 'right' }}>Actions</th>
+                        <th style={{ padding: '12px 10px' }}>{t.titleCol[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.authorCol[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.targetLink[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px' }}>{t.targeting[consoleLang]}</th>
+                        <th style={{ padding: '12px 10px', textAlign: 'right' }}>{t.actionsCol[consoleLang]}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1249,11 +1245,11 @@ export default function AdminPortal() {
                           </td>
                           <td style={{ padding: '14px 10px' }}>
                             <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '0.15rem 0.4rem', backgroundColor: 'rgba(231,177,36,0.15)', color: 'var(--color-primary-dark)', borderRadius: '4px', marginRight: '0.5rem' }}>
-                              {item.tag?.nl || item.tag?.en}
+                              {item.tag[consoleLang] || item.tag.nl || item.tag.en || ''}
                             </span>
-                            <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{item.date?.nl || item.date?.en}</span>
+                            <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{item.date[consoleLang] || item.date.nl || item.date.en || ''}</span>
                           </td>
-                          <td style={{ padding: '14px 10px', fontWeight: 600 }}>{item.title.nl}</td>
+                          <td style={{ padding: '14px 10px', fontWeight: 600 }}>{item.title[consoleLang] || item.title.nl || item.title.en || 'Untitled'}</td>
                           <td style={{ padding: '14px 10px', color: 'var(--color-text-muted)' }}>{item.author}</td>
                           <td style={{ padding: '14px 10px', fontFamily: 'monospace', fontSize: '0.8rem' }}>{item.linkUrl}</td>
                           <td style={{ padding: '14px 10px' }}>
