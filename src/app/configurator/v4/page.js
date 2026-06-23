@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
+import { sendGAEvent } from "@next/third-parties/google";
+
 
 // Configurator Sizing Rules
 const categoryData = {
@@ -1111,6 +1113,11 @@ export default function OpenChatConfigurator() {
     setHistory(prev => [...prev, { sender: 'user', text: userText }]);
     setUserInput('');
 
+    sendGAEvent({
+      event: 'chatbot_message_sent',
+      value: 'v4',
+    });
+
     // Stop speech recognition and ignore any late transcription events
     ignoreSpeechResultsRef.current = true;
     if (recognitionRef.current && isListening) {
@@ -1398,6 +1405,10 @@ export default function OpenChatConfigurator() {
       // Simulate input submission
       setUserInput('');
       setHistory(prev => [...prev, { sender: 'user', text: suggestionText }]);
+      sendGAEvent({
+        event: 'chatbot_message_sent',
+        value: 'v4',
+      });
       setIsTyping(true);
       
       setTimeout(async () => {
@@ -1812,6 +1823,14 @@ export default function OpenChatConfigurator() {
     };
 
     addToCart(cartItem);
+
+    sendGAEvent({
+      event: 'configurator_add_to_quote',
+      value: category,
+      version: 'v4',
+      quantity: quantity,
+      price: details.totalPrice,
+    });
 
     if (!isMuted) {
       speakText(`${getTranslation('addedToCart')}. ${displayName}.`);

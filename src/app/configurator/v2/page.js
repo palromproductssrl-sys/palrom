@@ -6,6 +6,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 import CustomSelect from '@/components/CustomSelect';
+import { sendGAEvent } from "@next/third-parties/google";
+
 
 
 // Configurator Sizing Rules
@@ -1296,6 +1298,14 @@ export default function Configurator() {
       diameter: currentItem.diameter,
       thickness: currentItem.thickness,
     });
+
+    sendGAEvent({
+      event: 'configurator_add_to_quote',
+      value: currentItem.category,
+      version: 'v2',
+      quantity: currentItem.quantity,
+      price: resolvedDetails.price,
+    });
     // Reset configurator fields
     const data = categoryData[category];
     if (data) {
@@ -1618,6 +1628,12 @@ export default function Configurator() {
                       onClick={() => {
                         setCurrentStep(2);
                         setHighestStepReached((prev) => Math.max(prev, 2));
+                        sendGAEvent({
+                          event: 'configurator_step_complete',
+                          value: 1,
+                          version: 'v2',
+                          category: category
+                        });
                       }}
                       style={!category ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                     >
@@ -1954,6 +1970,12 @@ export default function Configurator() {
                       onClick={() => {
                         setCurrentStep(3);
                         setHighestStepReached((prev) => Math.max(prev, 3));
+                        sendGAEvent({
+                          event: 'configurator_step_complete',
+                          value: 2,
+                          version: 'v2',
+                          category: category
+                        });
                       }}
                     >
                       {lang === 'ro' ? 'Înainte' : (lang === 'nl' ? 'Volgende' : (lang === 'de' ? 'Weiter' : 'Next'))}{' '}

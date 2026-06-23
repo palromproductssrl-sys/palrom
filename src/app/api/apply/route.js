@@ -53,7 +53,7 @@ export async function POST(request) {
     }
 
     // Resolve job names
-    const jobNames = {
+    const fallbackJobNames = {
       planing_operator: {
         nl: 'Operator Schaafmachine',
         en: 'Planing Machine Operator',
@@ -79,7 +79,33 @@ export async function POST(request) {
         ro: 'Candidatură Spontană'
       },
     };
-    const formattedJobName = jobNames[position]?.en || position;
+
+    let resolvedJobTitle = fallbackJobNames[position];
+
+    // Try finding matching job title from dynamic vacancies database
+    try {
+      const vacanciesPath = path.join(process.cwd(), 'vacancies.json');
+      if (fs.existsSync(vacanciesPath)) {
+        const vacancies = JSON.parse(fs.readFileSync(vacanciesPath, 'utf8'));
+        const matchedJob = vacancies.find(v => v.id === position);
+        if (matchedJob) {
+          resolvedJobTitle = matchedJob.title;
+        }
+      }
+    } catch (err) {
+      console.error('Failed to resolve dynamic job name:', err);
+    }
+
+    if (!resolvedJobTitle) {
+      resolvedJobTitle = {
+        nl: position,
+        en: position,
+        de: position,
+        ro: position
+      };
+    }
+
+    const formattedJobName = resolvedJobTitle.en || position;
 
     // Send email via Resend
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -221,10 +247,10 @@ export async function POST(request) {
         }[lang] || `Beste ${name},`;
 
         const clientThankYou = {
-          nl: `Bedankt voor uw sollicitatie voor de functie "${jobNames[position]?.nl || position}". We hebben uw gegevens en motivatie succesvol ontvangen door Anca Mihuț.`,
-          en: `Thank you for your application for the "${jobNames[position]?.en || position}" position. We have successfully received your details and message.`,
-          de: `Vielen Dank für Ihre Bewerbung um die Stelle als "${jobNames[position]?.de || position}". Wir haben Ihre Unterlagen und Motivation erhalten.`,
-          ro: `Vă mulțumim pentru candidatura pentru poziția de "${jobNames[position]?.ro || position}". Am primit cu succes detaliile și mesajul dumneavoastră.`
+          nl: `Bedankt voor uw sollicitatie voor de functie "${resolvedJobTitle.nl || position}". We hebben uw gegevens en motivatie succesvol ontvangen door Anca Mihuț.`,
+          en: `Thank you for your application for the "${resolvedJobTitle.en || position}" position. We have successfully received your details and message.`,
+          de: `Vielen Dank für Ihre Bewerbung um die Stelle als "${resolvedJobTitle.de || position}". Wir haben Ihre Unterlagen und Motivation erhalten.`,
+          ro: `Vă mulțumim pentru candidatura pentru poziția de "${resolvedJobTitle.ro || position}". Am primit cu succes detaliile și mesajul dumneavoastră.`
         }[lang] || `Bedankt voor uw sollicitatie. We hebben uw gegevens ontvangen.`;
 
         const clientReassurance = {

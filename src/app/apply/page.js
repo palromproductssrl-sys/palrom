@@ -24,22 +24,37 @@ function ApplyFormContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState(null); // { text, type }
   
+  const [jobs, setJobs] = useState([]);
   const fileInputRef = useRef(null);
 
-  // Set position based on URL param
+  // Load vacancies dynamically
+  useEffect(() => {
+    fetch('/api/vacancies')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setJobs(data.vacancies || []);
+        }
+      })
+      .catch(err => console.error('Failed to load vacancies for application form:', err));
+  }, []);
+
+  // Set position based on URL param and loaded vacancies
   useEffect(() => {
     const jobParam = searchParams.get('job');
     if (jobParam) {
-      const validJobs = {
-        planing: 'planing_operator',
-        quality: 'quality_inspector',
-        maintenance: 'maintenance_mechanic',
-      };
-      if (validJobs[jobParam]) {
-        setPosition(validJobs[jobParam]);
+      if (jobParam === 'general') {
+        setPosition('general_application');
+        return;
+      }
+      
+      // Attempt exact matching first, then partial matching
+      const matchedJob = jobs.find(j => j.id === jobParam || j.id.toLowerCase().startsWith(jobParam.toLowerCase()));
+      if (matchedJob) {
+        setPosition(matchedJob.id);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, jobs]);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -301,7 +316,7 @@ function ApplyFormContent() {
           value: position,
         });
 
-        const jobNames = {
+        const fallbackJobNames = {
           planing_operator: {
             nl: 'Operator Schaafmachine',
             en: 'Planing Machine Operator',
@@ -327,8 +342,23 @@ function ApplyFormContent() {
             ro: 'Candidatură Spontană'
           },
         };
-        
-        const formattedJobName = jobNames[position]?.[lang] || jobNames[position]?.nl || position;
+
+        let resolvedJobTitle = fallbackJobNames[position];
+        const matchedJob = jobs.find(j => j.id === position);
+        if (matchedJob) {
+          resolvedJobTitle = matchedJob.title;
+        }
+
+        if (!resolvedJobTitle) {
+          resolvedJobTitle = {
+            nl: position,
+            en: position,
+            de: position,
+            ro: position
+          };
+        }
+
+        const formattedJobName = resolvedJobTitle[lang] || resolvedJobTitle.nl || position;
 
         let successMsg = '';
         const cvText = selectedFile ? ` en uw cv (${selectedFile.name})` : '';
@@ -472,9 +502,10 @@ function ApplyFormContent() {
                 onChange={(e) => setPosition(e.target.value)}
                 options={[
                   { value: '', label: getTranslation('selectPositionDefault') },
-                  { value: 'planing_operator', label: getTranslation('optionPlaning') },
-                  { value: 'quality_inspector', label: getTranslation('optionQuality') },
-                  { value: 'maintenance_mechanic', label: getTranslation('optionMaintenance') },
+                  ...jobs.map(job => ({
+                    value: job.id,
+                    label: job.title[lang] || job.title.nl || job.title.en
+                  })),
                   { value: 'general_application', label: getTranslation('optionGeneral') }
                 ]}
               />

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useInquiry } from '@/components/InquiryContext';
 import CustomSelect from '@/components/CustomSelect';
+import { sendGAEvent } from "@next/third-parties/google";
+
 
 // Configurator Sizing Rules
 const categoryData = {
@@ -688,6 +690,14 @@ export default function ChatbotConfigurator() {
       thickness: currentItem.thickness,
     });
 
+    sendGAEvent({
+      event: 'configurator_add_to_quote',
+      value: currentItem.category,
+      version: 'v3',
+      quantity: currentItem.quantity,
+      price: activeSelection.price,
+    });
+
     setNotification(getTranslation('addSuccess'));
     setTimeout(() => setNotification(null), 4000);
     setIsCartOpen(true);
@@ -746,6 +756,14 @@ export default function ChatbotConfigurator() {
       length: currentItem.length,
       diameter: currentItem.diameter,
       thickness: currentItem.thickness,
+    });
+
+    sendGAEvent({
+      event: 'configurator_add_to_quote',
+      value: currentItem.category,
+      version: 'v3',
+      quantity: currentItem.quantity,
+      price: activeSelection.price,
     });
 
     setNotification(getTranslation('addSuccess'));
@@ -812,6 +830,12 @@ export default function ChatbotConfigurator() {
     const updatedHistory = [...history];
     const currentItem = updatedHistory[updatedHistory.length - 1];
     currentItem.userChoice = choiceValue;
+
+    sendGAEvent({
+      event: 'chatbot_message_sent',
+      value: 'v3',
+      step: currentItem.step,
+    });
 
     // Apply values to standard states
     let nextCat = category;

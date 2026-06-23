@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
@@ -8,179 +8,20 @@ import { useInquiry } from '@/components/InquiryContext';
 
 export default function Careers() {
   const { lang } = useInquiry();
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const jobs = [
-    {
-      id: 'planing',
-      title: {
-        nl: 'Operator Schaafmachine',
-        en: 'Planing Machine Operator',
-        de: 'Hobelmaschinenführer',
-        ro: 'Operator Rindele'
-      },
-      department: {
-        nl: 'Productie',
-        en: 'Production',
-        de: 'Produktion',
-        ro: 'Producție'
-      },
-      location: 'Brad, RO',
-      type: {
-        nl: 'Fulltime',
-        en: 'Full-Time',
-        de: 'Vollzeit',
-        ro: 'Normă Întreagă'
-      },
-      description: {
-        nl: 'Verantwoordelijk voor het instellen, kalibreren en aanvoeren van onze hogesnelheids-profileer- en houtschaafmachines om ruwe beukenplanken om te zetten in hoogwaardige deuvels en houten profielen.',
-        en: 'Responsible for setting up, calibrating, and feeding our high-speed profiling and wood planing machines to shape raw beechwood boards into premium dowels and architectural mouldings.',
-        de: 'Verantwortlich für das Einrichten, Kalibrieren und Bestücken unserer Hochgeschwindigkeits-Profilierungs- und Holzhobelmaschinen, um rohe Buchenholzbretter in erstklassige Dübel und Profile zu verwandeln.',
-        ro: 'Responsabil pentru configurarea, calibrarea și alimentarea mașinilor noastre de profilat și rinduit de mare viteză, pentru a modela scândurile de fag brut în dibluri premium și profile decorative.'
-      },
-      requirements: {
-        nl: [
-          'Voorafgaande ervaring in houtbewerking of de bediening van zagerijmachines wordt zeer gewaardeerd.',
-          'Grote aandacht voor detail en maatzuiverheid (met behulp van schuifmaten).',
-          'Begrip van industriële veiligheidsrichtlijnen en onderhoud van apparatuur.',
-        ],
-        en: [
-          'Prior experience in wood processing or sawmill machine operation is highly valued.',
-          'High attention to detail and dimensional accuracy (using calipers).',
-          'Understanding of industrial safety guidelines and equipment maintenance.',
-        ],
-        de: [
-          'Vorherige Erfahrung in der Holzverarbeitung oder der Bedienung von Sägewerksmaschinen ist sehr erwünscht.',
-          'Hohe Liebe zum Detail und Maßgenauigkeit (unter Verwendung von Messschiebern).',
-          'Verständnis von industriellen Sicherheitsrichtlinien und Gerätewartung.',
-        ],
-        ro: [
-          'Experiența anterioară în prelucrarea lemnului sau operarea mașinilor de gater este foarte apreciată.',
-          'Atenție deosebită la detalii și precizie dimensională (folosind șublerul).',
-          'Înțelegerea normelor de siguranță industrială și a întreținerii echipamentelor.',
-        ]
-      },
-      salary: {
-        nl: 'Concurrerend salaris',
-        en: 'Competitive Pay',
-        de: 'Wettbewerbsfähiges Gehalt',
-        ro: 'Salariu Competitiv'
-      },
-    },
-    {
-      id: 'quality',
-      title: {
-        nl: 'Inspecteur Kwaliteitscontrole & Sortering',
-        en: 'Quality & Defect Inspector',
-        de: 'Qualitäts- und Mängelprüfer',
-        ro: 'Inspector Calitate & Defecte'
-      },
-      department: {
-        nl: 'Kwaliteitscontrole',
-        en: 'Quality Control',
-        de: 'Qualitätskontrolle',
-        ro: 'Controlul Calității'
-      },
-      location: 'Brad, RO',
-      type: {
-        nl: 'Fulltime',
-        en: 'Full-Time',
-        de: 'Vollzeit',
-        ro: 'Normă Întreagă'
-      },
-      description: {
-        nl: 'Visuele en fysieke inspectie van afgewerkte houten deuvels, planken en op maat gemaakte meubelcomponenten. Sorteren van natuurlijke noesten, scheuren en sorteerafwijkingen om te garanderen dat aan de specificaties van de klant wordt voldaan.',
-        en: 'Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.',
-        de: 'Visuelle und physische Inspektion fertiger Holzdübel, Bretter und maßgeschneiderter Möbelelemente. Aussortieren natürlicher Äste, Risse und Sortieranomalien, um sicherzustellen, dass die Kundenspezifikationen erfüllt werden.',
-        ro: 'Inspecția vizuală și fizică a diblurilor finisate din lemn, scândurilor și elementelor de mobilier personalizate. Sortarea nodurilor naturale, a crăpăturilor și a anomaliilor de clasificare pentru a se asigura că specificațiile clientului sunt îndeplinite.'
-      },
-      requirements: {
-        nl: [
-          'Sterke observatievaardigheden en bekendheid met standaard houtklassen (A, B, C).',
-          'Betrouwbaarheid, geduld en het vermogen om defectenlogboeken bij te houden.',
-          'Ervaring met FSC® Chain of Custody-documentatie is een pluspunt (interne training aanwezig).',
-        ],
-        en: [
-          'Strong observation skills and familiarity with standard timber grades (A, B, C).',
-          'Reliability, patience, and ability to document defect logs.',
-          'FSC® chain-of-custody documentation training is a plus (provided in-house).',
-        ],
-        de: [
-          'Ausgeprägte Beobachtungsgabe und Vertrautheit mit den Standard-Holzqualitäten (A, B, C).',
-          'Zuverlässigkeit, Geduld und die Fähigkeit, Mängelprotokolle zu führen.',
-          'FSC® Chain-of-Custody-Dokumentationsschulung ist ein Plus (wird intern angeboten).',
-        ],
-        ro: [
-          'Abilități puternice de observare și familiaritate cu clasele standard de cherestea (A, B, C).',
-          'Fiabilitate, răbdare și capacitatea de a documenta jurnalele de defecte.',
-          'Instruirea în documentarea FSC® chain-of-custody reprezintă un avantaj (oferită intern).',
-        ]
-      },
-      salary: {
-        nl: 'Vast salaris',
-        en: 'Stable Salary',
-        de: 'Festgehalt',
-        ro: 'Salariu Stabil'
-      },
-    },
-    {
-      id: 'maintenance',
-      title: {
-        nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
-        en: 'Maintenance Mechanic / Millwright',
-        de: 'Wartungsmechaniker / Maschinenschlosser',
-        ro: 'Mecanic Întreținere'
-      },
-      department: {
-        nl: 'Onderhoud',
-        en: 'Maintenance',
-        de: 'Instandhaltung',
-        ro: 'Întreținere'
-      },
-      location: 'Brad, RO',
-      type: {
-        nl: 'Fulltime',
-        en: 'Full-Time',
-        de: 'Vollzeit',
-        ro: 'Normă Întreagă'
-      },
-      description: {
-        nl: 'Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.',
-        en: 'Perform mechanical preventive maintenance and emergency troubleshooting on our automated drying chamber systems, sawmill blades, dust extraction blowers, and profiling machinery.',
-        de: 'Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.',
-        ro: 'Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat.'
-      },
-      requirements: {
-        nl: [
-          'Professionele kwalificatie als werktuigbouwkundige of onderhoudsmonteur.',
-          'Ervaring met het repareren van lagers, tandwielkasten, riemen en hydraulische cilinders.',
-          'Vermogen om technische lay-outs te lezen en machinestoringen snel op te lossen.',
-        ],
-        en: [
-          'Professional qualification as a mechanical technician, fitter, or millwright.',
-          'Experience repairing bearings, gearboxes, belts, and hydraulic cylinders.',
-          'Ability to read technical layouts and troubleshoot machine breakdowns.',
-        ],
-        de: [
-          'Berufsqualifikation als Maschinenschlosser, Industriemechaniker oder Instandhaltungsmechaniker.',
-          'Erfahrung bei der Reparatur von Lagern, Getrieben, Riemen und Hydraulikzylindern.',
-          'Fähigkeit, technische Layouts zu lesen und Maschinenstörungen zu beheben.',
-        ],
-        ro: [
-          'Calificare profesională de tehnician mecanic, montator sau lăcătuș mecanic.',
-          'Experiență în repararea rulmenților, cutiilor de viteze, curelelor și cilindrilor hidraulici.',
-          'Capacitatea de a citi scheme tehnice și de a depana defecțiunile utilajelor.',
-        ]
-      },
-      salary: {
-        nl: 'Top-salaris + Overuren',
-        en: 'Top-Tier Salary + Overtime',
-        de: 'Spitzengehalt + Überstunden',
-        ro: 'Salariu de Top + Ore Suplimentare'
-      },
-    },
-  ];
-
-  const t = {
+  useEffect(() => {
+    fetch('/api/vacancies')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setJobs(data.vacancies || []);
+        }
+      })
+      .catch(err => console.error('Failed to load jobs:', err))
+      .finally(() => setLoading(false));
+  }, []);  const t = {
     breadcrumb: {
       nl: 'Vacatures',
       en: 'Careers',
@@ -395,35 +236,51 @@ export default function Careers() {
           </div>
 
           <div className="jobs-grid">
-            {jobs.map((job) => (
-              <div className="job-card animate-on-scroll" key={job.id}>
-                <div className="job-header">
-                  <div className="job-title-area">
-                    <h3>{job.title[lang] || job.title.nl}</h3>
-                    <div className="job-tags">
-                      <span className="job-tag tag-dept">{job.department[lang] || job.department.nl}</span>
-                      <span className="job-tag tag-loc">{job.location}</span>
-                      <span className="job-tag tag-type">{job.type[lang] || job.type.nl}</span>
+            {loading ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem 0', color: 'var(--color-text-muted)' }}>
+                <i className="fa-solid fa-spinner fa-spin fa-2x" style={{ color: 'var(--color-primary-dark)', marginBottom: '1rem', display: 'inline-block' }}></i>
+                <p>{lang === 'nl' ? 'Vacatures laden...' : 'Loading positions...'}</p>
+              </div>
+            ) : jobs.length === 0 ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem 1rem', border: '2px dashed var(--color-border)', borderRadius: '12px', color: 'var(--color-text-muted)' }}>
+                <i className="fa-solid fa-briefcase fa-3x" style={{ opacity: 0.2, marginBottom: '1rem', display: 'inline-block' }}></i>
+                <p style={{ fontWeight: 600 }}>{lang === 'nl' ? 'Er zijn momenteel geen actieve vacatures.' : 'There are currently no active openings.'}</p>
+                <p style={{ fontSize: '0.9rem' }}>{lang === 'nl' ? 'U kunt nog steeds een open sollicitatie sturen via het sollicitatieformulier.' : 'You can still submit a general application.'}</p>
+                <Link href="/apply?job=general" className="btn btn-dark btn-sm" style={{ marginTop: '1.25rem' }}>
+                  {lang === 'nl' ? 'Open Sollicitatie' : 'General Application'}
+                </Link>
+              </div>
+            ) : (
+              jobs.map((job) => (
+                <div className="job-card animate-on-scroll" key={job.id}>
+                  <div className="job-header">
+                    <div className="job-title-area">
+                      <h3>{job.title[lang] || job.title.nl || job.title.en}</h3>
+                      <div className="job-tags">
+                        <span className="job-tag tag-dept">{job.department[lang] || job.department.nl || job.department.en}</span>
+                        <span className="job-tag tag-loc">{job.location}</span>
+                        <span className="job-tag tag-type">{job.type[lang] || job.type.nl || job.type.en}</span>
+                      </div>
                     </div>
                   </div>
+                  <p className="job-description">{job.description[lang] || job.description.nl || job.description.en}</p>
+                  <div className="job-requirements">
+                    <h4>{getTranslation('reqHeader')}</h4>
+                    <ul>
+                      {((job.requirements && (job.requirements[lang] || job.requirements.nl || job.requirements.en)) || []).map((req, idx) => (
+                        <li key={idx}>{req}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="job-footer">
+                    <span className="job-salary">{job.salary[lang] || job.salary.nl || job.salary.en}</span>
+                    <Link href={`/apply?job=${job.id}`} className="btn btn-dark btn-sm">
+                      {getTranslation('applyBtn')}
+                    </Link>
+                  </div>
                 </div>
-                <p className="job-description">{job.description[lang] || job.description.nl}</p>
-                <div className="job-requirements">
-                  <h4>{getTranslation('reqHeader')}</h4>
-                  <ul>
-                    {(job.requirements[lang] || job.requirements.nl).map((req, idx) => (
-                      <li key={idx}>{req}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="job-footer">
-                  <span className="job-salary">{job.salary[lang] || job.salary.nl}</span>
-                  <Link href={`/apply?job=${job.id}`} className="btn btn-dark btn-sm">
-                    {getTranslation('applyBtn')}
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>
