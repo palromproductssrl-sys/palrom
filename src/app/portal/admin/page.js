@@ -293,6 +293,72 @@ export default function AdminPortal() {
     }, 5000);
   };
 
+  const handleDownloadCSV = (quote) => {
+    const escapeCSV = (val) => {
+      if (val === undefined || val === null) return '';
+      let str = String(val);
+      str = str.replace(/"/g, '""');
+      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str}"`;
+      }
+      return str;
+    };
+
+    const csvRows = [
+      ["B2B Quote Inquiry Details", ""].map(escapeCSV).join(','),
+      ["Inquiry ID", quote.id].map(escapeCSV).join(','),
+      ["Client Name", quote.client_name].map(escapeCSV).join(','),
+      ["Client Email", quote.client_email].map(escapeCSV).join(','),
+      ["Client Phone", quote.client_phone].map(escapeCSV).join(','),
+      ["Client Notes", quote.client_notes || ''].map(escapeCSV).join(','),
+      ["Date Submitted", new Date(quote.created_at).toLocaleString()].map(escapeCSV).join(','),
+      ["Status", quote.status || 'New'].map(escapeCSV).join(','),
+      ["", ""].map(escapeCSV).join(','),
+      ["Product Index", "Product Name", "Category", "Quantity", "Dimensions", "Radius", "Grade", "Certification (FSC)", "Drying", "Product Notes"].map(escapeCSV).join(',')
+    ];
+
+    (quote.items || []).forEach((item, index) => {
+      let dimsText = item.dims || '';
+      if (!dimsText) {
+        if (item.categoryKey === 'brichete' || item.category === 'brichete') {
+          dimsText = '90mm x 90mm x 250mm';
+        } else {
+          const lVal = item.length || '';
+          const dVal = item.diameter || item.width || '';
+          const tVal = item.thickness || '';
+          dimsText = tVal ? `${tVal}x${dVal}x${lVal} mm` : `${dVal}x${lVal} mm`;
+        }
+      }
+
+      const row = [
+        `Product ${index + 1}`,
+        item.name || '',
+        item.category || '',
+        item.qty || '',
+        dimsText,
+        item.radius || '',
+        localizeSpecValue('grade', item.grade, 'en', item.categoryKey) || '',
+        localizeSpecValue('fsc', item.fsc, 'en', item.categoryKey) || '',
+        localizeSpecValue('drying', item.drying, 'en', item.categoryKey) || '',
+        item.additionalInfo || ''
+      ];
+      csvRows.push(row.map(escapeCSV).join(','));
+    });
+
+    const csvContent = "\uFEFF" + csvRows.join("\r\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    const safeClientName = (quote.client_name || 'Client').replace(/\s+/g, '_');
+    link.setAttribute("download", `Inquiry_${safeClientName}_${quote.id.substring(0, 8)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+
   // --- Image Upload Handler ---
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -1563,10 +1629,8 @@ export default function AdminPortal() {
                                 >
                                   <i className="fa-solid fa-magnifying-glass"></i> {consoleLang === 'ro' ? 'Detalii' : consoleLang === 'nl' ? 'Details' : 'Details'}
                                 </button>
-                                <a
-                                  href={`/api/portal/download-pdf?id=${quote.id}&token=${passcode}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
+                                <button
+                                  onClick={() => handleDownloadCSV(quote)}
                                   style={{
                                     padding: '0.4rem 0.8rem',
                                     backgroundColor: '#f1f5f9',
@@ -1576,14 +1640,13 @@ export default function AdminPortal() {
                                     fontWeight: 700,
                                     fontSize: '0.8rem',
                                     cursor: 'pointer',
-                                    textDecoration: 'none',
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '0.3rem'
                                   }}
                                 >
-                                  <i className="fa-solid fa-file-pdf"></i> PDF
-                                </a>
+                                  <i className="fa-solid fa-file-csv"></i> CSV
+                                </button>
                               </div>
                             </td>
                           </tr>
@@ -2969,10 +3032,8 @@ export default function AdminPortal() {
               gap: '1rem',
               backgroundColor: '#f8fafc'
             }}>
-              <a
-                href={`/api/portal/download-pdf?id=${selectedQuote.id}&token=${passcode}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => handleDownloadCSV(selectedQuote)}
                 style={{
                   padding: '0.6rem 1.25rem',
                   backgroundColor: 'var(--color-primary)',
@@ -2981,15 +3042,14 @@ export default function AdminPortal() {
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
-                  textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
                   border: 'none'
                 }}
               >
-                <i className="fa-solid fa-file-pdf"></i> Download PDF
-              </a>
+                <i className="fa-solid fa-file-csv"></i> Download CSV
+              </button>
               <button
                 onClick={() => setIsQuoteModalOpen(false)}
                 style={{
