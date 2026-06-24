@@ -197,10 +197,10 @@ const translations = {
 
   // PAL replies
   welcomeMessage: {
-    nl: 'Hallo! Ik ben **PAL**, uw virtuele B2B salesadviseur. Typ hieronder in uw eigen woorden wat u zoekt of spreek in!<br/>Bijvoorbeeld: *"Ik ben op zoek naar 1500 beukenhouten blanks met afmetingen van 25x75x1200 mm in klasse A, kamerdroog."* of geef uw wensen stap voor stap door.',
-    en: 'Hello! I am **PAL**, your virtual B2B sales advisor. Tell me in your own words what you are looking for or speak it!<br/>For example: *"I am looking for 1500 beechwood blanks with dimensions of 25x75x1200 mm in class A, kiln dried."* or describe your requirements step by step.',
-    de: 'Hallo! Ich bin **PAL**, Ihr virtueller B2B-Verkaufsberater. Schreiben Sie mir in eigenen Worten, was Sie suchen, oder sprechen Sie es ein!<br/>Zum Beispiel: *"Ich suche 1500 Buchenholz-Blanks mit den Maßen 25x75x1200 mm in Klasse A, kammergetrocknet."* oder teilen Sie mir Ihre Wünsche Schritt für Schritt mit.',
-    ro: 'Bună! Sunt **PAL**, consilierul dvs. virtual de vânzări B2B. Scrieți-mi în propriile cuvinte ceea ce căutați sau rostiți cerințele!<br/>De exemplu: *"Caut 1500 piese brute din fag cu dimensiunile de 25x75x1200 mm, clasa A, uscate în cameră."* sau descrieți specificațiile dorite pas cu pas.'
+    nl: 'Hallo! Ik ben **PAL**, uw virtuele B2B salesadviseur. We starten standaard met het configureren van **beukenhouten blanks (blanks)**. Wilt u hiermee starten, of zoekt u een ander producttype (zoals **latten**, **stokken**, **profielen** of **bestekken**)?',
+    en: 'Hello! I am **PAL**, your virtual B2B sales advisor. We start by default with configuring **beechwood blanks**. Would you like to start with this, or are you looking for another product type (such as **slats**, **sticks/dowels**, **profiles** or **specials**)?',
+    de: 'Hallo! Ich bin **PAL**, Ihr virtueller B2B-Verkaufsberater. Wir beginnen standardmäßig mit der Konfiguration von **Buchenholz-Blanks**. Möchten Sie damit beginnen, oder suchen Sie einen anderen Produkttyp (wie **Leisten**, **Rundstäbe**, **Profile** oder **Zuschnitte**)?',
+    ro: 'Bună! Sunt **PAL**, consilierul dvs. virtual de vânzări B2B. Începem implicit cu configurarea **pieselor brute din fag (blanks)**. Doriți să începem cu acestea, sau căutați un alt tip de produs (cum ar fi **șipci**, **tije**, **profile** sau **piese speciale**)?'
   },
   understandConfirmation: {
     nl: 'Ik heb de volgende specificaties gedetecteerd en bijgewerkt:',
@@ -2507,6 +2507,66 @@ export default function OpenChatConfigurator() {
 
               {/* Chat Footer with open chat input */}
               <div className="chat-footer">
+
+                {/* Suggestion Chips */}
+                {history.length === 1 && !isTyping && (
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.75rem',
+                    marginBottom: '1.25rem',
+                    padding: '0 0.25rem'
+                  }}>
+                    <button
+                      type="button"
+                      onClick={() => handleChipClick(
+                        lang === 'nl' ? 'Ja, start met blanks' : (lang === 'ro' ? 'Da, începe cu blanks' : (lang === 'de' ? 'Ja, beginne mit Blanks' : 'Yes, start with blanks')),
+                        lang === 'nl' ? 'ik wil blanks configureren' : (lang === 'ro' ? 'vreau sa configurez blanks' : (lang === 'de' ? 'ich möchte blanks konfigurieren' : 'i want to configure blanks'))
+                      )}
+                      style={{
+                        padding: '0.5rem 1.1rem',
+                        backgroundColor: '#ffffff',
+                        border: '1.5px solid var(--color-primary)',
+                        color: 'var(--color-forest-dark)',
+                        borderRadius: '30px',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem'
+                      }}
+                    >
+                      <span>👍</span> {lang === 'nl' ? 'Ja, start met blanks' : (lang === 'ro' ? 'Da, începe cu blanks' : (lang === 'de' ? 'Ja, beginne mit Blanks' : 'Yes, start with blanks'))}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleChipClick(
+                        lang === 'nl' ? 'Nee, kies ander product' : (lang === 'ro' ? 'Nu, alege alt produs' : (lang === 'de' ? 'Nein, wähle ein anderes Produkt' : 'No, choose other product')),
+                        lang === 'nl' ? 'welke andere producten zijn er?' : (lang === 'ro' ? 'ce alte produse exista?' : (lang === 'de' ? 'welche anderen produkte gibt es?' : 'what other products are there?'))
+                      )}
+                      style={{
+                        padding: '0.5rem 1.1rem',
+                        backgroundColor: '#ffffff',
+                        border: '1.5px solid #cbd5e1',
+                        color: 'var(--color-text-dark)',
+                        borderRadius: '30px',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem'
+                      }}
+                    >
+                      <span>✏️</span> {lang === 'nl' ? 'Nee, kies ander product' : (lang === 'ro' ? 'Nu, alege alt produs' : (lang === 'de' ? 'Nein, wähle ein anderes Produkt' : 'No, choose other product'))}
+                    </button>
+                  </div>
+                )}
 
                 {/* Input Bar */}
                 <form onSubmit={handleSendMessage} className="chat-input-form">
