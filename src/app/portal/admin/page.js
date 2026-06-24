@@ -177,7 +177,14 @@ export default function AdminPortal() {
         const storedPasscode = sessionStorage.getItem('palrom_admin_passcode');
         if (storedPasscode) {
           setPasscode(storedPasscode);
-          loadDatabase(storedPasscode);
+          loadDatabase(storedPasscode).then((success) => {
+            if (!success) {
+              sessionStorage.removeItem('palrom_admin_auth');
+              sessionStorage.removeItem('palrom_admin_passcode');
+              setIsAuthenticated(false);
+              setPasscode('');
+            }
+          });
         }
       }
     }
@@ -266,6 +273,9 @@ export default function AdminPortal() {
         const qRes = await fetch('/api/portal/admin/inquiries', {
           headers: { 'x-admin-passcode': cleanPass }
         });
+        if (qRes.status === 401) {
+          return false;
+        }
         const qData = await qRes.json();
         if (qRes.ok && qData.success) {
           quotesData = qData.inquiries || [];
