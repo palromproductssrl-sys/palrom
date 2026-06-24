@@ -10,7 +10,7 @@ function getAdminPasscode() {
 }
 
 function verifyAuth(request) {
-  const passcode = request.headers.get('x-admin-passcode');
+  const passcode = (request.headers.get('x-admin-passcode') || '').trim();
   const allowed = [...VALID_PASSCODES, getAdminPasscode()];
   return allowed.includes(passcode);
 }

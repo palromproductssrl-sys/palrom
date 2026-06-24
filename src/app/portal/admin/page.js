@@ -187,6 +187,7 @@ export default function AdminPortal() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     const cleanPass = passcode.trim();
+    setPasscode(cleanPass);
     // Verify passcode by attempting a test fetch to load data
     setLoadingData(true);
     setAuthError(false);
@@ -219,10 +220,16 @@ export default function AdminPortal() {
   const loadStats = async (authPasscode) => {
     setStatsLoading(true);
     setStatsError(null);
+    const cleanPass = (authPasscode || passcode || (typeof window !== 'undefined' ? sessionStorage.getItem('palrom_admin_passcode') : '') || '').trim();
+    if (!cleanPass) {
+      setStatsError('No passcode available');
+      setStatsLoading(false);
+      return;
+    }
     try {
       const res = await fetch('/api/telemetry', {
         headers: {
-          'x-admin-passcode': authPasscode
+          'x-admin-passcode': cleanPass
         }
       });
       const data = await res.json();
@@ -240,6 +247,10 @@ export default function AdminPortal() {
   };
 
   const loadDatabase = async (authPasscode) => {
+    const cleanPass = (authPasscode || passcode || (typeof window !== 'undefined' ? sessionStorage.getItem('palrom_admin_passcode') : '') || '').trim();
+    if (!cleanPass) {
+      return false;
+    }
     try {
       // Fetch vacancies
       const vRes = await fetch('/api/vacancies');
@@ -253,7 +264,7 @@ export default function AdminPortal() {
       let quotesData = [];
       try {
         const qRes = await fetch('/api/portal/admin/inquiries', {
-          headers: { 'x-admin-passcode': authPasscode }
+          headers: { 'x-admin-passcode': cleanPass }
         });
         const qData = await qRes.json();
         if (qRes.ok && qData.success) {
@@ -265,10 +276,10 @@ export default function AdminPortal() {
 
       // Load stats as well if activeTab is 'stats'
       if (activeTab === 'stats') {
-        loadStats(authPasscode);
+        loadStats(cleanPass);
       } else {
         // Just pre-fetch stats in background so switching is instant
-        fetch('/api/telemetry', { headers: { 'x-admin-passcode': authPasscode } })
+        fetch('/api/telemetry', { headers: { 'x-admin-passcode': cleanPass } })
           .then(res => res.json())
           .then(data => { if (data.success) setStats(data.stats); })
           .catch(() => {});
@@ -378,7 +389,7 @@ export default function AdminPortal() {
       const res = await fetch('/api/upload', {
         method: 'POST',
         headers: {
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: formData
       });
@@ -504,7 +515,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify(payload)
       });
@@ -513,7 +524,7 @@ export default function AdminPortal() {
       if (res.ok && data.success) {
         showMessage('success', editingId ? 'Vacancy updated successfully!' : 'New vacancy created successfully!');
         setIsModalOpen(false);
-        loadDatabase(passcode);
+        loadDatabase(passcode.trim());
       } else {
         showMessage('error', data.error || 'Failed to save vacancy');
       }
@@ -534,7 +545,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify({ action: 'delete', id })
       });
@@ -542,7 +553,7 @@ export default function AdminPortal() {
       const data = await res.json();
       if (res.ok && data.success) {
         showMessage('success', 'Vacancy deleted successfully!');
-        loadDatabase(passcode);
+        loadDatabase(passcode.trim());
       } else {
         showMessage('error', data.error || 'Failed to delete vacancy');
       }
@@ -666,7 +677,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify(payload)
       });
@@ -675,7 +686,7 @@ export default function AdminPortal() {
       if (res.ok && data.success) {
         showMessage('success', editingId ? 'News article updated!' : 'New news article created!');
         setIsModalOpen(false);
-        loadDatabase(passcode);
+        loadDatabase(passcode.trim());
       } else {
         showMessage('error', data.error || 'Failed to save news article');
       }
@@ -696,7 +707,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify({ action: 'delete', id })
       });
@@ -704,7 +715,7 @@ export default function AdminPortal() {
       const data = await res.json();
       if (res.ok && data.success) {
         showMessage('success', 'News article deleted!');
-        loadDatabase(passcode);
+        loadDatabase(passcode.trim());
       } else {
         showMessage('error', data.error || 'Failed to delete news article');
       }
@@ -903,7 +914,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify({ action: 'sync_local' })
       });
@@ -913,7 +924,7 @@ export default function AdminPortal() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': passcode
+          'x-admin-passcode': passcode.trim()
         },
         body: JSON.stringify({ action: 'sync_local' })
       });
@@ -921,7 +932,7 @@ export default function AdminPortal() {
 
       if (vRes.ok && nRes.ok && vData.success && nData.success) {
         showMessage('success', lang === 'ro' ? 'Sincronizarea s-a realizat cu succes!' : lang === 'nl' ? 'Database succesvol gesynchroniseerd!' : 'Database successfully synced!');
-        loadDatabase(passcode);
+        loadDatabase(passcode.trim());
       } else {
         showMessage('error', vData.error || nData.error || 'Failed to sync database');
       }
@@ -2929,7 +2940,7 @@ export default function AdminPortal() {
                         method: 'PATCH',
                         headers: {
                           'Content-Type': 'application/json',
-                          'x-admin-passcode': passcode
+                          'x-admin-passcode': passcode.trim()
                         },
                         body: JSON.stringify({ id: selectedQuote.id, status: newStatus })
                       });
