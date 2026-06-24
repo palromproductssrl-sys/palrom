@@ -368,9 +368,6 @@ export default function Home() {
           <svg viewBox="0 0 200 200" width="100%" height="100%" style={{ overflow: 'visible' }}>
             <defs>
               <path id="chatbotCirclePath" d="M 100, 100 m -74, 0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
-              <clipPath id="chatbotAvatarClip">
-                <circle cx="100" cy="100" r="48" />
-              </clipPath>
             </defs>
 
             {/* Outer black background circle */}
@@ -389,15 +386,22 @@ export default function Home() {
               </textPath>
             </text>
 
-            {/* PAL Avatar in the middle */}
-            <image 
-              href="/images/pal1.png" 
-              x="52" 
-              y="52" 
-              width="96" 
-              height="96" 
-              clipPath="url(#chatbotAvatarClip)" 
-            />
+            {/* PAL Bot Icon in the middle */}
+            <foreignObject x="50" y="50" width="100" height="100">
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                color: '#000000',
+                backgroundColor: '#ffffff',
+                borderRadius: '50%',
+                fontSize: '3.25rem'
+              }}>
+                <i className="fa-solid fa-robot"></i>
+              </div>
+            </foreignObject>
           </svg>
         </Link>
 
