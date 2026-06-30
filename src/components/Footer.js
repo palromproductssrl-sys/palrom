@@ -49,10 +49,10 @@ export default function Footer() {
     blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Piese brute din lemn de fag (blanks)" },
     fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag Sustenabil FSC®" },
     copyright: {
-      nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen. (v5.3)",
-      en: "© 2026 PALROM Products SRL. All rights reserved. Sustainably harvested from local Romanian forests. (v5.3)",
-      de: "© 2026 PALROM Products SRL. Alle Rechte vorbehalten. Nachhaltig geerntet aus lokalen rumänischen Wäldern. (v5.3)",
-      ro: "© 2026 PALROM Products SRL. Toate drepturile rezervate. Recoltat în mod durabil din pădurile locale românești. (v5.3)"
+      nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen. (v5.4)",
+      en: "© 2026 PALROM Products SRL. All rights reserved. Sustainably harvested from local Romanian forests. (v5.4)",
+      de: "© 2026 PALROM Products SRL. Alle Rechte vorbehalten. Nachhaltig geerntet aus lokalen rumänischen Wäldern. (v5.4)",
+      ro: "© 2026 PALROM Products SRL. Toate drepturile rezervate. Recoltat în mod durabil din pădurile locale românești. (v5.4)"
     },
     cookiePolicy: {
       nl: "Cookiebeleid",
