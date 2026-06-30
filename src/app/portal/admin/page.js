@@ -1031,7 +1031,7 @@ export default function AdminPortal() {
             borderRadius: '16px',
             padding: '2.5rem',
             boxShadow: '0 10px 30px rgba(42, 42, 42, 0.08)',
-            border: '1px solid #edf2f7',
+            border: '1px solid #cbd5e1',
             textAlign: 'center'
           }}>
             <div style={{
@@ -1087,7 +1087,7 @@ export default function AdminPortal() {
                   style={{
                     width: '100%',
                     padding: '0.85rem 1rem',
-                    border: '1.5px solid #edf2f7',
+                    border: '1.5px solid #cbd5e1',
                     borderRadius: '8px',
                     fontSize: '0.95rem',
                     outline: 'none',
@@ -1179,7 +1179,7 @@ export default function AdminPortal() {
             justifyContent: 'space-between',
             alignItems: 'center',
             marginBottom: '3rem',
-            borderBottom: '1px solid #edf2f7',
+            borderBottom: '1px solid #cbd5e1',
             paddingBottom: '1.5rem',
             flexWrap: 'wrap',
             gap: '1.5rem'
@@ -1194,7 +1194,7 @@ export default function AdminPortal() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
               {/* Console Language Switcher */}
-              <div style={{ display: 'flex', gap: '0.2rem', backgroundColor: '#edf2f7', padding: '0.2rem', borderRadius: '6px', border: '1px solid #edf2f7' }}>
+              <div style={{ display: 'flex', gap: '0.2rem', backgroundColor: '#cbd5e1', padding: '0.2rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
                 {['nl', 'en', 'ro'].map(l => (
                   <button
                     key={l}
@@ -1225,7 +1225,7 @@ export default function AdminPortal() {
                 fontWeight: 600,
                 color: 'var(--color-text-muted)',
                 padding: '0.5rem 1rem',
-                border: '1px solid #edf2f7',
+                border: '1px solid #cbd5e1',
                 borderRadius: '6px',
                 backgroundColor: '#ffffff'
               }}>
@@ -1257,7 +1257,7 @@ export default function AdminPortal() {
             display: 'flex',
             gap: '1rem',
             marginBottom: '2rem',
-            borderBottom: '2px solid #edf2f7',
+            borderBottom: '2px solid #cbd5e1',
             paddingBottom: '1px'
           }}>
             <button
@@ -1350,7 +1350,7 @@ export default function AdminPortal() {
             <div style={{
               backgroundColor: '#ffffff',
               borderRadius: '12px',
-              border: '1px solid #edf2f7',
+              border: '1px solid #cbd5e1',
               boxShadow: '0 4px 15px rgba(42, 42, 42, 0.02)',
               overflow: 'hidden',
               padding: '1.5rem'
@@ -1388,7 +1388,7 @@ export default function AdminPortal() {
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', textAlign: 'left' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
+                      <tr style={{ borderBottom: '2px solid #cbd5e1', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
                         <th style={{ padding: '12px 10px' }}>{t.idCode[consoleLang]}</th>
                         <th style={{ padding: '12px 10px' }}>{t.titleCol[consoleLang]}</th>
                         <th style={{ padding: '12px 10px' }}>{t.departmentCol[consoleLang]}</th>
@@ -1402,7 +1402,7 @@ export default function AdminPortal() {
                           <td style={{ padding: '14px 10px', fontWeight: 600, color: 'var(--color-primary-dark)' }}>{vac.id}</td>
                           <td style={{ padding: '14px 10px', fontWeight: 600 }}>{vac.title[consoleLang] || vac.title.nl || vac.title.en}</td>
                           <td style={{ padding: '14px 10px' }}>
-                            <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.5rem', backgroundColor: '#edf2f7', borderRadius: '4px' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.5rem', backgroundColor: '#cbd5e1', borderRadius: '4px' }}>
                               {vac.department[consoleLang] || vac.department.nl || vac.department.en || ''}
                             </span>
                           </td>
@@ -1413,7 +1413,7 @@ export default function AdminPortal() {
                                 onClick={() => openVacancyEdit(vac)}
                                 style={{
                                   padding: '0.35rem 0.7rem',
-                                  border: '1.5px solid #edf2f7',
+                                  border: '1.5px solid #cbd5e1',
                                   backgroundColor: '#ffffff',
                                   color: 'var(--color-forest-dark)',
                                   borderRadius: '4px',
@@ -1454,7 +1454,7 @@ export default function AdminPortal() {
             <div style={{
               backgroundColor: '#ffffff',
               borderRadius: '12px',
-              border: '1px solid #edf2f7',
+              border: '1px solid #cbd5e1',
               boxShadow: '0 4px 15px rgba(42, 42, 42, 0.02)',
               overflow: 'hidden',
               padding: '1.5rem'
@@ -1492,7 +1492,7 @@ export default function AdminPortal() {
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', textAlign: 'left' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
+                      <tr style={{ borderBottom: '2px solid #cbd5e1', color: 'var(--color-forest-dark)', fontWeight: 700 }}>
                         <th style={{ padding: '12px 10px' }}>{t.thumbnail[consoleLang]}</th>
                         <th style={{ padding: '12px 10px' }}>{t.tagDate[consoleLang]}</th>
                         <th style={{ padding: '12px 10px' }}>{t.titleCol[consoleLang]}</th>
@@ -1509,7 +1509,7 @@ export default function AdminPortal() {
                             <img
                               src={item.image || '/images/hero_bg.jpg'}
                               alt=""
-                              style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #edf2f7' }}
+                              style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #cbd5e1' }}
                             />
                           </td>
                           <td style={{ padding: '14px 10px' }}>
@@ -1538,7 +1538,7 @@ export default function AdminPortal() {
                                 onClick={() => openNewsEdit(item)}
                                 style={{
                                   padding: '0.35rem 0.7rem',
-                                  border: '1.5px solid #edf2f7',
+                                  border: '1.5px solid #cbd5e1',
                                   backgroundColor: '#ffffff',
                                   color: 'var(--color-forest-dark)',
                                   borderRadius: '4px',
@@ -1579,7 +1579,7 @@ export default function AdminPortal() {
             <div style={{
               backgroundColor: '#ffffff',
               borderRadius: '12px',
-              border: '1px solid #edf2f7',
+              border: '1px solid #cbd5e1',
               boxShadow: '0 4px 15px rgba(42, 42, 42, 0.02)',
               overflow: 'hidden',
               padding: '1.5rem'
@@ -1599,7 +1599,7 @@ export default function AdminPortal() {
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem' }}>
                     <thead>
-                      <tr style={{ borderBottom: '2px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                      <tr style={{ borderBottom: '2px solid #cbd5e1', color: 'var(--color-text-muted)', textAlign: 'left' }}>
                         <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Client' : consoleLang === 'nl' ? 'Klant' : 'Client'}</th>
                         <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Contact' : consoleLang === 'nl' ? 'Contact' : 'Contact'}</th>
                         <th style={{ padding: '0.8rem' }}>{consoleLang === 'ro' ? 'Data' : consoleLang === 'nl' ? 'Datum' : 'Date'}</th>
@@ -1764,7 +1764,7 @@ export default function AdminPortal() {
                     gap: '1.5rem'
                   }}>
                     {/* Metric 1: Page Views */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                           {consoleLang === 'ro' ? 'Vizualizări Pagină' : consoleLang === 'nl' ? 'Paginaweergaven' : 'Page Views'}
@@ -1777,7 +1777,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Metric 2: Quotes Count */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                           {consoleLang === 'ro' ? 'Oferte Inregistrate' : consoleLang === 'nl' ? 'Offerteaanvragen' : 'Quotes Submitted'}
@@ -1790,7 +1790,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Metric 3: Conversion Rate */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                           {consoleLang === 'ro' ? 'Rată Conversie Funnel' : consoleLang === 'nl' ? 'Conversiepercentage' : 'Funnel Conversion Rate'}
@@ -1805,7 +1805,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Metric 4: Chatbot Sessions */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '10px', padding: '1.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                         <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                           {consoleLang === 'ro' ? 'Conversații Chatbot' : consoleLang === 'nl' ? 'Chatbot Sessies' : 'Chatbot Conversations'}
@@ -1822,7 +1822,7 @@ export default function AdminPortal() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginTop: '1rem' }}>
                     
                     {/* Funnel Widget */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1.5rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Pâlnia de Conversie B2B' : consoleLang === 'nl' ? 'B2B Conversietrechter (Funnel)' : 'B2B Conversion Funnel'}
                       </h4>
@@ -1884,7 +1884,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Top Pages Widget */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Weergaven per Pagină' : consoleLang === 'nl' ? 'Weergaven per Pagina' : 'Page Views by Path'}
                       </h4>
@@ -1892,7 +1892,7 @@ export default function AdminPortal() {
                       <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                           <thead>
-                            <tr style={{ borderBottom: '1px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                            <tr style={{ borderBottom: '1px solid #cbd5e1', color: 'var(--color-text-muted)', textAlign: 'left' }}>
                               <th style={{ padding: '6px 4px', fontWeight: 600 }}>{consoleLang === 'ro' ? 'Pagină' : consoleLang === 'nl' ? 'Pagina' : 'Page'}</th>
                               <th style={{ padding: '6px 4px', fontWeight: 600, textAlign: 'right', width: '80px' }}>{consoleLang === 'ro' ? 'Weergaven' : consoleLang === 'nl' ? 'Weergaven' : 'Views'}</th>
                             </tr>
@@ -1915,7 +1915,7 @@ export default function AdminPortal() {
                   {/* Breakdown grids */}
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '1rem' }}>
                     {/* Popular Products Configured */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Categorii de Lemn Configurate' : consoleLang === 'nl' ? 'Populaire Productgroepen' : 'Popular Categories Configured'}
                       </h4>
@@ -1955,7 +1955,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Configurator interface usage */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Popularitate Versiune Configurator' : consoleLang === 'nl' ? 'Prestaties per Configuratortype' : 'Configurator Version Usage'}
                       </h4>
@@ -1994,7 +1994,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Chatbot specific statistics */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Statistici Asistent PAL AI' : consoleLang === 'nl' ? 'PAL AI Chatbot Telemetrie' : 'PAL AI Chatbot Diagnostics'}
                       </h4>
@@ -2029,7 +2029,7 @@ export default function AdminPortal() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginTop: '1.5rem' }}>
                     
                     {/* Card: Popular Dimensions per Group */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Dimensiuni Populare per Categorie' : consoleLang === 'nl' ? 'Populaire Afmetingen per Productgroep' : 'Popular Dimensions by Category'}
                       </h4>
@@ -2066,7 +2066,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Card: Quantity & FSC Distribution */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.75rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1.25rem', fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Volum Cumpărături & FSC' : consoleLang === 'nl' ? 'Oplageverdeling & FSC® Ratio' : 'Volume & FSC® Distribution'}
                       </h4>
@@ -2155,7 +2155,7 @@ export default function AdminPortal() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginTop: '1.5rem' }}>
                     
                     {/* Traffic Sources & Devices */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Surse Trafic & Dispozitive' : consoleLang === 'nl' ? 'Verkeersbronnen & Apparaten' : 'Traffic Sources & Devices'}
                       </h4>
@@ -2199,14 +2199,14 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Chatbot Language Conversion */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Conversie Chatbot per Limbă' : consoleLang === 'nl' ? 'Chatbot Conversie per Taal' : 'Chatbot Conversion by Language'}
                       </h4>
                       <div style={{ maxHeight: '180px', overflowY: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
                           <thead>
-                            <tr style={{ borderBottom: '1px solid #edf2f7', color: 'var(--color-text-muted)', textAlign: 'left' }}>
+                            <tr style={{ borderBottom: '1px solid #cbd5e1', color: 'var(--color-text-muted)', textAlign: 'left' }}>
                               <th style={{ padding: '4px 0' }}>{consoleLang === 'nl' ? 'Taal' : 'Language'}</th>
                               <th style={{ padding: '4px 0', textAlign: 'center' }}>Chats</th>
                               <th style={{ padding: '4px 0', textAlign: 'right' }}>{consoleLang === 'nl' ? 'Voltooid' : 'Completed'}</th>
@@ -2229,7 +2229,7 @@ export default function AdminPortal() {
                     </div>
 
                     {/* Unresolved Chat Queries (AI Fallbacks) */}
-                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #edf2f7', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                    <div style={{ backgroundColor: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
                       <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
                         {consoleLang === 'ro' ? 'Mesaje Neînțelese de PAL' : consoleLang === 'nl' ? 'Niet-begrepen Chat Vragen' : 'Unresolved Chat Queries'}
                       </h4>
@@ -2254,7 +2254,7 @@ export default function AdminPortal() {
                   {/* Visitor Path Analysis Visualizer */}
                   <div style={{
                     backgroundColor: '#ffffff',
-                    border: '1px solid #edf2f7',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '16px',
                     padding: '2rem',
                     boxShadow: '0 10px 25px rgba(0,0,0,0.03)',
@@ -2286,17 +2286,17 @@ export default function AdminPortal() {
           <div style={{
             marginTop: '4rem',
             backgroundColor: '#fffdfa',
-            border: '1px solid #ffeeba',
+            border: '1px solid #f59e0b',
             borderRadius: '12px',
             padding: '1.5rem',
             boxShadow: '0 4px 15px rgba(222, 160, 0, 0.03)',
             fontFamily: 'Inter, sans-serif'
           }}>
-            <h3 style={{ margin: '0 0 1rem', fontSize: '1.15rem', fontWeight: 800, color: '#856404', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h3 style={{ margin: '0 0 1rem', fontSize: '1.15rem', fontWeight: 800, color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <i className="fa-solid fa-triangle-exclamation"></i>
               {consoleLang === 'ro' ? 'Setări Avansate Bază de Date' : consoleLang === 'nl' ? 'Geavanceerde Database Instellingen' : 'Advanced Database Settings'}
             </h3>
-            <p style={{ margin: '0 0 1.5rem', fontSize: '0.88rem', color: '#856404', lineHeight: '1.5' }}>
+            <p style={{ margin: '0 0 1.5rem', fontSize: '0.88rem', color: '#b45309', lineHeight: '1.5' }}>
               {consoleLang === 'ro' 
                 ? 'ATENȚIE: Aceste funcții sincronizează direct fișierele locale din codebase cu baza de date de producție. Asigurați-vă că datele sunt corecte înainte de a efectua aceste operațiuni, deoarece pot suprascrie modificările active.' 
                 : consoleLang === 'nl' 
@@ -2310,9 +2310,9 @@ export default function AdminPortal() {
                 style={{
                   fontSize: '0.85rem',
                   fontWeight: 700,
-                  color: '#856404',
+                  color: '#b45309',
                   padding: '0.6rem 1.2rem',
-                  border: '1px solid #ffeeba',
+                  border: '1px solid #f59e0b',
                   borderRadius: '6px',
                   backgroundColor: '#fff3cd',
                   cursor: loadingData ? 'not-allowed' : 'pointer',
@@ -2350,7 +2350,7 @@ export default function AdminPortal() {
           {/* Console Footer with Version */}
           <div style={{
             marginTop: '3rem',
-            borderTop: '1px solid #edf2f7',
+            borderTop: '1px solid #cbd5e1',
             paddingTop: '1.5rem',
             textAlign: 'center',
             fontSize: '0.8rem',
@@ -2385,7 +2385,7 @@ export default function AdminPortal() {
             backgroundColor: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)',
-            border: '1px solid #edf2f7',
+            border: '1px solid #cbd5e1',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden'
@@ -2429,7 +2429,7 @@ export default function AdminPortal() {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                borderBottom: '1px solid #edf2f7',
+                borderBottom: '1px solid #cbd5e1',
                 paddingBottom: '0.75rem',
                 marginBottom: '1.5rem',
                 flexWrap: 'wrap',
@@ -2498,7 +2498,7 @@ export default function AdminPortal() {
                 <form onSubmit={handleVacancySave}>
                   
                   {/* LOCALIZED FIELDS */}
-                  <div style={{ backgroundColor: '#fcfdfd', border: '1px solid #edf2f7', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                  <div style={{ backgroundColor: '#fcfdfd', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.5rem' }}>
                     <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--color-primary-dark)', marginBottom: '1rem', letterSpacing: '0.5px' }}>
                       {t.localizedInfo[consoleLang]} ({activeFormLang.toUpperCase()})
                     </h4>
@@ -2607,7 +2607,7 @@ export default function AdminPortal() {
                             backgroundColor: '#f8fafc',
                             borderRadius: '4px',
                             marginBottom: '0.35rem',
-                            border: '1px solid #edf2f7',
+                            border: '1px solid #cbd5e1',
                             fontSize: '0.85rem'
                           }}>
                             <span style={{ color: 'var(--color-text-dark)' }}>{req}</span>
@@ -2658,14 +2658,14 @@ export default function AdminPortal() {
                   </div>
 
                   {/* FORM ACTIONS */}
-                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #edf2f7', paddingTop: '1.5rem' }}>
+                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #cbd5e1', paddingTop: '1.5rem' }}>
                     <button
                       type="button"
                       onClick={() => setIsModalOpen(false)}
                       style={{
                         padding: '0.65rem 1.5rem',
                         backgroundColor: 'transparent',
-                        border: '1.5px solid #edf2f7',
+                        border: '1.5px solid #cbd5e1',
                         color: 'var(--color-text-muted)',
                         borderRadius: '6px',
                         fontWeight: 700,
@@ -2711,7 +2711,7 @@ export default function AdminPortal() {
                 <form onSubmit={handleNewsSave}>
                   
                   {/* LOCALIZED FIELDS */}
-                  <div style={{ backgroundColor: '#fcfdfd', border: '1px solid #edf2f7', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.5rem' }}>
+                  <div style={{ backgroundColor: '#fcfdfd', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '1.25rem', marginBottom: '1.5rem' }}>
                     <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--color-primary-dark)', marginBottom: '1rem', letterSpacing: '0.5px' }}>
                       Localized Info ({activeFormLang.toUpperCase()})
                     </h4>
@@ -2802,7 +2802,7 @@ export default function AdminPortal() {
                   </div>
 
                   {/* IMAGE UPLOADER INTERFACE */}
-                  <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center', border: '1px solid #edf2f7', borderRadius: '8px', padding: '1rem', backgroundColor: '#fafbfd' }}>
+                  <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '1rem', backgroundColor: '#fafbfd' }}>
                     <div style={{ flexShrink: 0 }}>
                       <img
                         src={newsImage || '/images/hero_bg.jpg'}
@@ -2885,14 +2885,14 @@ export default function AdminPortal() {
                   </div>
 
                   {/* FORM ACTIONS */}
-                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #edf2f7', paddingTop: '1.5rem' }}>
+                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #cbd5e1', paddingTop: '1.5rem' }}>
                     <button
                       type="button"
                       onClick={() => setIsModalOpen(false)}
                       style={{
                         padding: '0.65rem 1.5rem',
                         backgroundColor: 'transparent',
-                        border: '1.5px solid #edf2f7',
+                        border: '1.5px solid #cbd5e1',
                         color: 'var(--color-text-muted)',
                         borderRadius: '6px',
                         fontWeight: 700,
@@ -2962,7 +2962,7 @@ export default function AdminPortal() {
             backgroundColor: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)',
-            border: '1px solid #edf2f7',
+            border: '1px solid #cbd5e1',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden'
@@ -3137,7 +3137,7 @@ export default function AdminPortal() {
             {/* Modal Footer */}
             <div style={{
               padding: '1.25rem 2rem',
-              borderTop: '1px solid #edf2f7',
+              borderTop: '1px solid #cbd5e1',
               display: 'flex',
               justifyContent: 'flex-end',
               gap: '1rem',
@@ -3618,7 +3618,7 @@ function UserFlowDiagram({ userFlow, consoleLang }) {
       )}
 
       {/* Top Journeys List */}
-      <div style={{ borderTop: '1px solid #edf2f7', paddingTop: '1.5rem' }}>
+      <div style={{ borderTop: '1px solid #cbd5e1', paddingTop: '1.5rem' }}>
         <h5 style={{ margin: '0 0 1rem', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-forest-dark)' }}>
           {consoleLang === 'ro' ? 'Top Căi de Navigare (Sesiuni)' : consoleLang === 'nl' ? 'Meest Voorkomende Bezoekerspaden' : 'Top Navigational Paths (Sessions)'}
         </h5>
@@ -3632,7 +3632,7 @@ function UserFlowDiagram({ userFlow, consoleLang }) {
               backgroundColor: '#f8fafc', 
               borderRadius: '8px',
               fontSize: '0.8rem',
-              border: '1px solid #edf2f7'
+              border: '1px solid #cbd5e1'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <span style={{ 
