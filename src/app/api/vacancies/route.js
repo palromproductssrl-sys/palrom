@@ -17,7 +17,7 @@ function verifyAuth(request) {
 
 // Load Supabase environment variables if present
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 let supabase = null;
 if (supabaseUrl && supabaseKey) {
@@ -61,25 +61,9 @@ export async function GET() {
         .order('created_at', { ascending: false });
       
       if (!error && data) {
-        // Auto-seed: If database is connected but empty, insert local seed data
-        if (data.length === 0) {
-          const localVacancies = readVacancies();
-          if (localVacancies.length > 0) {
-            console.log('Supabase vacancies table is empty. Seeding local vacancies...');
-            // Exclude or supply created_at if necessary. Supabase will generate it.
-            const { error: seedErr } = await supabase
-              .from('vacancies')
-              .upsert(localVacancies);
-            if (!seedErr) {
-              return NextResponse.json({ success: true, vacancies: localVacancies });
-            }
-            console.error('Failed to seed vacancies to Supabase:', seedErr);
-          }
-        }
         return NextResponse.json({ success: true, vacancies: data });
       }
       console.error('Supabase fetch vacancies error:', error);
-      // Fallback to local files if Supabase fails (e.g. table not created yet)
     } catch (err) {
       console.error('Failed to fetch vacancies from Supabase:', err);
     }
