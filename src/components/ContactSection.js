@@ -640,7 +640,47 @@ Cu stimă,`
     <>
       <section id="contact" className="contact-section section-padding">
         <div className="container">
-          <div className="grid grid-2">
+          {/* Direct Team Contacts */}
+          <div className="team-contacts-section animate-on-scroll" style={{ marginTop: 0 }}>
+            <div className="text-center max-w-xl mx-auto mb-4">
+              <span className="section-badge">
+                {getTranslation('directContactBadge')}
+              </span>
+              <h3 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
+                {getTranslation('directContactTitle')}
+              </h3>
+              <p className="section-subtitle">
+                {getTranslation('directContactSub')}
+              </p>
+            </div>
+
+            <div className="team-grid">
+              {Object.values(teamMemberData).map((member) => (
+                <div
+                  key={member.id}
+                  className="team-card"
+                  onClick={() => handleOpenModal(member)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="team-avatar">
+                    <Image src={member.avatar} alt={member.name} width={70} height={70} />
+                  </div>
+                  <h3>{member.name}</h3>
+                  <div className="team-role">{member.role[lang] || member.role.nl}</div>
+                  <span className="team-languages">{member.languages[lang] || member.languages.nl}</span>
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="team-email-btn"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <i className="fa-solid fa-envelope"></i> {member.email}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-2" style={{ marginTop: '6rem' }}>
             {/* Contact Info */}
             <div className="contact-info-column animate-on-scroll">
               <span className="section-badge">
@@ -817,46 +857,6 @@ Cu stimă,`
                   </div>
                 )}
               </div>
-            </div>
-          </div>
-
-          {/* Direct Team Contacts */}
-          <div className="team-contacts-section animate-on-scroll">
-            <div className="text-center max-w-xl mx-auto mb-4" style={{ marginTop: '4.5rem' }}>
-              <span className="section-badge">
-                {getTranslation('directContactBadge')}
-              </span>
-              <h3 className="section-title" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
-                {getTranslation('directContactTitle')}
-              </h3>
-              <p className="section-subtitle">
-                {getTranslation('directContactSub')}
-              </p>
-            </div>
-
-            <div className="team-grid">
-              {Object.values(teamMemberData).map((member) => (
-                <div
-                  key={member.id}
-                  className="team-card"
-                  onClick={() => handleOpenModal(member)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className="team-avatar">
-                    <Image src={member.avatar} alt={member.name} width={70} height={70} />
-                  </div>
-                  <h3>{member.name}</h3>
-                  <div className="team-role">{member.role[lang] || member.role.nl}</div>
-                  <span className="team-languages">{member.languages[lang] || member.languages.nl}</span>
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="team-email-btn"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <i className="fa-solid fa-envelope"></i> {member.email}
-                  </a>
-                </div>
-              ))}
             </div>
           </div>
         </div>
