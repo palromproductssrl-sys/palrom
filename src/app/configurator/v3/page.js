@@ -1344,7 +1344,7 @@ export default function ChatbotConfigurator() {
         }
         .chat-summary-table td {
           padding: 0.3rem 0;
-          border-bottom: 1px solid #edf2f7;
+          border-bottom: 1px solid #cbd5e1;
         }
         .chat-footer .btn {
           padding: 0.75rem 1.5rem;
@@ -1406,7 +1406,7 @@ export default function ChatbotConfigurator() {
       `}</style>
 
       {/* Breadcrumb section */}
-      <section className="configurator-hero" style={{ padding: '8.5rem 0 2rem', background: '#ffffff', borderBottom: '1px solid #edf2f7' }}>
+      <section className="configurator-hero" style={{ padding: '8.5rem 0 2rem', background: '#ffffff', borderBottom: '1px solid #cbd5e1' }}>
         <div className="container">
           <Link href="/configurator" className="btn-lock" style={{ textDecoration: 'none', marginBottom: '0.75rem' }}>
             <i className="fa-solid fa-chevron-left"></i> {getTranslation('backToHub')}
