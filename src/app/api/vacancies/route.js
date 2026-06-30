@@ -123,6 +123,25 @@ export async function POST(request) {
             throw error;
           }
           return NextResponse.json({ success: true, message: 'Vacancy deleted successfully' });
+        } else if (action === 'export_local') {
+          const { data, error } = await supabase
+            .from('vacancies')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+          if (error) {
+            console.error('Supabase fetch vacancies for export error:', error);
+            throw error;
+          }
+
+          if (data) {
+            if (writeVacancies(data)) {
+              return NextResponse.json({ success: true, message: 'Vacancies exported successfully to local file' });
+            } else {
+              return NextResponse.json({ success: false, error: 'Failed to write to local file database' }, { status: 500 });
+            }
+          }
+          return NextResponse.json({ success: false, error: 'No vacancies found in database to export' }, { status: 400 });
         } else if (action === 'sync_local') {
           const localVacancies = readVacancies();
           if (localVacancies.length > 0) {
@@ -192,6 +211,8 @@ export async function POST(request) {
       }
     } else if (action === 'sync_local') {
       return NextResponse.json({ success: true, message: 'Local JSON database active. No database to sync.' });
+    } else if (action === 'export_local') {
+      return NextResponse.json({ success: false, error: 'Supabase is not configured. Cannot export to local.' }, { status: 400 });
     }
 
     return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
