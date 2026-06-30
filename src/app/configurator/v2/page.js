@@ -611,6 +611,22 @@ function SelectionSummary({ selection, lang }) {
 
 export default function Configurator() {
   const { lang, addToCart, setIsCartOpen, shouldResetConfigurator, setShouldResetConfigurator, isRomania } = useInquiry();
+
+  const getSubcategoryName = (cat, subCat) => {
+    if (!subCat) return '';
+    let found = null;
+    if (cat === 'planed') {
+      found = planedSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'dowels') {
+      found = dowelSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'profiles') {
+      found = profileSubcategories.find(s => s.id === subCat);
+    } else if (cat === 'specials') {
+      found = specialsSubcategories.find(s => s.id === subCat);
+    }
+    return found ? found.name[lang] || found.name.nl : subCat;
+  };
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [password, setPassword] = useState('');
