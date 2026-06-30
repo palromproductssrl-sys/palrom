@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execPromise = promisify(exec);
 
 const VALID_PASSCODES = ['palromadmin2026', 'admin2026'];
 
@@ -136,7 +140,15 @@ export async function POST(request) {
 
           if (data) {
             if (writeVacancies(data)) {
-              return NextResponse.json({ success: true, message: 'Vacancies exported successfully to local file' });
+              try {
+                const scriptPath = path.join(process.cwd(), 'scripts', 'upload.sh');
+                const { stdout } = await execPromise(`bash "${scriptPath}"`);
+                console.log('GitHub upload stdout:', stdout);
+                return NextResponse.json({ success: true, message: 'Vacancies exported and uploaded to GitHub successfully' });
+              } catch (uploadErr) {
+                console.error('Failed to trigger GitHub upload:', uploadErr);
+                return NextResponse.json({ success: true, message: 'Vacancies exported locally, but failed to upload to GitHub: ' + uploadErr.message });
+              }
             } else {
               return NextResponse.json({ success: false, error: 'Failed to write to local file database' }, { status: 500 });
             }
