@@ -341,6 +341,20 @@ export default function Home() {
         />
         <div className="hero-overlay"></div>
         <div className="hero-content container">
+          <div className="hero-fsc-logo animate-fade-in" style={{ marginBottom: '1rem' }}>
+            <Image 
+              src="/images/fsc_logo.png" 
+              alt="FSC Logo" 
+              width={50} 
+              height={62} 
+              style={{
+                height: '62px',
+                width: 'auto',
+                objectFit: 'contain',
+                display: 'block'
+              }}
+            />
+          </div>
           <span className="hero-badge animate-fade-in">
             {getTranslation('heroBadge')}
           </span>
