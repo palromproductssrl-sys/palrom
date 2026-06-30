@@ -2274,7 +2274,7 @@ export default function OpenChatConfigurator() {
         .sidebar-specs-table th, .sidebar-specs-table td {
           padding: 0.25rem 0.5rem;
           font-size: 0.85rem;
-          border-bottom: 1px solid #edf2f7;
+          border-bottom: 1px solid #cbd5e1;
         }
         .specs-scroll-container {
           flex: 1;
@@ -2879,7 +2879,7 @@ function ConfigProfileDrawing({ category, subCategory }) {
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#f8fafc',
-      border: '1px solid #edf2f7',
+      border: '1px solid #cbd5e1',
       borderRadius: '6px',
       padding: '0.5rem',
       boxSizing: 'border-box'
