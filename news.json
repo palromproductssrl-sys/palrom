@@ -2,35 +2,35 @@
   {
     "id": "test-9543",
     "tag": {
-      "nl": "Kwaliteit",
-      "en": "Quality",
       "de": "Qualität",
+      "en": "Quality",
+      "nl": "Kwaliteit",
       "ro": "Calitate"
     },
     "date": {
-      "nl": "23 juni 2026",
-      "en": "June 23, 2026",
       "de": "23. Juni 2026",
+      "en": "June 23, 2026",
+      "nl": "23 juni 2026",
       "ro": "23 iunie 2026"
     },
     "author": "Digital Team",
     "title": {
-      "nl": "Onze nieuwe website is live",
-      "en": "Our new website is live",
       "de": "Unsere neue Website ist live",
+      "en": "Our new website is live",
+      "nl": "Onze nieuwe website is live",
       "ro": "Noul nostru site web este live"
     },
     "content": {
-      "nl": "Vanaf nu is onze nieuwe website live. ",
-      "en": "From now on, our new website is live.",
       "de": "Ab sofort ist unsere neue Website live.",
+      "en": "From now on, our new website is live.",
+      "nl": "Vanaf nu is onze nieuwe website live. ",
       "ro": "De acum înainte, noul nostru site web este live."
     },
     "linkUrl": "/configurator",
     "linkText": {
-      "nl": "Ontdek meer",
-      "en": "Find out more",
       "de": "Mehr erfahren",
+      "en": "Find out more",
+      "nl": "Ontdek meer",
       "ro": "Află mai multe"
     },
     "image": "/images/hero_bg.jpg",
@@ -39,35 +39,35 @@
   {
     "id": "fsc-commitment",
     "tag": {
-      "nl": "Kwaliteit",
-      "en": "Quality",
       "de": "Qualität",
+      "en": "Quality",
+      "nl": "Kwaliteit",
       "ro": "Calitate"
     },
     "date": {
-      "nl": "22 juni 2026",
-      "en": "June 22, 2026",
       "de": "22. Juni 2026",
+      "en": "June 22, 2026",
+      "nl": "22 juni 2026",
       "ro": "22 iunie 2026"
     },
     "author": "Quality Assurance",
     "title": {
-      "nl": "Kwaliteitsgarantie: Waarom wij FSC®-certificering serieus nemen",
-      "en": "Quality Guarantee: Why we take FSC® certification seriously",
       "de": "Qualitätsgarantie: Warum wir die FSC®-Zertifizierung ernst nehmen",
+      "en": "Quality Guarantee: Why we take FSC® certification seriously",
+      "nl": "Kwaliteitsgarantie: Waarom wij FSC®-certificering serieus nemen",
       "ro": "Garanția Calității: De ce luăm în serios certificarea FSC®"
     },
     "content": {
-      "nl": "Bij PALROM Products is kwaliteit onlosmakelijk verbonden met duurzaamheid. Wij nemen onze FSC®-certificering (FSC® 100%) uiterst serieus. Dit garandeert dat al ons beukenhout afkomstig is uit verantwoord beheerde bossen die voldoen aan strenge ecologische, sociale en economische normen. Het is een herinnering aan de hoge kwaliteit en betrouwbaarheid van onze producten.",
-      "en": "At PALROM Products, quality is inseparable from sustainability. We take our FSC® certification (FSC® 100%) extremely seriously. This guarantees that all of our beechwood originates from responsibly managed forests meeting strict ecological, social, and economic standards. It is a reminder of the high quality and reliability of our products.",
       "de": "Bei PALROM Products ist Qualität untrennbar mit Nachhaltigkeit verbunden. Wir nehmen unsere FSC®-Zertifizierung (FSC® 100%) sehr ernst. Dies garantiert, dass unser gesamtes Buchenholz aus verantwortungsvoll bewirtschafteten Wäldern stammt, die strengen ökologischen, sozialen und wirtschaftlichen Standards entsprechen. Es ist eine Erinnerung an die hohe Qualität und Zuverlässigkeit unserer Produkte.",
+      "en": "At PALROM Products, quality is inseparable from sustainability. We take our FSC® certification (FSC® 100%) extremely seriously. This guarantees that all of our beechwood originates from responsibly managed forests meeting strict ecological, social, and economic standards. It is a reminder of the high quality and reliability of our products.",
+      "nl": "Bij PALROM Products is kwaliteit onlosmakelijk verbonden met duurzaamheid. Wij nemen onze FSC®-certificering (FSC® 100%) uiterst serieus. Dit garandeert dat al ons beukenhout afkomstig is uit verantwoord beheerde bossen die voldoen aan strenge ecologische, sociale en economische normen. Het is een herinnering aan de hoge kwaliteit en betrouwbaarheid van onze producten.",
       "ro": "La PALROM Products, calitatea este inseparabilă de sustenabilitate. Luăm foarte în serios certificarea noastră FSC® (FSC® 100%). Aceasta garantează că tot lemnul nostru de fag provine din păduri gestionate responsabil, care respectă standarde ecologice, sociale și economice stricte. Este o reamintire a calității înalte și a fiabilității produselor noastre."
     },
     "linkUrl": "/configurator",
     "linkText": {
-      "nl": "Configureren met FSC",
-      "en": "Configure with FSC",
       "de": "Mit FSC konfigurieren",
+      "en": "Configure with FSC",
+      "nl": "Configureren met FSC",
       "ro": "Configurați cu FSC"
     },
     "image": "/images/hero_bg.jpg",
@@ -76,35 +76,35 @@
   {
     "id": "briquettes-summer",
     "tag": {
-      "nl": "Aanbieding",
-      "en": "Offer",
       "de": "Angebot",
+      "en": "Offer",
+      "nl": "Aanbieding",
       "ro": "Promoție"
     },
     "date": {
-      "nl": "22 juni 2026",
-      "en": "June 22, 2026",
       "de": "22. Juni 2026",
+      "en": "June 22, 2026",
+      "nl": "22 juni 2026",
       "ro": "22 iunie 2026"
     },
     "author": "Sales Team",
     "title": {
-      "nl": "Zomeraanbieding: Beukenhoutbriketten voor een lage prijs!",
-      "en": "Summer Offer: Beechwood Heating Briquettes at a Low Price!",
       "de": "Sommerangebot: Buchenholzbriketts zum günstigen Preis!",
+      "en": "Summer Offer: Beechwood Heating Briquettes at a Low Price!",
+      "nl": "Zomeraanbieding: Beukenhoutbriketten voor een lage prijs!",
       "ro": "Ofertă de Vară: Brichete din Lemn de Fag la Preț Redus!"
     },
     "content": {
-      "nl": "Profiteer nu van onze zomeraanbieding! Omdat het zomer is, verkopen we onze hoogwaardige beukenhoutbriketten tegen een extra lage prijs. Dit is het ideale moment om uw voorraad in te slaan voor de winter. Deze aanbieding is exclusief geldig voor bestellingen en leveringen binnen Roemenië.",
-      "en": "Take advantage of our summer offer now! Because it is summer, we are selling our premium beechwood heating briquettes at an extra low price. This is the perfect time to stock up for winter. This offer is valid exclusively for orders and deliveries within Romania.",
       "de": "Profitieren Sie jetzt von unserem Sommerangebot! Da es Sommer ist, verkaufen wir unsere hochwertigen Buchenholzbriketts zu einem besonders günstigen Preis. Dies ist der ideale Zeitpunkt, um sich für den Winter einzudecken. Dieses Angebot gilt ausschließlich für Bestellungen und Lieferungen innerhalb Rumäniens.",
+      "en": "Take advantage of our summer offer now! Because it is summer, we are selling our premium beechwood heating briquettes at an extra low price. This is the perfect time to stock up for winter. This offer is valid exclusively for orders and deliveries within Romania.",
+      "nl": "Profiteer nu van onze zomeraanbieding! Omdat het zomer is, verkopen we onze hoogwaardige beukenhoutbriketten tegen een extra lage prijs. Dit is het ideale moment om uw voorraad in te slaan voor de winter. Deze aanbieding is exclusief geldig voor bestellingen en leveringen binnen Roemenië.",
       "ro": "Profitați acum de oferta noastră de vară! Deoarece este vară, comercializăm brichetele noastre din lemn de fag de înaltă calitate la un preț special redus. Este momentul ideal pentru a vă face stocul pentru iarnă. Această ofertă este valabilă exclusiv pentru comenzi și livrări pe teritoriul României."
     },
     "linkUrl": "/configurator/v4?category=brichete",
     "linkText": {
-      "nl": "Briketten configureren",
-      "en": "Configure briquettes",
       "de": "Briketts konfigurieren",
+      "en": "Configure briquettes",
+      "nl": "Briketten configureren",
       "ro": "Configurați brichete"
     },
     "image": "/images/brichete_fag.png",
@@ -113,35 +113,35 @@
   {
     "id": "configurator",
     "tag": {
-      "nl": "Innovatie",
-      "en": "Innovation",
       "de": "Innovation",
+      "en": "Innovation",
+      "nl": "Innovatie",
       "ro": "Inovație"
     },
     "date": {
-      "nl": "17 juni 2026",
-      "en": "June 17, 2026",
       "de": "17. Juni 2026",
+      "en": "June 17, 2026",
+      "nl": "17 juni 2026",
       "ro": "17 iunie 2026"
     },
     "author": "Digital Team",
     "title": {
-      "nl": "Nieuwe Interactieve B2B Configurator Gelanceerd!",
-      "en": "New Interactive B2B Configurator Launched!",
       "de": "Neuer interaktiver B2B-Konfigurator gestartet!",
+      "en": "New Interactive B2B Configurator Launched!",
+      "nl": "Nieuwe Interactieve B2B Configurator Gelanceerd!",
       "ro": "Noul Configurator B2B Interactiv a Fost Lansat!"
     },
     "content": {
-      "nl": "We hebben met trots onze nieuwe interactieve B2B product configurator gelanceerd. Hiermee kunt u direct uw beukenhouten stokken, latten, profielen en specials op maat samenstellen, specificaties selecteren en een offerte aanvragen.",
-      "en": "We have proudly launched our new interactive B2B product configurator. This tool allows you to customize your beechwood sticks, slats, profiles, and specials directly to your exact dimensions, select specifications, and request a quote.",
       "de": "Wir haben stolz unseren neuen interaktiven B2B-Produktkonfigurator gestartet. Mit diesem Tool können Sie Ihre Buchenholzstäbe, Leisten, Profile und Sonderzuschnitte direkt anpassen, Spezifikationen auswählen und ein Angebot anfordern.",
+      "en": "We have proudly launched our new interactive B2B product configurator. This tool allows you to customize your beechwood sticks, slats, profiles, and specials directly to your exact dimensions, select specifications, and request a quote.",
+      "nl": "We hebben met trots onze nieuwe interactieve B2B product configurator gelanceerd. Hiermee kunt u direct uw beukenhouten stokken, latten, profielen en specials op maat samenstellen, specificaties selecteren en een offerte aanvragen.",
       "ro": "Am lansat cu mândrie noul nostru configurator de produse B2B interactiv. Acest instrument vă permite să personalizați tijele, șipcile, profilele și piesele speciale din lemn de fag direct la dimensiunile dorite, să selectați specificațiile și să solicitați o ofertă."
     },
     "linkUrl": "/configurator",
     "linkText": {
-      "nl": "Probeer de configurator",
-      "en": "Try the configurator",
       "de": "Konfigurator ausprobieren",
+      "en": "Try the configurator",
+      "nl": "Probeer de configurator",
       "ro": "Încărcați configuratorul"
     },
     "image": "/images/team_group_photo.png",
@@ -150,35 +150,35 @@
   {
     "id": "drying",
     "tag": {
-      "nl": "Productie",
-      "en": "Production",
       "de": "Produktion",
+      "en": "Production",
+      "nl": "Productie",
       "ro": "Producție"
     },
     "date": {
-      "nl": "24 mei 2026",
-      "en": "May 24, 2026",
       "de": "24. Mai 2026",
+      "en": "May 24, 2026",
+      "nl": "24 mei 2026",
       "ro": "24 mai 2026"
     },
     "author": "Sawmill Ops",
     "title": {
-      "nl": "Uitbreiding van de droogkamercapaciteit in Brad",
-      "en": "Expansion of Drying Chamber Capacity in Brad",
       "de": "Erweiterung der Trockenkammerkapazität in Brad",
+      "en": "Expansion of Drying Chamber Capacity in Brad",
+      "nl": "Uitbreiding van de droogkamercapaciteit in Brad",
       "ro": "Extinderea capacității camerelor de uscare în Brad"
     },
     "content": {
-      "nl": "Om te voldoen aan de stijgende internationale vraag naar hoogwaardig FSC®-gecertificeerd beukenhout, hebben we twee nieuwe volautomatische droogkamers in gebruik genomen. Deze uitbreiding verhoogt onze totale droogcapaciteit met 15%.",
-      "en": "To meet rising international demand for high-quality FSC®-certified beechwood, we have commissioned two new fully-automated drying chambers. This expansion increases our total drying chamber capacity by 15%.",
       "de": "Um die steigende internationale Nachfrage nach hochwertigem FSC®-zertifiziertem Buchenholz zu befriedigen, haben wir zwei neue vollautomatische Trockenkammern in Betrieb genommen. Diese Erweiterung erhöht unsere gesamte Trocknungskapazität um 15 %.",
+      "en": "To meet rising international demand for high-quality FSC®-certified beechwood, we have commissioned two new fully-automated drying chambers. This expansion increases our total drying chamber capacity by 15%.",
+      "nl": "Om te voldoen aan de stijgende internationale vraag naar hoogwaardig FSC®-gecertificeerd beukenhout, hebben we twee nieuwe volautomatische droogkamers in gebruik genomen. Deze uitbreiding verhoogt onze totale droogcapaciteit met 15%.",
       "ro": "Pentru a satisface cererea internațională în creștere de lemn de fag de înaltă calitate certificat FSC®, am pus în funcțiune două noi camere de uscare complet automatizate. Această extindere mărește capacitatea noastră totală de uscare cu 15%."
     },
     "linkUrl": "/about#timeline-details",
     "linkText": {
-      "nl": "Lees onze geschiedenis",
-      "en": "Read our history",
       "de": "Unsere Geschichte lesen",
+      "en": "Read our history",
+      "nl": "Lees onze geschiedenis",
       "ro": "Citiți istoricul nostru"
     },
     "image": "/images/kilns_news.jpg",
@@ -187,35 +187,35 @@
   {
     "id": "fsc",
     "tag": {
-      "nl": "Duurzaamheid",
-      "en": "Sustainability",
       "de": "Nachhaltigkeit",
+      "en": "Sustainability",
+      "nl": "Duurzaamheid",
       "ro": "Sustenabilitate"
     },
     "date": {
-      "nl": "12 april 2026",
-      "en": "April 12, 2026",
       "de": "12. April 2026",
+      "en": "April 12, 2026",
+      "nl": "12 april 2026",
       "ro": "12 april 2026"
     },
     "author": "Ecology Lead",
     "title": {
-      "nl": "FSC® Chain of Custody Hergecertificeerd",
-      "en": "FSC® Chain of Custody Recertified",
       "de": "FSC® Chain of Custody rezertifiziert",
+      "en": "FSC® Chain of Custody Recertified",
+      "nl": "FSC® Chain of Custody Hergecertificeerd",
       "ro": "Certificare FSC® Chain of Custody Reînnoită"
     },
     "content": {
-      "nl": "Na een uitgebreide audit is ons FSC®-certificaat voor duurzaam bosbeheer en verwerking met succes verlengd. Wij garanderen een verantwoorde inkoop van al onze beukenhouten producten.",
-      "en": "Following a comprehensive audit, our FSC® certification for sustainable forest management and processing has been successfully renewed. We guarantee the responsible sourcing of all our beechwood products.",
       "de": "Nach einem umfassenden Audit wurde unser FSC®-Zertifikat für nachhaltige Waldbewirtschaftung und -verarbeitung erfolgreich verlängert. Wir garantieren die verantwortungsvolle Beschaffung aller unserer Buchenholzprodukte.",
+      "en": "Following a comprehensive audit, our FSC® certification for sustainable forest management and processing has been successfully renewed. We guarantee the responsible sourcing of all our beechwood products.",
+      "nl": "Na een uitgebreide audit is ons FSC®-certificaat voor duurzaam bosbeheer en verwerking met succes verlengd. Wij garanderen een verantwoorde inkoop van al onze beukenhouten producten.",
       "ro": "În urma unui audit cuprinzător, certificarea noastră FSC® pentru managementul durabil al pădurilor și procesare a fost reînnoită cu succes. Garantăm aprovizionarea responsabilă cu toate produsele noastre din lemn de fag."
     },
     "linkUrl": "/products",
     "linkText": {
-      "nl": "Ontdek onze producten",
-      "en": "Explore our products",
       "de": "Unsere Produkte entdecken",
+      "en": "Explore our products",
+      "nl": "Ontdek onze producten",
       "ro": "Explorați produsele noastre"
     },
     "image": "/images/hero_bg.jpg",
