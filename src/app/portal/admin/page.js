@@ -23,6 +23,10 @@ const t = {
   viewLive: { nl: 'Bekijk Live Site', en: 'View Live Site', ro: 'Vezi Site-ul Live' },
   logout: { nl: 'Uitloggen', en: 'Logout', ro: 'Deconectare' },
   syncDbBtn: { nl: 'Sync Database', en: 'Sync Database', ro: 'Sincronizare DB' },
+  exportDbBtn: { nl: 'Export naar Lokaal', en: 'Export to Local', ro: 'Export în Local' },
+  exportConfirm: { nl: 'Weet u zeker dat u de lokale bestanden wilt overschrijven met de gegevens uit de live database?', en: 'Are you sure you want to overwrite local JSON files with data from the live database?', ro: 'Sigur doriți să suprascrieți fișierele JSON locale cu datele din baza de date live?' },
+  exportSuccess: { nl: 'Lokale bestanden succesvol bijgewerkt!', en: 'Local files successfully updated!', ro: 'Fișierele locale au fost actualizate cu succes!' },
+  exportError: { nl: 'Fout bij het exporteren van de database.', en: 'Failed to export database.', ro: 'Eroare la exportul bazei de date.' },
   
   // Tabs
   vacanciesTab: { nl: 'Vacatures', en: 'Vacancies', ro: 'Locuri de muncă' },
@@ -954,6 +958,45 @@ export default function AdminPortal() {
     }
   };
 
+  const handleExportDatabase = async () => {
+    if (!confirm(t.exportConfirm[consoleLang])) return;
+    
+    setLoadingData(true);
+    try {
+      const vRes = await fetch('/api/vacancies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-passcode': passcode.trim()
+        },
+        body: JSON.stringify({ action: 'export_local' })
+      });
+      const vData = await vRes.json();
+
+      const nRes = await fetch('/api/news', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-passcode': passcode.trim()
+        },
+        body: JSON.stringify({ action: 'export_local' })
+      });
+      const nData = await nRes.json();
+
+      if (vRes.ok && nRes.ok && vData.success && nData.success) {
+        showMessage('success', t.exportSuccess[consoleLang]);
+        loadDatabase(passcode.trim());
+      } else {
+        showMessage('error', vData.error || nData.error || t.exportError[consoleLang]);
+      }
+    } catch (err) {
+      console.error(err);
+      showMessage('error', 'Network error during database export');
+    } finally {
+      setLoadingData(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fdfbf7' }}>
@@ -1193,6 +1236,26 @@ export default function AdminPortal() {
                 }}
               >
                 <i className="fa-solid fa-arrows-rotate"></i> {t.syncDbBtn[consoleLang]}
+              </button>
+
+              <button
+                onClick={handleExportDatabase}
+                disabled={loadingData}
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  color: 'var(--color-forest-dark)',
+                  padding: '0.5rem 1rem',
+                  border: '1px solid var(--color-forest-dark)',
+                  borderRadius: '6px',
+                  backgroundColor: 'transparent',
+                  cursor: loadingData ? 'not-allowed' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem'
+                }}
+              >
+                <i className="fa-solid fa-download"></i> {t.exportDbBtn[consoleLang]}
               </button>
 
               <Link href="/" target="_blank" style={{
