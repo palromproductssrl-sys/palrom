@@ -237,6 +237,26 @@ export async function POST(request) {
             return NextResponse.json({ success: true, message: 'News synced successfully' });
           }
           return NextResponse.json({ success: false, error: 'No local news items found to sync' }, { status: 400 });
+        } else if (action === 'export_local') {
+          const { data, error } = await supabase
+            .from('news')
+            .select('*');
+
+          if (error) {
+            console.error('Supabase fetch news for export error:', error);
+            throw error;
+          }
+
+          if (data) {
+            const mappedNews = data.map(mapNewsFromDb);
+            const sorted = sortNewsItems(mappedNews);
+            if (writeNews(sorted)) {
+              return NextResponse.json({ success: true, message: 'News articles exported successfully to local file' });
+            } else {
+              return NextResponse.json({ success: false, error: 'Failed to write to local file database' }, { status: 500 });
+            }
+          }
+          return NextResponse.json({ success: false, error: 'No news articles found in database to export' }, { status: 400 });
         }
       } catch (dbErr) {
         console.error('Supabase news write error:', dbErr);
@@ -297,6 +317,8 @@ export async function POST(request) {
       }
     } else if (action === 'sync_local') {
       return NextResponse.json({ success: true, message: 'Local JSON database active. No database to sync.' });
+    } else if (action === 'export_local') {
+      return NextResponse.json({ success: false, error: 'Supabase is not configured. Cannot export to local.' }, { status: 400 });
     }
 
     return NextResponse.json({ success: false, error: 'Invalid action' }, { status: 400 });
