@@ -183,6 +183,18 @@ export default function Home() {
       de: 'Unser Buchenholz ist FSC®-zertifiziert und stammt aus verantwortungsvoll bewirtschafteten lokalen Wäldern.',
       ro: 'Lemnul nostru de fag este certificat FSC® și provine din păduri locale gestionate în mod responsabil.'
     },
+    fscBadgeText: {
+      nl: 'Wij verwerken FSC®-gecertificeerd hout uit respect voor ons milieu en toekomstige generaties.',
+      en: 'We process FSC® certified timber out of respect for our environment and future generations.',
+      de: 'Wir verarbeiten FSC®-zertifiziertes Holz aus Respekt vor unserer Umwelt und zukünftigen Generationen.',
+      ro: 'Procesăm lemn certificat FSC® din respect pentru mediul nostru și generațiile viitoare.'
+    },
+    fscLinkText: {
+      nl: 'Bekijk FSC® Certificaat',
+      en: 'View FSC® Certificate',
+      de: 'FSC®-Zertifikat ansehen',
+      ro: 'Vezi Certificatul FSC®'
+    },
     customTitle: {
       nl: 'Componenten op Maat',
       en: 'Custom Components',
@@ -460,6 +472,22 @@ export default function Home() {
                   height={1024}
                   sizes="(max-width: 768px) 100vw, 600px"
                 />
+
+                {/* FSC Certificate Floating Card */}
+                <div className="homepage-fsc-card animate-on-scroll">
+                  <i className="fa-solid fa-leaf fsc-leaf-icon"></i>
+                  <p>{getTranslation('fscBadgeText')}</p>
+                  <a
+                    href="/palrom_fsc_certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="fsc-link"
+                  >
+                    <i className="fa-solid fa-file-pdf"></i>{' '}
+                    {getTranslation('fscLinkText')}
+                  </a>
+                </div>
+
                 <div className="stats-badge">
                   <span className="stat-number">25+</span>
                   <span className="stat-text">{getTranslation('statsText')}</span>
