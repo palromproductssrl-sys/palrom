@@ -212,6 +212,7 @@ export async function GET(request) {
     let configuratorEvents = [];
     let chatbotConversations = [];
     let quoteInquiries = [];
+    let dbStatus = { connected: false, type: 'local_json' };
 
     if (hasPostgres || process.env.VERCEL) {
       try {
@@ -224,9 +225,16 @@ export async function GET(request) {
         configuratorEvents = ce || [];
         chatbotConversations = cc || [];
         quoteInquiries = qi || [];
+        dbStatus = { connected: true, type: 'postgres' };
       } catch (dbErr) {
-        console.error('Vercel Postgres fetch telemetry error:', dbErr);
-        throw dbErr;
+        console.error('Vercel Postgres fetch telemetry error, falling back to local files:', dbErr);
+        // Fetch from local JSON fallbacks
+        const local = readLocalTelemetry();
+        pageViews = local.pageViews;
+        configuratorEvents = local.configuratorEvents;
+        chatbotConversations = local.chatbotConversations;
+        quoteInquiries = readLocalInquiries();
+        dbStatus = { connected: false, type: 'postgres_failed', error: dbErr.message };
       }
     } else {
       // Fetch from local JSON fallbacks
@@ -235,12 +243,13 @@ export async function GET(request) {
       configuratorEvents = local.configuratorEvents;
       chatbotConversations = local.chatbotConversations;
       quoteInquiries = readLocalInquiries();
+      dbStatus = { connected: false, type: 'local_json' };
     }
 
     // Run custom map-reduce aggregates in JS
     const aggregated = aggregateStats(pageViews, configuratorEvents, chatbotConversations, quoteInquiries);
 
-    return NextResponse.json({ success: true, stats: aggregated });
+    return NextResponse.json({ success: true, stats: aggregated, dbStatus });
 
   } catch (err) {
     console.error('Analytics aggregation error:', err);
