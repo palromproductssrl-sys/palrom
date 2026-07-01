@@ -277,7 +277,8 @@ function aggregateStats(pageViews, configuratorEvents, chatbotConversations, quo
     viewsByLang[l] = (viewsByLang[l] || 0) + 1;
 
     if (pv.created_at) {
-      const day = pv.created_at.substring(0, 10);
+      const dateStr = typeof pv.created_at === 'string' ? pv.created_at : pv.created_at.toISOString();
+      const day = dateStr.substring(0, 10);
       viewsByDay[day] = (viewsByDay[day] || 0) + 1;
     }
 
