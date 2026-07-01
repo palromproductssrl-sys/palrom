@@ -297,7 +297,12 @@ export default function AdminPortal() {
         // Just pre-fetch stats in background so switching is instant
         fetch('/api/telemetry', { headers: { 'x-admin-passcode': cleanPass } })
           .then(res => res.json())
-          .then(data => { if (data.success) setStats(data.stats); })
+          .then(data => {
+            if (data.success) {
+              setStats(data.stats);
+              setDbStatus(data.dbStatus || { connected: false, type: 'checking' });
+            }
+          })
           .catch(() => {});
       }
 
