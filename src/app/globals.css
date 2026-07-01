@@ -1563,6 +1563,10 @@ ul {
     font-size: 0.8rem;
 }
 
+.footer-bottom p {
+    margin: 0;
+}
+
 .footer-bottom-flex {
     display: flex;
     justify-content: space-between;
@@ -1575,6 +1579,18 @@ ul {
     gap: 1rem;
 }
 
+.version-tag {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+}
+
 .footer-meta-links a {
     color: rgba(255, 255, 255, 0.5);
 }
@@ -1585,6 +1601,19 @@ ul {
 
 .footer-meta-links .divider {
     color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom-flex {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+    }
+    .footer-meta-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+    }
 }
 
 /* 13. GDPR Cookie Consent Popup Modal */
