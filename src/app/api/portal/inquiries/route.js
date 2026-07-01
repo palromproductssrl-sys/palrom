@@ -1,19 +1,9 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { sql } from '@vercel/postgres';
 import fs from 'fs';
 import path from 'path';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-let supabase = null;
-if (supabaseUrl && supabaseKey) {
-  try {
-    supabase = createClient(supabaseUrl, supabaseKey);
-  } catch (err) {
-    console.error('Failed to initialize Supabase client:', err);
-  }
-}
+const hasPostgres = !!process.env.POSTGRES_URL || !!process.env.POSTGRES_URL_NON_POOLING;
 
 export async function GET(request) {
   try {
@@ -38,18 +28,16 @@ export async function GET(request) {
 
     let inquiries = [];
 
-    if (supabase) {
-      // Fetch matching inquiries from Supabase sorted by created_at desc
-      const { data, error } = await supabase
-        .from('quote_inquiries')
-        .select('*')
-        .eq('client_email', authEmail)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Supabase query error fetching inquiries:', error);
-      } else {
-        inquiries = data || [];
+    if (hasPostgres || process.env.VERCEL) {
+      try {
+        const { rows } = await sql`
+          SELECT * FROM quote_inquiries
+          WHERE client_email = ${authEmail}
+          ORDER BY created_at DESC;
+        `;
+        inquiries = rows || [];
+      } catch (dbErr) {
+        console.error('Vercel Postgres query error fetching inquiries:', dbErr);
       }
     } else {
       // Fallback to local inquiries file
