@@ -603,11 +603,11 @@ export async function POST(request) {
         }[emailLang] || 'Bedankt voor uw offerteaanvraag. We hebben uw specificaties in goede orde ontvangen.';
 
         const clientReassurance = {
-          nl: 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.',
+          nl: 'Een medewerker van ons kantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.',
           en: 'A team member from our headquarters in Brad (Romania) will review your request. You will receive a detailed B2B price quote within 24 hours.',
           de: 'Ein Mitarbeiter unserer Zentrale in Brad (Rumänien) will Ihre Anfrage prüfen. Sie erhalten innerhalb von 24 Stunden ein detailliertes B2B-Preisangebot.',
           ro: 'Un membru al echipei de la sediul nostru central din Brad (România) va analiza solicitarea. Veți primi o ofertă de preț detaliată B2B în termen de 24 de ore.'
-        }[emailLang] || 'Een medewerker van ons hoofdkantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.';
+        }[emailLang] || 'Een medewerker van ons kantoor in Brad (Roemenië) zal uw aanvraag beoordelen. U ontvangt binnen 24 uur een gedetailleerde B2B-prijsopgave.';
 
         const clientTitleItems = {
           nl: 'Aangevraagde Producten',
