@@ -197,10 +197,10 @@ const translations = {
 
   // PAL replies
   welcomeMessage: {
-    nl: 'Hallo! Ik ben **PAL**, uw virtuele B2B salesadviseur. We starten standaard met het configureren van **beukenhouten blanks (blanks)**. Wilt u hiermee starten, of zoekt u een ander producttype (zoals **latten**, **stokken**, **profielen** of **bestekken**)?',
-    en: 'Hello! I am **PAL**, your virtual B2B sales advisor. We start by default with configuring **beechwood blanks**. Would you like to start with this, or are you looking for another product type (such as **slats**, **sticks/dowels**, **profiles** or **specials**)?',
-    de: 'Hallo! Ich bin **PAL**, Ihr virtueller B2B-Verkaufsberater. Wir beginnen standardmäßig mit der Konfiguration von **Buchenholz-Blanks**. Möchten Sie damit beginnen, oder suchen Sie einen anderen Produkttyp (wie **Leisten**, **Rundstäbe**, **Profile** oder **Zuschnitte**)?',
-    ro: 'Bună! Sunt **PAL**, consilierul dvs. virtual de vânzări B2B. Începem implicit cu configurarea **pieselor brute din fag (blanks)**. Doriți să începem cu acestea, sau căutați un alt tip de produs (cum ar fi **șipci**, **tije**, **profile** sau **piese speciale**)?'
+    nl: 'Hallo! Ik ben PAL, uw virtuele B2B salesadviseur. We starten standaard met het configureren van beukenhouten blanks (blanks). Wilt u hiermee starten, of zoekt u een ander producttype (zoals latten, stokken, profielen of bestekken)?',
+    en: 'Hello! I am PAL, your virtual B2B sales advisor. We start by default with configuring beechwood blanks. Would you like to start with this, or are you looking for another product type (such as slats, sticks/dowels, profiles or specials)?',
+    de: 'Hallo! Ich bin PAL, Ihr virtueller B2B-Verkaufsberater. Wir beginnen standardmäßig mit der Konfiguration von Buchenholz-Blanks. Möchten Sie damit beginnen, oder suchen Sie einen anderen Produkttyp (wie Leisten, Rundstäbe, Profile oder Zuschnitte)?',
+    ro: 'Bună! Sunt PAL, consilierul dvs. virtual de vânzări B2B. Începem implicit cu configurarea pieselor brute din fag (blanks). Doriți să începem cu acestea, sau căutați un alt tip de produs (cum ar fi șipci, tije, profile sau piese speciale)?'
   },
   understandConfirmation: {
     nl: 'Ik heb de volgende specificaties gedetecteerd en bijgewerkt:',
