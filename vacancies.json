@@ -1,18 +1,18 @@
 [
   {
-    "id": "sawmill",
-    "created_at": "2026-06-30T12:48:14.020102+00:00",
+    "id": "maintenance",
+    "created_at": "2026-07-01T08:46:20.023Z",
     "title": {
-      "de": "Sägewerksführer / Holzbearbeiter",
-      "en": "Sawmill Operator / Woodworker",
-      "nl": "Zagerij Operator / Houtbewerker",
-      "ro": "Operator Gater / Muncitor Debitator"
+      "de": "Wartungsmechaniker / Maschinenschlosser",
+      "en": "Maintenance Mechanic / Millwright",
+      "nl": "Onderhoudsmonteur / Werktuigbouwkundige",
+      "ro": "Mecanic Întreținere"
     },
     "department": {
-      "de": "Produktion",
-      "en": "Production",
-      "nl": "Productie",
-      "ro": "Producție"
+      "de": "Instandhaltung",
+      "en": "Maintenance",
+      "nl": "Onderhoud",
+      "ro": "Întreținere"
     },
     "location": "Brad, RO",
     "type": {
@@ -22,47 +22,100 @@
       "ro": "Normă Întreagă"
     },
     "description": {
-      "de": "Verantwortlich für die Bedienung primärer Sägelinien und Blockbandsägen zur Verarbeitung von Buchenrundholz zu Brettern und Blanks. Sie überwachen die Maßhaltigkeit und sichern den Materialfluss für das Hobelwerk.",
-      "en": "Responsible for operating primary sawing lines and log breakdown systems to process raw beechwood logs into boards and blanks. You monitor dimensions and ensure a steady flow of quality timber for the planing mill.",
-      "nl": "Verantwoordelijk voor het bedienen van de primaire zaaglijnen en gaters om ruwe beukenstammen te verwerken tot planken en blanks. Je bewaakt de maatvoering en zorgt voor een constante aanvoer van kwalitatief beukenhout voor de schaverij.",
-      "ro": "Responsabil pentru operarea liniilor primare de tăiere și a gaterelor pentru a procesa buștenii de fag brut în scânduri și piese brute. Monitorizați dimensiunile și asigurați un flux constant de cherestea de calitate pentru fabrica de rindeluire."
+      "de": "Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.",
+      "en": "Perform mechanical preventive maintenance and emergency troubleshooting on our automated drying chamber systems, sawmill blades, dust extraction blowers, and profiling machinery.",
+      "nl": "Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.",
+      "ro": "Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat."
     },
     "requirements": {
       "de": [
-        "Vorherige Erfahrung in der Bedienung von Sägewerksmaschinen (wie Bandsägen oder Blockbandsägen) ist erwünscht.",
-        "Körperlich belastbar und bereit für die Arbeit in einem aktiven Produktionsbetrieb.",
-        "Strikte Einhaltung von Sicherheitsvorschriften und Fokus auf Maßhaltigkeit.",
-        "Teamplayer, der flexibel zwischen verschiedenen Sägestationen wechseln kann."
+        "Berufsqualifikation als Maschinenschlosser, Industriemechaniker oder Instandhaltungsmechaniker.",
+        "Erfahrung bei der Reparatur von Lagern, Getrieben, Riemen und Hydraulikzylindern.",
+        "Fähigkeit, technische Layouts zu lesen und Maschinenstörungen zu beheben."
       ],
       "en": [
-        "Prior experience operating sawmill machinery (such as band saws or log breakdowns) is highly valued.",
-        "Physically fit and able to work in an active manufacturing environment.",
-        "Strict adherence to industrial safety protocols and dimensional accuracy.",
-        "Team player who can flexibly switch between different sawing workstations."
+        "Professional qualification as a mechanical technician, fitter, or millwright.",
+        "Experience repairing bearings, gearboxes, belts, and hydraulic cylinders.",
+        "Ability to read technical layouts and troubleshoot machine breakdowns."
       ],
       "nl": [
-        "Voorafgaande ervaring met het bedienen van zagerijmachines (zoals lintzagen of gaters) is een pré.",
-        "Fysiek sterk en in staat om in een actieve productieomgeving te werken.",
-        "Aandacht voor veiligheidsvoorschriften en nauwkeurige maatvoering.",
-        "Teamspeler die flexibel kan schakelen tussen verschillende werkstations."
+        "Professionele kwalificatie als werktuigbouwkundige of onderhoudsmonteur.",
+        "Ervaring met het repareren van lagers, tandwielkasten, riemen en hydraulische cilinders.",
+        "Vermogen om technische lay-outs te lezen en machinestoringen snel op te lossen."
       ],
       "ro": [
-        "Experiența anterioară în operarea utilajelor de gater (cum ar fi ferăstraie cu bandă / băncuțe) este foarte apreciată.",
-        "Capacitate fizică bună și rezistență la lucru în mediu de producție activ.",
-        "Atenție deosebită la normele de protecție a muncii și la precizia debitării.",
-        "Abilitatea de a lucra în echipă și de a fi flexibil în atribuțiile zilnice."
+        "Calificare profesională de tehnician mecanic, montator sau lăcătuș mecanic.",
+        "Experiență în repararea rulmenților, cutiilor de viteze, curelelor și cilindrilor hidraulici.",
+        "Capacitatea de a citi scheme tehnice și de a depana defecțiunile utilajelor."
       ]
     },
     "salary": {
-      "de": "Wettbewerbsfähiges Gehalt + Überstunden",
-      "en": "Competitive Pay + Overtime",
-      "nl": "Concurrerend salaris + Overuren",
-      "ro": "Salariu Competitiv + Ore Suplimentare"
+      "de": "Spitzengehalt + Überstunden",
+      "en": "Top-Tier Salary + Overtime",
+      "nl": "Top-salaris + Overuren",
+      "ro": "Salariu de Top + Ore Suplimentare"
+    }
+  },
+  {
+    "id": "quality",
+    "created_at": "2026-07-01T08:46:19.927Z",
+    "title": {
+      "de": "Qualitäts- und Mängelprüfer",
+      "en": "Quality & Defect Inspector",
+      "nl": "Inspecteur Kwaliteitscontrole & Sortering",
+      "ro": "Inspector Calitate & Defecte"
+    },
+    "department": {
+      "de": "Qualitätskontrolle",
+      "en": "Quality Control",
+      "nl": "Kwaliteitscontrole",
+      "ro": "Controlul Calității"
+    },
+    "location": "Brad, RO",
+    "type": {
+      "de": "Vollzeit",
+      "en": "Full-Time",
+      "nl": "Fulltime",
+      "ro": "Normă Întreagă"
+    },
+    "description": {
+      "de": "Visuelle und physische Inspektion fertiger Holzdübel, Bretter und maßgeschneiderter Möbelelemente. Aussortieren natürlicher Äste, Risse und Sortieranomalien, um sicherzustellen, dass die Kundenspezifikationen erfüllt werden.",
+      "en": "Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.",
+      "nl": "Visuele en fysieke inspectie van afgewerkte houten deuvels, planken en op maat gemaakte meubelcomponenten. Sorteren van natuurlijke noesten, scheuren en sorteerafwijkingen om te garanderen dat aan de specificaties van de klant wordt voldaan.",
+      "ro": "Inspecția vizuală și fizică a diblurilor finisate din lemn, scândurilor și elementelor de mobilier personalizate. Sortarea nodurilor naturale, a crăpăturilor și a anomaliilor de clasificare pentru a se asigura că specificațiile clientului sunt îndeplinite."
+    },
+    "requirements": {
+      "de": [
+        "Ausgeprägte Beobachtungsgabe und Vertrautheit mit den Standard-Holzqualitäten (A, B, C).",
+        "Zuverlässigkeit, Geduld und die Fähigkeit, Mängelprotokolle zu führen.",
+        "FSC® Chain-of-Custody-Dokumentationsschulung ist ein Plus (wird intern angeboten)."
+      ],
+      "en": [
+        "Strong observation skills and familiarity with standard timber grades (A, B, C).",
+        "Reliability, patience, and ability to document defect logs.",
+        "FSC® chain-of-custody documentation training is a plus (provided in-house)."
+      ],
+      "nl": [
+        "Sterke observatievaardigheden en bekendheid met standaard houtklassen (A, B, C).",
+        "Betrouwbaarheid, geduld en het vermogen om defectenlogboeken bij te houden.",
+        "Ervaring met FSC® Chain of Custody-documentatie is een pluspunt (interne training aanwezig)."
+      ],
+      "ro": [
+        "Abilități puternice de observare și familiaritate cu clasele standard de cherestea (A, B, C).",
+        "Fiabilitate, răbdare și capacitatea de a documenta jurnalele de defecte.",
+        "Instruirea în documentarea FSC® chain-of-custody reprezintă un avantaj (oferită intern)."
+      ]
+    },
+    "salary": {
+      "de": "Festgehalt",
+      "en": "Stable Salary",
+      "nl": "Vast salaris",
+      "ro": "Salariu Stabil"
     }
   },
   {
     "id": "planing",
-    "created_at": "2026-06-23T11:41:19.38849+00:00",
+    "created_at": "2026-07-01T08:46:19.832Z",
     "title": {
       "de": "Hobelmaschinenführer",
       "en": "Planing Machine Operator",
@@ -119,19 +172,19 @@
     }
   },
   {
-    "id": "quality",
-    "created_at": "2026-06-23T11:41:19.38849+00:00",
+    "id": "sawmill",
+    "created_at": "2026-07-01T08:46:19.636Z",
     "title": {
-      "de": "Qualitäts- und Mängelprüfer",
-      "en": "Quality & Defect Inspector",
-      "nl": "Inspecteur Kwaliteitscontrole & Sortering",
-      "ro": "Inspector Calitate & Defecte"
+      "de": "Sägewerksführer / Holzbearbeiter",
+      "en": "Sawmill Operator / Woodworker",
+      "nl": "Zagerij Operator / Houtbewerker",
+      "ro": "Operator Gater / Muncitor Debitator"
     },
     "department": {
-      "de": "Qualitätskontrolle",
-      "en": "Quality Control",
-      "nl": "Kwaliteitscontrole",
-      "ro": "Controlul Calității"
+      "de": "Produktion",
+      "en": "Production",
+      "nl": "Productie",
+      "ro": "Producție"
     },
     "location": "Brad, RO",
     "type": {
@@ -141,95 +194,42 @@
       "ro": "Normă Întreagă"
     },
     "description": {
-      "de": "Visuelle und physische Inspektion fertiger Holzdübel, Bretter und maßgeschneiderter Möbelelemente. Aussortieren natürlicher Äste, Risse und Sortieranomalien, um sicherzustellen, dass die Kundenspezifikationen erfüllt werden.",
-      "en": "Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.",
-      "nl": "Visuele en fysieke inspectie van afgewerkte houten deuvels, planken en op maat gemaakte meubelcomponenten. Sorteren van natuurlijke noesten, scheuren en sorteerafwijkingen om te garanderen dat aan de specificaties van de klant wordt voldaan.",
-      "ro": "Inspecția vizuală și fizică a diblurilor finisate din lemn, scândurilor și elementelor de mobilier personalizate. Sortarea nodurilor naturale, a crăpăturilor și a anomaliilor de clasificare pentru a se asigura că specificațiile clientului sunt îndeplinite."
+      "de": "Verantwortlich für die Bedienung primärer Sägelinien und Blockbandsägen zur Verarbeitung von Buchenrundholz zu Brettern und Blanks. Sie überwachen die Maßhaltigkeit und sichern den Materialfluss für das Hobelwerk.",
+      "en": "Responsible for operating primary sawing lines and log breakdown systems to process raw beechwood logs into boards and blanks. You monitor dimensions and ensure a steady flow of quality timber for the planing mill.",
+      "nl": "Verantwoordelijk voor het bedienen van de primaire zaaglijnen en gaters om ruwe beukenstammen te verwerken tot planken en blanks. Je bewaakt de maatvoering en zorgt voor een constante aanvoer van kwalitatief beukenhout voor de schaverij.",
+      "ro": "Responsabil pentru operarea liniilor primare de tăiere și a gaterelor pentru a procesa buștenii de fag brut în scânduri și piese brute. Monitorizați dimensiunile și asigurați un flux constant de cherestea de calitate pentru fabrica de rindeluire."
     },
     "requirements": {
       "de": [
-        "Ausgeprägte Beobachtungsgabe und Vertrautheit mit den Standard-Holzqualitäten (A, B, C).",
-        "Zuverlässigkeit, Geduld und die Fähigkeit, Mängelprotokolle zu führen.",
-        "FSC® Chain-of-Custody-Dokumentationsschulung ist ein Plus (wird intern angeboten)."
+        "Vorherige Erfahrung in der Bedienung von Sägewerksmaschinen (wie Bandsägen oder Blockbandsägen) ist erwünscht.",
+        "Körperlich belastbar und bereit für die Arbeit in einem aktiven Produktionsbetrieb.",
+        "Strikte Einhaltung von Sicherheitsvorschriften und Fokus auf Maßhaltigkeit.",
+        "Teamplayer, der flexibel zwischen verschiedenen Sägestationen wechseln kann."
       ],
       "en": [
-        "Strong observation skills and familiarity with standard timber grades (A, B, C).",
-        "Reliability, patience, and ability to document defect logs.",
-        "FSC® chain-of-custody documentation training is a plus (provided in-house)."
+        "Prior experience operating sawmill machinery (such as band saws or log breakdowns) is highly valued.",
+        "Physically fit and able to work in an active manufacturing environment.",
+        "Strict adherence to industrial safety protocols and dimensional accuracy.",
+        "Team player who can flexibly switch between different sawing workstations."
       ],
       "nl": [
-        "Sterke observatievaardigheden en bekendheid met standaard houtklassen (A, B, C).",
-        "Betrouwbaarheid, geduld en het vermogen om defectenlogboeken bij te houden.",
-        "Ervaring met FSC® Chain of Custody-documentatie is een pluspunt (interne training aanwezig)."
+        "Voorafgaande ervaring met het bedienen van zagerijmachines (zoals lintzagen of gaters) is een pré.",
+        "Fysiek sterk en in staat om in een actieve productieomgeving te werken.",
+        "Aandacht voor veiligheidsvoorschriften en nauwkeurige maatvoering.",
+        "Teamspeler die flexibel kan schakelen tussen verschillende werkstations."
       ],
       "ro": [
-        "Abilități puternice de observare și familiaritate cu clasele standard de cherestea (A, B, C).",
-        "Fiabilitate, răbdare și capacitatea de a documenta jurnalele de defecte.",
-        "Instruirea în documentarea FSC® chain-of-custody reprezintă un avantaj (oferită intern)."
+        "Experiența anterioară în operarea utilajelor de gater (cum ar fi ferăstraie cu bandă / băncuțe) este foarte apreciată.",
+        "Capacitate fizică bună și rezistență la lucru în mediu de producție activ.",
+        "Atenție deosebită la normele de protecție a muncii și la precizia debitării.",
+        "Abilitatea de a lucra în echipă și de a fi flexibil în atribuțiile zilnice."
       ]
     },
     "salary": {
-      "de": "Festgehalt",
-      "en": "Stable Salary",
-      "nl": "Vast salaris",
-      "ro": "Salariu Stabil"
-    }
-  },
-  {
-    "id": "maintenance",
-    "created_at": "2026-06-23T11:41:19.38849+00:00",
-    "title": {
-      "de": "Wartungsmechaniker / Maschinenschlosser",
-      "en": "Maintenance Mechanic / Millwright",
-      "nl": "Onderhoudsmonteur / Werktuigbouwkundige",
-      "ro": "Mecanic Întreținere"
-    },
-    "department": {
-      "de": "Instandhaltung",
-      "en": "Maintenance",
-      "nl": "Onderhoud",
-      "ro": "Întreținere"
-    },
-    "location": "Brad, RO",
-    "type": {
-      "de": "Vollzeit",
-      "en": "Full-Time",
-      "nl": "Fulltime",
-      "ro": "Normă Întreagă"
-    },
-    "description": {
-      "de": "Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.",
-      "en": "Perform mechanical preventive maintenance and emergency troubleshooting on our automated drying chamber systems, sawmill blades, dust extraction blowers, and profiling machinery.",
-      "nl": "Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.",
-      "ro": "Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat."
-    },
-    "requirements": {
-      "de": [
-        "Berufsqualifikation als Maschinenschlosser, Industriemechaniker oder Instandhaltungsmechaniker.",
-        "Erfahrung bei der Reparatur von Lagern, Getrieben, Riemen und Hydraulikzylindern.",
-        "Fähigkeit, technische Layouts zu lesen und Maschinenstörungen zu beheben."
-      ],
-      "en": [
-        "Professional qualification as a mechanical technician, fitter, or millwright.",
-        "Experience repairing bearings, gearboxes, belts, and hydraulic cylinders.",
-        "Ability to read technical layouts and troubleshoot machine breakdowns."
-      ],
-      "nl": [
-        "Professionele kwalificatie als werktuigbouwkundige of onderhoudsmonteur.",
-        "Ervaring met het repareren van lagers, tandwielkasten, riemen en hydraulische cilinders.",
-        "Vermogen om technische lay-outs te lezen en machinestoringen snel op te lossen."
-      ],
-      "ro": [
-        "Calificare profesională de tehnician mecanic, montator sau lăcătuș mecanic.",
-        "Experiență în repararea rulmenților, cutiilor de viteze, curelelor și cilindrilor hidraulici.",
-        "Capacitatea de a citi scheme tehnice și de a depana defecțiunile utilajelor."
-      ]
-    },
-    "salary": {
-      "de": "Spitzengehalt + Überstunden",
-      "en": "Top-Tier Salary + Overtime",
-      "nl": "Top-salaris + Overuren",
-      "ro": "Salariu de Top + Ore Suplimentare"
+      "de": "Wettbewerbsfähiges Gehalt + Überstunden",
+      "en": "Competitive Pay + Overtime",
+      "nl": "Concurrerend salaris + Overuren",
+      "ro": "Salariu Competitiv + Ore Suplimentare"
     }
   }
 ]
