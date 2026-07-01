@@ -1,20 +1,10 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { sql } from '@vercel/postgres';
 import fs from 'fs';
 import path from 'path';
 import { generatePdfBuffer } from '../../inquire/route';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-let supabase = null;
-if (supabaseUrl && supabaseKey) {
-  try {
-    supabase = createClient(supabaseUrl, supabaseKey);
-  } catch (err) {
-    console.error('Failed to initialize Supabase client:', err);
-  }
-}
+const hasPostgres = !!process.env.POSTGRES_URL || !!process.env.POSTGRES_URL_NON_POOLING;
 
 const VALID_PASSCODES = ['palromadmin2026', 'admin2026'];
 function getAdminPasscode() {
@@ -53,18 +43,16 @@ export async function GET(request) {
 
     let inquiry = null;
 
-    if (supabase) {
-      // Fetch the single inquiry from Supabase
-      const { data, error } = await supabase
-        .from('quote_inquiries')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
-
-      if (error) {
-        console.error('Supabase query error fetching inquiry for PDF:', error);
-      } else {
-        inquiry = data;
+    if (hasPostgres || process.env.VERCEL) {
+      try {
+        const { rows } = await sql`
+          SELECT * FROM quote_inquiries
+          WHERE id = ${id}
+          LIMIT 1;
+        `;
+        inquiry = rows[0] || null;
+      } catch (dbErr) {
+        console.error('Vercel Postgres query error fetching inquiry for PDF:', dbErr);
       }
     }
 
