@@ -130,6 +130,7 @@ export default function AdminPortal() {
   const [stats, setStats] = useState(null);
   const [statsLoading, setStatsLoading] = useState(false);
   const [statsError, setStatsError] = useState(null);
+  const [dbStatus, setDbStatus] = useState(null);
 
   // Alerts
   const [alert, setAlert] = useState(null); // { type: 'success'|'error', text: '' }
@@ -246,6 +247,7 @@ export default function AdminPortal() {
       const data = await res.json();
       if (res.ok && data.success) {
         setStats(data.stats);
+        setDbStatus(data.dbStatus || { connected: false, type: 'checking' });
       } else {
         setStatsError(data.error || 'Failed to load statistics');
       }
@@ -1193,6 +1195,46 @@ export default function AdminPortal() {
               </h1>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              {/* Database Status Indicator */}
+              {dbStatus && (
+                <div 
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.4rem 0.8rem',
+                    borderRadius: '50px',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    backgroundColor: dbStatus.connected ? '#ecfdf5' : '#fff7ed',
+                    border: `1px solid ${dbStatus.connected ? '#d1fae5' : '#ffedd5'}`,
+                    color: dbStatus.connected ? '#065f46' : '#c2410c',
+                    cursor: 'help'
+                  }}
+                  title={
+                    dbStatus.connected 
+                      ? (consoleLang === 'ro' ? 'Conexiune la baza de date activă (Vercel Postgres)' : consoleLang === 'nl' ? 'Databaseverbinding is actief (Vercel Postgres)' : 'Database connection is active (Vercel Postgres)')
+                      : (dbStatus.error 
+                          ? `${consoleLang === 'ro' ? 'Eroare bază de date' : consoleLang === 'nl' ? 'Database fout' : 'Database error'}: ${dbStatus.error}`
+                          : (consoleLang === 'ro' ? 'Mod local: se utilizează fișiere JSON locale' : consoleLang === 'nl' ? 'Lokale modus: lokale JSON-bestanden worden gebruikt' : 'Local mode: using local JSON files'))
+                  }
+                >
+                  <span style={{
+                    width: '7px',
+                    height: '7px',
+                    borderRadius: '50%',
+                    backgroundColor: dbStatus.connected ? '#10b981' : '#f97316',
+                    display: 'inline-block'
+                  }}></span>
+                  <span>
+                    {dbStatus.connected 
+                      ? (consoleLang === 'ro' ? 'Baza de date Live' : consoleLang === 'nl' ? 'Database Live' : 'Database Live') 
+                      : (consoleLang === 'ro' ? 'Mod Local (JSON)' : consoleLang === 'nl' ? 'Lokale Modus (JSON)' : 'Local Mode (JSON)')
+                    }
+                  </span>
+                </div>
+              )}
+
               {/* Console Language Switcher */}
               <div style={{ display: 'flex', gap: '0.2rem', backgroundColor: '#cbd5e1', padding: '0.2rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}>
                 {['nl', 'en', 'ro'].map(l => (
