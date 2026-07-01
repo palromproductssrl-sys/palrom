@@ -1996,6 +1996,27 @@ ul {
     color: var(--color-forest-dark) !important;
 }
 
+.team-phone-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--color-forest-dark);
+    color: var(--color-forest-dark) !important;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+}
+
+.team-phone-btn:hover {
+    background-color: var(--color-forest-dark);
+    color: var(--color-bg-white) !important;
+}
+
 /* Product Grid centering when filtered */
 .product-grid {
     display: flex !important;
