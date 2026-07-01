@@ -2541,30 +2541,104 @@ export default function OpenChatConfigurator() {
                     >
                       <span>👍</span> {lang === 'nl' ? 'Ja, start met blanks' : (lang === 'ro' ? 'Da, începe cu blanks' : (lang === 'de' ? 'Ja, beginne mit Blanks' : 'Yes, start with blanks'))}
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => handleChipClick(
-                        lang === 'nl' ? 'Nee, kies ander product' : (lang === 'ro' ? 'Nu, alege alt produs' : (lang === 'de' ? 'Nein, wähle ein anderes Produkt' : 'No, choose other product')),
-                        lang === 'nl' ? 'welke andere producten zijn er?' : (lang === 'ro' ? 'ce alte produse exista?' : (lang === 'de' ? 'welche anderen produkte gibt es?' : 'what other products are there?'))
-                      )}
-                      style={{
-                        padding: '0.5rem 1.1rem',
-                        backgroundColor: '#ffffff',
-                        border: '1.5px solid #cbd5e1',
-                        color: 'var(--color-text-dark)',
-                        borderRadius: '30px',
-                        fontSize: '0.85rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.4rem'
-                      }}
-                    >
-                      <span>✏️</span> {lang === 'nl' ? 'Nee, kies ander product' : (lang === 'ro' ? 'Nu, alege alt produs' : (lang === 'de' ? 'Nein, wähle ein anderes Produkt' : 'No, choose other product'))}
-                    </button>
+                    {[
+                      {
+                        id: 'latten',
+                        emoji: '📏',
+                        nl: 'Kies latten',
+                        en: 'Choose slats',
+                        de: 'Wähle Leisten',
+                        ro: 'Alege șipci',
+                        query: {
+                          nl: 'ik wil latten configureren',
+                          en: 'i want to configure slats',
+                          de: 'ich möchte leisten konfigurieren',
+                          ro: 'vreau sa configurez sipci'
+                        }
+                      },
+                      {
+                        id: 'stokken',
+                        emoji: '🥖',
+                        nl: 'Kies stokken',
+                        en: 'Choose rods',
+                        de: 'Wähle Rundstäbe',
+                        ro: 'Alege tije',
+                        query: {
+                          nl: 'ik wil stokken configureren',
+                          en: 'i want to configure sticks',
+                          de: 'ich möchte rundstäbe konfigurieren',
+                          ro: 'vreau sa configurez tije'
+                        }
+                      },
+                      {
+                        id: 'profielen',
+                        emoji: '🪵',
+                        nl: 'Kies profielen',
+                        en: 'Choose profiles',
+                        de: 'Wähle Profile',
+                        ro: 'Alege profile',
+                        query: {
+                          nl: 'ik wil profielen configureren',
+                          en: 'i want to configure profiles',
+                          de: 'ich möchte profile konfigurieren',
+                          ro: 'vreau sa configurez profile'
+                        }
+                      },
+                      {
+                        id: 'specials',
+                        emoji: '🧩',
+                        nl: 'Kies bestekken',
+                        en: 'Choose specials',
+                        de: 'Wähle Zuschnitte',
+                        ro: 'Alege piese speciale',
+                        query: {
+                          nl: 'ik wil bestekken configureren',
+                          en: 'i want to configure specials',
+                          de: 'ich möchte zuschnitte konfigurieren',
+                          ro: 'vreau sa configurez piese speciale'
+                        }
+                      },
+                      {
+                        id: 'brichete',
+                        emoji: '🔥',
+                        nl: 'Kies briketten',
+                        en: 'Choose briquettes',
+                        de: 'Wähle Briketts',
+                        ro: 'Alege brichete',
+                        query: {
+                          nl: 'ik wil briketten configureren',
+                          en: 'i want to configure briquettes',
+                          de: 'ich möchte briketts konfigurieren',
+                          ro: 'vreau sa configurez brichete'
+                        }
+                      }
+                    ].map((prod) => (
+                      <button
+                        key={prod.id}
+                        type="button"
+                        onClick={() => handleChipClick(
+                          prod[lang] || prod.nl,
+                          prod.query[lang] || prod.query.nl
+                        )}
+                        style={{
+                          padding: '0.5rem 1.1rem',
+                          backgroundColor: '#ffffff',
+                          border: '1.5px solid #cbd5e1',
+                          color: 'var(--color-text-dark)',
+                          borderRadius: '30px',
+                          fontSize: '0.85rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.04)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.4rem'
+                        }}
+                      >
+                        <span>{prod.emoji}</span> {prod[lang] || prod.nl}
+                      </button>
+                    ))}
                   </div>
                 )}
 
