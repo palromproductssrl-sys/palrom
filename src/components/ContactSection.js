@@ -209,13 +209,13 @@ export default function ContactSection() {
       ro: 'Solicitați o ofertă directă'
     },
     contactDesc: {
-      nl: 'Wij reageren binnen 24 uur. Neem direct contact op met ons hoofdkantoor in Brad of vul het contactformulier in voor een snelle, vrijblijvende prijsopgave.',
+      nl: 'Wij reageren binnen 24 uur. Neem direct contact op met ons kantoor in Brad of vul het contactformulier in voor een snelle, vrijblijvende prijsopgave.',
       en: 'We reply within 24 hours. Contact our Brad headquarters directly or fill out the contact form for a quick, non-binding quote.',
       de: 'Wir antworten innerhalb von 24 Stunden. Kontaktieren Sie unsere Zentrale in Brad direkt oder füllen Sie das Kontaktformular aus für ein schnelles, unverbindliches Angebot.',
       ro: 'Răspundem în termen de 24 de ore. Contactați sediul nostru din Brad direct sau completați formularul de contact pentru o ofertă rapidă, fără obligații.'
     },
     hqSawmill: {
-      nl: 'Hoofdkantoor & Zagerij',
+      nl: 'Kantoor & Zagerij',
       en: 'Headquarters & Sawmill',
       de: 'Hauptsitz & Sägewerk',
       ro: 'Sediu Central & Gater'
