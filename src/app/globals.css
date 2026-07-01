@@ -1330,9 +1330,15 @@ ul {
     transform: scale(1.2);
 }
 
-/* 11. Contact Us Page Styles */
 .contact-section .grid-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 992px) {
+    .contact-section .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
 }
 
 .contact-details-list {
