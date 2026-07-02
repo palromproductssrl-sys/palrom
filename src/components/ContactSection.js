@@ -732,7 +732,10 @@ Cu stimă,`
                   <div className="detail-content">
                     <h3>{getTranslation('phoneFax')}</h3>
                     <p>
-                      Tel: +40 254.60.60.53
+                      Tel:{' '}
+                      <a href="tel:+40254606053">
+                        +40 254 60 60 53
+                      </a>
                     </p>
                   </div>
                 </div>
