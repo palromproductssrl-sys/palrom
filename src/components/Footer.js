@@ -122,7 +122,7 @@ export default function Footer() {
         <div className="container footer-bottom-flex">
           <p>{getTranslation('copyright')}</p>
           <div className="footer-meta-links">
-            <span className="version-tag">v5.10.9</span>
+            <span className="version-tag">v5.10.10</span>
             <span className="divider">|</span>
             <a href="#" onClick={handleCookieClick}>
               {getTranslation('cookiePolicy')}
