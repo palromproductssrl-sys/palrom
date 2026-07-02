@@ -143,7 +143,7 @@ const teamMemberData = {
 const formatPhone = (phoneStr) => {
   if (!phoneStr) return '';
   if (phoneStr.startsWith('+40') && phoneStr.length === 12) {
-    return `+40.${phoneStr.slice(3, 6)}.${phoneStr.slice(6, 9)}.${phoneStr.slice(9)}`;
+    return `+40 ${phoneStr.slice(3, 6)} ${phoneStr.slice(6, 9)} ${phoneStr.slice(9)}`;
   }
   return phoneStr;
 };
