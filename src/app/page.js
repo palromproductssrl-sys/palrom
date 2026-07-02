@@ -374,52 +374,6 @@ export default function Home() {
           />
         </Link>
 
-        {/* Chatbot PAL Stamp on Hero Photo */}
-        <Link 
-          href="/configurator/v4" 
-          className="chatbot-stamp-hero" 
-          title={lang === 'nl' ? 'Chat met PAL, onze B2B offerte configurator' : (lang === 'ro' ? 'Discutați cu PAL, configuratorul nostru de oferte B2B' : (lang === 'de' ? 'Chatten Sie mit PAL, unserem B2B-Angebotskonfigurator' : 'Chat with PAL, our B2B quote configurator'))}
-        >
-          <svg viewBox="0 0 200 200" width="100%" height="100%" style={{ overflow: 'visible' }}>
-            <defs>
-              <path id="chatbotCirclePath" d="M 100, 100 m -74, 0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0" />
-            </defs>
-
-            {/* Outer black background circle */}
-            <circle cx="100" cy="100" r="95" fill="#000000" stroke="#ffffff" strokeWidth="4" />
-            
-            {/* Inner white circle for avatar */}
-            <circle cx="100" cy="100" r="54" fill="#ffffff" stroke="#ffffff" strokeWidth="2" />
-
-            {/* Rotating text */}
-            <text className="chatbot-stamp-text-path" fill="#ffffff" fontSize="9.5" fontWeight="900" letterSpacing="1.2">
-              <textPath href="#chatbotCirclePath" startOffset="0%">
-                {lang === 'nl' ? '• CHAT MET PAL • B2B CONFIGURATOR • CHAT MET PAL • B2B CONFIGURATOR ' :
-                 lang === 'ro' ? '• CHAT CU PAL • CONFIGURATOR B2B • CHAT CU PAL • CONFIGURATOR B2B ' :
-                 lang === 'de' ? '• CHAT MIT PAL • B2B CONFIGURATOR • CHAT MIT PAL • B2B CONFIGURATOR ' :
-                                 '• CHAT WITH PAL • B2B CONFIGURATOR • CHAT WITH PAL • B2B CONFIGURATOR '}
-              </textPath>
-            </text>
-
-            {/* PAL Bot Icon in the middle */}
-            <foreignObject x="50" y="50" width="100" height="100">
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '100%',
-                color: '#000000',
-                backgroundColor: '#ffffff',
-                borderRadius: '50%',
-                fontSize: '3.25rem'
-              }}>
-                <i className="fa-solid fa-robot"></i>
-              </div>
-            </foreignObject>
-          </svg>
-        </Link>
-
 
         <div className="scroll-indicator">
           <span>{getTranslation('scrollDown')}</span>
