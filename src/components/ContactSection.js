@@ -140,6 +140,14 @@ const teamMemberData = {
   },
 };
 
+const formatPhone = (phoneStr) => {
+  if (!phoneStr) return '';
+  if (phoneStr.startsWith('+40') && phoneStr.length === 12) {
+    return `+40.${phoneStr.slice(3, 6)}.${phoneStr.slice(6, 9)}.${phoneStr.slice(9)}`;
+  }
+  return phoneStr;
+};
+
 export default function ContactSection() {
   const { lang } = useInquiry();
 
@@ -681,7 +689,7 @@ Cu stimă,`
                       className="team-phone-btn"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <i className="fa-solid fa-phone"></i> {member.phone}
+                      <i className="fa-solid fa-phone"></i> {formatPhone(member.phone)}
                     </a>
                   </div>
                 </div>
@@ -909,7 +917,7 @@ Cu stimă,`
               </a>
               <a href={`tel:${activeModalMember.phone}`} className="team-contact-btn phone">
                 <i className="fa-solid fa-phone"></i>{' '}
-                {getTranslation('callOfficeBtn')}: {activeModalMember.phone}
+                {getTranslation('callOfficeBtn')}: {formatPhone(activeModalMember.phone)}
               </a>
               <a href={`mailto:${activeModalMember.email}`} className="team-contact-btn email">
                 <i className="fa-solid fa-envelope"></i>{' '}
