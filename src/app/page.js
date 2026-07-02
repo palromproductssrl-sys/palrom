@@ -160,7 +160,7 @@ export default function Home() {
       ro: 'Lemn de Fag Certificat FSC®'
     },
     introDesc1: {
-      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, moderne droogkamers en een professionele schaverij. Wij leveren hoogwaardig hout en meubelcomponenten rechtstreeks vanaf de bron.',
+      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, moderne droogkamers en een professionele schaverij. Wij leveren hoogwaardige hout- en meubelcomponenten rechtstreeks vanaf de bron.',
       en: 'Based in the forested region of Brad (Hunedoara, Romania), Palrom Products SRL operates an advanced sawmill, modern drying chambers, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.',
       de: 'Mit Sitz in der waldreichen Region Brad (Hunedoara, Rumänien) betreibt Palrom Products SRL ein fortschrittliches Sägewerk, moderne Trockenkammern und ein professionelles Hobelwerk. Wir liefern hochwertiges Schnittholz und Möbelkomponenten direkt von der Quelle.',
       ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, camere moderne de uscare și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
