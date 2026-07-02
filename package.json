@@ -1,6 +1,6 @@
 {
   "name": "palrom-products-next",
-  "version": "5.10.9",
+  "version": "5.10.10",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
