@@ -32,7 +32,7 @@ const categoryNames = {
     nl: 'Beukenhouten stokken',
     en: 'Beechwood sticks',
     de: 'Buchenholzstäbe',
-    ro: 'Tije și bare cilindrice din fag'
+    ro: 'Profil rotund din lemn'
   },
   profiles: {
     nl: 'Beukenhouten profielen',
