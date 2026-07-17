@@ -14,10 +14,10 @@ export default function Home() {
     {
       id: 'blanks',
       category: 'blanks',
-      name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Semifabricate din lemn de fag' : 'Beechwood blanks')),
+      name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Frize din lemn de fag' : 'Beechwood blanks')),
       description: lang === 'nl'
         ? 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en geschikt voor meubelonderdelen en draaiwerk.'
-        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal voor Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Semifabricate din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
+        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal voor Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Frize din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
       image: '/images/beechwood_blanks.png',
       link: '/blanks',
       specs: [
@@ -46,7 +46,7 @@ export default function Home() {
     {
       id: 'dowels',
       category: 'dowels',
-      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Profil rotund din lemn' : 'Beechwood sticks')),
+      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Tije și bare cilindrice din fag' : 'Beechwood sticks')),
       description: lang === 'nl' 
         ? 'Verkrijgbaar in diameters van 3 mm tot 60 mm. Kies tussen gladde houten pennen of spiraalvormig gegroefde deuvels voor een optimale lijmhechting.'
         : (lang === 'de' ? 'Erhältlich in Durchmessern von 3 mm bis 60 mm. Wählen Sie zwischen glatten Holzstiften oder spiralförmig geriffelten Dübeln für eine optimale Leimhaftung.' : (lang === 'ro' ? 'Disponibile în diametre de la 3 mm până la 60 mm. Alegeți între știfturi din lemn netede sau dibluri cu caneluri spirale pentru o aderență optimă a lipiciului.' : 'Available in diameters from 3 mm to 60 mm. Choose between smooth wooden pins or spiral grooved dowels for optimal glue adhesion.')),
