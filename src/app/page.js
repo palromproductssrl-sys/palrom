@@ -46,7 +46,7 @@ export default function Home() {
     {
       id: 'dowels',
       category: 'dowels',
-      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Tije și bare cilindrice din fag' : 'Beechwood sticks')),
+      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Profil rotund din lemn' : 'Beechwood sticks')),
       description: lang === 'nl' 
         ? 'Verkrijgbaar in diameters van 3 mm tot 60 mm. Kies tussen gladde houten pennen of spiraalvormig gegroefde deuvels voor een optimale lijmhechting.'
         : (lang === 'de' ? 'Erhältlich in Durchmessern von 3 mm bis 60 mm. Wählen Sie zwischen glatten Holzstiften oder spiralförmig geriffelten Dübeln für eine optimale Leimhaftung.' : (lang === 'ro' ? 'Disponibile în diametre de la 3 mm până la 60 mm. Alegeți între știfturi din lemn netede sau dibluri cu caneluri spirale pentru o aderență optimă a lipiciului.' : 'Available in diameters from 3 mm to 60 mm. Choose between smooth wooden pins or spiral grooved dowels for optimal glue adhesion.')),
