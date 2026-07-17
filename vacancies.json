@@ -6,13 +6,13 @@
       "de": "Wartungsmechaniker / Maschinenschlosser",
       "en": "Maintenance Mechanic / Millwright",
       "nl": "Onderhoudsmonteur / Werktuigbouwkundige",
-      "ro": "Mecanic Întreținere"
+      "ro": "Mecanic de Întreținere și Reparații"
     },
     "department": {
       "de": "Instandhaltung",
       "en": "Maintenance",
       "nl": "Onderhoud",
-      "ro": "Întreținere"
+      "ro": "Întreținere / Tehnic"
     },
     "location": "Brad, RO",
     "type": {
@@ -25,7 +25,7 @@
       "de": "Durchführung von mechanischen vorbeugenden Wartungsarbeiten und Notfall-Fehlersuche an unseren automatisierten Trockenkammersystemen, Sägewerksblättern, Staubabsauggebläsen und Hobelmaschinen.",
       "en": "Perform mechanical preventive maintenance and emergency troubleshooting on our automated drying chamber systems, sawmill blades, dust extraction blowers, and profiling machinery.",
       "nl": "Uitvoeren van mechanisch preventief onderhoud en noodreparaties aan onze geautomatiseerde droogkamers, zagen, stofafzuigers en profileermachines.",
-      "ro": "Efectuarea întreținerii preventive mecanice și depanarea de urgență a sistemelor noastre automatizate de uscare, lamelor de gater, suflantelor de extracție a prafului și utilajelor de profilat."
+      "ro": "Asigurarea întreținerii preventive și depanarea de urgență a sistemelor automatizate de uscare, a pânzelor pentru liniile de debitare, a instalațiilor de exhaustare și a mașinilor de rindeluit și profilat."
     },
     "requirements": {
       "de": [
@@ -44,9 +44,9 @@
         "Vermogen om technische lay-outs te lezen en machinestoringen snel op te lossen."
       ],
       "ro": [
-        "Calificare profesională de tehnician mecanic, montator sau lăcătuș mecanic.",
-        "Experiență în repararea rulmenților, cutiilor de viteze, curelelor și cilindrilor hidraulici.",
-        "Capacitatea de a citi scheme tehnice și de a depana defecțiunile utilajelor."
+        "Calificare profesională (mecanic, lăcătuș mecanic, electrician sau electromecanic).",
+        "Experiență în repararea subansamblelor mecanice (rulmenți, reductoare, cilindri hidraulici/pneumatici).",
+        "Capacitatea de a citi scheme tehnice."
       ]
     },
     "salary": {
@@ -63,7 +63,7 @@
       "de": "Qualitäts- und Mängelprüfer",
       "en": "Quality & Defect Inspector",
       "nl": "Inspecteur Kwaliteitscontrole & Sortering",
-      "ro": "Inspector Calitate & Defecte"
+      "ro": "Controlor Calitate (CTC)"
     },
     "department": {
       "de": "Qualitätskontrolle",
@@ -82,7 +82,7 @@
       "de": "Visuelle und physische Inspektion fertiger Holzdübel, Bretter und maßgeschneiderter Möbelelemente. Aussortieren natürlicher Äste, Risse und Sortieranomalien, um sicherzustellen, dass die Kundenspezifikationen erfüllt werden.",
       "en": "Visual and physical inspection of finished wood dowels, boards, and custom furniture elements. Sort out natural knots, splits, and grading anomalies to ensure client specifications are met.",
       "nl": "Visuele en fysieke inspectie van afgewerkte houten deuvels, planken en op maat gemaakte meubelcomponenten. Sorteren van natuurlijke noesten, scheuren en sorteerafwijkingen om te garanderen dat aan de specificaties van de klant wordt voldaan.",
-      "ro": "Inspecția vizuală și fizică a diblurilor finisate din lemn, scândurilor și elementelor de mobilier personalizate. Sortarea nodurilor naturale, a crăpăturilor și a anomaliilor de clasificare pentru a se asigura că specificațiile clientului sunt îndeplinite."
+      "ro": "Inspecția vizuală și dimensională a profilelor, șipcilor și elementelor finite din fag. Identificarea defectelor naturale ale lemnului (noduri, crăpături, inima roșie) și sortarea corectă a produselor pe clase de calitate conform specificațiilor clienților."
     },
     "requirements": {
       "de": [
@@ -101,9 +101,8 @@
         "Ervaring met FSC® Chain of Custody-documentatie is een pluspunt (interne training aanwezig)."
       ],
       "ro": [
-        "Abilități puternice de observare și familiaritate cu clasele standard de cherestea (A, B, C).",
-        "Fiabilitate, răbdare și capacitatea de a documenta jurnalele de defecte.",
-        "Instruirea în documentarea FSC® chain-of-custody reprezintă un avantaj (oferită intern)."
+        "Răbdare, atenție sporită la detalii, cunoașterea claselor standard de calitate pentru cheresteaua de fag (A, B, C).",
+        "Cunoașterea procedurilor de trasabilitate FSC reprezintă un avantaj (se oferă instruire internă)."
       ]
     },
     "salary": {
@@ -120,7 +119,7 @@
       "de": "Hobelmaschinenführer",
       "en": "Planing Machine Operator",
       "nl": "Operator Schaafmachine",
-      "ro": "Operator Rindele"
+      "ro": "Operator Mașini de Rindeluit și Profilat"
     },
     "department": {
       "de": "Produktion",
@@ -139,7 +138,7 @@
       "de": "Verantwortlich für das Einrichten, Kalibrieren und Bestücken unserer Hochgeschwindigkeits-Profilierungs- und Holzhobelmaschinen, um rohe Buchenholzbretter in erstklassige Dübel und Profile zu verwandeln.",
       "en": "Responsible for setting up, calibrating, and feeding our high-speed profiling and wood planing machines to shape raw beechwood boards into premium dowels and architectural mouldings.",
       "nl": "Verantwoordelijk voor het instellen, kalibreren en aanvoeren van onze hogesnelheids-profileer- en houtschaafmachines om ruwe beukenplanken om te zetten in hoogwaardige deuvels en houten profielen.",
-      "ro": "Responsabil pentru configurarea, calibrarea și alimentarea mașinilor noastre de profilat și rinduit de mare viteză, pentru a modela scândurile de fag brut în dibluri premium și profile decorative."
+      "ro": "Reglarea, calibrarea și alimentarea mașinilor de rindeluit pe 4 fețe de mare viteză, asigurând transformarea frizelor din fag în șipci premium și profile decorative calibrate."
     },
     "requirements": {
       "de": [
@@ -159,9 +158,8 @@
         "Begrip van industriële veiligheidsrichtlijnen en onderhoud van apparatuur."
       ],
       "ro": [
-        "Experiența anterioară în prelucrarea lemnului sau operarea mașinilor de gater este foarte apreciată.",
-        "Atenție deosebită la detalii și precizie dimensională (folosind șublerul).",
-        "Înțelegerea normelor de siguranță industrială și a întreținerii echipamentelor."
+        "Atenție deosebită la detalii și precizie dimensională (utilizarea obligatorie a șublerului).",
+        "Experiența anterioară în prelucrarea lemnului constituie un avantaj major."
       ]
     },
     "salary": {
@@ -178,13 +176,13 @@
       "de": "Sägewerksführer / Holzbearbeiter",
       "en": "Sawmill Operator / Woodworker",
       "nl": "Zagerij Operator / Houtbewerker",
-      "ro": "Operator Gater / Muncitor Debitator"
+      "ro": "Operator Linii Debitare / Gaterist"
     },
     "department": {
       "de": "Produktion",
       "en": "Production",
       "nl": "Productie",
-      "ro": "Producție"
+      "ro": "Producție (Debitarea primară)"
     },
     "location": "Brad, RO",
     "type": {
@@ -197,7 +195,7 @@
       "de": "Verantwortlich für die Bedienung primärer Sägelinien und Blockbandsägen zur Verarbeitung von Buchenrundholz zu Brettern und Blanks. Sie überwachen die Maßhaltigkeit und sichern den Materialfluss für das Hobelwerk.",
       "en": "Responsible for operating primary sawing lines and log breakdown systems to process raw beechwood logs into boards and blanks. You monitor dimensions and ensure a steady flow of quality timber for the planing mill.",
       "nl": "Verantwoordelijk voor het bedienen van de primaire zaaglijnen en gaters om ruwe beukenstammen te verwerken tot planken en blanks. Je bewaakt de maatvoering en zorgt voor een constante aanvoer van kwalitatief beukenhout voor de schaverij.",
-      "ro": "Responsabil pentru operarea liniilor primare de tăiere și a gaterelor pentru a procesa buștenii de fag brut în scânduri și piese brute. Monitorizați dimensiunile și asigurați un flux constant de cherestea de calitate pentru fabrica de rindeluire."
+      "ro": "Operarea liniilor de debitare primară a buștenilor de fag în frize și scânduri brute. Monitorizarea dimensiunilor rezultate pentru a asigura un flux optim de materie primă către secția de rindeluire."
     },
     "requirements": {
       "de": [
@@ -219,10 +217,8 @@
         "Teamspeler die flexibel kan schakelen tussen verschillende werkstations."
       ],
       "ro": [
-        "Experiența anterioară în operarea utilajelor de gater (cum ar fi ferăstraie cu bandă / băncuțe) este foarte apreciată.",
-        "Capacitate fizică bună și rezistență la lucru în mediu de producție activ.",
-        "Atenție deosebită la normele de protecție a muncii și la precizia debitării.",
-        "Abilitatea de a lucra în echipă și de a fi flexibil în atribuțiile zilnice."
+        "Experiența în operarea ferăstraielor cu bandă (banzic) sau a ferăstraielor circulare reprezintă un avantaj.",
+        "Rezistență fizică și atenție riguroasă la normele de protecție a muncii."
       ]
     },
     "salary": {
