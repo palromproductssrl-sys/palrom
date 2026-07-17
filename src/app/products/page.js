@@ -18,7 +18,7 @@ export default function Products() {
         nl: 'Beukenhouten blanks',
         en: 'Beechwood blanks',
         de: 'Buchenholz-Blanks',
-        ro: 'Semifabricate din lemn de fag',
+        ro: 'Frize din lemn de fag',
       },
       description: {
         nl: 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en uitermate geschikt voor meubelonderdelen en draaiwerk.',
@@ -94,7 +94,7 @@ export default function Products() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Profil rotund din lemn',
+        ro: 'Tije și bare cilindrice din fag',
       },
       description: {
         nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
