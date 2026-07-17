@@ -310,7 +310,7 @@ export default function ContactSection() {
       nl: 'Beukenhouten stokken',
       en: 'Beechwood sticks',
       de: 'Buchenholzstäbe',
-      ro: 'Tije din lemn de fag'
+      ro: 'Tije și bare cilindrice din fag'
     },
     interestPlaned: {
       nl: 'Beukenhouten latten',
@@ -322,19 +322,19 @@ export default function ContactSection() {
       nl: 'Beukenhouten profielen',
       en: 'Beechwood profiles',
       de: 'Buchenholzprofile',
-      ro: 'Profile din lemn de fag'
+      ro: 'Profile decorative din fag'
     },
     interestSpecials: {
       nl: 'Beukenhouten bestekken',
       en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
-      ro: 'Piese brute din lemn de fag'
+      ro: 'Elemente dimensionate din fag'
     },
     interestBlanks: {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Piese brute din lemn de fag (blanks)'
+      ro: 'Frize din lemn de fag'
     },
     interestGeneral: {
       nl: 'Algemene Houtinkoop Aanvraag',
