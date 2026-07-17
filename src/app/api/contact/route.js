@@ -69,7 +69,7 @@ export async function POST(request) {
           planed: 'Șipci rindeluite din lemn de fag',
           profiles: 'Profile decorative din fag',
           specials: 'Elemente dimensionate din fag',
-          blanks: 'Frize din lemn de fag',
+          blanks: 'Semifabricate din lemn de fag',
           general: 'Cerere Generală de Aprovizionare',
           careers: 'Cariere / Solicitare Job',
         };
@@ -119,7 +119,7 @@ export async function POST(request) {
           planed: 'Șipci rindeluite din lemn de fag',
           profiles: 'Profile decorative din fag',
           specials: 'Elemente dimensionate din fag',
-          blanks: 'Frize din lemn de fag',
+          blanks: 'Semifabricate din lemn de fag',
           general: 'Cerere Generală de Aprovizionare',
           careers: 'Cariere / Solicitare Job',
         };
@@ -328,7 +328,7 @@ export async function POST(request) {
             planed: 'Șipci rindeluite din lemn de fag',
             profiles: 'Profile decorative din fag',
             specials: 'Elemente dimensionate din fag',
-            blanks: 'Frize din lemn de fag',
+            blanks: 'Semifabricate din lemn de fag',
             general: 'Cerere Generală de Aprovizionare',
             careers: 'Cariere / Solicitare Job',
           }
