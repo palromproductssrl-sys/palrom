@@ -46,7 +46,7 @@ export default function Footer() {
     planed: { nl: "Beukenhouten latten", en: "Beechwood slats", de: "Buchenholzleisten", ro: "Șipci din lemn de fag" },
     profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile decorative din fag" },
     specials: { nl: "Beukenhouten bestekken", en: "Beechwood specials", de: "Buchenholz-Zuschnitte", ro: "Elemente dimensionate din fag" },
-    blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Frize din lemn de fag" },
+    blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Semifabricate din lemn de fag" },
     fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag sustenabil certificat FSC®" },
     copyright: {
       nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen.",
@@ -122,7 +122,7 @@ export default function Footer() {
         <div className="container footer-bottom-flex">
           <p>{getTranslation('copyright')}</p>
           <div className="footer-meta-links">
-            <span className="version-tag">v5.10.20</span>
+            <span className="version-tag">v5.10.21</span>
             <span className="divider">|</span>
             <a href="#" onClick={handleCookieClick}>
               {getTranslation('cookiePolicy')}
