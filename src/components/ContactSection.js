@@ -310,7 +310,7 @@ export default function ContactSection() {
       nl: 'Beukenhouten stokken',
       en: 'Beechwood sticks',
       de: 'Buchenholzstäbe',
-      ro: 'Tije și bare cilindrice din fag'
+      ro: 'Profil rotund din lemn'
     },
     interestPlaned: {
       nl: 'Beukenhouten latten',
