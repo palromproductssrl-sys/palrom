@@ -14,10 +14,10 @@ export default function Home() {
     {
       id: 'blanks',
       category: 'blanks',
-      name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Piese brute din lemn de fag (blanks)' : 'Beechwood blanks')),
+      name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Frize din lemn de fag' : 'Beechwood blanks')),
       description: lang === 'nl'
         ? 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en geschikt voor meubelonderdelen en draaiwerk.'
-        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal für Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Piese brute din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
+        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal voor Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Frize din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
       image: '/images/beechwood_blanks.png',
       link: '/blanks',
       specs: [
@@ -25,7 +25,7 @@ export default function Home() {
         { label: lang === 'nl' ? 'Breedte' : (lang === 'de' ? 'Breite' : (lang === 'ro' ? 'Lățime' : 'Width')), value: lang === 'nl' ? '45mm tot 95mm' : (lang === 'de' ? '45mm bis 95mm' : (lang === 'ro' ? '45mm până la 95mm' : '45mm to 95mm')) },
         { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd (8-12%) of vers' : (lang === 'de' ? 'Kammergetrocknet (8-12%) oder frisch' : (lang === 'ro' ? 'Uscat în camere (8-12%) sau proaspăt' : 'Chamber-dried (8-12%) or fresh')) },
       ],
-      tag: lang === 'nl' ? 'Blanks' : (lang === 'de' ? 'Blanks' : (lang === 'ro' ? 'Piese brute' : 'Blanks')),
+      tag: lang === 'nl' ? 'Blanks' : (lang === 'de' ? 'Blanks' : (lang === 'ro' ? 'Frize' : 'Blanks')),
     },
     {
       id: 'planed',
@@ -46,7 +46,7 @@ export default function Home() {
     {
       id: 'dowels',
       category: 'dowels',
-      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Tije din lemn de fag' : 'Beechwood sticks')),
+      name: lang === 'nl' ? 'Beukenhouten stokken' : (lang === 'de' ? 'Buchenholzstäbe' : (lang === 'ro' ? 'Tije și bare cilindrice din fag' : 'Beechwood sticks')),
       description: lang === 'nl' 
         ? 'Verkrijgbaar in diameters van 3 mm tot 60 mm. Kies tussen gladde houten pennen of spiraalvormig gegroefde deuvels voor een optimale lijmhechting.'
         : (lang === 'de' ? 'Erhältlich in Durchmessern von 3 mm bis 60 mm. Wählen Sie zwischen glatten Holzstiften oder spiralförmig geriffelten Dübeln für eine optimale Leimhaftung.' : (lang === 'ro' ? 'Disponibile în diametre de la 3 mm până la 60 mm. Alegeți între știfturi din lemn netede sau dibluri cu caneluri spirale pentru o aderență optimă a lipiciului.' : 'Available in diameters from 3 mm to 60 mm. Choose between smooth wooden pins or spiral grooved dowels for optimal glue adhesion.')),
@@ -62,7 +62,7 @@ export default function Home() {
     {
       id: 'profiles',
       category: 'profiles',
-      name: lang === 'nl' ? 'Beukenhouten profielen' : (lang === 'de' ? 'Buchenholzprofile' : (lang === 'ro' ? 'Profile din lemn de fag' : 'Beechwood profiles')),
+      name: lang === 'nl' ? 'Beukenhouten profielen' : (lang === 'de' ? 'Buchenholzprofile' : (lang === 'ro' ? 'Profile decorative din fag' : 'Beechwood profiles')),
       description: lang === 'nl'
         ? 'Groot assortiment decoratieve profielen, plinten en lijsten voor interieurafwerking en meubelproductie. Klantspecifieke profielen beschikbaar op aanvraag.'
         : (lang === 'de' ? 'Großes Sortiment an Zierleisten, Sockelleisten und Profilen für den Innenausbau und die Möbelproduktion. Sonderprofile auf Anfrage erhältlich.' : (lang === 'ro' ? 'Gamă largă de muluri decorative, plinte și profile pentru finisaje interioare și producția de mobilier. Profile personalizate disponibile la cerere.' : 'Large assortment of decorative mouldings, skirtings, and profiles for interior finishing and furniture production. Custom profiles available upon request.')),
@@ -78,7 +78,7 @@ export default function Home() {
     {
       id: 'specials',
       category: 'specials',
-      name: lang === 'nl' ? 'Beukenhouten bestekken' : (lang === 'de' ? 'Buchenholz-Zuschnitte' : (lang === 'ro' ? 'Piese brute din lemn de fag' : 'Beechwood specials')),
+      name: lang === 'nl' ? 'Beukenhouten bestekken' : (lang === 'de' ? 'Buchenholz-Zuschnitte' : (lang === 'ro' ? 'Elemente dimensionate din fag' : 'Beechwood specials')),
       description: lang === 'nl'
         ? 'Halffabrikaten en op maat gemaakte houten onderdelen voor meubels, keukengerei, speelgoed and specifieke industriële toepassingen.'
         : (lang === 'de' ? 'Halbfabrikate und maßgefertigte Holzteile für Möbel, Küchenutensilien, Spielzeug und spezifische industrielle Anwendungen.' : (lang === 'ro' ? 'Piese din lemn semifinite și realizate la comandă pentru mobilier, ustensile de bucătărie, jucării și aplicații industriale specifice.' : 'Semi-finished and custom-made wooden parts for furniture, kitchen utensils, toys, and specific industrial applications.')),
@@ -89,7 +89,7 @@ export default function Home() {
         { label: lang === 'nl' ? 'FSC® Gecertificeerd' : (lang === 'de' ? 'FSC®-zertifiziert' : (lang === 'ro' ? 'Certificat FSC®' : 'FSC® Certified')), value: lang === 'nl' ? 'Beschikbaar op aanvraag' : (lang === 'de' ? 'Auf Anfrage erhältlich' : (lang === 'ro' ? 'Disponibil la cerere' : 'Available upon request')) },
         { label: lang === 'nl' ? 'Verpakking' : (lang === 'de' ? 'Verpackung' : (lang === 'ro' ? 'Ambalare' : 'Packaging')), value: lang === 'nl' ? 'Bulk of op maat verpakt' : (lang === 'de' ? 'Bulk oder kundenspezifisch verpackt' : (lang === 'ro' ? 'Vrac sau ambalat la comandă' : 'Bulk or custom packaged')) },
       ],
-      tag: lang === 'nl' ? 'Bestekken' : (lang === 'de' ? 'Zuschnitte' : (lang === 'ro' ? 'Piese brute' : 'Specials')),
+      tag: lang === 'nl' ? 'Bestekken' : (lang === 'de' ? 'Zuschnitte' : (lang === 'ro' ? 'Elemente dimensionate' : 'Specials')),
     },
   ];
 
@@ -115,7 +115,7 @@ export default function Home() {
       nl: 'Palrom Products combineert decennia aan ervaring met een moderne zagerij en drooginstallaties. Wij produceren beukenhouten gezaagde bestekken en geschaafde stokken, latten en profielen voor klanten in de internationale meubel- en houtindustrie. Kwaliteit, flexibiliteit en leverbetrouwbaarheid staan daarbij centraal.',
       en: 'Palrom Products combines decades of experience with a modern sawmill and drying facilities. We produce beechwood rough-sawn lumber and planed sticks, slats, and profiles for clients in the international furniture and wood industry. Quality, flexibility, and delivery reliability are central to our work.',
       de: 'Palrom Products verbindet jahrzehntelange Erfahrung mit einem modernen Sägewerk und Trocknungsanlagen. Wir produzieren Buchenholz-Zuschnitte sowie gehobelte Stäbe, Leisten und Profile für Kunden in der internationalen Möbel- und Holzindustrie. Qualität, Flexibilität und Liefertreue stehen dabei im Mittelpunkt.',
-      ro: 'Palrom Products îmbină decenii de experiență cu un gater modern și instalații de uscare. Producem elemente din fag tăiate brut, precum și tije, șipci și profile rinduite pentru clienți din industria internațională a mobilei și a lemnului. Calitatea, flexibilitatea și fiabilitatea livrărilor reprezintă prioritățile noastre.'
+      ro: 'Palrom Products îmbină decenii de experiență cu un gater modern și instalații de uscare. Producem elemente din fag tăiate brut, frize precum și tije profile rotunde, profile decorative rinduite pentru clienți din industria internațională a mobilei și a lemnului. Calitatea, flexibilitatea și fiabilitatea livrărilor reprezintă prioritățile noastre.'
     },
     requestQuote: {
       nl: 'Offerte Aanvragen',
@@ -295,7 +295,7 @@ export default function Home() {
       nl: 'Beukenhouten bestekken, stokken, latten en profielen',
       en: 'Beechwood specials, sticks, slats and profiles',
       de: 'Buchenholz-Zuschnitte, Stäbe, Leisten und Profile',
-      ro: 'Piese brute, tije, șipci și profile din lemn de fag'
+      ro: 'Frize, tije, șipci și profile din lemn de fag'
     },
     rangeSub: {
       nl: 'Ontdek onze kernproducten, met uiterste precisie vervaardigd uit FSC®-gecertificeerd Roemeens beukenhout.',
@@ -307,8 +307,8 @@ export default function Home() {
     filterDowels: { nl: 'Stokken', en: 'Sticks', de: 'Stäbe', ro: 'Tije' },
     filterPlaned: { nl: 'Latten', en: 'Slats', de: 'Leisten', ro: 'Șipci' },
     filterProfiles: { nl: 'Profielen', en: 'Profiles', de: 'Profile', ro: 'Profile' },
-    filterSpecials: { nl: 'Bestekken', en: 'Specials', de: 'Zuschnitte', ro: 'Piese brute' },
-    filterBlanks: { nl: 'Blanks', en: 'Blanks', de: 'Blanks', ro: 'Blanks' }
+    filterSpecials: { nl: 'Bestekken', en: 'Specials', de: 'Zuschnitte', ro: 'Elemente dimensionate' },
+    filterBlanks: { nl: 'Blanks', en: 'Blanks', de: 'Blanks', ro: 'Frize' }
   };
 
   const getTranslation = (key) => {
