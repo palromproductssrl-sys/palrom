@@ -20,7 +20,7 @@ const categoryNames = {
     nl: 'Beukenhouten blanks',
     en: 'Beechwood blanks',
     de: 'Buchenholz-Blanks',
-    ro: 'Semifabricate din lemn de fag'
+    ro: 'Frize din lemn de fag'
   },
   planed: {
     nl: 'Beukenhouten latten',
@@ -32,7 +32,7 @@ const categoryNames = {
     nl: 'Beukenhouten stokken',
     en: 'Beechwood sticks',
     de: 'Buchenholzstäbe',
-    ro: 'Profil rotund din lemn'
+    ro: 'Tije și bare cilindrice din fag'
   },
   profiles: {
     nl: 'Beukenhouten profielen',
