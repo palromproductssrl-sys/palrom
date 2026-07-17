@@ -334,7 +334,7 @@ export default function ContactSection() {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Frize din lemn de fag'
+      ro: 'Semifabricate din lemn de fag'
     },
     interestGeneral: {
       nl: 'Algemene Houtinkoop Aanvraag',
