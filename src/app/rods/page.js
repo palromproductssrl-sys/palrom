@@ -29,7 +29,7 @@ export default function Dowels() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag'
+        ro: 'Tije și bare cilindrice din fag'
       },
     },
     {
@@ -43,7 +43,7 @@ export default function Dowels() {
       description: {
         nl: 'Spiraalvormig gegroefde deuvelpennen en deuvelstaven, specifiek ontworpen voor geautomatiseerde meubelmontage en industriële verbindingen. Beschikbaar in diameters van 6 mm tot 20 mm. De canelures zorgen voor een gelijkmatige lijmverdeling, laten ingesloten lucht en lijm ontsnappen en garanderen een extreem sterke verbinding.',
         en: 'Spiral-grooved dowel pins and rods, specifically designed for automated furniture assembly and industrial joint networks. Available in diameters from 6 mm to 20 mm. The spiral rills ensure even glue distribution, venting compressed air and excess adhesive for an exceptionally strong lock.',
-        de: 'Spiralförmig geriffelte Dübelstifte und Dübelstangen, speziell konzipiert für die automatische Möbelmontage und industrielle Holzverbindungen. Erhältlich in Durchmessern von 6 mm bis 20 mm. Die Spiralrillen sorgen für eine gleichmäßige Leimverteilung, leiten Luft und überschüssigen Leim ab und garantieren eine extrem feste Verbindung.',
+        de: 'Spiralförmig geriffelte Dübelstifte und Dübelstangen, speziell konzipiert für die automatische Möbelmontage und industrielle Holzverbindungen. Erhältlich in Durchmessern von 6 mm bis 20 mm. Die Spiralrillen sorgen für eine gleichmäßige Leimteilung, leiten Luft und überschüssigen Leim ab und garantieren eine extrem feste Verbindung.',
         ro: 'Dibluri și tije cu caneluri elicoidale, concepute special pentru asamblarea automată a mobilierului și îmbinări industriale. Disponibile în diametre de la 6 mm până la 20 mm. Canelurile asigură o distribuție uniformă a adezivului, permit evacuarea aerului și adezivului în exces și garantează o îmbinare extrem de puternică.',
       },
       image: '/images/dowelsrilled-300x300-1.jpg',
@@ -51,7 +51,7 @@ export default function Dowels() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag'
+        ro: 'Tije și bare cilindrice din fag'
       },
     }
   ];
@@ -61,19 +61,19 @@ export default function Dowels() {
       nl: 'Home / Producten / Beukenhouten stokken',
       en: 'Home / Products / Beechwood sticks',
       de: 'Home / Produkte / Buchenholzstäbe',
-      ro: 'Home / Produsele / Tije din lemn de fag'
+      ro: 'Home / Produse / Tije și bare cilindrice din fag'
     },
     title: {
       nl: 'Beukenhouten stokken',
       en: 'Beechwood sticks',
       de: 'Buchenholzstäbe',
-      ro: 'Tije din lemn de fag'
+      ro: 'Tije și bare cilindrice din fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert een uitgebreid assortiment nauwkeurig gekalibreerde beukenhouten deuvels, staven en pennen. Onze stokken worden rechtstreeks gemaakt van duurzaam hout om aan de hoogste houtbewerkingsspecificaties te voldoen.',
       en: 'PALROM Products manufactures an extensive range of precision-calibrated beechwood dowels, rods, and pins. Our sticks are crafted directly from sustainable timber to meet the highest woodworking specifications.',
       de: 'PALROM Products stellt ein umfangreiches Sortiment an präzise kalibrierten Buchenholzdübeln, Stangen und Stiften her. Unsere Stäbe werden direkt aus nachhaltigem Holz gefertigt, um höchste Anforderungen an die Holzverarbeitung zu erfüllen.',
-      ro: 'PALROM Products fabrică o gamă extinsă de dibluri, tije și știfturi din lemn de fag calibrate cu precizie. Tijele noastre sunt realizate direct din lemn durabil pentru a îndeplini cele mai înalte specificații de prelucrare a lemnului.'
+      ro: 'PALROM Products fabrică o gamă extinsă de dibluri, tije și știfturi din lemn de fag calibrate cu precizie. Tijele și barele noastre sunt realizate direct din lemn durabil pentru a îndeplini cele mai înalte specificații de prelucrare a lemnului.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',
