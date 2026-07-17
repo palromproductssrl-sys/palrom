@@ -16,7 +16,7 @@ const categoryData = {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Piese brute din lemn de fag (blanks)'
+      ro: 'Semifabricate din lemn de fag'
     },
     length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
@@ -42,7 +42,7 @@ const categoryData = {
       nl: 'Beukenhouten stokken',
       en: 'Beechwood sticks',
       de: 'Buchenholzstäbe',
-      ro: 'Tije din lemn de fag'
+      ro: 'Tije și bare cilindrice din fag'
     },
     length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 3, max: 60, default: 10, label: { nl: 'Diameter (mm)', en: 'Diameter (mm)', de: 'Durchmesser (mm)', ro: 'Diametru (mm)' } },
@@ -54,7 +54,7 @@ const categoryData = {
       nl: 'Beukenhouten profielen',
       en: 'Beechwood profiles',
       de: 'Buchenholzprofile',
-      ro: 'Profile din lemn de fag'
+      ro: 'Profile decorative din fag'
     },
     length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
@@ -67,7 +67,7 @@ const categoryData = {
       nl: 'Beukenhouten bestekken',
       en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
-      ro: 'Piese brute din lemn de fag'
+      ro: 'Elemente dimensionate din fag'
     },
     length: { min: 50, max: 3000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
@@ -87,11 +87,11 @@ const standardRodDiameters = [3, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 19, 20, 22,
 const standardLengthRanges = [200, 300, 400, 500, 1000, 1500, 2000, 2500, 3000];
 
 const categoriesList = [
-  { id: 'sawn', icon: 'fa-solid fa-layer-group', label: { nl: 'Beukenhouten blanks', en: 'Beechwood blanks', de: 'Buchenholz-Blanks', ro: 'Piese brute din lemn de fag (blanks)' } },
+  { id: 'sawn', icon: 'fa-solid fa-layer-group', label: { nl: 'Beukenhouten blanks', en: 'Beechwood blanks', de: 'Buchenholz-Blanks', ro: 'Semifabricate din lemn de fag' } },
   { id: 'planed', icon: 'fa-solid fa-align-justify', label: { nl: 'Beukenhouten latten', en: 'Beechwood slats', de: 'Buchenholzleisten', ro: 'Șipci din lemn de fag' } },
-  { id: 'dowels', icon: 'fa-solid fa-circle', label: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije din lemn de fag' } },
-  { id: 'profiles', icon: 'fa-solid fa-wave-square', label: { nl: 'Beukenhouten profielen', en: 'Beechwood profiles', de: 'Profile din lemn de fag' } },
-  { id: 'specials', icon: 'fa-solid fa-puzzle-piece', label: { nl: 'Beukenhouten bestekken', en: 'Beechwood specials', de: 'Buchenholz-Zuschnitte', ro: 'Piese brute din lemn de fag' } },
+  { id: 'dowels', icon: 'fa-solid fa-circle', label: { nl: 'Beukenhouten stokken', en: 'Beechwood sticks', de: 'Buchenholzstäbe', ro: 'Tije și bare cilindrice din fag' } },
+  { id: 'profiles', icon: 'fa-solid fa-wave-square', label: { nl: 'Beukenhouten profielen', en: 'Beechwood profiles', de: 'Buchenholzprofile', ro: 'Profile decorative din fag' } },
+  { id: 'specials', icon: 'fa-solid fa-puzzle-piece', label: { nl: 'Beukenhouten bestekken', en: 'Beechwood specials', de: 'Buchenholz-Zuschnitte', ro: 'Elemente dimensionate din fag' } },
   { id: 'brichete', icon: 'fa-solid fa-box', label: { nl: 'Beukenhoutbriketten', en: 'Beechwood Heating Briquettes', de: 'Buchenholzbriketts', ro: 'Brichete din lemn de fag' } },
 ];
 
