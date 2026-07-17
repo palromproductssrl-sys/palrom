@@ -42,12 +42,12 @@ export default function Footer() {
       de: "Unser Angebot",
       ro: "Oferta Noastră"
     },
-    dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije din lemn de fag" },
+    dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije și bare cilindrice din fag" },
     planed: { nl: "Beukenhouten latten", en: "Beechwood slats", de: "Buchenholzleisten", ro: "Șipci din lemn de fag" },
-    profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile din lemn de fag" },
-    specials: { nl: "Beukenhouten bestekken", en: "Beechwood specials", de: "Buchenholz-Zuschnitte", ro: "Piese brute din lemn de fag" },
-    blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Piese brute din lemn de fag (blanks)" },
-    fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag Sustenabil FSC®" },
+    profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile decorative din fag" },
+    specials: { nl: "Beukenhouten bestekken", en: "Beechwood specials", de: "Buchenholz-Zuschnitte", ro: "Elemente dimensionate din fag" },
+    blanks: { nl: "Beukenhouten blanks", en: "Beechwood blanks", de: "Buchenholz-Blanks", ro: "Frize din lemn de fag" },
+    fscBeech: { nl: "FSC® Duurzaam Beuken", en: "FSC® Sustainable Beech", de: "FSC® Sustainable Beech", ro: "Fag sustenabil certificat FSC®" },
     copyright: {
       nl: "© 2026 PALROM Products SRL. Alle rechten voorbehouden. Duurzaam geoogst uit lokale Roemeense bossen.",
       en: "© 2026 PALROM Products SRL. All rights reserved. Sustainably harvested from local Romanian forests.",
