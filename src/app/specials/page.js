@@ -126,13 +126,13 @@ export default function Specials() {
         nl: 'Gezaagde bestekken (fijnbezaagd)',
         en: 'Rough-sawn specials (fine-sawn)',
         de: 'Sägerauhe Zuschnitte',
-        ro: 'Piese brute netăiate',
+        ro: 'Elemente dimensionate netăiate',
       },
       description: {
         nl: 'Ruwe, op maat gezaagde beukenhouten bestekken voor verdere industriële verwerking in meubelfabrieken.',
         en: 'Rough, custom-cut beechwood specials for further industrial processing in furniture factories.',
         de: 'Sägerauhe Buchenholz-Zuschnitte für die weitere industrielle Verarbeitung in Möbelfabriken.',
-        ro: 'Piese brute din lemn de fag tăiate la comandă, pentru procesare industrială ulterioară în fabrici de mobilă.',
+        ro: 'Elemente dimensionate din fag tăiate la comandă, pentru procesare industrială ulterioară în fabrici de mobilă.',
       },
       image: '/images/special6.jpg',
       category: {
