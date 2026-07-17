@@ -34,7 +34,7 @@ export default function About() {
         nl: 'De Nederlandse investeerder dhr. Ernst Willemstein richt Palrom Products SRL op in Brad, Roemenië. Hij kiest deze locatie vanwege de grote overvloed en superieure kwaliteit van de omringende beukenbossen. De eerste grondverwervingen en de aanleg van elektriciteit en water worden voltooid.',
         en: 'Dutch investor Mr. Ernst Willemstein establishes Palrom Products SRL in Brad, Romania, choosing the site due to the high abundance and superior quality of surrounding beech forests. Initial land acquisitions and primary electrical and water utilities setup are completed.',
         de: 'Der niederländische Investor Herr Ernst Willemstein gründet Palrom Products SRL in Brad, Rumänien, und wählt den Standort aufgrund der großen Fülle und hervorragenden Qualität der umliegenden Buchenwälder. Erste Grundstückskäufe und die Einrichtung der primären Strom- und Wasserversorgung sind abgeschlossen.',
-        ro: 'Investitorul olandez Ernst Willemstein înființează Palrom Products SRL în Brad, România, alegând locația datorită abundenței ridicate și calității superioare a pădurilor de fag din jur. Achizițiile inițiale de terenuri și configurarea primară a utilităților de energie electrică și apă sunt finalizate.'
+        ro: 'Investitorul olandez, dl. Ernst Willemstein, înființează Palrom Products SRL în Brad, România. Acesta alege această locație datorită abundenței și calității superioare a pădurilor de fag din zonă. Sunt finalizate primele achiziții de terenuri și racordarea la rețelele de energie electrică și apă.'
       },
       align: 'left',
     },
@@ -50,7 +50,7 @@ export default function About() {
         nl: 'De zagerij is klaar en de eerste verwerking begint. Het bedrijf neemt zijn eerste geautomatiseerde schaaf- en zaagmachines in gebruik en neemt lokale houtbewerkingsspecialisten aan om de productielijnen te leiden.',
         en: 'The sawmill is completed and primary processing operations kick off. The company implements its first automated planing and cutting machinery, hiring local woodcraft experts to supervise production lines.',
         de: 'Das Sägewerk wird fertiggestellt und die primäre Verarbeitung beginnt. Das Unternehmen führt seine ersten automatisierten Hobel- und Schneidemaschinen ein und stellt lokale Holzhandwerksexperten ein, um die Produktionslinien zu überwachen.',
-        ro: 'Gaterul este finalizat și operațiunile de procesare primară încep. Compania implementează primele sale utilaje automatizate de rindeluire și tăiere, angajând experți locali în prelucrarea lemnului pentru a supraveghea liniile de producție.'
+        ro: 'Hala de producție este finalizată și începe prima etapă de prelucrare. Compania pune în funcțiune primele utilaje automatizate de rindeluire și debitare, angajând specialiști locali în prelucrarea lemnului pentru a coordona liniile de producție.'
       },
       align: 'right',
     },
@@ -66,7 +66,7 @@ export default function About() {
         nl: 'Om wereldwijde toeleveringsketens te ondersteunen en ecologische verantwoordelijkheid te tonen, introduceert Palrom duurzame bosbouwpraktijken en ontvangt het de volledige FSC® Chain of Custody-certificering. De verkoop breidt uit naar de Japanse en Arabische timmerindustrie.',
         en: 'To support global supply chains and demonstrate environmental responsibility, Palrom adopts sustainable practices, receiving full FSC® Chain of Custody Certification. Sales expand into Japanese and Arabic carpentry markets.',
         de: 'Um globale Lieferketten zu unterstützen und ökologische Verantwortung zu demonstrieren, führt Palrom nachhaltige Praktiken ein und erhält die vollständige FSC® Chain of Custody-Zertifizierung. Der Vertrieb wird auf japanische und arabische Zimmereimärkte ausgeweitet.',
-        ro: 'Pentru a sprijini lanțurile globale de aprovizionare și a demonstra responsabilitatea față de mediu, Palrom adoptă practici durabile, primind certificarea completă FSC® Chain of Custody. Vânzările se extind pe piețele de tâmplărie din Japonia și țările arabe.'
+        ro: 'Pentru a sprijini lanțurile globale de aprovizionare și pentru a demonstra responsabilitatea ecologică, Palrom implementează practici de silvicultură durabilă și obține certificarea completă FSC® Chain of Custody (Lanț de Custodie). Vânzările se extind către industria de tâmplărie din Japonia și din țările arabe.'
       },
       align: 'left',
     },
@@ -82,7 +82,7 @@ export default function About() {
         nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers.',
         en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying chamber software.',
         de: 'Palrom modernisiert seinen Betriebshof, fügt 7.000 Quadratmeter betonierte Sortierflächen hinzu und aktualisiert die Software der Trockenkammern.',
-        ro: 'Palrom își modernizează curtea, adăugând 7.000 de metri pătrați de zone betonate de sortare și actualizând software-ul camerelor de uscare.'
+        ro: 'Palrom își modernizează platforma industrială, adăugând 7.000 de metri pătrați de platforme betonate pentru sortare și actualizând software-ul de management al camerelor de uscare.'
       },
       align: 'right',
     },
@@ -98,7 +98,7 @@ export default function About() {
         nl: 'Een gloednieuw opslagdepot wordt opgeleverd in Brad om de groeiende exportvolumes te ondersteunen.',
         en: 'A brand-new storage depot is completed in Brad to support growing export volumes.',
         de: 'Ein brandneues Lagerdepot wird in Brad fertiggestellt, um die wachsenden Exportmengen zu unterstützen.',
-        ro: 'Un depozit nou de stocare este finalizat în Brad pentru a sprijini volumele în creștere de export.'
+        ro: 'Un depozit de stocare complet nou este finalizat la Brad pentru a susține volumele de export în continuă creștere.'
       },
       align: 'left',
     },
@@ -107,7 +107,7 @@ export default function About() {
         nl: 'Nu',
         en: 'Now',
         de: 'Jetzt',
-        ro: 'Acum'
+        ro: 'Prezent'
       },
       title: {
         nl: 'Een Internationale Partner',
@@ -119,7 +119,7 @@ export default function About() {
         nl: 'Palrom opereert als een belangrijke leverancier voor grote Europese retailers van meubelcomponenten, met centraal logistiek beheer en distributiepunten in Nederland.',
         en: 'Operating as a key vendor to major European furniture components retailers, with central logistics managed and distributed through points in the Netherlands.',
         de: 'Tätig als Hauptlieferant für große europäische Händler von Möbelkomponenten, mit zentraler Logistiksteuerung und Vertrieb über Standorte in den Niederlanden.',
-        ro: 'Operând ca furnizor cheie pentru marii comercianți europeni de componente de mobilier, cu logistică gestionată central și distribuită prin puncte din Olanda.'
+        ro: 'Palrom activează ca un furnizor cheie pentru marii retaileri europeni de componente de mobilier, beneficiind de un management logistic centralizat și de puncte de distribuție în Țările de Jos.'
       },
       align: 'right',
     }
@@ -135,13 +135,13 @@ export default function About() {
     {
       id: 2,
       image: '/images/6.png',
-      title: lang === 'nl' ? 'Eerste Zaagbewerkingen' : (lang === 'de' ? 'Primäre Sägearbeiten' : (lang === 'ro' ? 'Operațiuni de Tăiere Primară' : 'Primary Sawing Operations')),
+      title: lang === 'nl' ? 'Eerste Zaagbewerkingen' : (lang === 'de' ? 'Primäre Sägearbeiten' : (lang === 'ro' ? 'Debitarea primară a buștenilor' : 'Primary Sawing Operations')),
       desc: lang === 'nl' ? 'Geavanceerde zaaglijnen en het zagen van planken.' : (lang === 'de' ? 'High-Tech-Stammzerlegung und Zuschnitt von Schnittholz.' : (lang === 'ro' ? 'Debitarea buștenilor și tăierea cherestelei cu tehnologie avansată.' : 'High-tech log breakdown and sawn timber cutting.')),
     },
     {
       id: 3,
       image: '/images/1.png',
-      title: lang === 'nl' ? 'Conditioneren' : (lang === 'de' ? 'Konditionieren' : (lang === 'ro' ? 'Condiționare' : 'Conditioning')),
+      title: lang === 'nl' ? 'Conditioneren' : (lang === 'de' ? 'Konditionieren' : (lang === 'ro' ? 'Aburirea lemnului' : 'Conditioning')),
       desc: lang === 'nl' ? 'Gecontroleerd conditioneren van het hout voor kleur en stabiliteit.' : (lang === 'de' ? 'Kontrolliertes Konditionieren des Holzes für Farbe und Stabilität.' : (lang === 'ro' ? 'Condiționarea controlată a lemnului pentru culoare și stabilitate.' : 'Controlled conditioning of the wood for color and stability.')),
     },
     {
@@ -153,7 +153,7 @@ export default function About() {
     {
       id: 5,
       image: '/images/5.png',
-      title: lang === 'nl' ? 'Slijperij Werkplaats' : (lang === 'de' ? 'Schärfwerkstatt' : (lang === 'ro' ? 'Atelier de Ascuțire' : 'Sharpening Workshop')),
+      title: lang === 'nl' ? 'Slijperij Werkplaats' : (lang === 'de' ? 'Schärfwerkstatt' : (lang === 'ro' ? 'Atelier de ascuțire scule' : 'Sharpening Workshop')),
       desc: lang === 'nl' ? 'Onze slijperij' : (lang === 'de' ? 'Unsere Schärfwerkstatt' : (lang === 'ro' ? 'Atelierul nostru de ascuțire' : 'Our sharpening workshop')),
     },
     {
@@ -165,7 +165,7 @@ export default function About() {
     {
       id: 7,
       image: '/images/3.png',
-      title: lang === 'nl' ? 'Customising en labeling' : (lang === 'de' ? 'Anpassung & Etikettierung' : (lang === 'ro' ? 'Personalizare & Etichetare' : 'Customization & Labeling')),
+      title: lang === 'nl' ? 'Customising en labeling' : (lang === 'de' ? 'Anpassung & Etikettierung' : (lang === 'ro' ? 'Controlul calității și Sortare premium' : 'Customization & Labeling')),
       desc: lang === 'nl' ? 'Strenge visuele controle om premium houtklassen te garanderen.' : (lang === 'de' ? 'Strenge visuelle Prüfung zur Gewährleistung erstklassiger Holzqualitäten.' : (lang === 'ro' ? 'Control vizual riguros pentru a garanta clase de lemn premium.' : 'Rigorous visual check to guarantee premium wood grades.')),
     },
     {
