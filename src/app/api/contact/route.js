@@ -65,7 +65,7 @@ export async function POST(request) {
     if (useFormSubmit) {
       try {
         const productInterestLabelsInternal = {
-          dowels: 'Tije și bare cilindrice din fag',
+          dowels: 'Profil rotund din lemn',
           planed: 'Șipci rindeluite din lemn de fag',
           profiles: 'Profile decorative din fag',
           specials: 'Elemente dimensionate din fag',
@@ -115,7 +115,7 @@ export async function POST(request) {
       // 1. Send internal notification email to sales office (always in Romanian)
       try {
         const productInterestLabelsInternal = {
-          dowels: 'Tije și bare cilindrice din fag',
+          dowels: 'Profil rotund din lemn',
           planed: 'Șipci rindeluite din lemn de fag',
           profiles: 'Profile decorative din fag',
           specials: 'Elemente dimensionate din fag',
@@ -324,7 +324,7 @@ export async function POST(request) {
             careers: 'Karriere / Bewerbung',
           },
           ro: {
-            dowels: 'Tije și bare cilindrice din fag',
+            dowels: 'Profil rotund din lemn',
             planed: 'Șipci rindeluite din lemn de fag',
             profiles: 'Profile decorative din fag',
             specials: 'Elemente dimensionate din fag',
