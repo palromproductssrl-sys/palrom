@@ -29,7 +29,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
     {
@@ -51,7 +51,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
     {
@@ -73,7 +73,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
     {
@@ -95,7 +95,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
     {
@@ -117,7 +117,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
     {
@@ -139,7 +139,7 @@ export default function Specials() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag'
+        ro: 'Elemente dimensionate din fag'
       },
     },
   ];
@@ -149,19 +149,19 @@ export default function Specials() {
       nl: 'Home / Producten / Beukenhouten bestekken',
       en: 'Home / Products / Beechwood specials',
       de: 'Home / Produkte / Buchenholz-Zuschnitte',
-      ro: 'Home / Produsele / Piese brute din lemn de fag'
+      ro: 'Home / Produse / Elemente dimensionate din fag'
     },
     title: {
       nl: 'Beukenhouten bestekken',
       en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
-      ro: 'Piese brute din lemn de fag'
+      ro: 'Elemente dimensionate din fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert gespecialiseerde halffabrikaten en beukenhouten bestekken voor de meubel-, verpakkings- en voedingsindustrie. Van op maat gemaakte keeplatten tot afstandhouders en componenten voor de voedingsindustrie.',
       en: 'PALROM Products manufactures specialized semi-finished products and beechwood specials for the furniture, packaging, and food industries. From customized keeplats to distancers and food industry components.',
       de: 'PALROM Products stellt spezialisierte Halbfabrikate und Buchenholz-Zuschnitte für die Möbel-, Verpackungs- und Lebensmittelindustrie her. Von maßgeschneiderten Keilleisten bis hin zu Abstandhaltern und Lebensmittelkomponenten.',
-      ro: 'PALROM Products produce semifabricate specializate și piese brute din lemn de fag pentru industria de mobilier, ambalaje și alimentară. De la pane personalizate la distanțiere și componente pentru industria alimentară.'
+      ro: 'PALROM Products produce semifabricate specializate și elemente dimensionate din fag pentru industria de mobilier, ambalaje și alimentară. De la pane personalizate la distanțiere și componente pentru industria alimentară.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',
