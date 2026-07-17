@@ -22,7 +22,7 @@ export default function Footer() {
       nl: "Palrom Products is een hoogwaardige hardhoutzagerij en schaafbedrijf dat wereldwijd maatwerk levert in FSC®-gecertificeerde beukenhouten componenten, stokken, latten en profielen.",
       en: "Palrom Products is a high-quality hardwood sawmill and planing company delivering globally customized, FSC®-certified beechwood components, sticks, slats, and profiles.",
       de: "Palrom Products ist ein hochwertiges Laubholz-Sägewerk und Hobelwerk, das weltweit maßgeschneiderte, FSC®-zertifizierte Buchenholzkomponenten, Stäbe, Leisten und Profile liefert.",
-      ro: "Palrom Products este un gater și o fabrică de rindeluire de înaltă calitate, care oferă la nivel global piese personalizate din lemn de fag certificate FSC®, tije, șipci și profile."
+      ro: "Palrom Products este o fabrică modernă de rindeluire și prelucrare a lemnului, care oferă la nivel global piese personalizate din lemn de fag certificate FSC®, profile rotunde, profile drepte, profile speciale de înaltă calitate."
     },
     quickLinks: {
       nl: "Snelle Links",
@@ -122,7 +122,7 @@ export default function Footer() {
         <div className="container footer-bottom-flex">
           <p>{getTranslation('copyright')}</p>
           <div className="footer-meta-links">
-            <span className="version-tag">v5.10.19</span>
+            <span className="version-tag">v5.10.20</span>
             <span className="divider">|</span>
             <a href="#" onClick={handleCookieClick}>
               {getTranslation('cookiePolicy')}
