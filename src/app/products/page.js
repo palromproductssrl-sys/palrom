@@ -18,7 +18,7 @@ export default function Products() {
         nl: 'Beukenhouten blanks',
         en: 'Beechwood blanks',
         de: 'Buchenholz-Blanks',
-        ro: 'Frize din lemn de fag',
+        ro: 'Semifabricate din lemn de fag',
       },
       description: {
         nl: 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en uitermate geschikt voor meubelonderdelen en draaiwerk.',
