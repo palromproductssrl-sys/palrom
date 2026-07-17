@@ -38,7 +38,7 @@ export default function Careers() {
       nl: 'Bouw aan uw toekomst bij een stabiele, duurzame marktleider in loofhout en beukenhoutproductie in Brad, Roemenië.',
       en: 'Shape your future with a stable, sustainable leader in hardwood lumber and beechwood manufacturing in Brad, Romania.',
       de: 'Gestalten Sie Ihre Zukunft bei einem stabilen, nachhaltigen Marktführer in der Laubholz- und Buchenholzverarbeitung in Brad, Rumänien.',
-      ro: 'Modelati-vă viitorul alături de un lider stabil și durabil în producția de cherestea și produse din lemn de fag în Brad, România.'
+      ro: 'Modelati-vă viitorul alături de un lider stabil și de încredere în industria prelucrării lemnului de fag din Brad, Hunedoara.'
     },
     badgeWork: {
       nl: 'Werk Met Ons',
@@ -56,13 +56,13 @@ export default function Careers() {
       nl: 'Al meer dan 25 jaar is Palrom Products SRL een hoeksteen van stabiliteit in de productie-industrie in het district Hunedoara. We bieden meer dan alleen een baan – we bouwen aan levenslange carrières in de houtbewerking en industrie.',
       en: 'For over 25 years, Palrom Products SRL has been a cornerstone of manufacturing stability in Hunedoara County. We offer more than just a job – we build lifelong carpentry and industrial professions.',
       de: 'Seit über 25 Jahren ist Palrom Products SRL ein Eckpfeiler der Fertigungsstabilität im Kreis Hunedoara. Wir bieten mehr als nur einen Job – wir bauen lebenslange Tischler- und Industrieberufe auf.',
-      ro: 'De peste 25 de ani, Palrom Products SRL este o piatră de temelie a stabilității manufacturiere în județul Hunedoara. Oferim mai mult decât un simplu loc de muncă - construim cariere pe viață în tâmplărie și industrie.'
+      ro: 'De peste 25 de ani, Palrom Products SRL reprezintă un pilon de stabilitate industrială în județul Hunedoara. Oferim mai mult decât un simplu loc de muncă – construim cariere pe viață în domeniul prelucrării lemnului.'
     },
     whyJoinDesc: {
       nl: 'In onze zagerij en schaverij in Brad combineren we traditioneel houtvakmanschap met moderne automatisering. We werken onder strikte ecologische FSC®-principes, met respect voor de bossen om ons heen en de veiligheid van onze werknemers.',
       en: 'At our sawmill and planing shop in Brad, we combine traditional wood craftsmanship with modern automation. We operate under strict FSC® ecological principles, respecting the forests around us and the safety of our operators.',
       de: 'In unserem Sägewerk und Hobelwerk in Brad verbinden wir traditionelles Holzhandwerk mit moderner Automatisierung. Wir arbeiten nach strengen ökologischen FSC®-Richtlinien und achten auf die Wälder um uns herum sowie die Sicherheit unserer Mitarbeiter.',
-      ro: 'În gaterul și atelierul nostru de rindeluire din Brad, combinăm meșteșugul tradițional al lemnului cu automatizarea modernă. Operăm conform principiilor ecologice stricte FSC®, respectând pădurile din jur și siguranța operatorilor noștri.'
+      ro: 'În fabrica noastră modernă și în departamentul de rindeluire din Brad, îmbinăm meșteșugul tradițional cu automatizarea de ultimă generație. Operăm conform standardelor ecologice stricte FSC®, respectând mediul înconjurător și asigurând protecția deplină a echipei noastre.'
     },
     benefitSalaryTitle: {
       nl: 'Concurrerend Salaris',
@@ -74,7 +74,7 @@ export default function Careers() {
       nl: 'Eerlijke beloning die uw ervaring weerspiegelt.',
       en: 'Fair compensation reflecting your experience.',
       de: 'Faire Vergütung entsprechend Ihrer Erfahrung.',
-      ro: 'Compensație echitabilă care reflectă experiența dvs.'
+      ro: 'Compensație avantajoasă, corelată cu experiența dumneavoastră.'
     },
     benefitSafetyTitle: {
       nl: 'Veilige Werkomgeving',
@@ -86,7 +86,7 @@ export default function Careers() {
       nl: 'Hoogwaardige machinebeveiliging, schone werkplaatsen en gecertificeerde beschermingsmiddelen.',
       en: 'Top-tier machinery safeguards, clean workshops, and certified protective equipment.',
       de: 'Erstklassige Maschinenschutzvorrichtungen, saubere Werkstätten und zertifizierte Schutzausrüstung.',
-      ro: 'Măsuri de siguranță de top pentru utilaje, ateliere curate și echipament de protecție certificat.'
+      ro: 'Standarde înalte de siguranță la utilaje, hale de producție curate și echipamente de protecție certificate.'
     },
     benefitBusTitle: {
       nl: 'Reiskostenondersteuning',
@@ -98,7 +98,7 @@ export default function Careers() {
       nl: 'Dagelijkse reiskostenvergoedingen of georganiseerde shuttles voor werknemers uit omliggende gebieden.',
       en: 'Daily transportation allowances or organized shuttle options for employees from surrounding areas.',
       de: 'Tägliche Fahrtkostenzuschüsse oder organisierter Shuttle-Service für Mitarbeiter aus umliegenden Orten.',
-      ro: 'Alocații zilnice de transport sau opțiuni organizate de transport tip navetă pentru angajații din zonele limitrofe.'
+      ro: 'Decontarea transportului sau opțiuni organizate de navetă pentru angajații din zonele limitrofe.'
     },
     benefitTrainTitle: {
       nl: 'Professionele Opleiding',
@@ -110,7 +110,7 @@ export default function Careers() {
       nl: 'Leer machinekalibratie, zagerijbediening en houtsortering van experts uit de houtindustrie.',
       en: 'Learn machine calibration, sawmill operation, and timber grading from industry experts.',
       de: 'Lernen Sie Maschinenkalibrierung, Sägewerksbetrieb und Holzsortierung von Branchenexperten.',
-      ro: 'Învățați calibrarea utilajelor, operarea gaterului și sortarea lemnului de la experți din industrie.'
+      ro: 'Înveți calibrarea utilajelor, tehnici de debitare și sortarea claselor de lemn de la experți în domeniu.'
     },
     activeOpeningsBadge: {
       nl: 'Actieve Vacatures',
