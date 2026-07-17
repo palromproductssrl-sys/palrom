@@ -94,7 +94,7 @@ export default function Products() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Tije și bare cilindrice din fag',
+        ro: 'Profil rotund din lemn',
       },
       description: {
         nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
