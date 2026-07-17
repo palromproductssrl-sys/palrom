@@ -65,11 +65,11 @@ export async function POST(request) {
     if (useFormSubmit) {
       try {
         const productInterestLabelsInternal = {
-          dowels: 'Tije din lemn de fag',
+          dowels: 'Tije și bare cilindrice din fag',
           planed: 'Șipci rindeluite din lemn de fag',
-          profiles: 'Profile din lemn de fag',
-          specials: 'Piese brute din lemn de fag',
-          blanks: 'Piese brute din lemn de fag (blanks)',
+          profiles: 'Profile decorative din fag',
+          specials: 'Elemente dimensionate din fag',
+          blanks: 'Frize din lemn de fag',
           general: 'Cerere Generală de Aprovizionare',
           careers: 'Cariere / Solicitare Job',
         };
@@ -115,11 +115,11 @@ export async function POST(request) {
       // 1. Send internal notification email to sales office (always in Romanian)
       try {
         const productInterestLabelsInternal = {
-          dowels: 'Tije din lemn de fag',
+          dowels: 'Tije și bare cilindrice din fag',
           planed: 'Șipci rindeluite din lemn de fag',
-          profiles: 'Profile din lemn de fag',
-          specials: 'Piese brute din lemn de fag',
-          blanks: 'Piese brute din lemn de fag (blanks)',
+          profiles: 'Profile decorative din fag',
+          specials: 'Elemente dimensionate din fag',
+          blanks: 'Frize din lemn de fag',
           general: 'Cerere Generală de Aprovizionare',
           careers: 'Cariere / Solicitare Job',
         };
@@ -324,11 +324,11 @@ export async function POST(request) {
             careers: 'Karriere / Bewerbung',
           },
           ro: {
-            dowels: 'Tije din lemn de fag',
+            dowels: 'Tije și bare cilindrice din fag',
             planed: 'Șipci rindeluite din lemn de fag',
-            profiles: 'Profile din lemn de fag',
-            specials: 'Piese brute din lemn de fag',
-            blanks: 'Piese brute din lemn de fag (blanks)',
+            profiles: 'Profile decorative din fag',
+            specials: 'Elemente dimensionate din fag',
+            blanks: 'Frize din lemn de fag',
             general: 'Cerere Generală de Aprovizionare',
             careers: 'Cariere / Solicitare Job',
           }
