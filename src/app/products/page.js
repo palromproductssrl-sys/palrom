@@ -18,13 +18,13 @@ export default function Products() {
         nl: 'Beukenhouten blanks',
         en: 'Beechwood blanks',
         de: 'Buchenholz-Blanks',
-        ro: 'Piese brute din lemn de fag (blanks)',
+        ro: 'Frize din lemn de fag',
       },
       description: {
         nl: 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en uitermate geschikt voor meubelonderdelen en draaiwerk.',
         en: 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.',
         de: 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal für Möbelteile und Drechselarbeiten.',
-        ro: 'Piese brute din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.',
+        ro: 'Frize din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.',
       },
       image: '/images/beechwood_blanks.png',
       link: '/blanks',
@@ -46,7 +46,7 @@ export default function Products() {
         nl: 'Blanks',
         en: 'Blanks',
         de: 'Blanks',
-        ro: 'Piese brute'
+        ro: 'Frize'
       },
     },
     {
@@ -94,7 +94,7 @@ export default function Products() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Tije din lemn de fag',
+        ro: 'Tije și bare cilindrice din fag',
       },
       description: {
         nl: 'Verkrijgbaar in kleine maten vanaf 3 mm tot grote afmetingen van 60 mm. Opties zijn onder andere gladde pennen en spiraalvormig gegroefde afwerkingen voor optimale lijmhechting.',
@@ -132,7 +132,7 @@ export default function Products() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag',
+        ro: 'Profile decorative din fag',
       },
       description: {
         nl: 'Een uitgebreid assortiment decoratieve lijsten voor binnenbekleding, timmerwerkafwerking en meubelafwerking. Maatwerk profielen zijn beschikbaar voor grote series.',
@@ -170,7 +170,7 @@ export default function Products() {
         nl: 'Beukenhouten bestekken',
         en: 'Beechwood specials',
         de: 'Buchenholz-Zuschnitte',
-        ro: 'Piese brute din lemn de fag',
+        ro: 'Elemente dimensionate din fag',
       },
       description: {
         nl: 'Op maat gemaakte halffabrikaten en afgewerkte beukenhouten componenten voor timmerwerk, kastenbouw, kinderspeelgoed, keukengerei en de voedingsmiddelenindustrie.',
@@ -198,7 +198,7 @@ export default function Products() {
         nl: 'Bestekken',
         en: 'Specials',
         de: 'Zuschnitte',
-        ro: 'Piese brute'
+        ro: 'Elemente dimensionate'
       },
     },
   ];
@@ -297,13 +297,13 @@ export default function Products() {
       nl: 'Bestekken',
       en: 'Specials',
       de: 'Zuschnitte',
-      ro: 'Piese brute'
+      ro: 'Elemente dimensionate'
     },
     filterBlanks: {
       nl: 'Blanks',
       en: 'Blanks',
       de: 'Blanks',
-      ro: 'Blanks'
+      ro: 'Frize'
     },
     exploreDetails: {
       nl: 'Details Bekijken',
