@@ -29,7 +29,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -51,7 +51,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -73,7 +73,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -95,7 +95,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -117,7 +117,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -139,7 +139,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -161,7 +161,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -183,7 +183,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -205,7 +205,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -227,7 +227,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -249,7 +249,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
     {
@@ -271,7 +271,7 @@ export default function Profiles() {
         nl: 'Beukenhouten profielen',
         en: 'Beechwood profiles',
         de: 'Buchenholzprofile',
-        ro: 'Profile din lemn de fag'
+        ro: 'Profile decorative din fag'
       },
     },
   ];
@@ -281,13 +281,13 @@ export default function Profiles() {
       nl: 'Home / Producten / Beukenhouten profielen',
       en: 'Home / Products / Beechwood profiles',
       de: 'Home / Produkte / Buchenholzprofile',
-      ro: 'Home / Produsele / Profile din lemn de fag'
+      ro: 'Home / Produse / Profile decorative din fag'
     },
     title: {
       nl: 'Beukenhouten profielen',
       en: 'Beechwood profiles',
       de: 'Buchenholzprofile',
-      ro: 'Profile din lemn de fag'
+      ro: 'Profile decorative din fag'
     },
     subtitle: {
       nl: 'PALROM Products ontwerpt en produceert een uitgebreide catalogus van beukenhouten profielen. Nauwkeurig gefreesd voor een perfect glad oppervlak, zijn onze profielen ideaal voor kastafwerking, vloerafwerking en wanddecoratie.',
