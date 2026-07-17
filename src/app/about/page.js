@@ -76,7 +76,7 @@ export default function About() {
         nl: 'Uitbreiding van Faciliteiten',
         en: 'Facility Expansion',
         de: 'Erweiterung der Anlagen',
-        ro: 'Extinderea Unității'
+        ro: 'Extinderea Capacităților'
       },
       description: {
         nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers.',
