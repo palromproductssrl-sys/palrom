@@ -18,7 +18,7 @@ const categoryData = {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Piese brute din lemn de fag (blanks)'
+      ro: 'Semifabricate din lemn de fag'
     },
     length: { min: 200, max: 3000, default: 1000, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 50, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
@@ -69,7 +69,7 @@ const categoryData = {
       nl: 'Beukenhouten bestekken',
       en: 'Beechwood specials',
       de: 'Buchenholz-Zuschnitte',
-      ro: 'Piese brute din lemn de fag'
+      ro: 'Elemente dimensionate din fag'
     },
     length: { min: 50, max: 3000, default: 500, label: { nl: 'Lengte (mm)', en: 'Length (mm)', de: 'Länge (mm)', ro: 'Lungime (mm)' } },
     diameter: { min: 5, max: 500, default: 40, label: { nl: 'Breedte (mm)', en: 'Width (mm)', de: 'Breite (mm)', ro: 'Lățime (mm)' } },
