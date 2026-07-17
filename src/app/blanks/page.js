@@ -14,19 +14,19 @@ export default function Blanks() {
       nl: 'Home / Producten / Beukenhouten blanks',
       en: 'Home / Products / Beechwood blanks',
       de: 'Home / Produkte / Buchenholz-Blanks',
-      ro: 'Home / Produse / Semifabricate din lemn de fag'
+      ro: 'Home / Produse / Frize din lemn de fag'
     },
     title: {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Semifabricate din lemn de fag'
+      ro: 'Frize din lemn de fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert hoogwaardige fijnbezaagde beukenhouten blanks rechtstreeks uit onze eigen moderne zagerij in Brad. Gekalibreerd en gedroogd tot 8-12% vochtgehalte voor direct gebruik in de meubel- en houtbewerkingsindustrie.',
       en: 'PALROM Products manufactures premium fine-sawn beechwood blanks directly from our state-of-the-art sawmill in Brad. Calibrated and kiln-dried to 8-12% moisture content, ready for the furniture and woodworking industries.',
       de: 'PALROM Products stellt erstklassige feingesägte Buchenholz-Blanks direkt in unserem hochmodernen Sägewerk in Brad her. Kalibriert und kammergetrocknet auf 8-12% Holzfeuchte, bereit für die Möbel- und Holzbearbeitungsindustrie.',
-      ro: 'PALROM Products fabrică semifabricate din lemn de fag de calitate superioară direct de la gaterul nostru modern din Brad. Calibrate și uscate în camere de uscare la un conținut de umiditate de 8-12%, gata pentru industria mobilei și a prelucrării lemnului.'
+      ro: 'PALROM Products fabrică frize din lemn de fag de calitate superioară direct de la gaterul nostru modern din Brad. Calibrate și uscate în camere de uscare la un conținut de umiditate de 8-12%, gata pentru industria mobilei și a prelucrării lemnului.'
     },
     fscNotice: {
       nl: 'FSC® Gecertificeerd op aanvraag beschikbaar',
@@ -44,25 +44,25 @@ export default function Blanks() {
       nl: 'Beukenhouten blanks',
       en: 'Beechwood blanks',
       de: 'Buchenholz-Blanks',
-      ro: 'Semifabricate din lemn de fag'
+      ro: 'Frize din lemn de fag'
     },
     blanksProductTitle: {
       nl: 'Fijnbezaagde blanks / bestekken',
       en: 'Fine-sawn beechwood blanks',
       de: 'Feingesägte Buchenholz-Blanks',
-      ro: 'Semifabricate din fag tăiate fin'
+      ro: 'Frize din fag tăiate fin'
     },
     descText1: {
       nl: 'Kwalitatief fijnbezaagde blanks en gezaagde planken van geselecteerd Roemeens beukenhout. Uitermate geschikt voor verdere machinale verwerking en hoogwaardige componenten in de meubelindustrie.',
       en: 'High-quality fine-sawn blanks and timber cut from selected Romanian beechwood. Perfectly suited for further mechanical processing and premium components in the furniture industry.',
       de: 'Hochwertige feingesägte Kanteln und Schnittholz aus ausgewähltem rumänischem Buchenholz. Bestens geeignet für die weitere maschinelle Verarbeitung und Komponenten in der Möbelindustrie.',
-      ro: 'Semifabricate de înaltă calitate tăiate fin și cherestea debitată din lemn de fag românesc selecționat. Perfect potrivite pentru prelucrări mecanice ulterioare și componente în industria mobilei.'
+      ro: 'Frize de înaltă calitate tăiate fin și cherestea debitată din lemn de fag românesc selecționat. Perfect potrivite pentru prelucrări mecanice ulterioare și componente în industria mobilei.'
     },
     descText2: {
-      nl: 'Onze fijnbezaagde blanks worden direct in onze eigen zagerij geproduceerd en gekalibreerd. Ze zijn kammergedroogd tot 8-12% vochtgehalte om een maximale stabiliteit en minimale vervorming te garanderen tijdens verdere bewerking.',
+      nl: 'Onze fijnbezaagde blanks worden direct in onze eigen zagerij geproduceerd en gekalibreerd. Ze zijn kammergedroogd tot 8-12% vochtgehalte om een maximaal stabiliteit en minimale vervorming te garanderen tijdens verdere bewerking.',
       en: 'Our fine-sawn blanks are directly produced and calibrated in our own sawmill. They are kiln-dried to 8-12% moisture content to guarantee maximum stability and minimum deformation during subsequent processing.',
       de: 'Unsere feingesägten Kanteln werden direkt in unserem eigenen Sägewerk produziert und kalibriert. Sie sind kammergetrocknet auf 8-12% Holzfeuchte, um maximale Stabilität und minimale Verformung bei der Weiterverarbeitung zu gewährleisten.',
-      ro: 'Semifabricatele noastre tăiate fin sunt produse și calibrate direct în gaterul nostru propriu. Acestea sunt uscate în camere de uscare la un conținut de umiditate de 8-12% pentru a garanta stabilitate maximă și deformare minimă în timpul prelucrărilor ulterioare.'
+      ro: 'Frizele noastre tăiate fin sunt produse și calibrate direct în gaterul nostru propriu. Acestea sunt uscate în camere de uscare la un conținut de umiditate de 8-12% pentru a garanta stabilitate maximă și deformare minimă în timpul prelucrărilor ulterioare.'
     }
   };
 
