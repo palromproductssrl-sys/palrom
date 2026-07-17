@@ -125,19 +125,19 @@ function ApplyFormContent() {
       nl: 'Operator Schaafmachine',
       en: 'Planing Machine Operator',
       de: 'Hobelmaschinenführer',
-      ro: 'Operator Rindele'
+      ro: 'Operator Mașini de Rindeluit și Profilat'
     },
     optionQuality: {
       nl: 'Inspecteur Kwaliteitscontrole & Sortering',
       en: 'Quality & Defect Inspector',
       de: 'Qualitäts- und Mängelprüfer',
-      ro: 'Inspector Calitate & Defecte'
+      ro: 'Controlor Calitate (CTC)'
     },
     optionMaintenance: {
       nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
       en: 'Maintenance Mechanic / Millwright',
       de: 'Wartungsmechaniker / Maschinenschlosser',
-      ro: 'Mecanic Întreținere'
+      ro: 'Mecanic de Întreținere și Reparații'
     },
     optionGeneral: {
       nl: 'Open Sollicitatie',
@@ -321,19 +321,19 @@ function ApplyFormContent() {
             nl: 'Operator Schaafmachine',
             en: 'Planing Machine Operator',
             de: 'Hobelmaschinenführer',
-            ro: 'Operator Rindele'
+            ro: 'Operator Mașini de Rindeluit și Profilat'
           },
           quality_inspector: {
             nl: 'Inspecteur Kwaliteitscontrole & Sortering',
             en: 'Quality & Defect Inspector',
             de: 'Qualitäts- und Mängelprüfer',
-            ro: 'Inspector Calitate & Defecte'
+            ro: 'Controlor Calitate (CTC)'
           },
           maintenance_mechanic: {
             nl: 'Onderhoudsmonteur / Werktuigbouwkundige',
             en: 'Maintenance Mechanic / Millwright',
             de: 'Wartungsmechaniker / Maschinenschlosser',
-            ro: 'Mecanic Întreținere'
+            ro: 'Mecanic de Întreținere și Reparații'
           },
           general_application: {
             nl: 'Open Sollicitatie',
