@@ -29,7 +29,7 @@ export default function Dowels() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Profil rotund din lemn'
+        ro: 'Tije și bare cilindrice din fag'
       },
     },
     {
@@ -51,7 +51,7 @@ export default function Dowels() {
         nl: 'Beukenhouten stokken',
         en: 'Beechwood sticks',
         de: 'Buchenholzstäbe',
-        ro: 'Profil rotund din lemn'
+        ro: 'Tije și bare cilindrice din fag'
       },
     }
   ];
@@ -61,13 +61,13 @@ export default function Dowels() {
       nl: 'Home / Producten / Beukenhouten stokken',
       en: 'Home / Products / Beechwood sticks',
       de: 'Home / Produkte / Buchenholzstäbe',
-      ro: 'Home / Produse / Profil rotund din lemn'
+      ro: 'Home / Produse / Tije și bare cilindrice din fag'
     },
     title: {
       nl: 'Beukenhouten stokken',
       en: 'Beechwood sticks',
       de: 'Buchenholzstäbe',
-      ro: 'Profil rotund din lemn'
+      ro: 'Tije și bare cilindrice din fag'
     },
     subtitle: {
       nl: 'PALROM Products produceert een uitgebreid assortiment nauwkeurig gekalibreerde beukenhouten deuvels, staven en pennen. Onze stokken worden rechtstreeks gemaakt van duurzaam hout om aan de hoogste houtbewerkingsspecificaties te voldoen.',
