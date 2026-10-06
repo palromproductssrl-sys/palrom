@@ -6,7 +6,7 @@ import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import { useInquiry } from '@/components/InquiryContext';
 
-const YOUTUBE_VIDEO_ID = '9c08nP2sCS8';
+const YOUTUBE_VIDEO_ID = 'HtQ-duYvz0Y';
 
 export default function About() {
   const { lang } = useInquiry();
