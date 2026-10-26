@@ -9,11 +9,8 @@ FONT_BOLD = os.path.abspath('public/fonts/Roboto-Bold.ttf')
 FONT_REG = os.path.abspath('public/fonts/Roboto-Regular.ttf')
 
 # LOGO ASSETS:
-# 1. Official Black & Yellow logo on 100% transparent background (for scenes 1-6)
-LOGO_TRANSPARENT = os.path.abspath('public/images/logo.png')
-# 2. Inverse logo for dark background (for final slide / outro)
-LOGO_INVERSE = os.path.abspath('public/images/logo_white.png')
-
+LOGO_ORIGINAL = os.path.abspath('public/images/logo.png')
+LOGO_WHITE = os.path.abspath('public/images/logo_white.png')
 FSC_LOGO = os.path.abspath('public/images/fsc_logo.png')
 
 # BRAND COLOR PALETTE: Dark Anthracite Black + Palrom Gold
@@ -34,7 +31,50 @@ def run_cmd(cmd):
 def escape_txt(t):
     return t.replace('\\', '\\\\').replace(':', r'\:').replace("'", r"\'").replace('%', r'\%')
 
-# 1. Product Cards in 4 languages
+# 1. OPTUNE & SHARPEN WATERMARK LOGO (Black & Yellow on 100% Transparent Background)
+print("--- Generating Optuned Razor-Sharp Watermark ---")
+logo_raw = Image.open(LOGO_ORIGINAL).convert('RGBA')
+
+# Target width: 260px (height ~84px) - 30% larger so small text 'PRODUCTS SRL' is razor sharp!
+target_w = 260
+target_h = int(target_w * logo_raw.height / logo_raw.width)
+logo_hq = logo_raw.resize((target_w, target_h), Image.Resampling.LANCZOS)
+# Unsharp mask to sharpen edges of typography and shield
+logo_hq = logo_hq.filter(ImageFilter.UnsharpMask(radius=1.2, percent=160, threshold=2))
+
+# Subtle contrast ambient backlight so black letters never blur against dark tree/machine backgrounds
+pad = 8
+total_w = target_w + pad * 2
+total_h = target_h + pad * 2
+watermark_sharp = Image.new('RGBA', (total_w, total_h), (0, 0, 0, 0))
+
+alpha = logo_hq.split()[3]
+# Subtle soft backlight halo (transparent background preserved!)
+backlight = alpha.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(3))
+glow_color = Image.new('RGBA', (target_w, target_h), (255, 255, 255, 140))
+shadow = alpha.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(3))
+shadow_color = Image.new('RGBA', (target_w, target_h), (0, 0, 0, 110))
+
+watermark_sharp.paste(shadow_color, (pad, pad + 1), shadow)
+watermark_sharp.paste(glow_color, (pad, pad), backlight)
+watermark_sharp.paste(logo_hq, (pad, pad), logo_hq)
+
+WATERMARK_SHARP_PATH = os.path.join(SCRATCH, 'watermark_tuned_sharp.png')
+watermark_sharp.save(WATERMARK_SHARP_PATH)
+print(f"Saved razor-sharp watermark: {WATERMARK_SHARP_PATH}")
+
+# 2. OPTUNE & SHARPEN OUTRO INVERSE LOGO
+print("--- Generating Optuned Razor-Sharp Outro Logo ---")
+logo_w_raw = Image.open(LOGO_WHITE).convert('RGBA')
+ow_target = 560
+oh_target = int(ow_target * logo_w_raw.height / logo_w_raw.width)
+logo_w_hq = logo_w_raw.resize((ow_target, oh_target), Image.Resampling.LANCZOS)
+logo_w_hq = logo_w_hq.filter(ImageFilter.UnsharpMask(radius=1.2, percent=150, threshold=2))
+
+LOGO_INVERSE_SHARP_PATH = os.path.join(SCRATCH, 'logo_white_sharp.png')
+logo_w_hq.save(LOGO_INVERSE_SHARP_PATH)
+
+# 3. Product Cards in 4 languages
 product_data = {
     'en': {
         'badge': 'FSC® 100% Beech',
@@ -260,8 +300,7 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     esc_s = escape_txt(subtitle)
     s_filter = (
         f"[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
-        f"[1:v]scale=-1:65[logo];"
-        f"[base][logo]overlay=60:45[with_logo];"
+        f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -270,24 +309,23 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', img_path,
-        '-i', LOGO_TRANSPARENT,
+        '-i', WATERMARK_SHARP_PATH,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
 def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250):
-    # Authentic Palrom Log Truck shot with widescreen background blur & Black & Yellow logo on transparent bg
+    # Authentic Palrom Log Truck shot with widescreen background blur & Razor-sharp Black & Yellow logo
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
     s_filter = (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=25:5[bg];"
         "[0:v]scale=-1:1080[fg];"
         "[bg][fg]overlay=(W-w)/2:0[combined];"
-        "[1:v]scale=-1:65[logo];"
-        "[combined][logo]overlay=60:45[with_logo];"
+        "[combined][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -296,11 +334,11 @@ def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', img_path,
-        '-i', LOGO_TRANSPARENT,
+        '-i', WATERMARK_SHARP_PATH,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
@@ -311,8 +349,7 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=20:5[bg];"
         "[0:v]scale=-1:1080[fg];"
         "[bg][fg]overlay=(W-w)/2:(H-h)/2[combined];"
-        "[1:v]scale=-1:65[logo];"
-        "[combined][logo]overlay=60:45[with_logo];"
+        "[combined][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -321,25 +358,24 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
     run_cmd([
         FFMPEG, '-y',
         '-stream_loop', '2', '-i', vid_path,
-        '-i', LOGO_TRANSPARENT,
+        '-i', WATERMARK_SHARP_PATH,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
 def render_fsc_and_team_scene(lang, cfg, out_path):
     frames_dir, _ = generate_fsc_frames(lang, cfg['fsc_dur'])
     
-    # 1. Render FSC growing & glowing clip with Black & Yellow logo on transparent bg
+    # 1. Render FSC growing & glowing clip with sharp logo
     fsc_clip = os.path.join(SCRATCH, f'clip_fsc_{lang}.mp4')
     esc_ft = escape_txt(cfg['fsc_title'])
     esc_fs = escape_txt(cfg['fsc_sub'])
     s_fsc_filter = (
         "[0:v]scale=1920:1080[base];"
-        "[1:v]scale=-1:65[logo];"
-        "[base][logo]overlay=60:45[with_logo];"
+        "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -349,22 +385,21 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         FFMPEG, '-y',
         '-framerate', '30',
         '-i', os.path.join(frames_dir, 'frame_%04d.png'),
-        '-i', LOGO_TRANSPARENT,
+        '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_fsc_filter,
         '-map', '[out]',
         '-t', str(cfg['fsc_dur']),
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         fsc_clip
     ])
     
-    # 2. Render Team photo clip with Black & Yellow logo on transparent bg
+    # 2. Render Team photo clip with sharp logo
     team_clip = os.path.join(SCRATCH, f'clip_team_{lang}.mp4')
     esc_tt = escape_txt(cfg['team_title'])
     esc_ts = escape_txt(cfg['team_sub'])
     s_team_filter = (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
-        "[1:v]scale=-1:65[logo];"
-        "[base][logo]overlay=60:45[with_logo];"
+        "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1250:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_tt}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -373,11 +408,11 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', 'public/images/team_group_photo.png',
-        '-i', LOGO_TRANSPARENT,
+        '-i', WATERMARK_SHARP_PATH,
         '-t', str(cfg['team_dur']),
         '-filter_complex', s_team_filter,
         '-map', '[out]',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         team_clip
     ])
     
@@ -388,18 +423,17 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         '-i', fsc_clip,
         '-i', team_clip,
         '-filter_complex', f'xfade=transition=fade:duration=0.8:offset={offset}',
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
 def render_scene_outro(lang, duration, out_path, cfg):
-    # Outro uses the INVERSE logo directly on dark anthracite background!
+    # Outro uses the razor-sharp INVERSE logo directly on dark anthracite background!
     esc_t = escape_txt(cfg['outro_title'])
     esc_s = escape_txt(cfg['outro_sub'])
     s_filter = (
         f"color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}[bg];"
-        "[1:v]scale=540:-1[logo];"
-        "[bg][logo]overlay=(W-w)/2:280[with_logo];"
+        "[bg][1:v]overlay=(W-w)/2:280[with_logo];"
         f"[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
         f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
@@ -407,18 +441,18 @@ def render_scene_outro(lang, duration, out_path, cfg):
     run_cmd([
         FFMPEG, '-y',
         '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}',
-        '-i', LOGO_INVERSE,
+        '-i', LOGO_INVERSE_SHARP_PATH,
         '-filter_complex', s_filter,
         '-map', '[out]',
         '-t', str(duration),
-        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
 # Build all 4 languages!
 for lang, cfg in scenes_config.items():
     print(f"\n==========================================")
-    print(f"--- RENDERING CORPORATE VIDEO: {lang.upper()} ({cfg['total_dur']}s) ---")
+    print(f"--- RENDERING CRISP HIGH-DEF CORPORATE VIDEO: {lang.upper()} ({cfg['total_dur']}s) ---")
     print(f"==========================================")
     
     durs = cfg['durs']
@@ -450,7 +484,7 @@ for lang, cfg in scenes_config.items():
     s6_out = os.path.join(SCRATCH, f's6_{lang}.mp4')
     render_fsc_and_team_scene(lang, cfg, s6_out)
     
-    # 7. Scene 7 (Outro with Inverse Logo directly on dark background)
+    # 7. Scene 7 (Outro with Razor-Sharp Inverse Logo)
     s7_out = os.path.join(SCRATCH, f's7_{lang}.mp4')
     render_scene_outro(lang, durs[6], s7_out, cfg)
     
@@ -502,4 +536,4 @@ shutil.copyfile(
     os.path.abspath('public/images/palrom-corporate-video-en.mp4'),
     os.path.abspath('public/images/palrom-corporate-video.mp4')
 )
-print("Finished rendering all 4 corporate videos with transparent watermark & inverse outro!")
+print("Finished rendering all 4 high-definition corporate videos with optuned razor-sharp logos!")
