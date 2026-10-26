@@ -533,7 +533,7 @@ export default function About() {
                   ref={videoRef}
                   key={videoLang}
                   className="gallery-video"
-                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.53`}
+                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.54`}
                   autoPlay
                   loop
                   muted={isVideoMuted}

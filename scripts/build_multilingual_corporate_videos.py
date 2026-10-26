@@ -117,15 +117,15 @@ product_data = {
     }
 }
 
-font_title = ImageFont.truetype(FONT_BOLD, 26)
-font_sub = ImageFont.truetype(FONT_REG, 17)
+font_title = ImageFont.truetype(FONT_BOLD, 25)
+font_sub = ImageFont.truetype(FONT_REG, 16)
 font_badge = ImageFont.truetype(FONT_BOLD, 15)
 
-card_w, card_h = 420, 680
+card_w, card_h = 405, 680
 gap = 36
 total_w = 4 * card_w + 3 * gap
 start_x = (1920 - total_w) // 2
-card_y = 150
+card_y = 145
 
 for lang, data in product_data.items():
     card_path = os.path.join(SCRATCH, f'products_showcase_{lang}.png')
@@ -138,17 +138,17 @@ for lang, data in product_data.items():
         draw.rounded_rectangle([cx, card_y, cx + card_w, card_y + 8], radius=4, fill=(231, 177, 36))
         
         im = Image.open(f'public/images/{img_name}').convert('RGBA')
-        im.thumbnail((360, 360), Image.Resampling.LANCZOS)
+        im.thumbnail((345, 345), Image.Resampling.LANCZOS)
         ix = cx + (card_w - im.width) // 2
-        iy = card_y + 40 + (360 - im.height) // 2
+        iy = card_y + 35 + (345 - im.height) // 2
         canvas.paste(im, (ix, iy), im)
         
         # Anthracite black title
-        draw.text((cx + 25, card_y + 430), title, font=font_title, fill=COLOR_ANTHRACITE_TEXT)
-        draw.text((cx + 25, card_y + 472), sub, font=font_sub, fill=(100, 116, 139))
+        draw.text((cx + 22, card_y + 425), title, font=font_title, fill=COLOR_ANTHRACITE_TEXT)
+        draw.text((cx + 22, card_y + 468), sub, font=font_sub, fill=(100, 116, 139))
         
-        draw.rounded_rectangle([cx + 25, card_y + 530, cx + 185, card_y + 565], radius=6, fill=(253, 247, 242), outline=(231, 177, 36), width=1)
-        draw.text((cx + 36, card_y + 538), data['badge'], font=font_badge, fill=(180, 83, 9))
+        draw.rounded_rectangle([cx + 22, card_y + 530, cx + 182, card_y + 565], radius=6, fill=(253, 247, 242), outline=(231, 177, 36), width=1)
+        draw.text((cx + 33, card_y + 538), data['badge'], font=font_badge, fill=(180, 83, 9))
     
     canvas.save(card_path)
 
@@ -236,10 +236,14 @@ scenes_config = {
 }
 
 def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200):
+    # Ken Burns subtle cinematic push-in on still imagery
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
+    frames = max(1, int(duration * 30))
+    dz = 0.07 / frames
     s_filter = (
-        f"[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
+        f"[0:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,"
+        f"zoompan=z='min(zoom+{dz:.6f},1.07)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)-(zoom-1)*40':d={frames}:s=1920x1080:fps=30[base];"
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
@@ -248,7 +252,7 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     )
     run_cmd([
         FFMPEG, '-y',
-        '-loop', '1', '-i', img_path,
+        '-i', img_path,
         '-i', WATERMARK_SHARP_PATH,
         '-t', str(duration),
         '-filter_complex', s_filter,
@@ -258,12 +262,15 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     ])
 
 def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250):
-    # Authentic Palrom Log Truck shot - FULL SCREEN BEELDVULLEND without blurred sidebars
+    # Authentic Palrom Log Truck shot - Ken Burns cinematic push-in
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
+    frames = max(1, int(duration * 30))
+    dz = 0.08 / frames
     s_filter = (
-        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.55[base];"
-        "[base][1:v]overlay=52:37[with_logo];"
+        f"[0:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,"
+        f"zoompan=z='min(zoom+{dz:.6f},1.08)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)-(zoom-1)*80':d={frames}:s=1920x1080:fps=30[base];"
+        f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -271,7 +278,7 @@ def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250
     )
     run_cmd([
         FFMPEG, '-y',
-        '-loop', '1', '-i', img_path,
+        '-i', img_path,
         '-i', WATERMARK_SHARP_PATH,
         '-t', str(duration),
         '-filter_complex', s_filter,
@@ -475,7 +482,7 @@ def render_scene_widescreen_video(vid_path, title, subtitle, duration, out_path,
     ])
 
 def render_fsc_and_team_scene(lang, cfg, out_path):
-    # 1. Render Pure White FSC logo on dark anthracite background with prominent top heading
+    # 1. Render Pure White FSC logo on dark anthracite background with prominent top heading & Ken Burns zoom
     fsc_clip = os.path.join(SCRATCH, f'clip_fsc_{lang}.mp4')
     esc_ft = escape_txt(cfg['fsc_title'])
     esc_fs = escape_txt(cfg['fsc_sub'])
@@ -485,21 +492,37 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         'de': 'NACHHALTIGKEIT & QUALITÄT',
         'ro': 'SUSTENABILITATE & CALITATE'
     }
-    esc_th = escape_txt(top_headings.get(lang, 'DUURZAAMHEID & KWALITEIT'))
+    head_text = top_headings.get(lang, 'DUURZAAMHEID & KWALITEIT')
+
+    # Pre-render FSC graphic slide
+    fsc_slide_path = os.path.join(SCRATCH, f'fsc_slide_{lang}.png')
+    fsc_canvas = Image.new('RGB', (1920, 1080), (41, 41, 41))
+    fsc_im = Image.open(FSC_WHITE_PATH).convert('RGBA')
+    ix = (1920 - fsc_im.width) // 2
+    iy = (1080 - fsc_im.height) // 2 - 40
+    fsc_canvas.paste(fsc_im, (ix, iy), fsc_im)
+
+    draw_fsc = ImageDraw.Draw(fsc_canvas)
+    f_head = ImageFont.truetype(FONT_BOLD, 38)
+    bbox_h = draw_fsc.textbbox((0, 0), head_text, font=f_head)
+    thw = bbox_h[2] - bbox_h[0]
+    draw_fsc.text(((1920 - thw)//2, 180), head_text, font=f_head, fill=(231, 177, 36))
+    fsc_canvas.save(fsc_slide_path)
+
+    fsc_frames = max(1, int(cfg['fsc_dur'] * 30))
+    fsc_dz = 0.08 / fsc_frames
 
     s_fsc_filter = (
-        f"[0:v][1:v]overlay=(W-w)/2:(H-h)/2-40[with_fsc];"
-        f"[with_fsc][2:v]overlay=52:37[with_logo];"
-        f"[with_logo]drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_th}':fontcolor={COLOR_GOLD}:fontsize=38:x=(w-text_w)/2:y=180[with_head];"
-        f"[with_head]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"[0:v]scale=3840:2160,zoompan=z='min(zoom+{fsc_dz:.6f},1.08)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={fsc_frames}:s=1920x1080:fps=30[base];"
+        f"[base][1:v]overlay=52:37[with_logo];"
+        f"[with_logo]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
         f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_fs}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
-        '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={cfg["fsc_dur"]}',
-        '-loop', '1', '-i', FSC_WHITE_PATH,
+        '-i', fsc_slide_path,
         '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_fsc_filter,
         '-map', '[out]',
@@ -508,7 +531,7 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         fsc_clip
     ])
     
-    # 2. Render Team photo clip with playful name tags
+    # 2. Render Team photo clip with Ken Burns push-in towards smiling faces
     team_clip = os.path.join(SCRATCH, f'clip_team_{lang}.mp4')
     esc_tt = escape_txt(cfg['team_title'])
     esc_ts = escape_txt(cfg['team_sub'])
@@ -516,9 +539,13 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     if not os.path.exists(team_photo_path):
         team_photo_path = 'public/images/team_group_photo.png'
 
+    team_frames = max(1, int(cfg['team_dur'] * 30))
+    team_dz = 0.09 / team_frames
+
     s_team_filter = (
-        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
-        "[base][1:v]overlay=52:37[with_logo];"
+        f"[0:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,"
+        f"zoompan=z='min(zoom+{team_dz:.6f},1.09)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)-(zoom-1)*80':d={team_frames}:s=1920x1080:fps=30[base];"
+        f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1250:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_tt}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -526,7 +553,7 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     )
     run_cmd([
         FFMPEG, '-y',
-        '-loop', '1', '-i', team_photo_path,
+        '-i', team_photo_path,
         '-i', WATERMARK_SHARP_PATH,
         '-t', str(cfg['team_dur']),
         '-filter_complex', s_team_filter,
@@ -547,20 +574,40 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     ])
 
 def render_scene_outro(lang, duration, out_path, cfg):
-    # Outro uses the razor-sharp INVERSE logo directly on dark anthracite background!
-    esc_t = escape_txt(cfg['outro_title'])
-    esc_s = escape_txt(cfg['outro_sub'])
+    # Outro slide with Ken Burns majestic push-in
+    outro_slide_path = os.path.join(SCRATCH, f'outro_slide_{lang}.png')
+    outro_canvas = Image.new('RGB', (1920, 1080), (41, 41, 41))
+    
+    logo_w_im = Image.open(LOGO_INVERSE_SHARP_PATH).convert('RGBA')
+    lw_x = (1920 - logo_w_im.width) // 2
+    outro_canvas.paste(logo_w_im, (lw_x, 280), logo_w_im)
+    
+    draw_outro = ImageDraw.Draw(outro_canvas)
+    draw_outro.rectangle([(1920-650)//2, 540, (1920+650)//2, 544], fill=(231, 177, 36))
+    
+    f_ot = ImageFont.truetype(FONT_BOLD, 36)
+    f_os = ImageFont.truetype(FONT_REG, 28)
+    
+    t_text = cfg['outro_title']
+    bbox_t = draw_outro.textbbox((0, 0), t_text, font=f_ot)
+    tw = bbox_t[2] - bbox_t[0]
+    draw_outro.text(((1920 - tw)//2, 580), t_text, font=f_ot, fill=(255, 255, 255))
+    
+    s_text = cfg['outro_sub']
+    bbox_s = draw_outro.textbbox((0, 0), s_text, font=f_os)
+    sw = bbox_s[2] - bbox_s[0]
+    draw_outro.text(((1920 - sw)//2, 650), s_text, font=f_os, fill=(212, 212, 212))
+    
+    outro_canvas.save(outro_slide_path)
+    
+    frames = max(1, int(duration * 30))
+    dz = 0.05 / frames
     s_filter = (
-        f"color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}[bg];"
-        "[bg][1:v]overlay=(W-w)/2:280[with_logo];"
-        f"[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
-        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
+        f"[0:v]scale=3840:2160,zoompan=z='min(zoom+{dz:.6f},1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={frames}:s=1920x1080:fps=30[out]"
     )
     run_cmd([
         FFMPEG, '-y',
-        '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}',
-        '-i', LOGO_INVERSE_SHARP_PATH,
+        '-i', outro_slide_path,
         '-filter_complex', s_filter,
         '-map', '[out]',
         '-t', str(duration),
