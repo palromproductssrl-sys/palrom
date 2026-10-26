@@ -378,7 +378,8 @@ def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250
     speed_factor = round(duration / raw_cut_dur, 4)
     s_filter = (
         f"[0:v]setpts={speed_factor}*PTS,fps=30,"
-        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.45[saw_fs];"
+        f"scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.45,"
+        f"unsharp=5:5:1.2:3:3:0.6[saw_fs];"
         f"[saw_fs][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
@@ -393,7 +394,7 @@ def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250
         '-filter_complex', s_filter,
         '-map', '[out]',
         '-t', str(duration),
-        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 

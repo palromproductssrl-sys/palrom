@@ -225,7 +225,7 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
               ref={videoRef}
               key={videoLang}
               className="gallery-video"
-              src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.50`}
+              src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.52`}
               autoPlay
               loop
               muted={isVideoMuted}
