@@ -184,6 +184,12 @@ export default function Home() {
       de: 'Unser Buchenholz ist FSC®-zertifiziert und stammt aus verantwortungsvoll bewirtschafteten lokalen Wäldern.',
       ro: 'Lemnul nostru de fag este certificat FSC® și provine din păduri locale gestionate în mod responsabil.'
     },
+    fscCardTitle: {
+      nl: 'FSC® 100% Gecertificeerd',
+      en: 'FSC® 100% Certified',
+      de: 'FSC® 100% Zertifiziert',
+      ro: 'Certificare FSC® 100%'
+    },
     fscBadgeText: {
       nl: 'Wij verwerken FSC®-gecertificeerd hout uit respect voor ons milieu en toekomstige generaties.',
       en: 'We process FSC® certified timber out of respect for our environment and future generations.',
@@ -434,6 +440,9 @@ export default function Home() {
                 {/* FSC Certificate Floating Card */}
                 <div className="homepage-fsc-card animate-on-scroll">
                   <i className="fa-solid fa-leaf fsc-leaf-icon"></i>
+                  <h4 style={{ fontWeight: 700, fontSize: '1.05rem', color: '#15803d', margin: '0.2rem 0 0.35rem 0', letterSpacing: '-0.01em' }}>
+                    {getTranslation('fscCardTitle')}
+                  </h4>
                   <p>{getTranslation('fscBadgeText')}</p>
                   <a
                     href="/palrom_fsc_certificate.pdf"

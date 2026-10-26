@@ -6,6 +6,7 @@ import json
 import sys
 import argparse
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--lang', default='all', help='Target language: nl, en, de, ro, or all')
@@ -38,30 +39,25 @@ def run_cmd(cmd):
 def escape_txt(t):
     return t.replace('\\', '\\\\').replace(':', r'\:').replace("'", r"\'").replace('%', r'\%')
 
-# 1. OPTUNE & SHARPEN WATERMARK LOGO (Black & Yellow on 100% Transparent Background)
-print("--- Generating Optuned Razor-Sharp Watermark ---")
+# 1. OPTUNE & SHARPEN WATERMARK LOGO (Pure Crisp Black & Yellow on 100% Transparent Background - ZERO halo/stroke)
+print("--- Generating Razor-Sharp Watermark Logo ---")
 logo_raw = Image.open(LOGO_ORIGINAL).convert('RGBA')
 bbox = logo_raw.getbbox()
 logo_cropped = logo_raw.crop(bbox)
 
-# Target width: 300px - Refined, elegant corner watermark proportion (razor-sharp & non-intrusive)
-target_w = 300
-target_h = int(target_w * logo_cropped.height / logo_cropped.width)
-logo_hq = logo_cropped.resize((target_w, target_h), Image.Resampling.LANCZOS)
+# Convert 'PRODUCTS S.R.L.' from gold to solid black [23, 27, 28] matching 'PALROM' black for razor-sharp readability
+arr = np.array(logo_cropped)
+mask_bottom_gold = (np.arange(arr.shape[0])[:, None] > 135) & (np.arange(arr.shape[1])[None, :] > 180) & (arr[:, :, 3] > 30) & (arr[:, :, 0] > 100) & (arr[:, :, 1] > 70)
+arr_black_products = arr.copy()
+arr_black_products[mask_bottom_gold, 0] = 23
+arr_black_products[mask_bottom_gold, 1] = 27
+arr_black_products[mask_bottom_gold, 2] = 28
+logo_ready = Image.fromarray(arr_black_products)
 
-# Crisp 1px edge separation (zero blur, purely 1px dilation for maximum sharpness on dark & light frames)
-alpha = logo_hq.split()[3]
-mask_1px = alpha.filter(ImageFilter.MaxFilter(3))
-
-pad = 4
-total_w = target_w + pad * 2
-total_h = target_h + pad * 2
-watermark_sharp = Image.new('RGBA', (total_w, total_h), (0, 0, 0, 0))
-
-# Crisp 1px edge (semi-white alpha 200) ensures black letters never blur against dark tree/machine backgrounds
-stroke_color = Image.new('RGBA', (target_w, target_h), (255, 255, 255, 200))
-watermark_sharp.paste(stroke_color, (pad, pad), mask_1px)
-watermark_sharp.paste(logo_hq, (pad, pad), logo_hq)
+# Target width: 320px - Pure Lanczos resampling, zero stroke, zero dilation, razor-sharp on transparent background
+target_w = 320
+target_h = int(target_w * logo_ready.height / logo_ready.width)
+watermark_sharp = logo_ready.resize((target_w, target_h), Image.Resampling.LANCZOS)
 
 WATERMARK_SHARP_PATH = os.path.join(SCRATCH, 'watermark_tuned_sharp.png')
 watermark_sharp.save(WATERMARK_SHARP_PATH)
@@ -246,8 +242,8 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -269,8 +265,8 @@ def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250
         "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -359,8 +355,8 @@ def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=125
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -385,8 +381,8 @@ def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250
         f"[saw_fs][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -414,8 +410,8 @@ def render_scene_droogkamers_slowmo(title, subtitle, duration, out_path, w_box=1
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -439,8 +435,8 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
         "[combined][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -461,8 +457,8 @@ def render_scene_widescreen_video(vid_path, title, subtitle, duration, out_path,
         "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -476,17 +472,26 @@ def render_scene_widescreen_video(vid_path, title, subtitle, duration, out_path,
     ])
 
 def render_fsc_and_team_scene(lang, cfg, out_path):
-    # 1. Render Pure White FSC logo on dark anthracite background WITHOUT borders (wit op zwart, zonder randen)
+    # 1. Render Pure White FSC logo on dark anthracite background with prominent top heading
     fsc_clip = os.path.join(SCRATCH, f'clip_fsc_{lang}.mp4')
     esc_ft = escape_txt(cfg['fsc_title'])
     esc_fs = escape_txt(cfg['fsc_sub'])
+    top_headings = {
+        'nl': 'DUURZAAMHEID & KWALITEIT',
+        'en': 'SUSTAINABILITY & QUALITY',
+        'de': 'NACHHALTIGKEIT & QUALITÄT',
+        'ro': 'SUSTENABILITATE & CALITATE'
+    }
+    esc_th = escape_txt(top_headings.get(lang, 'DUURZAAMHEID & KWALITEIT'))
+
     s_fsc_filter = (
-        f"[0:v][1:v]overlay=(W-w)/2:(H-h)/2-70[with_fsc];"
+        f"[0:v][1:v]overlay=(W-w)/2:(H-h)/2-40[with_fsc];"
         f"[with_fsc][2:v]overlay=52:37[with_logo];"
-        f"[with_logo]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"[with_logo]drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_th}':fontcolor={COLOR_GOLD}:fontsize=38:x=(w-text_w)/2:y=180[with_head];"
+        f"[with_head]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_fs}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_fs}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -513,8 +518,8 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1250:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_tt}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_ts}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_tt}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_ts}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
         FFMPEG, '-y',
@@ -546,8 +551,8 @@ def render_scene_outro(lang, duration, out_path, cfg):
         f"color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}[bg];"
         "[bg][1:v]overlay=(W-w)/2:280[with_logo];"
         f"[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color={COLOR_GOLD}:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
-        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
+        f"drawtext=fontfile='{FONT_BOLD}':expansion=none:text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
+        f"drawtext=fontfile='{FONT_REG}':expansion=none:text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
     )
     run_cmd([
         FFMPEG, '-y',
