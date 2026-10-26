@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export default function CorporateVideoSection({ lang = 'nl' }) {
   const [videoLang, setVideoLang] = useState(lang || 'nl');
+  const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(56);
@@ -91,7 +92,16 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-
+  const toggleVideoSound = (e) => {
+    if (e) e.stopPropagation();
+    if (!videoRef.current) return;
+    const nextMuted = !videoRef.current.muted;
+    videoRef.current.muted = nextMuted;
+    setIsVideoMuted(nextMuted);
+    if (!nextMuted && videoRef.current.paused) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
 
   const copy = {
     nl: {
@@ -196,7 +206,7 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
               src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.55`}
               autoPlay
               loop
-              muted
+              muted={isVideoMuted}
               playsInline
               onTimeUpdate={() => {
                 if (videoRef.current) {
@@ -252,6 +262,19 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
                     title={isVideoPlaying ? c.pause : c.play}
                   >
                     <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'}`}></i>
+                  </button>
+
+                  <button 
+                    type="button" 
+                    className="video-ctrl-btn" 
+                    onClick={(e) => {
+                      toggleVideoSound(e);
+                      resetControlsTimer();
+                    }} 
+                    aria-label={isVideoMuted ? c.soundOn : c.soundOff}
+                    title={isVideoMuted ? c.soundOn : c.soundOff}
+                  >
+                    <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
                   </button>
 
                   <span className="video-time-display">
