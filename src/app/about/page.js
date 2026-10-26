@@ -14,7 +14,15 @@ export default function About() {
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isVideoMuted, setIsVideoMuted] = React.useState(true);
   const [videoLang, setVideoLang] = React.useState(lang || 'nl');
+  const [isVideoPlaying, setIsVideoPlaying] = React.useState(true);
+  const [videoCurrentTime, setVideoCurrentTime] = React.useState(0);
+  const [videoDuration, setVideoDuration] = React.useState(55);
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+  const [controlsVisible, setControlsVisible] = React.useState(true);
   const videoRef = React.useRef(null);
+  const wrapperRef = React.useRef(null);
+  const progressRef = React.useRef(null);
+  const hideControlsTimerRef = React.useRef(null);
 
   // Sync video language when page language changes
   React.useEffect(() => {
@@ -22,6 +30,76 @@ export default function About() {
       setVideoLang(lang);
     }
   }, [lang]);
+
+  // Fullscreen change listener
+  React.useEffect(() => {
+    const onFsChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  const resetControlsTimer = () => {
+    setControlsVisible(true);
+    if (hideControlsTimerRef.current) {
+      clearTimeout(hideControlsTimerRef.current);
+    }
+    hideControlsTimerRef.current = setTimeout(() => {
+      if (videoRef.current && !videoRef.current.paused) {
+        setControlsVisible(false);
+      }
+    }, 2500);
+  };
+
+  const togglePlayPause = (e) => {
+    if (e) e.stopPropagation();
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play().catch(() => {});
+      setIsVideoPlaying(true);
+      resetControlsTimer();
+    } else {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+      setControlsVisible(true);
+    }
+  };
+
+  const handleSeek = (e) => {
+    e.stopPropagation();
+    if (!progressRef.current || !videoRef.current || !videoDuration) return;
+    const rect = progressRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, clickX / rect.width));
+    const targetTime = pct * videoDuration;
+    videoRef.current.currentTime = targetTime;
+    setVideoCurrentTime(targetTime);
+    resetControlsTimer();
+  };
+
+  const toggleFullscreen = (e) => {
+    if (e) e.stopPropagation();
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    if (!document.fullscreenElement) {
+      if (wrapper.requestFullscreen) wrapper.requestFullscreen();
+      else if (wrapper.webkitRequestFullscreen) wrapper.webkitRequestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      setIsFullscreen(false);
+    }
+    resetControlsTimer();
+  };
+
+  const formatTime = (secs) => {
+    if (!secs || isNaN(secs)) return '0:00';
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
 
   const switchVideoLang = (newLang) => {
     if (videoLang === newLang) return;
@@ -40,10 +118,12 @@ export default function About() {
           videoRef.current.currentTime = currentTime;
           if (wasPlaying) {
             videoRef.current.play().catch(() => {});
+            setIsVideoPlaying(true);
           }
         } catch (e) {}
       }
     }, 60);
+    resetControlsTimer();
   };
 
   const toggleVideoSound = (e) => {
@@ -437,7 +517,18 @@ export default function About() {
           <div className="gallery-split-layout">
             {/* Video Column */}
             <div className="gallery-video-column animate-on-scroll">
-              <div className="gallery-video-wrapper">
+              <div 
+                ref={wrapperRef}
+                className="gallery-video-wrapper"
+                onClick={togglePlayPause}
+                onMouseMove={resetControlsTimer}
+                onMouseEnter={resetControlsTimer}
+                onMouseLeave={() => {
+                  if (videoRef.current && !videoRef.current.paused) {
+                    setControlsVisible(false);
+                  }
+                }}
+              >
                 <video
                   ref={videoRef}
                   key={videoLang}
@@ -447,7 +538,26 @@ export default function About() {
                   loop
                   muted={isVideoMuted}
                   playsInline
+                  onTimeUpdate={() => {
+                    if (videoRef.current) {
+                      setVideoCurrentTime(videoRef.current.currentTime);
+                    }
+                  }}
+                  onLoadedMetadata={() => {
+                    if (videoRef.current && videoRef.current.duration) {
+                      setVideoDuration(videoRef.current.duration);
+                    }
+                  }}
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
                 />
+
+                {/* Center Play Overlay when Paused */}
+                <div className={`video-center-play-overlay ${!isVideoPlaying ? 'paused' : ''}`}>
+                  <i className="fa-solid fa-play"></i>
+                </div>
+
+                {/* Top Quick Controls */}
                 <div className="video-top-controls">
                   <div className="video-lang-switcher" aria-label="Video Language">
                     {['nl', 'en', 'de', 'ro'].map((l) => (
@@ -468,7 +578,11 @@ export default function About() {
                   <button
                     type="button"
                     className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
-                    onClick={toggleVideoSound}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleVideoSound(e);
+                      resetControlsTimer();
+                    }}
                     aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
                     title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
                   >
@@ -477,6 +591,79 @@ export default function About() {
                       {isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
                     </span>
                   </button>
+                </div>
+
+                {/* Bottom Full Controls Bar */}
+                <div 
+                  className={`video-controls-bottom ${controlsVisible || !isVideoPlaying ? 'visible' : ''}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Progress Bar / Scrubber */}
+                  <div 
+                    ref={progressRef}
+                    className="video-progress-container" 
+                    onClick={handleSeek}
+                    title="Klik om te spoelen"
+                  >
+                    <div className="video-progress-bg">
+                      <div 
+                        className="video-progress-fill" 
+                        style={{ width: `${(videoCurrentTime / (videoDuration || 1)) * 100}%` }}
+                      />
+                      <div 
+                        className="video-progress-thumb" 
+                        style={{ left: `${(videoCurrentTime / (videoDuration || 1)) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Buttons Row */}
+                  <div className="video-controls-row">
+                    <div className="video-controls-left">
+                      {/* Play/Pause */}
+                      <button 
+                        type="button" 
+                        className="video-ctrl-btn" 
+                        onClick={togglePlayPause} 
+                        aria-label={isVideoPlaying ? 'Pauzeren' : 'Afspelen'}
+                        title={isVideoPlaying ? 'Pauzeren' : 'Afspelen'}
+                      >
+                        <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'}`}></i>
+                      </button>
+
+                      {/* Sound */}
+                      <button 
+                        type="button" 
+                        className="video-ctrl-btn" 
+                        onClick={(e) => {
+                          toggleVideoSound(e);
+                          resetControlsTimer();
+                        }} 
+                        aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                        title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                      >
+                        <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
+                      </button>
+
+                      {/* Time */}
+                      <span className="video-time-display">
+                        {formatTime(videoCurrentTime)} / {formatTime(videoDuration)}
+                      </span>
+                    </div>
+
+                    <div className="video-controls-right">
+                      {/* Fullscreen */}
+                      <button 
+                        type="button" 
+                        className="video-ctrl-btn" 
+                        onClick={toggleFullscreen} 
+                        aria-label="Volledig scherm"
+                        title="Volledig scherm"
+                      >
+                        <i className={`fa-solid ${isFullscreen ? 'fa-compress' : 'fa-expand'}`}></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
