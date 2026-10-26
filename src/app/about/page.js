@@ -12,48 +12,27 @@ export default function About() {
   const { lang } = useInquiry();
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
-  const [isVoiceOverActive, setIsVoiceOverActive] = React.useState(false);
+  const [isVideoMuted, setIsVideoMuted] = React.useState(true);
   const videoRef = React.useRef(null);
-  const audioRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (audioRef.current && isVoiceOverActive && videoRef.current) {
-      audioRef.current.currentTime = videoRef.current.currentTime % 20.28;
-      audioRef.current.play().catch(() => {});
-    }
-  }, [lang, isVoiceOverActive]);
-
-  const toggleVoiceOver = (e) => {
+  const toggleVideoSound = (e) => {
     e.stopPropagation();
-    if (!audioRef.current || !videoRef.current) return;
-
-    if (!isVoiceOverActive) {
-      audioRef.current.currentTime = videoRef.current.currentTime % 20.28;
-      audioRef.current.play().catch(() => {});
-      setIsVoiceOverActive(true);
-    } else {
-      audioRef.current.pause();
-      setIsVoiceOverActive(false);
+    if (!videoRef.current) return;
+    const nextMuted = !videoRef.current.muted;
+    videoRef.current.muted = nextMuted;
+    setIsVideoMuted(nextMuted);
+    if (!nextMuted && videoRef.current.paused) {
+      videoRef.current.play().catch(() => {});
     }
   };
 
-  const handleVideoTimeUpdate = () => {
-    if (!isVoiceOverActive || !audioRef.current || !videoRef.current) return;
-    const vTime = videoRef.current.currentTime;
-    const aTime = audioRef.current.currentTime;
-    if (vTime < 1.0 && aTime > 14.0) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {});
-    }
+  const soundLabels = {
+    nl: { on: 'Geluid Aan', off: 'Geluid & Muziek' },
+    en: { on: 'Sound On', off: 'Sound & Music' },
+    de: { on: 'Ton An', off: 'Ton & Musik' },
+    ro: { on: 'Sunet Activat', off: 'Sunet & Muzică' }
   };
-
-  const voiceOverLabels = {
-    nl: { play: 'Voice-over Beluisteren', active: 'Voice-over Aan' },
-    en: { play: 'Listen to Voice-over', active: 'Voice-over Active' },
-    de: { play: 'Voice-over Anhören', active: 'Voice-over Aktiv' },
-    ro: { play: 'Ascultă Voice-over', active: 'Voice-over Activ' }
-  };
-  const currentVoLabel = voiceOverLabels[lang] || voiceOverLabels.en;
+  const currentSoundLabel = soundLabels[lang] || soundLabels.en;
 
   React.useEffect(() => {
     if (!isPlaying) return;
@@ -431,34 +410,24 @@ export default function About() {
                 <video
                   ref={videoRef}
                   className="gallery-video"
-                  src="/images/production-video.mp4"
+                  src="/images/palrom-corporate-video.mp4"
                   autoPlay
                   loop
-                  muted
+                  muted={isVideoMuted}
                   playsInline
-                  onTimeUpdate={handleVideoTimeUpdate}
                 />
-                <audio ref={audioRef} preload="auto" key={lang}>
-                  <source src={`/images/voiceover-${lang}.mp3`} type="audio/mpeg" />
-                  <source src={`/images/voiceover-${lang}.m4a`} type="audio/mp4" />
-                  <source src={`/images/voiceover-${lang}.wav`} type="audio/wav" />
-                </audio>
                 <button
                   type="button"
-                  className={`video-audio-toggle-btn ${isVoiceOverActive ? 'active' : ''}`}
-                  onClick={toggleVoiceOver}
-                  aria-label={isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
-                  title={isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
+                  className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
+                  onClick={toggleVideoSound}
+                  aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                  title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
                 >
-                  <i className={`fa-solid ${isVoiceOverActive ? 'fa-volume-high' : 'fa-volume-xmark'}`}></i>
+                  <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
                   <span className="video-audio-label">
-                    {isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
+                    {isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
                   </span>
                 </button>
-                <div className="gallery-overlay">
-                  <h3>{getTranslation('videoTitle')}</h3>
-                  <p>{getTranslation('videoDesc')}</p>
-                </div>
               </div>
             </div>
 

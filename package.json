@@ -1,6 +1,6 @@
 {
   "name": "palrom-products-next",
-  "version": "5.10.29",
+  "version": "5.10.30",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
@@ -23,6 +23,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "ffmpeg-static": "^5.3.0",
     "tailwindcss": "^4"
   }
 }
