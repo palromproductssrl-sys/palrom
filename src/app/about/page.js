@@ -211,10 +211,10 @@ export default function About() {
         ro: 'Extinderea Capacităților'
       },
       description: {
-        nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen toe en upgradet de besturingssoftware van de droogkamers.',
-        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and upgrading drying chamber software.',
-        de: 'Palrom modernisiert seinen Betriebshof, fügt 7.000 Quadratmeter betonierte Sortierflächen hinzu und aktualisiert die Software der Trockenkammern.',
-        ro: 'Palrom își modernizează platforma industrială, adăugând 7.000 de metri pătrați de platforme betonate pentru sortare și actualizând software-ul de management al camerelor de uscare.'
+        nl: 'Palrom moderniseert zijn terrein en voegt 7.000 vierkante meter aan betonnen sorteerplaatsen en geconditioneerde opslagruimtes toe.',
+        en: 'Palrom modernizes its yard, adding 7,000 square meters of concrete sorting areas and conditioned storage facilities.',
+        de: 'Palrom modernisiert seinen Betriebshof und fügt 7.000 Quadratmeter betonierte Sortierflächen und konditionierte Lagerräume hinzu.',
+        ro: 'Palrom își modernizează platforma industrială, adăugând 7.000 de metri pătrați de platforme betonate pentru sortare și depozite condiționate.'
       },
       align: 'right',
     },
@@ -273,14 +273,14 @@ export default function About() {
     {
       id: 3,
       image: '/images/1.png',
-      title: lang === 'nl' ? 'Conditioneren' : (lang === 'de' ? 'Konditionieren' : (lang === 'ro' ? 'Aburirea lemnului' : 'Conditioning')),
-      desc: lang === 'nl' ? 'Gecontroleerd conditioneren van het hout voor kleur en stabiliteit.' : (lang === 'de' ? 'Kontrolliertes Konditionieren des Holzes für Farbe und Stabilität.' : (lang === 'ro' ? 'Condiționarea controlată a lemnului pentru culoare și stabilitate.' : 'Controlled conditioning of the wood for color and stability.')),
+      title: lang === 'nl' ? 'Natuurlijke Luchtdroging' : (lang === 'de' ? 'Freilufttrocknung' : (lang === 'ro' ? 'Uscare Naturală la Aer' : 'Natural Air Drying')),
+      desc: lang === 'nl' ? 'Gelijkmatige natuurlijke luchtdroging (AD) voor maximale houtstabiliteit.' : (lang === 'de' ? 'Gleichmäßige Freilufttrocknung (AD) für maximale Holzstabilität.' : (lang === 'ro' ? 'Uscare naturală uniformă la aer (AD) pentru stabilitate maximă.' : 'Uniform natural air drying (AD) for maximum timber stability.')),
     },
     {
       id: 4,
       image: '/images/kilns.jpg',
-      title: lang === 'nl' ? 'Gecontroleerd drogen van het hout' : (lang === 'de' ? 'Kontrollierte Holztrocknung' : (lang === 'ro' ? 'Uscarea Controlată a Lemnului' : 'Controlled Wood Drying')),
-      desc: lang === 'nl' ? 'Nauwkeurig drogen van hout tot 8-12% vochtigheid.' : (lang === 'de' ? 'Präzise Holztrocknung auf 8-12 % Feuchtigkeit.' : (lang === 'ro' ? 'Uscarea precisă a lemnului la o umiditate de 8-12%.' : 'Drying timber precisely to 8-12% moisture.')),
+      title: lang === 'nl' ? 'Geconditioneerde Opslag' : (lang === 'de' ? 'Konditionierte Lagerung' : (lang === 'ro' ? 'Depozitare Condiționată' : 'Conditioned Storage')),
+      desc: lang === 'nl' ? 'Geconditioneerde opslagruimtes voor een constant behoud van kwaliteit.' : (lang === 'de' ? 'Konditionierte Lagerräume für beständige Holzqualität.' : (lang === 'ro' ? 'Spații de depozitare condiționate pentru menținerea constantă a calității.' : 'Conditioned storage facilities to ensure consistent wood quality.')),
     },
     {
       id: 5,
@@ -409,16 +409,16 @@ export default function About() {
       ro: 'Nu furnizăm doar lemn; adaptăm soluții care cresc randamentul și reduc costurile de fabricare pentru proiectele dvs. de tâmplărie și producție.'
     },
     dryingTitle: {
-      nl: 'Grote Droogcapaciteit',
-      en: 'Massive Drying Capacity',
-      de: 'Enorme Trocknungskapazität',
-      ro: 'Capacitate Masivă de Uscare'
+      nl: 'Natuurlijke Droging & Geconditioneerde Opslag',
+      en: 'Natural Air Drying & Conditioned Storage',
+      de: 'Freilufttrocknung & Konditionierte Lagerung',
+      ro: 'Uscare Naturală & Depozitare Condiționată'
     },
     dryingDesc: {
-      nl: 'Onze moderne droogkamers garanderen stabiele vochtgehaltes, wat kromtrekken of splijten bij de meubelproductie voorkomt.',
-      en: 'Our modern drying chamber facilities guarantee stable moisture levels, preventing warping or splitting in furniture manufacturing.',
-      de: 'Unsere modernen Trocknungsanlagen garantieren stabile Feuchtigkeitswerte und verhindern Verzug oder Rissbildung bei der Möbelherstellung.',
-      ro: 'Instalațiile noastre moderne de uscare în camere garantează niveluri stabile de umiditate, prevenind deformarea sau despicarea în producția de mobilier.'
+      nl: 'Onze geconditioneerde opslag en natuurlijke luchtdrogingsfaciliteiten garanderen een optimale stabilisatie van het hout, wat werking bij de meubelproductie voorkomt.',
+      en: 'Our conditioned storage and natural air drying facilities guarantee optimal wood stabilization, preventing movement during furniture production.',
+      de: 'Unsere konditionierte Lagerung und Freilufttrocknung garantieren eine optimale Holzstabilisierung und verhindern Verzug bei der Möbelherstellung.',
+      ro: 'Depozitarea noastră condiționată și facilitățile de uscare naturală garantează stabilizarea optimă a lemnului, prevenind deformarea în producția de mobilier.'
     },
     retailTitle: {
       nl: 'Winkelklare Opties',
@@ -533,7 +533,7 @@ export default function About() {
                   ref={videoRef}
                   key={videoLang}
                   className="gallery-video"
-                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.40`}
+                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.43`}
                   autoPlay
                   loop
                   muted={isVideoMuted}
@@ -555,42 +555,6 @@ export default function About() {
                 {/* Center Play Overlay when Paused */}
                 <div className={`video-center-play-overlay ${!isVideoPlaying ? 'paused' : ''}`}>
                   <i className="fa-solid fa-play"></i>
-                </div>
-
-                {/* Top Quick Controls */}
-                <div className="video-top-controls">
-                  <div className="video-lang-switcher" aria-label="Video Language">
-                    {['nl', 'en', 'de', 'ro'].map((l) => (
-                      <button
-                        key={l}
-                        type="button"
-                        className={`video-lang-btn ${videoLang === l ? 'active' : ''}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          switchVideoLang(l);
-                        }}
-                        title={`Bekijk video in het ${l.toUpperCase()}`}
-                      >
-                        {l.toUpperCase()}
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleVideoSound(e);
-                      resetControlsTimer();
-                    }}
-                    aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                    title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                  >
-                    <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
-                    <span className="video-audio-label">
-                      {isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                    </span>
-                  </button>
                 </div>
 
                 {/* Bottom Full Controls Bar */}
@@ -665,6 +629,18 @@ export default function About() {
                     </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Video Studio link */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+                <Link 
+                  href="/video-studio"
+                  className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-amber-400 transition-colors"
+                  title="Open de interactieve Video Studio om shots en teksten aan te passen"
+                >
+                  <i className="fa-solid fa-sliders"></i>
+                  <span>Video Studio (Scènes & Teksten Aanpassen) →</span>
+                </Link>
               </div>
             </div>
 

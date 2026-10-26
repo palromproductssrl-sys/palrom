@@ -2,7 +2,14 @@ import os
 import subprocess
 import shutil
 import math
+import json
+import sys
+import argparse
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--lang', default='all', help='Target language: nl, en, de, ro, or all')
+args, _ = parser.parse_known_args()
 
 FFMPEG = os.path.abspath('node_modules/ffmpeg-static/ffmpeg')
 FONT_BOLD = os.path.abspath('public/fonts/Roboto-Bold.ttf')
@@ -13,10 +20,10 @@ LOGO_ORIGINAL = os.path.abspath('public/images/logo.png')
 LOGO_WHITE = os.path.abspath('public/images/logo_white.png')
 FSC_LOGO = os.path.abspath('public/images/fsc_logo.png')
 
-# BRAND COLOR PALETTE: Dark Anthracite Black + Palrom Gold
-COLOR_ANTHRACITE_BOX = '0x16181b@0.95'      # Modern dark anthracite black for lower thirds
-COLOR_ANTHRACITE_OUTRO = '0x141517'         # Solid dark anthracite black background for outro
-COLOR_ANTHRACITE_TEXT = (24, 26, 28)        # Dark anthracite for product titles
+# BRAND COLOR PALETTE: Palrom Brand Charcoal (#292929 / RGB 41, 41, 41) + Palrom Gold (#e7b124)
+COLOR_ANTHRACITE_BOX = '0x292929@0.95'      # Palrom Brand Charcoal (#292929) for lower thirds
+COLOR_ANTHRACITE_OUTRO = '0x292929'         # Solid Palrom Brand Charcoal (#292929) for FSC & Outro
+COLOR_ANTHRACITE_TEXT = (41, 41, 41)        # Palrom Brand Charcoal (#292929) for product titles
 COLOR_GOLD = '0xe7b124'                     # Brand golden yellow accent line & title
 
 SCRATCH = os.path.abspath('scratch')
@@ -148,79 +155,16 @@ for lang, data in product_data.items():
     
     canvas.save(card_path)
 
-# Load and prepare FSC logo for animation
-fsc_img = Image.open(FSC_LOGO).convert('RGBA')
-fsc_cropped = fsc_img.crop(fsc_img.getbbox())
-base_bw, base_bh = 460, 530
+# Pure White FSC Logo (without borders, white on dark background)
+FSC_WHITE_PATH = os.path.abspath('public/images/fsc_white_logo.png')
 
-fsc_badge_texts = {
-    'en': ('100% CERTIFIED BEECHWOOD', 'Responsible Forest Management'),
-    'nl': ('100% GECERTIFICEERD BEUKENHOUT', 'Verantwoord Bosbeheer'),
-    'de': ('100% ZERTIFIZIERTES BUCHENHOLZ', 'Verantwortungsvolle Waldwirtschaft'),
-    'ro': ('100% FAG CERTIFICAT FSC®', 'Păduri Gestionate Responsabil')
-}
-
-def generate_fsc_frames(lang, duration, fps=30):
-    n_frames = int(duration * fps)
-    frames_dir = os.path.join(SCRATCH, f'fsc_frames_{lang}')
-    os.makedirs(frames_dir, exist_ok=True)
-    badge_t, badge_s = fsc_badge_texts.get(lang, fsc_badge_texts['en'])
-    
-    W, H = 1920, 1080
-    for i in range(n_frames):
-        progress = i / max(1, n_frames - 1)
-        ease = 0.5 - 0.5 * math.cos(progress * math.pi)
-        scale = 0.88 + 0.36 * ease
-        glow_alpha = int(40 + 200 * (progress ** 1.15))
-        glow_radius = int(50 + 95 * progress)
-        
-        canvas = Image.new('RGBA', (W, H), (22, 24, 27, 255))
-        bw = int(base_bw * scale)
-        bh = int(base_bh * scale)
-        bx = (W - bw) // 2
-        by = (H - bh) // 2 - 50
-        
-        # Radiant golden bloom aura
-        glow_layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
-        gdraw = ImageDraw.Draw(glow_layer)
-        gdraw.ellipse([bx - glow_radius, by - glow_radius, bx + bw + glow_radius, by + bh + glow_radius], 
-                      fill=(231, 177, 36, min(255, glow_alpha)))
-        inner_r = int(glow_radius * 0.55)
-        gdraw.ellipse([bx - inner_r, by - inner_r, bx + bw + inner_r, by + bh + inner_r], 
-                      fill=(255, 248, 220, min(255, int(glow_alpha * 0.75))))
-        glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(int(35 + 28 * progress)))
-        canvas.alpha_composite(glow_layer)
-        
-        # Badge card
-        draw = ImageDraw.Draw(canvas)
-        draw.rounded_rectangle([bx, by, bx + bw, by + bh], radius=int(22 * scale), fill=(255, 255, 255, 252), outline=(231, 177, 36), width=int(4 * scale))
-        
-        # FSC Logo inside badge
-        fsc_w = int(320 * scale)
-        fsc_h = int(fsc_cropped.height * (fsc_w / fsc_cropped.width))
-        fsc_resized = fsc_cropped.resize((fsc_w, fsc_h), Image.Resampling.LANCZOS)
-        fx = bx + (bw - fsc_w) // 2
-        fy = by + int(32 * scale)
-        canvas.paste(fsc_resized, (fx, fy), fsc_resized)
-        
-        # Text on badge
-        f_t = ImageFont.truetype(FONT_BOLD, max(14, int(20 * scale)))
-        f_s = ImageFont.truetype(FONT_REG, max(11, int(15 * scale)))
-        draw.text((bx + bw // 2, by + fsc_h + int(55 * scale)), badge_t, font=f_t, fill=(30, 41, 59), anchor='mm')
-        draw.text((bx + bw // 2, by + fsc_h + int(82 * scale)), badge_s, font=f_s, fill=(100, 116, 139), anchor='mm')
-        
-        out_fn = os.path.join(frames_dir, f'frame_{i:04d}.png')
-        canvas.convert('RGB').save(out_fn)
-        
-    return frames_dir, n_frames
-
-# Scene text definitions per language
+# Scene text definitions per language - Timing perfectly synchronized with voiceover pauses
 scenes_config = {
     'en': {
-        'total_dur': 52.0,
-        'durs': [9.5, 5.5, 6.5, 8.0, 9.0, 7.0, 6.5],
+        'total_dur': 49.0,
+        'durs': [8.8, 4.6, 5.9, 7.3, 8.4, 6.6, 7.4],
         'fsc_dur': 2.8,
-        'team_dur': 5.0,
+        'team_dur': 4.6,
         'fsc_title': 'FSC® 100% Certified',
         'fsc_sub': 'Guaranteed sustainable and responsibly harvested beechwood',
         'team_title': 'Our Dedicated Team',
@@ -231,15 +175,15 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Certified Beechwood Manufacturer • Brad, Romania', 'w': 1180},
             {'title': 'Sustainable Harvesting & Raw Timber', 'sub': 'Locally sourced beech logs arriving at our extensive storage yards', 'w': 1250},
             {'title': 'Precision Milling in Action', 'sub': 'Advanced European technology & dedicated Romanian craftsmanship', 'w': 1250},
-            {'title': 'Controlled Steaming & Kiln Drying', 'sub': 'Computerized chamber drying precisely to 8–12% moisture', 'w': 1180},
+            {'title': 'Conditioned Storage & Air Drying', 'sub': 'Natural air drying (Air Dried - AD) and conditioned timber stabilization', 'w': 1280},
             {'title': 'Custom B2B Products', 'sub': 'Blanks, planed slats, smooth dowels, and tailored profiles', 'w': 1250}
         ]
     },
     'nl': {
-        'total_dur': 55.5,
-        'durs': [9.0, 6.5, 7.5, 9.0, 9.5, 7.5, 6.5],
-        'fsc_dur': 3.2,
-        'team_dur': 5.1,
+        'total_dur': 56.0,
+        'durs': [8.6, 6.9, 7.3, 6.6, 10.9, 7.1, 8.6],
+        'fsc_dur': 3.0,
+        'team_dur': 4.9,
         'fsc_title': 'FSC® 100% Gecertificeerd',
         'fsc_sub': 'Gegarandeerd duurzaam en verantwoord beukenhout',
         'team_title': 'Ons Toegewijde Team',
@@ -250,15 +194,15 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Gecertificeerde Beukenhoutproducent • Brad, Roemenië', 'w': 1200},
             {'title': 'Duurzame Oogst & Houtopslag', 'sub': 'Lokaal geoogste beukenstammen arriveren op onze ruime voorraadwerf', 'w': 1250},
             {'title': 'Precisiebewerking in Actie', 'sub': 'Geavanceerde Europese machines & Roemeens vakmanschap', 'w': 1220},
-            {'title': 'Geconditioneerd Stomen & Drogen', 'sub': 'Geautomatiseerde droogkamers met droging tot 8–12% vochtigheid', 'w': 1260},
+            {'title': 'Geconditioneerde Opslag & Luchtdroging', 'sub': 'Natuurlijke luchtdroging (Air Dried - AD) en geconditioneerde houtopslag', 'w': 1280},
             {'title': 'B2B Maatwerk Producten', 'sub': 'Blanks, geschaafde latten, gladde stokken en maatwerk profielen', 'w': 1260}
         ]
     },
     'de': {
-        'total_dur': 60.0,
-        'durs': [9.8, 7.0, 7.0, 10.5, 9.5, 9.0, 7.2],
-        'fsc_dur': 3.5,
-        'team_dur': 6.3,
+        'total_dur': 62.0,
+        'durs': [9.5, 7.8, 7.0, 7.2, 11.6, 8.5, 10.4],
+        'fsc_dur': 3.2,
+        'team_dur': 6.1,
         'fsc_title': 'FSC® 100% Zertifiziert',
         'fsc_sub': 'Nachhaltiges und verantwortungsvoll beschafftes Buchenholz',
         'team_title': 'Unser Engagiertes Team',
@@ -269,15 +213,15 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien', 'w': 1200},
             {'title': 'Nachhaltiger Holzeinschlag & Rundholzlager', 'sub': 'Ausgewählte Buchenstämme auf unserem weitläufigen Werksgelände', 'w': 1280},
             {'title': 'Präzisionsverarbeitung in Aktion', 'sub': 'Fortschrittliche europäische Technologie & rumänische Handwerkskunst', 'w': 1280},
-            {'title': 'Gesteuerte Dämpfung & Kammertrocknung', 'sub': 'Computergesteuerte Trocknung präzise auf 8–12% Restfeuchte', 'w': 1220},
+            {'title': 'Konditionierte Lagerung & Freilufttrocknung', 'sub': 'Natürliche Freilufttrocknung (Air Dried - AD) und optimale Holzlagerung', 'w': 1280},
             {'title': 'Individuelle B2B-Holzprodukte', 'sub': 'Kanteln, gehobelte Leisten, Rundstäbe und Sonderprofile', 'w': 1250}
         ]
     },
     'ro': {
-        'total_dur': 54.5,
-        'durs': [9.0, 6.0, 7.5, 9.5, 9.0, 7.0, 6.5],
-        'fsc_dur': 3.0,
-        'team_dur': 4.8,
+        'total_dur': 56.0,
+        'durs': [9.3, 6.2, 7.0, 6.6, 10.7, 8.1, 8.1],
+        'fsc_dur': 3.1,
+        'team_dur': 5.8,
         'fsc_title': 'Certificare FSC® 100%',
         'fsc_sub': 'Lemn de fag sustenabil din păduri gestionate responsabil',
         'team_title': 'Echipa Noastră Dedicată',
@@ -288,7 +232,7 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'Producător de Lemn de Fag Certificat FSC® • Brad, România', 'w': 1220},
             {'title': 'Recoltare Sustenabilă & Depozitul de Bușteni', 'sub': 'Bușteni de fag din surse locale sosiți în depozitele noastre moderne', 'w': 1250},
             {'title': 'Prelucrare de Precizie în Acțiune', 'sub': 'Tehnologie europeană de top și măiestrie românească dedicată', 'w': 1250},
-            {'title': 'Aburire Controlată & Uscare în Camere', 'sub': 'Uscare computerizată precisă la o umiditate de 8–12%', 'w': 1200},
+            {'title': 'Depozitare Condiționată & Uscare Naturală', 'sub': 'Uscare naturală la aer (Air Dried - AD) și depozitare condiționată', 'w': 1280},
             {'title': 'Produse B2B la Comandă', 'sub': 'Elemente, șipci rindeluite, tije netede și profile personalizate', 'w': 1250}
         ]
     }
@@ -317,14 +261,12 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     ])
 
 def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250):
-    # Authentic Palrom Log Truck shot with widescreen background blur & Razor-sharp Black & Yellow logo
+    # Authentic Palrom Log Truck shot - FULL SCREEN BEELDVULLEND without blurred sidebars
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
     s_filter = (
-        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=25:5[bg];"
-        "[0:v]scale=-1:1080[fg];"
-        "[bg][fg]overlay=(W-w)/2:0[combined];"
-        "[combined][1:v]overlay=52:37[with_logo];"
+        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.55[base];"
+        "[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -337,6 +279,152 @@ def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        out_path
+    ])
+
+# DRONE VIDEO CLIPS FROM AUTHENTIC FACTORY FLY-THROUGH
+DRONE_SOURCE = os.path.abspath('public/videos/palrom_drone_source.mp4') if os.path.exists('public/videos/palrom_drone_source.mp4') else os.path.join(SCRATCH, 'palrom_youtube_full.mp4.webm')
+CLIP_AERIAL = os.path.join(SCRATCH, 'clip_drone_aerial_factory.mp4')
+CLIP_HALL = os.path.join(SCRATCH, 'clip_drone_hall_flythrough.mp4')
+CLIP_DROOGKAMERS = os.path.join(SCRATCH, 'clip_drone_droogkamers.mp4')
+
+CONFIG_JSON_PATH = os.path.abspath('src/data/video_scenes_config.json')
+custom_config = {}
+if os.path.exists(CONFIG_JSON_PATH):
+    try:
+        with open(CONFIG_JSON_PATH, 'r', encoding='utf-8') as f:
+            custom_config = json.load(f)
+            print("Loaded custom video configuration from:", CONFIG_JSON_PATH)
+    except Exception as e:
+        print("Warning loading video config:", e)
+
+# Drone clip start positions
+s1_start = custom_config.get('clips', {}).get('scene1_drone_start', 146.0)
+s2_start = custom_config.get('clips', {}).get('scene2_drone_start', 42.0)
+s3_start = custom_config.get('clips', {}).get('scene3_drone_start', 20.8)
+s4_start = custom_config.get('clips', {}).get('scene4_drone_start', 101.8)
+
+# Also update text definitions per language if provided in custom_config
+if 'scenes' in custom_config:
+    for sc in custom_config['scenes']:
+        sc_id = sc.get('id')
+        if not sc_id: continue
+        sc_idx = sc_id - 1
+        for lang_code in ['en', 'nl', 'de', 'ro']:
+            if lang_code in sc.get('texts', {}):
+                t_obj = sc['texts'][lang_code]
+                if sc_id <= 5 and sc_idx < len(scenes_config[lang_code]['scenes']):
+                    if 'title' in t_obj:
+                        scenes_config[lang_code]['scenes'][sc_idx]['title'] = t_obj['title']
+                    if 'sub' in t_obj:
+                        scenes_config[lang_code]['scenes'][sc_idx]['sub'] = t_obj['sub']
+                elif sc_id == 6:
+                    if 'title' in t_obj:
+                        scenes_config[lang_code]['team_title'] = t_obj['title']
+                    if 'sub' in t_obj:
+                        scenes_config[lang_code]['team_sub'] = t_obj['sub']
+                elif sc_id == 7:
+                    if 'title' in t_obj:
+                        scenes_config[lang_code]['outro_title'] = t_obj['title']
+                    if 'sub' in t_obj:
+                        scenes_config[lang_code]['outro_sub'] = t_obj['sub']
+
+def ensure_drone_clips():
+    if not os.path.exists(DRONE_SOURCE):
+        return
+    print(f"Extracting clips: S1={s1_start}s, S3={s3_start}s, S4={s4_start}s")
+    run_cmd([
+        FFMPEG, '-y', '-ss', str(s1_start), '-t', '15', '-i', DRONE_SOURCE,
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'fast', '-an', CLIP_AERIAL
+    ])
+    run_cmd([
+        FFMPEG, '-y', '-ss', str(s3_start), '-t', '11', '-i', DRONE_SOURCE,
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'fast', '-an', CLIP_HALL
+    ])
+    run_cmd([
+        FFMPEG, '-y', '-ss', str(s4_start), '-t', '15', '-i', DRONE_SOURCE,
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'fast', '-an', CLIP_DROOGKAMERS
+    ])
+
+ensure_drone_clips()
+
+def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=1250):
+    # Scene 2: Authentic Palrom factory fly-in entering hall from 0:42
+    esc_t = escape_txt(title)
+    esc_s = escape_txt(subtitle)
+    s_filter = (
+        f"[0:v]trim=start={s2_start}:duration={duration},setpts=PTS-STARTPTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
+        f"[base][1:v]overlay=52:37[with_logo];"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+    )
+    run_cmd([
+        FFMPEG, '-y',
+        '-i', DRONE_SOURCE,
+        '-i', WATERMARK_SHARP_PATH,
+        '-filter_complex', s_filter,
+        '-map', '[out]',
+        '-t', str(duration),
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        out_path
+    ])
+
+def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250):
+    # Scene 3: Authentic Palrom Saw Machine - Starts at 2.0s and shows the entire cut FULL SCREEN
+    esc_t = escape_txt(title)
+    esc_s = escape_txt(subtitle)
+    raw_cut_dur = 8.5
+    speed_factor = round(duration / raw_cut_dur, 4)
+    s_filter = (
+        f"[0:v]setpts={speed_factor}*PTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.45[saw_fs];"
+        f"[saw_fs][1:v]overlay=52:37[with_logo];"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+    )
+    run_cmd([
+        FFMPEG, '-y',
+        '-ss', '2.0', '-t', str(raw_cut_dur),
+        '-i', 'public/images/production-video.mp4',
+        '-i', WATERMARK_SHARP_PATH,
+        '-filter_complex', s_filter,
+        '-map', '[out]',
+        '-t', str(duration),
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        out_path
+    ])
+
+def render_scene_droogkamers_slowmo(title, subtitle, duration, out_path, w_box=1260):
+    # Scene 4: Nardi drying kilns in cinematic SLOW MOTION, breaking off at the last door (no covered stacks)
+    esc_t = escape_txt(title)
+    esc_s = escape_txt(subtitle)
+    start_time = 101.8
+    end_time = 107.8 # Breaks off at the last door before the covered lumber stacks!
+    raw_dur = round(end_time - start_time, 2) # 6.0 seconds
+    slowmo_factor = duration / raw_dur
+    s_filter = (
+        f"[0:v]setpts={slowmo_factor}*PTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
+        f"[base][1:v]overlay=52:37[with_logo];"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+    )
+    run_cmd([
+        FFMPEG, '-y',
+        '-ss', str(start_time), '-t', str(raw_dur),
+        '-i', DRONE_SOURCE,
+        '-i', WATERMARK_SHARP_PATH,
+        '-filter_complex', s_filter,
+        '-map', '[out]',
+        '-t', str(duration),
         '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
@@ -365,16 +453,36 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
         out_path
     ])
 
+def render_scene_widescreen_video(vid_path, title, subtitle, duration, out_path, w_box=1250):
+    esc_t = escape_txt(title)
+    esc_s = escape_txt(subtitle)
+    s_filter = (
+        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
+        "[base][1:v]overlay=52:37[with_logo];"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
+        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
+    )
+    run_cmd([
+        FFMPEG, '-y',
+        '-stream_loop', '2', '-i', vid_path,
+        '-i', WATERMARK_SHARP_PATH,
+        '-t', str(duration),
+        '-filter_complex', s_filter,
+        '-map', '[out]',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        out_path
+    ])
+
 def render_fsc_and_team_scene(lang, cfg, out_path):
-    frames_dir, _ = generate_fsc_frames(lang, cfg['fsc_dur'])
-    
-    # 1. Render FSC growing & glowing clip with sharp logo
+    # 1. Render Pure White FSC logo on dark anthracite background WITHOUT borders (wit op zwart, zonder randen)
     fsc_clip = os.path.join(SCRATCH, f'clip_fsc_{lang}.mp4')
     esc_ft = escape_txt(cfg['fsc_title'])
     esc_fs = escape_txt(cfg['fsc_sub'])
     s_fsc_filter = (
-        "[0:v]scale=1920:1080[base];"
-        "[base][1:v]overlay=52:37[with_logo];"
+        f"[0:v][1:v]overlay=(W-w)/2:(H-h)/2-70[with_fsc];"
+        f"[with_fsc][2:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -382,8 +490,8 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     )
     run_cmd([
         FFMPEG, '-y',
-        '-framerate', '30',
-        '-i', os.path.join(frames_dir, 'frame_%04d.png'),
+        '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={cfg["fsc_dur"]}',
+        '-loop', '1', '-i', FSC_WHITE_PATH,
         '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_fsc_filter,
         '-map', '[out]',
@@ -392,10 +500,14 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         fsc_clip
     ])
     
-    # 2. Render Team photo clip with sharp logo
+    # 2. Render Team photo clip with playful name tags
     team_clip = os.path.join(SCRATCH, f'clip_team_{lang}.mp4')
     esc_tt = escape_txt(cfg['team_title'])
     esc_ts = escape_txt(cfg['team_sub'])
+    team_photo_path = f'public/images/team_group_photo_{lang}.png'
+    if not os.path.exists(team_photo_path):
+        team_photo_path = 'public/images/team_group_photo.png'
+
     s_team_filter = (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
         "[base][1:v]overlay=52:37[with_logo];"
@@ -406,7 +518,7 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     )
     run_cmd([
         FFMPEG, '-y',
-        '-loop', '1', '-i', 'public/images/team_group_photo.png',
+        '-loop', '1', '-i', team_photo_path,
         '-i', WATERMARK_SHARP_PATH,
         '-t', str(cfg['team_dur']),
         '-filter_complex', s_team_filter,
@@ -448,8 +560,12 @@ def render_scene_outro(lang, duration, out_path, cfg):
         out_path
     ])
 
-# Build all 4 languages!
-for lang, cfg in scenes_config.items():
+# Build requested languages or all 4
+target_langs = [args.lang] if args.lang in scenes_config else list(scenes_config.keys())
+print(f"Target languages to render: {target_langs}")
+
+for lang in target_langs:
+    cfg = scenes_config[lang]
     print(f"\n==========================================")
     print(f"--- RENDERING CRISP HIGH-DEF CORPORATE VIDEO: {lang.upper()} ({cfg['total_dur']}s) ---")
     print(f"==========================================")
@@ -457,22 +573,24 @@ for lang, cfg in scenes_config.items():
     durs = cfg['durs']
     scenes = cfg['scenes']
     
-    # 1. Scene 1 (hero_bg.jpg)
+    # 1. Scene 1: Grand Aerial Drone Shot of the entire Palrom factory complex in Brad
     s1_out = os.path.join(SCRATCH, f's1_{lang}.mp4')
-    render_scene_base('public/images/hero_bg.jpg', scenes[0]['title'], scenes[0]['sub'], durs[0], s1_out, scenes[0]['w'])
+    if os.path.exists(CLIP_AERIAL):
+        render_scene_widescreen_video(CLIP_AERIAL, scenes[0]['title'], scenes[0]['sub'], durs[0], s1_out, scenes[0]['w'])
+    else:
+        render_scene_base('public/images/hero_bg.jpg', scenes[0]['title'], scenes[0]['sub'], durs[0], s1_out, scenes[0]['w'])
     
-    # 2. Scene 2 (palrom_log_truck_yard.jpg)
+    # 2. Scene 2: Authentic Palrom factory fly-in entering hall from 0:42
     s2_out = os.path.join(SCRATCH, f's2_{lang}.mp4')
-    truck_img = 'public/images/palrom_log_truck_yard.jpg' if os.path.exists('public/images/palrom_log_truck_yard.jpg') else 'public/images/7.png'
-    render_scene_truck(truck_img, scenes[1]['title'], scenes[1]['sub'], durs[1], s2_out, scenes[1]['w'])
+    render_scene_factory_flyin_42(scenes[1]['title'], scenes[1]['sub'], durs[1], s2_out, scenes[1]['w'])
     
-    # 3. Scene 3 (production-video.mp4)
+    # 3. Scene 3: Authentic Live Saw Machine cutting beechwood FULL SCREEN (starts at 2.0s, shows whole cut)
     s3_out = os.path.join(SCRATCH, f's3_{lang}.mp4')
-    render_scene_video('public/images/production-video.mp4', scenes[2]['title'], scenes[2]['sub'], durs[2], s3_out, scenes[2]['w'])
+    render_scene_saw_machine_cut(scenes[2]['title'], scenes[2]['sub'], durs[2], s3_out, scenes[2]['w'])
     
-    # 4. Scene 4 (kilns.jpg)
+    # 4. Scene 4: Authentic Drone shot of Droogkamers in SLOW MOTION (breaking off at the last door)
     s4_out = os.path.join(SCRATCH, f's4_{lang}.mp4')
-    render_scene_base('public/images/kilns.jpg', scenes[3]['title'], scenes[3]['sub'], durs[3], s4_out, scenes[3]['w'])
+    render_scene_droogkamers_slowmo(scenes[3]['title'], scenes[3]['sub'], durs[3], s4_out, scenes[3]['w'])
     
     # 5. Scene 5 (Products Showcase Card)
     s5_out = os.path.join(SCRATCH, f's5_{lang}.mp4')
@@ -499,14 +617,14 @@ for lang, cfg in scenes_config.items():
         '-c', 'copy', raw_video
     ])
     
-    # Mix audio
+    # Mix audio with 800ms lead-in, perfectly synchronizing every cut with sentence pauses
     total_dur = cfg['total_dur']
     fade_start = total_dur - 3.5
     vo_path = os.path.join(SCRATCH, f'voiceover_{lang}_full.mp3')
     bgm_path = os.path.join(SCRATCH, 'inspired.mp3')
     
     audio_filter = (
-        f"[1:a]adelay=1200|1200,volume=1.25,apad=whole_dur={total_dur}[vo];"
+        f"[1:a]adelay=800|800,volume=1.25,apad=whole_dur={total_dur}[vo];"
         f"[2:a]volume=0.13,atrim=0:{total_dur},afade=t=out:st={fade_start}:d=3.5[bgm];"
         f"[vo][bgm]amix=inputs=2:duration=first:dropout_transition=2[aout]"
     )
@@ -530,9 +648,8 @@ for lang, cfg in scenes_config.items():
     size_mb = os.path.getsize(final_output) / (1024 * 1024)
     print(f"SUCCESS: Rendered {final_output} ({size_mb:.2f} MB)")
 
-# Copy EN to default palrom-corporate-video.mp4 as fallback
-shutil.copyfile(
-    os.path.abspath('public/images/palrom-corporate-video-en.mp4'),
-    os.path.abspath('public/images/palrom-corporate-video.mp4')
-)
-print("Finished rendering all 4 high-definition corporate videos with optuned razor-sharp logos!")
+# Copy EN to default palrom-corporate-video.mp4 as fallback if available
+en_path = os.path.abspath('public/images/palrom-corporate-video-en.mp4')
+if os.path.exists(en_path):
+    shutil.copyfile(en_path, os.path.abspath('public/images/palrom-corporate-video.mp4'))
+print("Finished rendering specified corporate videos with optuned razor-sharp logos!")

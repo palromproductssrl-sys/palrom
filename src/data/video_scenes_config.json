@@ -1,0 +1,118 @@
+{
+  "clips": {
+    "scene1_drone_start": 146.0,
+    "scene2_drone_start": 42.0,
+    "scene3_drone_start": 20.8,
+    "scene4_drone_start": 101.8
+  },
+  "chapters": [
+    { "time": 0.0, "label": "00:00 • Luchtopname complex & bergen", "desc": "Hoge dronevlucht over Vișeu de Sus en Palrom fabriek" },
+    { "time": 21.0, "label": "00:21 • Binnenvliegen zagerijpoort", "desc": "Drone daalt af en vliegt door hoofdingang hal 1 naar binnen" },
+    { "time": 35.0, "label": "00:35 • Zaaglijnen & rollenbanen", "desc": "Bewerking van stammen en transportsystemen hal 1" },
+    { "time": 55.0, "label": "00:55 • Sorteer- en afkortlijnen", "desc": "Vakmensen en precisieverwerking in hal 2" },
+    { "time": 75.0, "label": "01:15 • Uittocht naar buitenterrein", "desc": "Door achterpoort naar vers gezaagd gestapeld hout" },
+    { "time": 101.5, "label": "01:42 • Geconditioneerde Opslag & Droging", "desc": "Geconditioneerde opslag en natuurlijke luchtdrogingsfaciliteiten" },
+    { "time": 120.0, "label": "02:00 • Opslagloodsen & exportpakketten", "desc": "Overdekte hallen met gebandeerd gereed product" },
+    { "time": 145.0, "label": "02:25 • Laadplatform & heftrucks", "desc": "Logistiek buitenterrein en laadzones" },
+    { "time": 165.0, "label": "02:45 • Uitklimmende drone & panorama", "desc": "Totaaloverzicht complex tegen de bergrug" }
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "key": "intro",
+      "type": "drone",
+      "drone_start_sec": 146.0,
+      "label": "Scène 1: Fabrieks Flyover Luchtopname",
+      "description": "Luchtopname en flyover over het gehele Palrom fabrieksterrein met logo & introductietitel",
+      "texts": {
+        "nl": { "title": "Palrom Products", "sub": "FSC® Gecertificeerde Beukenhoutproducent • Brad, Roemenië" },
+        "en": { "title": "Palrom Products", "sub": "FSC® Certified Beechwood Manufacturer • Brad, Romania" },
+        "de": { "title": "Palrom Products", "sub": "FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien" },
+        "ro": { "title": "Palrom Products", "sub": "Producător de Lemn de Fag Certificat FSC® • Brad, România" }
+      }
+    },
+    {
+      "id": 2,
+      "key": "factory_flyin",
+      "type": "drone",
+      "drone_start_sec": 42.0,
+      "label": "Scène 2: Fabrieksinvlieger (0:42)",
+      "description": "Spectaculaire drone-invlieger vanaf 0:42 die van buiten door de poort de fabriekshal binnenvliegt",
+      "texts": {
+        "nl": { "title": "Duurzame Oogst & Houtverwerking", "sub": "Lokaal geoogste beukenstammen arriveren in onze moderne verwerkingshal" },
+        "en": { "title": "Sustainable Harvesting & Sawmill Intake", "sub": "Locally sourced beech logs arriving at our extensive milling facility" },
+        "de": { "title": "Nachhaltiger Holzeinschlag & Verarbeitung", "sub": "Ausgewählte Buchenstämme in unserer modernen Fertigungshalle" },
+        "ro": { "title": "Recoltare Sustenabilă & Prelucrare", "sub": "Bușteni de fag din surse locale sosiți în hala noastră modernă" }
+      }
+    },
+    {
+      "id": 3,
+      "key": "saw_fullscreen",
+      "type": "saw_fullscreen",
+      "saw_start_sec": 2.0,
+      "saw_clip_path": "public/images/production-video.mp4",
+      "label": "Scène 3: Zaagmachine Volledige Zaagsnede",
+      "description": "Beeldvullende werkende lintzaagmachine vanaf 2.0s die de volledige zaagsnede laat zien",
+      "texts": {
+        "nl": { "title": "Precisiebewerking in Actie", "sub": "Geavanceerde Europese machines & Roemeens vakmanschap" },
+        "en": { "title": "Precision Milling in Action", "sub": "Advanced European technology & dedicated Romanian craftsmanship" },
+        "de": { "title": "Präzisionsverarbeitung in Aktion", "sub": "Fortschrittliche europäische Technologie & rumänische Handwerkskunst" },
+        "ro": { "title": "Prelucrare de Precizie în Acțiune", "sub": "Tehnologie europeană de top și măiestrie românească dedicată" }
+      }
+    },
+    {
+      "id": 4,
+      "key": "droogkamers",
+      "type": "drone_slowmo",
+      "drone_start_sec": 101.8,
+      "drone_end_sec": 107.8,
+      "label": "Scène 4: Geconditioneerde Opslag & Luchtdroging",
+      "description": "Cinematische slowmotion van de opslag- en droogfaciliteiten, afbrekend bij de laatste deur",
+      "texts": {
+        "nl": { "title": "Geconditioneerde Opslag & Luchtdroging", "sub": "Natuurlijke luchtdroging (Air Dried - AD) en geconditioneerde houtopslag" },
+        "en": { "title": "Conditioned Storage & Air Drying", "sub": "Natural air drying (Air Dried - AD) and conditioned timber stabilization" },
+        "de": { "title": "Konditionierte Lagerung & Freilufttrocknung", "sub": "Natürliche Freilufttrocknung (Air Dried - AD) und optimale Holzlagerung" },
+        "ro": { "title": "Depozitare Condiționată & Uscare Naturală", "sub": "Uscare naturală la aer (Air Dried - AD) și depozitare condiționată" }
+      }
+    },
+    {
+      "id": 5,
+      "key": "products",
+      "type": "products",
+      "label": "Scène 5: Afgewerkte Producten",
+      "description": "Showcase-kaarten met blanks, latten, stokken en profielen",
+      "texts": {
+        "nl": { "title": "B2B Maatwerk Producten", "sub": "Blanks, geschaafde latten, gladde stokken en maatwerk profielen" },
+        "en": { "title": "Custom B2B Products", "sub": "Blanks, planed slats, smooth dowels, and tailored profiles" },
+        "de": { "title": "Individuelle B2B-Holzprodukte", "sub": "Kanteln, gehobelte Leisten, Rundstäbe und Sonderprofile" },
+        "ro": { "title": "Produse B2B la Comandă", "sub": "Elemente, șipci rindeluite, tije netede și profile personalizate" }
+      }
+    },
+    {
+      "id": 6,
+      "key": "fsc_team",
+      "type": "fsc_team",
+      "label": "Scène 6: FSC-Certificering & Team",
+      "description": "Stralende FSC 100% gouden animatie overvloeiend in de Palrom-medewerkers",
+      "texts": {
+        "nl": { "title": "Ons Toegewijde Team", "sub": "Vakmanschap en betrouwbare B2B-leveringen in heel Europa" },
+        "en": { "title": "Our Dedicated Team", "sub": "Decades of woodworking expertise & dependable European delivery" },
+        "de": { "title": "Unser Engagiertes Team", "sub": "Höchste Handwerkskunst und verlässliche europaweite Lieferung" },
+        "ro": { "title": "Echipa Noastră Dedicată", "sub": "Măiestrie dedicată calității și livrărilor prompte în toată Europa" }
+      }
+    },
+    {
+      "id": 7,
+      "key": "outro",
+      "type": "outro",
+      "label": "Scène 7: Outro & Contact",
+      "description": "Strakke donkere outro met het scherpe witte Palrom logo, website & e-mail",
+      "texts": {
+        "nl": { "title": "Uw Betrouwbare B2B Partner in Duurzaam Beukenhout", "sub": "www.palromproducts.com  •  office@palromproducts.ro" },
+        "en": { "title": "Your Trusted B2B Partner in Sustainable Beechwood", "sub": "www.palromproducts.com  •  office@palromproducts.ro" },
+        "de": { "title": "Ihr Verlässlicher B2B-Partner für Buchenholz", "sub": "www.palromproducts.com  •  office@palromproducts.ro" },
+        "ro": { "title": "Partenerul Dumneavoastră B2B de Încredere în Lemn de Fag", "sub": "www.palromproducts.com  •  office@palromproducts.ro" }
+      }
+    }
+  ]
+}

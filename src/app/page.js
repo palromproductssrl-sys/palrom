@@ -160,10 +160,10 @@ export default function Home() {
       ro: 'Lemn de Fag Certificat FSC®'
     },
     introDesc1: {
-      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, moderne droogkamers en een professionele schaverij. Wij leveren hoogwaardige hout- en meubelcomponenten rechtstreeks vanaf de bron.',
-      en: 'Based in the forested region of Brad (Hunedoara, Romania), Palrom Products SRL operates an advanced sawmill, modern drying chambers, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.',
-      de: 'Mit Sitz in der waldreichen Region Brad (Hunedoara, Rumänien) betreibt Palrom Products SRL ein fortschrittliches Sägewerk, moderne Trockenkammern und ein professionelles Hobelwerk. Wir liefern hochwertiges Schnittholz und Möbelkomponenten direkt von der Quelle.',
-      ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, camere moderne de uscare și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
+      nl: 'Gevestigd in de bosrijke regio Brad (Hunedoara, Roemenië), exploiteert Palrom Products SRL een geavanceerde zagerij, geconditioneerde opslag- en natuurlijke luchtdrogingsfaciliteiten en een professionele schaverij. Wij leveren hoogwaardige hout- en meubelcomponenten rechtstreeks vanaf de bron.',
+      en: 'Based in the forested region of Brad (Hunedoara, Romania), Palrom Products SRL operates an advanced sawmill, conditioned storage & natural air drying facilities, and a professional planing mill. We deliver high-quality lumber and furniture components directly from the source.',
+      de: 'Mit Sitz in der waldreichen Region Brad (Hunedoara, Rumänien) betreibt Palrom Products SRL ein fortschrittliches Sägewerk, konditionierte Lager- & Freilufttrocknungsanlagen und ein professionelles Hobelwerk. Wir liefern hochwertiges Schnittholz und Möbelkomponenten direkt von der Quelle.',
+      ro: 'Cu sediul în regiunea împădurită Brad (Hunedoara, România), Palrom Products SRL operează un gater avansat, facilități de depozitare condiționată și uscare naturală și o fabrică profesională de rindeluire. Livrăm cherestea și componente de mobilier de înaltă calitate direct de la sursă.'
     },
     introDesc2: {
       nl: 'Dankzij onze verticale integratie beheren we het gehele productieproces. We kopen FSC®-gecertificeerd beukenhout in bij lokale, gecertificeerde leveranciers, verwerken het met precisie, drogen het tot het optimale vochtgehalte en schaven het volgens de exacte specificaties van onze B2B-klanten in de Europese houtindustrie.',
@@ -232,16 +232,16 @@ export default function Home() {
       ro: 'Nu livrăm doar cherestea; proiectăm soluții personalizate care cresc randamentul și reduc costurile de producție pentru producătorii de mobilier și prelucrătorii de lemn.'
     },
     kilnsTitle: {
-      nl: 'Gecontroleerd drogen van het hout',
-      en: 'Modern Drying Chambers',
-      de: 'Moderne Trockenkammern',
-      ro: 'Camere Moderne de Uscare'
+      nl: 'Natuurlijke Luchtdroging & Opslag',
+      en: 'Natural Air Drying & Conditioned Storage',
+      de: 'Natürliche Freilufttrocknung & Lagerung',
+      ro: 'Uscare Naturală & Depozitare Condiționată'
     },
     kilnsDesc: {
-      nl: 'Onze droogcapaciteit garandeert een stabiel vochtgehalte van 8-12%, wat kromtrekken of scheuren in uw meubelcomponenten voorkomt.',
-      en: 'Our drying capacity guarantees a stable moisture content of 8-12%, preventing warping or cracking in your furniture components.',
-      de: 'Unsere Trocknungskapazität garantiert eine stabile Holzfeuchtigkeit von 8-12 % und verhindert so ein Verziehen oder Reißen Ihrer Möbelkomponenten.',
-      ro: 'Capacitatea noastră de uscare garantează o umiditate stabilă de 8-12%, prevenind deformarea sau crăparea componentelor dvs. de mobilier.'
+      nl: 'Natuurlijke luchtdroging (Air Dried - AD) en geconditioneerde opslag garanderen een optimale stabilisatie van het beukenhout voor verdere bewerking.',
+      en: 'Natural air drying (Air Dried - AD) and conditioned storage guarantee optimal beechwood stabilization for further processing.',
+      de: 'Natürliche Freilufttrocknung (Air Dried - AD) und konditionierte Lagerung garantieren eine optimale Stabilisierung des Buchenholzes.',
+      ro: 'Uscarea naturală la aer (Air Dried - AD) și depozitarea condiționată garantează stabilizarea optimă a lemnului de fag.'
     },
     labelingTitle: {
       nl: 'Winkelklare Etikettering',

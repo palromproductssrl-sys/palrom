@@ -48,3 +48,7 @@ contacts.json
 inquiries.json
 otps.json
 telemetry_audit.json
+
+# Scratch and raw heavy video sources
+scratch/
+public/videos/
