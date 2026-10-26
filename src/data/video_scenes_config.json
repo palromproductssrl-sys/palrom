@@ -47,17 +47,16 @@
     },
     {
       "id": 3,
-      "key": "saw_fullscreen",
-      "type": "saw_fullscreen",
-      "saw_start_sec": 2.0,
-      "saw_clip_path": "public/images/production-video.mp4",
-      "label": "Scène 3: Zaagmachine Volledige Zaagsnede",
-      "description": "Beeldvullende werkende lintzaagmachine vanaf 2.0s die de volledige zaagsnede laat zien",
+      "key": "saw_drone_hd",
+      "type": "drone",
+      "drone_start_sec": 24.0,
+      "label": "Scène 3: Zaaglijnen & Rollenbanen in Actie",
+      "description": "Haarscherpe native 1080p drone-opname over de actieve zaaglijnen en rollenbanen in hal 1",
       "texts": {
-        "nl": { "title": "Precisiebewerking in Actie", "sub": "Geavanceerde Europese machines & Roemeens vakmanschap" },
-        "en": { "title": "Precision Milling in Action", "sub": "Advanced European technology & dedicated Romanian craftsmanship" },
-        "de": { "title": "Präzisionsverarbeitung in Aktion", "sub": "Fortschrittliche europäische Technologie & rumänische Handwerkskunst" },
-        "ro": { "title": "Prelucrare de Precizie în Acțiune", "sub": "Tehnologie europeană de top și măiestrie românească dedicată" }
+        "nl": { "title": "Precisiebewerking in Actie", "sub": "Geavanceerde Europese zaaglijnen & Roemeens vakmanschap" },
+        "en": { "title": "Precision Milling in Action", "sub": "Advanced European saw lines & dedicated Romanian craftsmanship" },
+        "de": { "title": "Präzisionsverarbeitung in Aktion", "sub": "Fortschrittliche europäische Sägelinien & rumänische Handwerkskunst" },
+        "ro": { "title": "Prelucrare de Precizie în Acțiune", "sub": "Linii europene avansate de debitare și măiestrie românească" }
       }
     },
     {

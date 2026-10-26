@@ -371,14 +371,12 @@ def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=125
     ])
 
 def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250):
-    # Scene 3: Authentic Palrom Saw Machine - Starts at 2.0s and shows the entire cut FULL SCREEN
+    # Scene 3: Native 1080p High-Definition Drone Footage over the active Saw Lines & Rollenbanen (Optie C)
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
-    raw_cut_dur = 8.5
-    speed_factor = round(duration / raw_cut_dur, 4)
     s_filter = (
-        f"[0:v]setpts={speed_factor}*PTS,fps=30,"
-        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080:(in_w-out_w)/2:(in_h-out_h)*0.45[saw_fs];"
+        f"[0:v]trim=start=24.0:duration={duration},setpts=PTS-STARTPTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[saw_fs];"
         f"[saw_fs][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
@@ -387,13 +385,12 @@ def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250
     )
     run_cmd([
         FFMPEG, '-y',
-        '-ss', '2.0', '-t', str(raw_cut_dur),
-        '-i', 'public/images/production-video.mp4',
+        '-i', DRONE_SOURCE,
         '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_filter,
         '-map', '[out]',
         '-t', str(duration),
-        '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+        '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
     ])
 
