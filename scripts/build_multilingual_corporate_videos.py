@@ -7,7 +7,13 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 FFMPEG = os.path.abspath('node_modules/ffmpeg-static/ffmpeg')
 FONT_BOLD = os.path.abspath('public/fonts/Roboto-Bold.ttf')
 FONT_REG = os.path.abspath('public/fonts/Roboto-Regular.ttf')
-LOGO_ORIGINAL = os.path.abspath('public/images/logo.png') # Official Black & Yellow logo
+
+# LOGO ASSETS:
+# 1. Official Black & Yellow logo on 100% transparent background (for scenes 1-6)
+LOGO_TRANSPARENT = os.path.abspath('public/images/logo.png')
+# 2. Inverse logo for dark background (for final slide / outro)
+LOGO_INVERSE = os.path.abspath('public/images/logo_white.png')
+
 FSC_LOGO = os.path.abspath('public/images/fsc_logo.png')
 
 # BRAND COLOR PALETTE: Dark Anthracite Black + Palrom Gold
@@ -28,25 +34,7 @@ def run_cmd(cmd):
 def escape_txt(t):
     return t.replace('\\', '\\\\').replace(':', r'\:').replace("'", r"\'").replace('%', r'\%')
 
-# 1. Generate Black & Yellow Logo Watermark Badge
-print("--- Generating Black & Yellow Watermark Badge ---")
-logo_img = Image.open(LOGO_ORIGINAL).convert('RGBA')
-lw = 210
-lh = int(lw * logo_img.height / logo_img.width)
-logo_resized = logo_img.resize((lw, lh), Image.Resampling.LANCZOS)
-
-pad_x, pad_y = 14, 8
-bw, bh = lw + pad_x * 2, lh + pad_y * 2
-watermark_badge = Image.new('RGBA', (bw, bh), (0, 0, 0, 0))
-bdraw = ImageDraw.Draw(watermark_badge)
-bdraw.rounded_rectangle([0, 0, bw, bh], radius=8, fill=(255, 255, 255, 240), outline=(231, 177, 36, 220), width=2)
-watermark_badge.paste(logo_resized, (pad_x, pad_y), logo_resized)
-
-WATERMARK_BADGE_PATH = os.path.join(SCRATCH, 'watermark_badge_black_yellow.png')
-watermark_badge.save(WATERMARK_BADGE_PATH)
-print(f"Saved watermark badge: {WATERMARK_BADGE_PATH}")
-
-# 2. Product Cards in 4 languages
+# 1. Product Cards in 4 languages
 product_data = {
     'en': {
         'badge': 'FSC® 100% Beech',
@@ -187,42 +175,6 @@ def generate_fsc_frames(lang, duration, fps=30):
         
     return frames_dir, n_frames
 
-# 3. Generate Outro Images with Black & Yellow Logo in 4 languages
-outro_texts = {
-    'en': 'Your Trusted B2B Partner in Sustainable Beechwood',
-    'nl': 'Uw Betrouwbare B2B Partner in Duurzaam Beukenhout',
-    'de': 'Ihr Verlässlicher B2B-Partner für Buchenholz',
-    'ro': 'Partenerul Dumneavoastră B2B de Încredere în Lemn de Fag'
-}
-
-W, H = 1920, 1080
-for lang, otxt in outro_texts.items():
-    outro_img = Image.new('RGB', (W, H), (20, 21, 23))
-    odraw = ImageDraw.Draw(outro_img)
-    
-    # Official Black & Yellow logo badge
-    olw = 420
-    olh = int(olw * logo_img.height / logo_img.width)
-    ol_resized = logo_img.resize((olw, olh), Image.Resampling.LANCZOS)
-    obw, obh = olw + 50, olh + 36
-    obx, oby = (W - obw) // 2, 230
-    
-    odraw.rounded_rectangle([obx, oby, obx + obw, oby + obh], radius=16, fill=(255, 255, 255), outline=(231, 177, 36), width=3)
-    outro_img.paste(ol_resized, (obx + 25, oby + 18), ol_resized)
-    
-    # Golden accent line
-    line_y = oby + obh + 50
-    odraw.rounded_rectangle([(W - 650) // 2, line_y, (W + 650) // 2, line_y + 4], radius=2, fill=(231, 177, 36))
-    
-    # Typography
-    f_title = ImageFont.truetype(FONT_BOLD, 36)
-    f_sub = ImageFont.truetype(FONT_REG, 26)
-    odraw.text((W // 2, line_y + 55), otxt, font=f_title, fill=(255, 255, 255), anchor='mm')
-    odraw.text((W // 2, line_y + 115), 'www.palromproducts.com   •   office@palromproducts.ro', font=f_sub, fill=(200, 210, 220), anchor='mm')
-    
-    outro_path = os.path.join(SCRATCH, f'outro_{lang}.png')
-    outro_img.save(outro_path)
-
 # Scene text definitions per language
 scenes_config = {
     'en': {
@@ -234,6 +186,8 @@ scenes_config = {
         'fsc_sub': 'Guaranteed sustainable and responsibly harvested beechwood',
         'team_title': 'Our Dedicated Team',
         'team_sub': 'Decades of woodworking expertise & dependable European delivery',
+        'outro_title': 'Your Trusted B2B Partner in Sustainable Beechwood',
+        'outro_sub': 'www.palromproducts.com  •  office@palromproducts.ro',
         'scenes': [
             {'title': 'Palrom Products', 'sub': 'FSC® Certified Beechwood Manufacturer • Brad, Romania', 'w': 1180},
             {'title': 'Sustainable Harvesting & Raw Timber', 'sub': 'Locally sourced beech logs arriving at our extensive storage yards', 'w': 1250},
@@ -251,6 +205,8 @@ scenes_config = {
         'fsc_sub': 'Gegarandeerd duurzaam en verantwoord beukenhout',
         'team_title': 'Ons Toegewijde Team',
         'team_sub': 'Vakmanschap en betrouwbare B2B-leveringen in heel Europa',
+        'outro_title': 'Uw Betrouwbare B2B Partner in Duurzaam Beukenhout',
+        'outro_sub': 'www.palromproducts.com  •  office@palromproducts.ro',
         'scenes': [
             {'title': 'Palrom Products', 'sub': 'FSC® Gecertificeerde Beukenhoutproducent • Brad, Roemenië', 'w': 1200},
             {'title': 'Duurzame Oogst & Houtopslag', 'sub': 'Lokaal geoogste beukenstammen arriveren op onze ruime voorraadwerf', 'w': 1250},
@@ -268,6 +224,8 @@ scenes_config = {
         'fsc_sub': 'Nachhaltiges und verantwortungsvoll beschafftes Buchenholz',
         'team_title': 'Unser Engagiertes Team',
         'team_sub': 'Höchste Handwerkskunst und verlässliche europaweite Lieferung',
+        'outro_title': 'Ihr Verlässlicher B2B-Partner für Buchenholz',
+        'outro_sub': 'www.palromproducts.com  •  office@palromproducts.ro',
         'scenes': [
             {'title': 'Palrom Products', 'sub': 'FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien', 'w': 1200},
             {'title': 'Nachhaltiger Holzeinschlag & Rundholzlager', 'sub': 'Ausgewählte Buchenstämme auf unserem weitläufigen Werksgelände', 'w': 1280},
@@ -285,6 +243,8 @@ scenes_config = {
         'fsc_sub': 'Lemn de fag sustenabil din păduri gestionate responsabil',
         'team_title': 'Echipa Noastră Dedicată',
         'team_sub': 'Măiestrie dedicată calității și livrărilor prompte în toată Europa',
+        'outro_title': 'Partenerul Dumneavoastră B2B de Încredere în Lemn de Fag',
+        'outro_sub': 'www.palromproducts.com  •  office@palromproducts.ro',
         'scenes': [
             {'title': 'Palrom Products', 'sub': 'Producător de Lemn de Fag Certificat FSC® • Brad, România', 'w': 1220},
             {'title': 'Recoltare Sustenabilă & Depozitul de Bușteni', 'sub': 'Bușteni de fag din surse locale sosiți în depozitele noastre moderne', 'w': 1250},
@@ -300,7 +260,8 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     esc_s = escape_txt(subtitle)
     s_filter = (
         f"[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
-        f"[base][1:v]overlay=60:45[with_logo];"
+        f"[1:v]scale=-1:65[logo];"
+        f"[base][logo]overlay=60:45[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -309,7 +270,7 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', img_path,
-        '-i', WATERMARK_BADGE_PATH,
+        '-i', LOGO_TRANSPARENT,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
@@ -318,14 +279,15 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
     ])
 
 def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250):
-    # Authentic Palrom Log Truck shot with widescreen background blur & Black & Yellow logo
+    # Authentic Palrom Log Truck shot with widescreen background blur & Black & Yellow logo on transparent bg
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
     s_filter = (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=25:5[bg];"
         "[0:v]scale=-1:1080[fg];"
         "[bg][fg]overlay=(W-w)/2:0[combined];"
-        "[combined][1:v]overlay=60:45[with_logo];"
+        "[1:v]scale=-1:65[logo];"
+        "[combined][logo]overlay=60:45[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -334,7 +296,7 @@ def render_scene_truck(img_path, title, subtitle, duration, out_path, w_box=1250
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', img_path,
-        '-i', WATERMARK_BADGE_PATH,
+        '-i', LOGO_TRANSPARENT,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
@@ -349,7 +311,8 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,boxblur=20:5[bg];"
         "[0:v]scale=-1:1080[fg];"
         "[bg][fg]overlay=(W-w)/2:(H-h)/2[combined];"
-        "[combined][1:v]overlay=60:45[with_logo];"
+        "[1:v]scale=-1:65[logo];"
+        "[combined][logo]overlay=60:45[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -358,7 +321,7 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
     run_cmd([
         FFMPEG, '-y',
         '-stream_loop', '2', '-i', vid_path,
-        '-i', WATERMARK_BADGE_PATH,
+        '-i', LOGO_TRANSPARENT,
         '-t', str(duration),
         '-filter_complex', s_filter,
         '-map', '[out]',
@@ -369,13 +332,14 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
 def render_fsc_and_team_scene(lang, cfg, out_path):
     frames_dir, _ = generate_fsc_frames(lang, cfg['fsc_dur'])
     
-    # 1. Render FSC growing & glowing clip with Black & Yellow logo
+    # 1. Render FSC growing & glowing clip with Black & Yellow logo on transparent bg
     fsc_clip = os.path.join(SCRATCH, f'clip_fsc_{lang}.mp4')
     esc_ft = escape_txt(cfg['fsc_title'])
     esc_fs = escape_txt(cfg['fsc_sub'])
     s_fsc_filter = (
         "[0:v]scale=1920:1080[base];"
-        "[base][1:v]overlay=60:45[with_logo];"
+        "[1:v]scale=-1:65[logo];"
+        "[base][logo]overlay=60:45[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1200:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_ft}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -385,7 +349,7 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         FFMPEG, '-y',
         '-framerate', '30',
         '-i', os.path.join(frames_dir, 'frame_%04d.png'),
-        '-i', WATERMARK_BADGE_PATH,
+        '-i', LOGO_TRANSPARENT,
         '-filter_complex', s_fsc_filter,
         '-map', '[out]',
         '-t', str(cfg['fsc_dur']),
@@ -393,13 +357,14 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         fsc_clip
     ])
     
-    # 2. Render Team photo clip with Black & Yellow logo
+    # 2. Render Team photo clip with Black & Yellow logo on transparent bg
     team_clip = os.path.join(SCRATCH, f'clip_team_{lang}.mp4')
     esc_tt = escape_txt(cfg['team_title'])
     esc_ts = escape_txt(cfg['team_sub'])
     s_team_filter = (
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
-        "[base][1:v]overlay=60:45[with_logo];"
+        "[1:v]scale=-1:65[logo];"
+        "[base][logo]overlay=60:45[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w=1250:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_tt}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
@@ -408,7 +373,7 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
     run_cmd([
         FFMPEG, '-y',
         '-loop', '1', '-i', 'public/images/team_group_photo.png',
-        '-i', WATERMARK_BADGE_PATH,
+        '-i', LOGO_TRANSPARENT,
         '-t', str(cfg['team_dur']),
         '-filter_complex', s_team_filter,
         '-map', '[out]',
@@ -427,11 +392,24 @@ def render_fsc_and_team_scene(lang, cfg, out_path):
         out_path
     ])
 
-def render_scene_outro(lang, duration, out_path):
-    outro_img = os.path.join(SCRATCH, f'outro_{lang}.png')
+def render_scene_outro(lang, duration, out_path, cfg):
+    # Outro uses the INVERSE logo directly on dark anthracite background!
+    esc_t = escape_txt(cfg['outro_title'])
+    esc_s = escape_txt(cfg['outro_sub'])
+    s_filter = (
+        f"color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}[bg];"
+        "[1:v]scale=540:-1[logo];"
+        "[bg][logo]overlay=(W-w)/2:280[with_logo];"
+        f"[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
+        f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
+    )
     run_cmd([
         FFMPEG, '-y',
-        '-loop', '1', '-i', outro_img,
+        '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}',
+        '-i', LOGO_INVERSE,
+        '-filter_complex', s_filter,
+        '-map', '[out]',
         '-t', str(duration),
         '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-r', '30',
         out_path
@@ -440,7 +418,7 @@ def render_scene_outro(lang, duration, out_path):
 # Build all 4 languages!
 for lang, cfg in scenes_config.items():
     print(f"\n==========================================")
-    print(f"--- RENDERING CORPORATE VIDEO WITH BLACK & YELLOW LOGO: {lang.upper()} ({cfg['total_dur']}s) ---")
+    print(f"--- RENDERING CORPORATE VIDEO: {lang.upper()} ({cfg['total_dur']}s) ---")
     print(f"==========================================")
     
     durs = cfg['durs']
@@ -472,9 +450,9 @@ for lang, cfg in scenes_config.items():
     s6_out = os.path.join(SCRATCH, f's6_{lang}.mp4')
     render_fsc_and_team_scene(lang, cfg, s6_out)
     
-    # 7. Scene 7 (Outro with Official Black & Yellow Logo)
+    # 7. Scene 7 (Outro with Inverse Logo directly on dark background)
     s7_out = os.path.join(SCRATCH, f's7_{lang}.mp4')
-    render_scene_outro(lang, durs[6], s7_out)
+    render_scene_outro(lang, durs[6], s7_out, cfg)
     
     # Concatenate scenes
     concat_txt = os.path.join(SCRATCH, f'concat_{lang}.txt')
@@ -524,4 +502,4 @@ shutil.copyfile(
     os.path.abspath('public/images/palrom-corporate-video-en.mp4'),
     os.path.abspath('public/images/palrom-corporate-video.mp4')
 )
-print("Finished rendering all 4 corporate videos with official black & yellow logo!")
+print("Finished rendering all 4 corporate videos with transparent watermark & inverse outro!")
