@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useInquiry } from './InquiryContext';
+import pkg from '../../package.json';
 
 export default function Footer() {
   const { setIsCookieModalOpen, lang, isRomania } = useInquiry();
@@ -122,19 +123,21 @@ export default function Footer() {
         <div className="container footer-bottom-flex">
           <p>{getTranslation('copyright')}</p>
           <div className="footer-meta-links">
-            <span className="version-tag">v5.10.26</span>
+            <span className="version-tag">v{pkg.version}</span>
             <span className="divider">|</span>
             <a href="#" onClick={handleCookieClick}>
               {getTranslation('cookiePolicy')}
             </a>
             <span className="divider">|</span>
-            <span 
-              onDoubleClick={() => router.push('/configurator')} 
-              style={{ cursor: 'pointer', userSelect: 'none' }}
-              title="Dubbelklik voor configurator"
+            <a 
+              href="https://radder.studio" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onDoubleClick={(e) => { e.preventDefault(); router.push('/configurator'); }}
+              title="radder.studio (Dubbelklik voor configurator)"
             >
-              Created by Emmer1972
-            </span>
+              Created by radder.studio
+            </a>
           </div>
         </div>
       </div>
