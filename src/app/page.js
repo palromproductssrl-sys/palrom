@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
+import CorporateVideoSection from '@/components/CorporateVideoSection';
 import { useInquiry } from '@/components/InquiryContext';
 
 export default function Home() {
@@ -16,14 +17,14 @@ export default function Home() {
       category: 'blanks',
       name: lang === 'nl' ? 'Beukenhouten blanks' : (lang === 'de' ? 'Buchenholz-Blanks' : (lang === 'ro' ? 'Frize din lemn de fag' : 'Beechwood blanks')),
       description: lang === 'nl'
-        ? 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Gedroogd tot 8-12% vochtigheid en geschikt voor meubelonderdelen en draaiwerk.'
-        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Kammergetrocknet auf 8-12% und ideal voor Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Frize din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate în camere la 8-12% și ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Chamber-dried to 8-12% and ideal for furniture parts and woodturning.')),
+        ? 'Fijnbezaagde beukenhouten blanks en halffabrikaten rechtstreeks uit onze eigen zagerij. Natuurlijk gedroogd (AD) en geconditioneerd gestabiliseerd, ideaal voor meubelonderdelen en draaiwerk.'
+        : (lang === 'de' ? 'Feingesägte Buchenholz-Blanks und Halbfabrikate direkt aus unserem Sägewerk. Natürlich luftgetrocknet (AD) und optimal konditioniert, ideal für Möbelteile und Drechselarbeiten.' : (lang === 'ro' ? 'Frize din fag tăiate fin și componente semifinite direct de la gaterul nostru. Uscate natural la aer (AD) și depozitate condiționat, ideale pentru piese de mobilier și strunjire.' : 'Fine-sawn beechwood blanks and semi-finished components directly from our sawmill. Naturally air-dried (AD) and conditioned, ideal for furniture parts and woodturning.')),
       image: '/images/beechwood_blanks.png',
       link: '/blanks',
       specs: [
         { label: lang === 'nl' ? 'Dikte' : (lang === 'de' ? 'Dicke' : (lang === 'ro' ? 'Grosime' : 'Thickness')), value: lang === 'nl' ? '20mm tot 67mm' : (lang === 'de' ? '20mm bis 67mm' : (lang === 'ro' ? '20mm până la 67mm' : '20mm to 67mm')) },
         { label: lang === 'nl' ? 'Breedte' : (lang === 'de' ? 'Breite' : (lang === 'ro' ? 'Lățime' : 'Width')), value: lang === 'nl' ? '45mm tot 95mm' : (lang === 'de' ? '45mm bis 95mm' : (lang === 'ro' ? '45mm până la 95mm' : '45mm to 95mm')) },
-        { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd (8-12%) of vers' : (lang === 'de' ? 'Kammergetrocknet (8-12%) oder frisch' : (lang === 'ro' ? 'Uscat în camere (8-12%) sau proaspăt' : 'Chamber-dried (8-12%) or fresh')) },
+        { label: lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying')), value: lang === 'nl' ? 'Luchtgedroogd (AD) of vers' : (lang === 'de' ? 'Luftgetrocknet (AD) oder frisch' : (lang === 'ro' ? 'Uscat natural la aer (AD) sau proaspăt' : 'Air-dried (AD) or fresh')) },
       ],
       tag: lang === 'nl' ? 'Blanks' : (lang === 'de' ? 'Blanks' : (lang === 'ro' ? 'Frize' : 'Blanks')),
     },
@@ -39,7 +40,7 @@ export default function Home() {
       specs: [
         { label: lang === 'nl' ? 'Secties' : (lang === 'de' ? 'Querschnitte' : (lang === 'ro' ? 'Secțiuni' : 'Sections')), value: lang === 'nl' ? 'Vierkant & Rechthoekig' : (lang === 'de' ? 'Quadratisch & Rechteckig' : (lang === 'ro' ? 'Pătrat & Rectangular' : 'Square & Rectangular')) },
         { label: lang === 'nl' ? 'Randen' : (lang === 'de' ? 'Kanten' : (lang === 'ro' ? 'Margini' : 'Edges')), value: lang === 'nl' ? 'Scherp of met afgeronde kanten' : (lang === 'de' ? 'Scharf oder mit abgerundeten Kanten' : (lang === 'ro' ? 'Ascuțit sau cu margini rotunjite' : 'Sharp or with rounded edges')) },
-        { label: lang === 'nl' ? 'Vochtigheid' : (lang === 'de' ? 'Feuchtigkeit' : (lang === 'ro' ? 'Umiditate' : 'Moisture')), value: lang === 'nl' ? 'Kammergedroogd tot 8-12%' : (lang === 'de' ? 'Kammergetrocknet auf 8-12%' : (lang === 'ro' ? 'Uscat în camere de uscare la 8-12%' : 'Chamber-dried to 8-12%')) },
+        { label: lang === 'nl' ? 'Droging' : (lang === 'de' ? 'Trocknung' : (lang === 'ro' ? 'Uscare' : 'Drying')), value: lang === 'nl' ? 'Luchtgedroogd (AD)' : (lang === 'de' ? 'Luftgetrocknet (AD)' : (lang === 'ro' ? 'Uscat natural la aer (AD)' : 'Air-dried (AD)')) },
       ],
       tag: lang === 'nl' ? 'Latten' : (lang === 'de' ? 'Leisten' : (lang === 'ro' ? 'Șipci' : 'Slats')),
     },
@@ -454,6 +455,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Multilingual Corporate Video Showcase */}
+      <CorporateVideoSection lang={lang} />
 
       {/* Why Us Section (Interactive Features Grid) */}
       <section className="why-us-section section-padding bg-light">
