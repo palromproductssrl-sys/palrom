@@ -8,6 +8,12 @@ FONT_BOLD = os.path.abspath('public/fonts/Roboto-Bold.ttf')
 FONT_REG = os.path.abspath('public/fonts/Roboto-Regular.ttf')
 LOGO_WHITE = os.path.abspath('public/images/logo_white.png')
 
+# BRAND COLOR PALETTE: Dark Anthracite Black + Palrom Gold
+COLOR_ANTHRACITE_BOX = '0x16181b@0.95'      # Modern dark anthracite black for lower thirds
+COLOR_ANTHRACITE_OUTRO = '0x141517'         # Solid dark anthracite black background for outro
+COLOR_ANTHRACITE_TEXT = (24, 26, 28)        # Dark anthracite for product titles
+COLOR_GOLD = '0xe7b124'                     # Brand golden yellow accent line & title
+
 SCRATCH = os.path.abspath('scratch')
 os.makedirs(SCRATCH, exist_ok=True)
 
@@ -86,7 +92,8 @@ for lang, data in product_data.items():
         iy = card_y + 40 + (360 - im.height) // 2
         canvas.paste(im, (ix, iy), im)
         
-        draw.text((cx + 25, card_y + 430), title, font=font_title, fill=(30, 58, 43))
+        # Anthracite black title
+        draw.text((cx + 25, card_y + 430), title, font=font_title, fill=COLOR_ANTHRACITE_TEXT)
         draw.text((cx + 25, card_y + 472), sub, font=font_sub, fill=(100, 116, 139))
         
         draw.rounded_rectangle([cx + 25, card_y + 530, cx + 185, card_y + 565], radius=6, fill=(253, 247, 242), outline=(231, 177, 36), width=1)
@@ -101,12 +108,12 @@ scenes_config = {
         'total_dur': 52.0,
         'durs': [9.5, 5.5, 6.5, 8.0, 9.0, 7.0, 6.5],
         'scenes': [
-            {'title': 'Palrom Products', 'sub': 'FSC® 100% Certified Beechwood Manufacturer • Brad, Romania', 'w': 1200},
+            {'title': 'Palrom Products', 'sub': 'FSC® Certified Beechwood Manufacturer • Brad, Romania', 'w': 1180},
             {'title': 'Sustainable Harvesting & Primary Sawmill', 'sub': 'Locally sourced beechwood logs and automated breakdown lines', 'w': 1250},
             {'title': 'Precision Milling in Action', 'sub': 'Advanced European technology & dedicated Romanian craftsmanship', 'w': 1250},
             {'title': 'Controlled Steaming & Kiln Drying', 'sub': 'Computerized chamber drying precisely to 8–12% moisture', 'w': 1180},
             {'title': 'Custom B2B Products', 'sub': 'Blanks, planed slats, smooth dowels, and tailored profiles', 'w': 1250},
-            {'title': 'Our Dedicated Team', 'sub': '100% FSC® certified timber & reliable European B2B supply', 'w': 1150},
+            {'title': 'Our Dedicated Team', 'sub': 'FSC® certified timber & reliable European B2B supply', 'w': 1120},
             {'title': 'Your Trusted B2B Partner in Sustainable Beechwood', 'sub': 'www.palromproducts.com  •  office@palromproducts.ro', 'w': 700}
         ]
     },
@@ -114,12 +121,12 @@ scenes_config = {
         'total_dur': 55.5,
         'durs': [9.0, 6.5, 7.5, 9.0, 9.5, 7.5, 6.5],
         'scenes': [
-            {'title': 'Palrom Products', 'sub': 'FSC® 100% Gecertificeerde Beukenhoutproducent • Brad, Roemenië', 'w': 1220},
+            {'title': 'Palrom Products', 'sub': 'FSC® Gecertificeerde Beukenhoutproducent • Brad, Roemenië', 'w': 1200},
             {'title': 'Duurzame Oogst & Eerste Zagerij', 'sub': 'Lokaal geoogste beukenstammen en geautomatiseerde zaaglijnen', 'w': 1220},
             {'title': 'Precisiebewerking in Actie', 'sub': 'Geavanceerde Europese machines & Roemeens vakmanschap', 'w': 1220},
-            {'title': 'Geconditioneerd Stomen & Drogen', 'sub': 'Geautomatiseerde droogkamers met droging tot exact 8–12% vochtigheid', 'w': 1280},
+            {'title': 'Geconditioneerd Stomen & Drogen', 'sub': 'Geautomatiseerde droogkamers met droging tot 8–12% vochtigheid', 'w': 1260},
             {'title': 'B2B Maatwerk Producten', 'sub': 'Blanks, geschaafde latten, gladde stokken en maatwerk profielen', 'w': 1260},
-            {'title': 'Ons Toegewijde Team', 'sub': '100% FSC® gecertificeerd hout & betrouwbare Europese leveringen', 'w': 1200},
+            {'title': 'Ons Toegewijde Team', 'sub': 'FSC® gecertificeerd hout & betrouwbare Europese leveringen', 'w': 1150},
             {'title': 'Uw Betrouwbare B2B Partner in Duurzaam Beukenhout', 'sub': 'www.palromproducts.com  •  office@palromproducts.ro', 'w': 720}
         ]
     },
@@ -127,12 +134,12 @@ scenes_config = {
         'total_dur': 60.0,
         'durs': [9.8, 7.0, 7.0, 10.5, 9.5, 9.0, 7.2],
         'scenes': [
-            {'title': 'Palrom Products', 'sub': 'FSC® 100% Zertifizierter Buchenholzhersteller • Brad, Rumänien', 'w': 1220},
+            {'title': 'Palrom Products', 'sub': 'FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien', 'w': 1200},
             {'title': 'Nachhaltiger Holzeinschlag & Primärsägewerk', 'sub': 'Buchenrundholz aus nachhaltiger Beschaffung & moderne Sägelinien', 'w': 1280},
             {'title': 'Präzisionsverarbeitung in Aktion', 'sub': 'Fortschrittliche europäische Technologie & rumänische Handwerkskunst', 'w': 1280},
             {'title': 'Gesteuerte Dämpfung & Kammertrocknung', 'sub': 'Computergesteuerte Trocknung präzise auf 8–12% Restfeuchte', 'w': 1220},
             {'title': 'Individuelle B2B-Holzprodukte', 'sub': 'Kanteln, gehobelte Leisten, Rundstäbe und Sonderprofile', 'w': 1250},
-            {'title': 'Unser Engagiertes Team', 'sub': '100% FSC®-zertifiziertes Holz & verlässliche europaweite B2B-Lieferung', 'w': 1280},
+            {'title': 'Unser Engagiertes Team', 'sub': 'FSC®-zertifiziertes Holz & verlässliche europaweite B2B-Lieferung', 'w': 1250},
             {'title': 'Ihr Verlässlicher B2B-Partner für Buchenholz', 'sub': 'www.palromproducts.com  •  office@palromproducts.ro', 'w': 720}
         ]
     },
@@ -140,12 +147,12 @@ scenes_config = {
         'total_dur': 54.5,
         'durs': [9.0, 6.0, 7.5, 9.5, 9.0, 7.0, 6.5],
         'scenes': [
-            {'title': 'Palrom Products', 'sub': 'Producător de Lemn de Fag Certificat FSC® 100% • Brad, România', 'w': 1240},
+            {'title': 'Palrom Products', 'sub': 'Producător de Lemn de Fag Certificat FSC® • Brad, România', 'w': 1220},
             {'title': 'Recoltare Sustenabilă & Debitarea Primară', 'sub': 'Bușteni de fag din surse locale și linii automate de debitare', 'w': 1250},
             {'title': 'Prelucrare de Precizie în Acțiune', 'sub': 'Tehnologie europeană de top și măiestrie românească dedicată', 'w': 1250},
             {'title': 'Aburire Controlată & Uscare în Camere', 'sub': 'Uscare computerizată precisă la o umiditate de 8–12%', 'w': 1200},
             {'title': 'Produse B2B la Comandă', 'sub': 'Elemente, șipci rindeluite, tije netede și profile personalizate', 'w': 1250},
-            {'title': 'Echipa Noastră Dedicată', 'sub': 'Lemn 100% certificat FSC® și aprovizionare sigură în toată Europa', 'w': 1240},
+            {'title': 'Echipa Noastră Dedicată', 'sub': 'Lemn certificat FSC® și aprovizionare sigură în toată Europa', 'w': 1200},
             {'title': 'Partenerul Dumneavoastră B2B de Încredere în Lemn de Fag', 'sub': 'www.palromproducts.com  •  office@palromproducts.ro', 'w': 750}
         ]
     }
@@ -158,9 +165,9 @@ def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200)
         f"[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
         f"[1:v]scale=-1:55[logo];"
         f"[base][logo]overlay=60:45[with_logo];"
-        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color=0x1e3a2b@0.92:t=fill,"
-        f"drawbox=x=60:y=880:w=6:h=130:color=0xe7b124:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=0xe7b124:fontsize=36:x=85:y=905,"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
         f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
@@ -183,9 +190,9 @@ def render_scene_video(vid_path, title, subtitle, duration, out_path, w_box=1250
         "[bg][fg]overlay=(W-w)/2:(H-h)/2[combined];"
         "[1:v]scale=-1:55[logo];"
         "[combined][logo]overlay=60:45[with_logo];"
-        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color=0x1e3a2b@0.92:t=fill,"
-        f"drawbox=x=60:y=880:w=6:h=130:color=0xe7b124:t=fill,"
-        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=0xe7b124:fontsize=36:x=85:y=905,"
+        f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
+        f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
+        f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor={COLOR_GOLD}:fontsize=36:x=85:y=905,"
         f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=white:fontsize=24:x=85:y=955[out]"
     )
     run_cmd([
@@ -203,16 +210,16 @@ def render_scene_outro(title, subtitle, duration, out_path):
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
     s_filter = (
-        f"color=c=0x1e3a2b:s=1920x1080:d={duration}[bg];"
+        f"color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}[bg];"
         "[1:v]scale=560:-1[logo];"
         "[bg][logo]overlay=(W-w)/2:280[with_logo];"
-        "[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color=0xe7b124:t=fill,"
+        f"[with_logo]drawbox=x=(1920-650)/2:y=540:w=650:h=4:color={COLOR_GOLD}:t=fill,"
         f"drawtext=fontfile='{FONT_BOLD}':text='{esc_t}':fontcolor=white:fontsize=36:x=(w-text_w)/2:y=580,"
         f"drawtext=fontfile='{FONT_REG}':text='{esc_s}':fontcolor=0xd4d4d4:fontsize=28:x=(w-text_w)/2:y=650[out]"
     )
     run_cmd([
         FFMPEG, '-y',
-        '-f', 'lavfi', '-i', f'color=c=0x1e3a2b:s=1920x1080:d={duration}',
+        '-f', 'lavfi', '-i', f'color=c={COLOR_ANTHRACITE_OUTRO}:s=1920x1080:d={duration}',
         '-i', LOGO_WHITE,
         '-filter_complex', s_filter,
         '-map', '[out]',
@@ -224,7 +231,7 @@ def render_scene_outro(title, subtitle, duration, out_path):
 # Build all 4 languages!
 for lang, cfg in scenes_config.items():
     print(f"\n==========================================")
-    print(f"--- RENDERING CORPORATE VIDEO: {lang.upper()} ({cfg['total_dur']}s) ---")
+    print(f"--- RENDERING CORPORATE VIDEO IN ANTHRACITE: {lang.upper()} ({cfg['total_dur']}s) ---")
     print(f"==========================================")
     
     durs = cfg['durs']
@@ -307,4 +314,4 @@ shutil.copyfile(
     os.path.abspath('public/images/palrom-corporate-video-en.mp4'),
     os.path.abspath('public/images/palrom-corporate-video.mp4')
 )
-print("Finished rendering all 4 language videos successfully!")
+print("Finished rendering all 4 anthracite corporate videos successfully!")
