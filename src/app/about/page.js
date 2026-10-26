@@ -12,6 +12,48 @@ export default function About() {
   const { lang } = useInquiry();
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
+  const [isVoiceOverActive, setIsVoiceOverActive] = React.useState(false);
+  const videoRef = React.useRef(null);
+  const audioRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (audioRef.current && isVoiceOverActive && videoRef.current) {
+      audioRef.current.currentTime = videoRef.current.currentTime % 20.28;
+      audioRef.current.play().catch(() => {});
+    }
+  }, [lang, isVoiceOverActive]);
+
+  const toggleVoiceOver = (e) => {
+    e.stopPropagation();
+    if (!audioRef.current || !videoRef.current) return;
+
+    if (!isVoiceOverActive) {
+      audioRef.current.currentTime = videoRef.current.currentTime % 20.28;
+      audioRef.current.play().catch(() => {});
+      setIsVoiceOverActive(true);
+    } else {
+      audioRef.current.pause();
+      setIsVoiceOverActive(false);
+    }
+  };
+
+  const handleVideoTimeUpdate = () => {
+    if (!isVoiceOverActive || !audioRef.current || !videoRef.current) return;
+    const vTime = videoRef.current.currentTime;
+    const aTime = audioRef.current.currentTime;
+    if (vTime < 1.0 && aTime > 14.0) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+  };
+
+  const voiceOverLabels = {
+    nl: { play: 'Voice-over Beluisteren', active: 'Voice-over Aan' },
+    en: { play: 'Listen to Voice-over', active: 'Voice-over Active' },
+    de: { play: 'Voice-over Anhören', active: 'Voice-over Aktiv' },
+    ro: { play: 'Ascultă Voice-over', active: 'Voice-over Activ' }
+  };
+  const currentVoLabel = voiceOverLabels[lang] || voiceOverLabels.en;
 
   React.useEffect(() => {
     if (!isPlaying) return;
@@ -510,14 +552,33 @@ export default function About() {
             {/* Video Column */}
             <div className="gallery-video-column animate-on-scroll">
               <div className="gallery-video-wrapper">
-                <iframe
+                <video
+                  ref={videoRef}
                   className="gallery-video"
-                  src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`}
-                  title={getTranslation('videoTitle')}
-                  style={{ border: 'none' }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
+                  src="/images/production-video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  onTimeUpdate={handleVideoTimeUpdate}
+                />
+                <audio ref={audioRef} preload="auto" key={lang}>
+                  <source src={`/images/voiceover-${lang}.mp3`} type="audio/mpeg" />
+                  <source src={`/images/voiceover-${lang}.m4a`} type="audio/mp4" />
+                  <source src={`/images/voiceover-${lang}.wav`} type="audio/wav" />
+                </audio>
+                <button
+                  type="button"
+                  className={`video-audio-toggle-btn ${isVoiceOverActive ? 'active' : ''}`}
+                  onClick={toggleVoiceOver}
+                  aria-label={isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
+                  title={isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
+                >
+                  <i className={`fa-solid ${isVoiceOverActive ? 'fa-volume-high' : 'fa-volume-xmark'}`}></i>
+                  <span className="video-audio-label">
+                    {isVoiceOverActive ? currentVoLabel.active : currentVoLabel.play}
+                  </span>
+                </button>
                 <div className="gallery-overlay">
                   <h3>{getTranslation('videoTitle')}</h3>
                   <p>{getTranslation('videoDesc')}</p>
