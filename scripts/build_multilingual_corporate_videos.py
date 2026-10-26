@@ -46,8 +46,9 @@ bbox = logo_raw.getbbox()
 logo_cropped = logo_raw.crop(bbox)
 
 # Convert 'PRODUCTS S.R.L.' from gold to solid black [23, 27, 28] matching 'PALROM' black for razor-sharp readability
+# The emblem circle is strictly x <= 210, text PRODUCTS S.R.L. is strictly x >= 235
 arr = np.array(logo_cropped)
-mask_bottom_gold = (np.arange(arr.shape[0])[:, None] > 135) & (np.arange(arr.shape[1])[None, :] > 180) & (arr[:, :, 3] > 30) & (arr[:, :, 0] > 100) & (arr[:, :, 1] > 70)
+mask_bottom_gold = (np.arange(arr.shape[0])[:, None] > 130) & (np.arange(arr.shape[1])[None, :] >= 235) & (arr[:, :, 3] > 30) & (arr[:, :, 0] > 100) & (arr[:, :, 1] > 70)
 arr_black_products = arr.copy()
 arr_black_products[mask_bottom_gold, 0] = 23
 arr_black_products[mask_bottom_gold, 1] = 27
