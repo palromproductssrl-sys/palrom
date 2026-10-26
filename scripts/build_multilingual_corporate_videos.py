@@ -117,15 +117,15 @@ product_data = {
     }
 }
 
-font_title = ImageFont.truetype(FONT_BOLD, 25)
-font_sub = ImageFont.truetype(FONT_REG, 16)
-font_badge = ImageFont.truetype(FONT_BOLD, 15)
+font_title = ImageFont.truetype(FONT_BOLD, 23)
+font_sub = ImageFont.truetype(FONT_REG, 15)
+font_badge = ImageFont.truetype(FONT_BOLD, 14)
 
-card_w, card_h = 405, 680
-gap = 36
+card_w, card_h = 375, 570
+gap = 30
 total_w = 4 * card_w + 3 * gap
 start_x = (1920 - total_w) // 2
-card_y = 145
+card_y = 205
 
 for lang, data in product_data.items():
     card_path = os.path.join(SCRATCH, f'products_showcase_{lang}.png')
@@ -135,20 +135,20 @@ for lang, data in product_data.items():
     for i, (img_name, title, sub) in enumerate(data['items']):
         cx = start_x + i * (card_w + gap)
         draw.rounded_rectangle([cx, card_y, cx + card_w, card_y + card_h], radius=16, fill=(255, 255, 255), outline=(226, 232, 240), width=2)
-        draw.rounded_rectangle([cx, card_y, cx + card_w, card_y + 8], radius=4, fill=(231, 177, 36))
+        draw.rounded_rectangle([cx, card_y, cx + card_w, card_y + 6], radius=4, fill=(231, 177, 36))
         
         im = Image.open(f'public/images/{img_name}').convert('RGBA')
-        im.thumbnail((345, 345), Image.Resampling.LANCZOS)
+        im.thumbnail((290, 290), Image.Resampling.LANCZOS)
         ix = cx + (card_w - im.width) // 2
-        iy = card_y + 35 + (345 - im.height) // 2
+        iy = card_y + 25 + (290 - im.height) // 2
         canvas.paste(im, (ix, iy), im)
         
         # Anthracite black title
-        draw.text((cx + 22, card_y + 425), title, font=font_title, fill=COLOR_ANTHRACITE_TEXT)
-        draw.text((cx + 22, card_y + 468), sub, font=font_sub, fill=(100, 116, 139))
+        draw.text((cx + 20, card_y + 340), title, font=font_title, fill=COLOR_ANTHRACITE_TEXT)
+        draw.text((cx + 20, card_y + 380), sub, font=font_sub, fill=(100, 116, 139))
         
-        draw.rounded_rectangle([cx + 22, card_y + 530, cx + 182, card_y + 565], radius=6, fill=(253, 247, 242), outline=(231, 177, 36), width=1)
-        draw.text((cx + 33, card_y + 538), data['badge'], font=font_badge, fill=(180, 83, 9))
+        draw.rounded_rectangle([cx + 20, card_y + 438, cx + 175, card_y + 470], radius=6, fill=(253, 247, 242), outline=(231, 177, 36), width=1)
+        draw.text((cx + 30, card_y + 445), data['badge'], font=font_badge, fill=(180, 83, 9))
     
     canvas.save(card_path)
 
@@ -236,14 +236,14 @@ scenes_config = {
 }
 
 def render_scene_base(img_path, title, subtitle, duration, out_path, w_box=1200):
-    # Ken Burns subtle cinematic push-in on still imagery
+    # Ken Burns subtle cinematic push-in on still imagery (keeps generous safe margins around logo & text)
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
     frames = max(1, int(duration * 30))
-    dz = 0.07 / frames
+    dz = 0.05 / frames
     s_filter = (
         f"[0:v]scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160,"
-        f"zoompan=z='min(zoom+{dz:.6f},1.07)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)-(zoom-1)*40':d={frames}:s=1920x1080:fps=30[base];"
+        f"zoompan=z='min(zoom+{dz:.6f},1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={frames}:s=1920x1080:fps=30[base];"
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
