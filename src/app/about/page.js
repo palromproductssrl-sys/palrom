@@ -12,7 +12,6 @@ export default function About() {
   const { lang, setLang } = useInquiry();
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
-  const [isVideoMuted, setIsVideoMuted] = React.useState(true);
   const [videoLang, setVideoLang] = React.useState(lang || 'nl');
   const [isVideoPlaying, setIsVideoPlaying] = React.useState(true);
   const [videoCurrentTime, setVideoCurrentTime] = React.useState(0);
@@ -126,24 +125,7 @@ export default function About() {
     resetControlsTimer();
   };
 
-  const toggleVideoSound = (e) => {
-    e.stopPropagation();
-    if (!videoRef.current) return;
-    const nextMuted = !videoRef.current.muted;
-    videoRef.current.muted = nextMuted;
-    setIsVideoMuted(nextMuted);
-    if (!nextMuted && videoRef.current.paused) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
 
-  const soundLabels = {
-    nl: { on: 'Geluid Aan', off: 'Geluid & Muziek' },
-    en: { on: 'Sound On', off: 'Sound & Music' },
-    de: { on: 'Ton An', off: 'Ton & Musik' },
-    ro: { on: 'Sunet Activat', off: 'Sunet & Muzică' }
-  };
-  const currentSoundLabel = soundLabels[lang] || soundLabels.en;
 
   React.useEffect(() => {
     if (!isPlaying) return;
@@ -536,7 +518,7 @@ export default function About() {
                   src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.55`}
                   autoPlay
                   loop
-                  muted={isVideoMuted}
+                  muted
                   playsInline
                   onTimeUpdate={() => {
                     if (videoRef.current) {
@@ -593,20 +575,6 @@ export default function About() {
                         title={isVideoPlaying ? 'Pauzeren' : 'Afspelen'}
                       >
                         <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'}`}></i>
-                      </button>
-
-                      {/* Sound */}
-                      <button 
-                        type="button" 
-                        className="video-ctrl-btn" 
-                        onClick={(e) => {
-                          toggleVideoSound(e);
-                          resetControlsTimer();
-                        }} 
-                        aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                        title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                      >
-                        <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
                       </button>
 
                       {/* Time */}

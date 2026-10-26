@@ -5,7 +5,6 @@ import Link from 'next/link';
 
 export default function CorporateVideoSection({ lang = 'nl' }) {
   const [videoLang, setVideoLang] = useState(lang || 'nl');
-  const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [videoCurrentTime, setVideoCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(56);
@@ -92,38 +91,7 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
     return `${m}:${s < 10 ? '0' : ''}${s}`;
   };
 
-  const switchVideoLang = (newLang) => {
-    if (videoLang === newLang) return;
-    const currentVideo = videoRef.current;
-    const currentTime = currentVideo ? currentVideo.currentTime : 0;
-    const wasPlaying = currentVideo ? !currentVideo.paused : true;
-    
-    setVideoLang(newLang);
 
-    setTimeout(() => {
-      if (videoRef.current) {
-        try {
-          videoRef.current.currentTime = currentTime;
-          if (wasPlaying) {
-            videoRef.current.play().catch(() => {});
-            setIsVideoPlaying(true);
-          }
-        } catch (e) {}
-      }
-    }, 60);
-    resetControlsTimer();
-  };
-
-  const toggleVideoSound = (e) => {
-    e.stopPropagation();
-    if (!videoRef.current) return;
-    const nextMuted = !videoRef.current.muted;
-    videoRef.current.muted = nextMuted;
-    setIsVideoMuted(nextMuted);
-    if (!nextMuted && videoRef.current.paused) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
 
   const copy = {
     nl: {
@@ -228,7 +196,7 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
               src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.55`}
               autoPlay
               loop
-              muted={isVideoMuted}
+              muted
               playsInline
               onTimeUpdate={() => {
                 if (videoRef.current) {
@@ -243,38 +211,6 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
               onPlay={() => setIsVideoPlaying(true)}
               onPause={() => setIsVideoPlaying(false)}
             />
-
-            {/* Top Bar inside Video: Language Switcher & Sound Toggle */}
-            <div 
-              className={`video-top-controls ${controlsVisible || !isVideoPlaying ? 'visible' : ''}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="video-lang-switcher">
-                {['nl', 'en', 'de', 'ro'].map((l) => (
-                  <button
-                    key={l}
-                    type="button"
-                    className={`video-lang-btn ${videoLang === l ? 'active' : ''}`}
-                    onClick={() => switchVideoLang(l)}
-                    title={`Schakel naar ${l.toUpperCase()} voice-over`}
-                  >
-                    {l.toUpperCase()}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
-                onClick={toggleVideoSound}
-                title={isVideoMuted ? c.soundOff : c.soundOn}
-              >
-                <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
-                <span className="video-audio-label">
-                  {isVideoMuted ? c.soundOff : c.soundOn}
-                </span>
-              </button>
-            </div>
 
             {/* Center Play Overlay when Paused */}
             <div className={`video-center-play-overlay ${!isVideoPlaying ? 'paused' : ''}`}>
@@ -316,19 +252,6 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
                     title={isVideoPlaying ? c.pause : c.play}
                   >
                     <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'}`}></i>
-                  </button>
-
-                  <button 
-                    type="button" 
-                    className="video-ctrl-btn" 
-                    onClick={(e) => {
-                      toggleVideoSound(e);
-                      resetControlsTimer();
-                    }} 
-                    aria-label={isVideoMuted ? c.soundOff : c.soundOn}
-                    title={isVideoMuted ? c.soundOff : c.soundOn}
-                  >
-                    <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
                   </button>
 
                   <span className="video-time-display">
