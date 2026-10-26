@@ -225,7 +225,7 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
               ref={videoRef}
               key={videoLang}
               className="gallery-video"
-              src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.44`}
+              src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.45`}
               autoPlay
               loop
               muted={isVideoMuted}
@@ -349,18 +349,6 @@ export default function CorporateVideoSection({ lang = 'nl' }) {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Quick link to Video Studio */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
-            <Link 
-              href="/video-studio"
-              className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-amber-400 transition-colors"
-              title="Open de interactieve Video Studio om shots en teksten aan te passen"
-            >
-              <i className="fa-solid fa-sliders"></i>
-              <span>{c.studio}</span>
-            </Link>
           </div>
         </div>
       </div>

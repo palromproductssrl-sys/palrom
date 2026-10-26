@@ -641,6 +641,7 @@ for lang in target_langs:
         '-c:v', 'copy',
         '-c:a', 'aac',
         '-b:a', '192k',
+        '-movflags', '+faststart',
         '-t', str(total_dur),
         final_output
     ])
@@ -648,8 +649,8 @@ for lang in target_langs:
     size_mb = os.path.getsize(final_output) / (1024 * 1024)
     print(f"SUCCESS: Rendered {final_output} ({size_mb:.2f} MB)")
 
-# Copy EN to default palrom-corporate-video.mp4 as fallback if available
-en_path = os.path.abspath('public/images/palrom-corporate-video-en.mp4')
-if os.path.exists(en_path):
-    shutil.copyfile(en_path, os.path.abspath('public/images/palrom-corporate-video.mp4'))
+# Copy NL to default palrom-corporate-video.mp4 as primary fallback if available
+nl_path = os.path.abspath('public/images/palrom-corporate-video-nl.mp4')
+if os.path.exists(nl_path):
+    shutil.copyfile(nl_path, os.path.abspath('public/images/palrom-corporate-video.mp4'))
 print("Finished rendering specified corporate videos with optuned razor-sharp logos!")
