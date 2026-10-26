@@ -34,45 +34,44 @@ def escape_txt(t):
 # 1. OPTUNE & SHARPEN WATERMARK LOGO (Black & Yellow on 100% Transparent Background)
 print("--- Generating Optuned Razor-Sharp Watermark ---")
 logo_raw = Image.open(LOGO_ORIGINAL).convert('RGBA')
+bbox = logo_raw.getbbox()
+logo_cropped = logo_raw.crop(bbox)
 
-# Target width: 260px (height ~84px) - 30% larger so small text 'PRODUCTS SRL' is razor sharp!
-target_w = 260
-target_h = int(target_w * logo_raw.height / logo_raw.width)
-logo_hq = logo_raw.resize((target_w, target_h), Image.Resampling.LANCZOS)
-# Unsharp mask to sharpen edges of typography and shield
-logo_hq = logo_hq.filter(ImageFilter.UnsharpMask(radius=1.2, percent=160, threshold=2))
+# Target width: 360px - Generous broadcast size so all lettering is razor-sharp in 1080p and web players
+target_w = 360
+target_h = int(target_w * logo_cropped.height / logo_cropped.width)
+logo_hq = logo_cropped.resize((target_w, target_h), Image.Resampling.LANCZOS)
 
-# Subtle contrast ambient backlight so black letters never blur against dark tree/machine backgrounds
-pad = 8
+# Crisp 1px edge separation (zero blur, purely 1px dilation for maximum sharpness on dark & light frames)
+alpha = logo_hq.split()[3]
+mask_1px = alpha.filter(ImageFilter.MaxFilter(3))
+
+pad = 4
 total_w = target_w + pad * 2
 total_h = target_h + pad * 2
 watermark_sharp = Image.new('RGBA', (total_w, total_h), (0, 0, 0, 0))
 
-alpha = logo_hq.split()[3]
-# Subtle soft backlight halo (transparent background preserved!)
-backlight = alpha.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(3))
-glow_color = Image.new('RGBA', (target_w, target_h), (255, 255, 255, 140))
-shadow = alpha.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(3))
-shadow_color = Image.new('RGBA', (target_w, target_h), (0, 0, 0, 110))
-
-watermark_sharp.paste(shadow_color, (pad, pad + 1), shadow)
-watermark_sharp.paste(glow_color, (pad, pad), backlight)
+# Crisp 1px edge (semi-white alpha 200) ensures black letters never blur against dark tree/machine backgrounds
+stroke_color = Image.new('RGBA', (target_w, target_h), (255, 255, 255, 200))
+watermark_sharp.paste(stroke_color, (pad, pad), mask_1px)
 watermark_sharp.paste(logo_hq, (pad, pad), logo_hq)
 
 WATERMARK_SHARP_PATH = os.path.join(SCRATCH, 'watermark_tuned_sharp.png')
 watermark_sharp.save(WATERMARK_SHARP_PATH)
-print(f"Saved razor-sharp watermark: {WATERMARK_SHARP_PATH}")
+print(f"Saved razor-sharp watermark: {WATERMARK_SHARP_PATH} ({watermark_sharp.size})")
 
 # 2. OPTUNE & SHARPEN OUTRO INVERSE LOGO
 print("--- Generating Optuned Razor-Sharp Outro Logo ---")
 logo_w_raw = Image.open(LOGO_WHITE).convert('RGBA')
+bbox_w = logo_w_raw.getbbox()
+logo_w_cropped = logo_w_raw.crop(bbox_w)
 ow_target = 560
-oh_target = int(ow_target * logo_w_raw.height / logo_w_raw.width)
-logo_w_hq = logo_w_raw.resize((ow_target, oh_target), Image.Resampling.LANCZOS)
-logo_w_hq = logo_w_hq.filter(ImageFilter.UnsharpMask(radius=1.2, percent=150, threshold=2))
+oh_target = int(ow_target * logo_w_cropped.height / logo_w_cropped.width)
+logo_w_hq = logo_w_cropped.resize((ow_target, oh_target), Image.Resampling.LANCZOS)
 
 LOGO_INVERSE_SHARP_PATH = os.path.join(SCRATCH, 'logo_white_sharp.png')
 logo_w_hq.save(LOGO_INVERSE_SHARP_PATH)
+print(f"Saved razor-sharp outro logo: {LOGO_INVERSE_SHARP_PATH} ({logo_w_hq.size})")
 
 # 3. Product Cards in 4 languages
 product_data = {
