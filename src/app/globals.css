@@ -1140,7 +1140,8 @@ ul {
 .gallery-video-wrapper,
 .slideshow-container {
     position: relative;
-    height: 480px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
@@ -1740,7 +1741,9 @@ ul {
     
     .gallery-video-wrapper,
     .slideshow-container {
-        height: 380px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
     
     .hero-title {
@@ -2946,7 +2949,9 @@ ul {
     
     .gallery-video-wrapper,
     .slideshow-container {
-        height: 280px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
     .slideshow-arrow {
         width: 38px;
