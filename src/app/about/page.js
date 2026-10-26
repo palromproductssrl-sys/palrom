@@ -9,11 +9,42 @@ import { useInquiry } from '@/components/InquiryContext';
 const YOUTUBE_VIDEO_ID = 'HtQ-duYvz0Y';
 
 export default function About() {
-  const { lang } = useInquiry();
+  const { lang, setLang } = useInquiry();
   const [activeSlide, setActiveSlide] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isVideoMuted, setIsVideoMuted] = React.useState(true);
+  const [videoLang, setVideoLang] = React.useState(lang || 'nl');
   const videoRef = React.useRef(null);
+
+  // Sync video language when page language changes
+  React.useEffect(() => {
+    if (lang && ['nl', 'en', 'de', 'ro'].includes(lang)) {
+      setVideoLang(lang);
+    }
+  }, [lang]);
+
+  const switchVideoLang = (newLang) => {
+    if (videoLang === newLang) return;
+    const currentVideo = videoRef.current;
+    const currentTime = currentVideo ? currentVideo.currentTime : 0;
+    const wasPlaying = currentVideo ? !currentVideo.paused : true;
+    
+    setVideoLang(newLang);
+    if (setLang) {
+      setLang(newLang);
+    }
+
+    setTimeout(() => {
+      if (videoRef.current) {
+        try {
+          videoRef.current.currentTime = currentTime;
+          if (wasPlaying) {
+            videoRef.current.play().catch(() => {});
+          }
+        } catch (e) {}
+      }
+    }, 60);
+  };
 
   const toggleVideoSound = (e) => {
     e.stopPropagation();
@@ -409,25 +440,44 @@ export default function About() {
               <div className="gallery-video-wrapper">
                 <video
                   ref={videoRef}
+                  key={videoLang}
                   className="gallery-video"
-                  src="/images/palrom-corporate-video.mp4"
+                  src={`/images/palrom-corporate-video-${videoLang}.mp4`}
                   autoPlay
                   loop
                   muted={isVideoMuted}
                   playsInline
                 />
-                <button
-                  type="button"
-                  className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
-                  onClick={toggleVideoSound}
-                  aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                  title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                >
-                  <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
-                  <span className="video-audio-label">
-                    {isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
-                  </span>
-                </button>
+                <div className="video-top-controls">
+                  <div className="video-lang-switcher" aria-label="Video Language">
+                    {['nl', 'en', 'de', 'ro'].map((l) => (
+                      <button
+                        key={l}
+                        type="button"
+                        className={`video-lang-btn ${videoLang === l ? 'active' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          switchVideoLang(l);
+                        }}
+                        title={`Bekijk video in het ${l.toUpperCase()}`}
+                      >
+                        {l.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className={`video-audio-toggle-btn ${!isVideoMuted ? 'active' : ''}`}
+                    onClick={toggleVideoSound}
+                    aria-label={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                    title={isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                  >
+                    <i className={`fa-solid ${isVideoMuted ? 'fa-volume-xmark' : 'fa-volume-high'}`}></i>
+                    <span className="video-audio-label">
+                      {isVideoMuted ? currentSoundLabel.off : currentSoundLabel.on}
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
 
