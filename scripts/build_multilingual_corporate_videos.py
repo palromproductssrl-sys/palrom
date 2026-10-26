@@ -37,8 +37,8 @@ logo_raw = Image.open(LOGO_ORIGINAL).convert('RGBA')
 bbox = logo_raw.getbbox()
 logo_cropped = logo_raw.crop(bbox)
 
-# Target width: 360px - Generous broadcast size so all lettering is razor-sharp in 1080p and web players
-target_w = 360
+# Target width: 300px - Refined, elegant corner watermark proportion (razor-sharp & non-intrusive)
+target_w = 300
 target_h = int(target_w * logo_cropped.height / logo_cropped.width)
 logo_hq = logo_cropped.resize((target_w, target_h), Image.Resampling.LANCZOS)
 
@@ -65,7 +65,7 @@ print("--- Generating Optuned Razor-Sharp Outro Logo ---")
 logo_w_raw = Image.open(LOGO_WHITE).convert('RGBA')
 bbox_w = logo_w_raw.getbbox()
 logo_w_cropped = logo_w_raw.crop(bbox_w)
-ow_target = 560
+ow_target = 500
 oh_target = int(ow_target * logo_w_cropped.height / logo_w_cropped.width)
 logo_w_hq = logo_w_cropped.resize((ow_target, oh_target), Image.Resampling.LANCZOS)
 
