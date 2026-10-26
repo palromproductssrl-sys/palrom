@@ -409,131 +409,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Profile & Environmental Commitment Section */}
-      <section id="about-details" className="about-section section-padding bg-dark text-light">
-        <div className="container">
-          <div className="grid grid-2 align-items-center">
-            <div className="about-image-column animate-on-scroll">
-              <div className="image-stack">
-                <Image
-                  src="/images/hero_bg.jpg"
-                  alt="Aerial view of Palrom Products Brad sawmill facilities"
-                  className="img-responsive rounded-lg shadow-lg"
-                  width={1024}
-                  height={502}
-                  priority
-                />
-                <div className="about-floating-card">
-                  <i className="fa-solid fa-leaf text-accent"></i>
-                  <p>{getTranslation('floatingCard')}</p>
-                  <a
-                    href="/palrom_fsc_certificate.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      color: 'var(--color-primary)',
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                      marginTop: '1.25rem',
-                      textDecoration: 'underline'
-                    }}
-                  >
-                    <i className="fa-solid fa-file-pdf"></i>{' '}
-                    {lang === 'nl'
-                      ? 'Bekijk FSC® Certificaat'
-                      : (lang === 'de'
-                        ? 'FSC®-Zertifikat ansehen'
-                        : (lang === 'ro'
-                          ? 'Vezi Certificatul FSC®'
-                          : 'View FSC® Certificate'))}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="about-text-column animate-on-scroll">
-              <span className="section-badge badge-accent">{getTranslation('identityBadge')}</span>
-              <h2 className="section-title text-white">{getTranslation('whoWeAre')}</h2>
-              <p className="lead">{getTranslation('quoteLead')}</p>
-              <p>{getTranslation('desc1')}</p>
-              <p>{getTranslation('desc2')}</p>
-              <p>{getTranslation('desc3')}</p>
-
-              <div className="about-quote">
-                <p className="quote-text">
-                  {lang === 'nl'
-                    ? '"Wij denken graag met u mee om de meest efficiënte en duurzame oplossing voor uw bedrijf te realiseren."'
-                    : (lang === 'de'
-                      ? '"Wir denken gerne mit Ihnen mit, um die effizienteste und nachhaltigste Lösung für Ihr Unternehmen zu realisieren."'
-                      : (lang === 'ro'
-                        ? '"Ne face plăcere să gândim alături de dumneavoastră pentru a realiza cea mai eficientă și durabilă soluție pentru afacerea dumneavoastră."'
-                        : '"We are happy to think along with you to realize the most efficient and sustainable solution for your business."'))}
-                </p>
-                <div className="quote-author">
-                  <strong>Gabriela Cioara</strong>
-                  <span>{lang === 'nl' ? 'Algemeen Directeur' : (lang === 'de' ? 'Geschäftsführerin' : (lang === 'ro' ? 'Director General' : 'General Manager'))}, Palrom Products SRL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose PALROM Section */}
-      <section className="why-us-section section-padding bg-light">
-        <div className="container">
-          <div className="text-center max-w-xl mx-auto mb-5">
-            <span className="section-badge">{getTranslation('whyChooseTitle')}</span>
-            <h2 className="section-title">{getTranslation('whyChooseTitleSub')}</h2>
-            <p className="section-subtitle">{getTranslation('whyChooseDesc')}</p>
-          </div>
-
-          <div className="grid grid-3">
-            <div className="card card-hover animate-on-scroll">
-              <div className="card-icon">
-                <i className="fa-solid fa-warehouse"></i>
-              </div>
-              <h3>{getTranslation('dryingTitle')}</h3>
-              <p>{getTranslation('dryingDesc')}</p>
-            </div>
-            <div className="card card-hover animate-on-scroll">
-              <div className="card-icon">
-                <i className="fa-solid fa-tag"></i>
-              </div>
-              <h3>{getTranslation('retailTitle')}</h3>
-              <p>{getTranslation('retailDesc')}</p>
-            </div>
-            <div className="card card-hover animate-on-scroll">
-              <div className="card-icon">
-                <i className="fa-solid fa-globe"></i>
-              </div>
-              <h3>{getTranslation('reachTitle')}</h3>
-              <p>{getTranslation('reachDesc')}</p>
-            </div>
-          </div>
-
-          <div className="brochure-download-container animate-on-scroll">
-            <div className="brochure-content">
-              <i className="fa-solid fa-file-pdf pdf-large-icon"></i>
-              <div>
-                <h3>{getTranslation('brochureTitle')}</h3>
-                <p>{getTranslation('brochureDesc')}</p>
-              </div>
-            </div>
-            <a
-              href="/palrom_brochure.pdf"
-              download="palrom_brochure.pdf"
-              className="btn btn-primary"
-            >
-              <i className="fa-solid fa-download icon-left"></i> {getTranslation('brochureBtn')}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Photo Gallery Section */}
+      {/* Video & Photo Gallery Section (Bovenaan Bedrijfsprofiel) */}
       <section id="gallery-details" className="gallery-section section-padding bg-white">
         <div className="container">
           <div className="text-center max-w-xl mx-auto mb-5 animate-on-scroll">
@@ -674,6 +550,130 @@ export default function About() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Profile & Environmental Commitment Section */}
+      <section id="about-details" className="about-section section-padding bg-dark text-light">
+        <div className="container">
+          <div className="grid grid-2 align-items-center">
+            <div className="about-image-column animate-on-scroll">
+              <div className="image-stack">
+                <Image
+                  src="/images/hero_bg.jpg"
+                  alt="Aerial view of Palrom Products Brad sawmill facilities"
+                  className="img-responsive rounded-lg shadow-lg"
+                  width={1024}
+                  height={502}
+                  priority
+                />
+                <div className="about-floating-card">
+                  <i className="fa-solid fa-leaf text-accent"></i>
+                  <p>{getTranslation('floatingCard')}</p>
+                  <a
+                    href="/palrom_fsc_certificate.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      color: 'var(--color-primary)',
+                      fontWeight: 600,
+                      fontSize: '0.9rem',
+                      marginTop: '1.25rem',
+                      textDecoration: 'underline'
+                    }}
+                  >
+                    <i className="fa-solid fa-file-pdf"></i>{' '}
+                    {lang === 'nl'
+                      ? 'Bekijk FSC® Certificaat'
+                      : (lang === 'de'
+                        ? 'FSC®-Zertifikat ansehen'
+                        : (lang === 'ro'
+                          ? 'Vezi Certificatul FSC®'
+                          : 'View FSC® Certificate'))}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="about-text-column animate-on-scroll">
+              <span className="section-badge badge-accent">{getTranslation('identityBadge')}</span>
+              <h2 className="section-title text-white">{getTranslation('whoWeAre')}</h2>
+              <p className="lead">{getTranslation('quoteLead')}</p>
+              <p>{getTranslation('desc1')}</p>
+              <p>{getTranslation('desc2')}</p>
+              <p>{getTranslation('desc3')}</p>
+
+              <div className="about-quote">
+                <p className="quote-text">
+                  {lang === 'nl'
+                    ? '"Wij denken graag met u mee om de meest efficiënte en duurzame oplossing voor uw bedrijf te realiseren."'
+                    : (lang === 'de'
+                      ? '"Wir denken gerne mit Ihnen mit, um die effizienteste und nachhaltigste Lösung für Ihr Unternehmen zu realisieren."'
+                      : (lang === 'ro'
+                        ? '"Ne face plăcere să gândim alături de dumneavoastră pentru a realiza cea mai eficientă și durabilă soluție pentru afacerea dumneavoastră."'
+                        : '"We are happy to think along with you to realize the most efficient and sustainable solution for your business."'))}
+                </p>
+                <div className="quote-author">
+                  <strong>Gabriela Cioara</strong>
+                  <span>{lang === 'nl' ? 'Algemeen Directeur' : (lang === 'de' ? 'Geschäftsführerin' : (lang === 'ro' ? 'Director General' : 'General Manager'))}, Palrom Products SRL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose PALROM Section */}
+      <section className="why-us-section section-padding bg-light">
+        <div className="container">
+          <div className="text-center max-w-xl mx-auto mb-5">
+            <span className="section-badge">{getTranslation('whyChooseTitle')}</span>
+            <h2 className="section-title">{getTranslation('whyChooseTitleSub')}</h2>
+            <p className="section-subtitle">{getTranslation('whyChooseDesc')}</p>
+          </div>
+
+          <div className="grid grid-3">
+            <div className="card card-hover animate-on-scroll">
+              <div className="card-icon">
+                <i className="fa-solid fa-warehouse"></i>
+              </div>
+              <h3>{getTranslation('dryingTitle')}</h3>
+              <p>{getTranslation('dryingDesc')}</p>
+            </div>
+            <div className="card card-hover animate-on-scroll">
+              <div className="card-icon">
+                <i className="fa-solid fa-tag"></i>
+              </div>
+              <h3>{getTranslation('retailTitle')}</h3>
+              <p>{getTranslation('retailDesc')}</p>
+            </div>
+            <div className="card card-hover animate-on-scroll">
+              <div className="card-icon">
+                <i className="fa-solid fa-globe"></i>
+              </div>
+              <h3>{getTranslation('reachTitle')}</h3>
+              <p>{getTranslation('reachDesc')}</p>
+            </div>
+          </div>
+
+          <div className="brochure-download-container animate-on-scroll">
+            <div className="brochure-content">
+              <i className="fa-solid fa-file-pdf pdf-large-icon"></i>
+              <div>
+                <h3>{getTranslation('brochureTitle')}</h3>
+                <p>{getTranslation('brochureDesc')}</p>
+              </div>
+            </div>
+            <a
+              href="/palrom_brochure.pdf"
+              download="palrom_brochure.pdf"
+              className="btn btn-primary"
+            >
+              <i className="fa-solid fa-download icon-left"></i> {getTranslation('brochureBtn')}
+            </a>
           </div>
         </div>
       </section>
