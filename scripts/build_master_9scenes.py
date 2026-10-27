@@ -161,6 +161,119 @@ product_items_dict = {
     }
 }
 
+def make_single_product_card_4k(lang, idx):
+    card_w = 800
+    card_h = 1000
+    card_img = Image.new('RGBA', (card_w, card_h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(card_img)
+    draw.rounded_rectangle([0, 0, card_w, card_h], radius=32, fill=(255, 255, 255, 255), outline=(226, 232, 240, 255), width=3)
+    draw.rounded_rectangle([0, 0, card_w, 14], radius=8, fill=(231, 177, 36, 255))
+    font_p_title = ImageFont.truetype(FONT_BOLD, 44)
+    font_p_sub = ImageFont.truetype(FONT_REG, 28)
+    font_p_badge = ImageFont.truetype(FONT_BOLD, 24)
+    p_data = product_items_dict[lang]
+    img_name, title, sub = p_data['items'][idx]
+    im_path = f'public/images/{img_name}'
+    if os.path.exists(im_path):
+        im = Image.open(im_path).convert('RGBA')
+        im.thumbnail((580, 580), Image.Resampling.LANCZOS)
+        ix = (card_w - im.width) // 2
+        iy = 50 + (580 - im.height) // 2
+        card_img.paste(im, (ix, iy), im)
+    draw.text((40, 680), title, font=font_p_title, fill=(30, 41, 59, 255))
+    draw.text((40, 760), sub, font=font_p_sub, fill=(100, 116, 139, 255))
+    draw.rounded_rectangle([40, 876, 370, 940], radius=12, fill=(253, 247, 242, 255), outline=(231, 177, 36, 255), width=2)
+    draw.text((60, 890), p_data['badge'], font=font_p_badge, fill=(180, 83, 9, 255))
+    return card_img
+
+# Pre-compute 400x1050 diagonal Gaussian sheen brush for Scene 6 glanslijn
+w_brush, h_brush = 400, 1050
+yy_b, xx_b = np.mgrid[0:h_brush, 0:w_brush]
+shear_b = 0.22
+diag_b = (xx_b - shear_b * yy_b) - (w_brush / 2.0 - shear_b * h_brush / 2.0)
+intensity_b = np.exp(- (diag_b**2) / (2 * (55.0**2)))
+sheen_arr = np.zeros((h_brush, w_brush, 4), dtype=np.uint8)
+sheen_arr[..., 0] = 255
+sheen_arr[..., 1] = 255
+sheen_arr[..., 2] = 255
+sheen_arr[..., 3] = np.clip(intensity_b * 125, 0, 255).astype(np.uint8)
+sheen_brush_im = Image.fromarray(sheen_arr, mode='RGBA')
+
+def render_animated_product_cards(lang, duration, out_path, banner_overlay=None, watermark=None, wm_pos=(60, 45)):
+    fps = 30
+    num_frames = int(duration * fps)
+    card_w, card_h = 800, 1000
+    gap = 60
+    total_w = 4 * card_w + 3 * gap
+    start_x = (3840 - total_w) // 2
+    target_y = 410
+
+    cards = [make_single_product_card_4k(lang, idx) for idx in range(4)]
+    bg_base = Image.new('RGBA', (3840, 2160), (248, 250, 252, 255))
+
+    proc = subprocess.Popen([
+        FFMPEG, '-y',
+        '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '1920x1080', '-r', '30',
+        '-i', '-',
+        '-c:v', 'libx264', '-crf', '18', '-preset', 'fast', '-pix_fmt', 'yuv420p',
+        '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709',
+        '-r', '30',
+        out_path
+    ], stdin=subprocess.PIPE)
+
+    for i in range(num_frames):
+        t = i / fps
+        canvas = bg_base.copy()
+
+        # 1. Staggered card entrances
+        for k in range(4):
+            t_start = 0.08 + k * 0.18
+            anim_dur = 0.42
+            if t < t_start:
+                continue
+            cx = start_x + k * (card_w + gap)
+            if t < t_start + anim_dur:
+                u = (t - t_start) / anim_dur
+                e = 1.0 - (1.0 - u)**3
+                cy = int(target_y + (1.0 - e) * 110)
+                c_im = cards[k].copy()
+                alpha = c_im.split()[3].point(lambda p: int(p * e))
+                c_im.putalpha(alpha)
+                canvas.paste(c_im, (cx, cy), c_im)
+            else:
+                cy = target_y
+                canvas.paste(cards[k], (cx, cy), cards[k])
+
+        # 2. Golden glanslijn beam sweep across cards from 1.15s to 2.45s
+        if 1.15 <= t <= 2.45:
+            s_prog = (t - 1.15) / 1.30
+            x_beam = int(start_x - 180 + s_prog * (total_w + 360))
+            canvas.paste(sheen_brush_im, (x_beam, target_y - 20), sheen_brush_im)
+
+        # 3. Continuous gentle Ken Burns zoom
+        zoom = 1.0 + 0.025 * (i / max(1, num_frames - 1))
+        w_crop = 3840 / zoom
+        h_crop = 2160 / zoom
+        x0 = (3840 - w_crop) * 0.5
+        y0 = (2160 - h_crop) * 0.5
+
+        frame = canvas.transform(
+            (1920, 1080),
+            Image.Transform.EXTENT,
+            (x0, y0, x0 + w_crop, y0 + h_crop),
+            resample=Image.Resampling.BICUBIC
+        )
+
+        if watermark:
+            frame.paste(watermark, wm_pos, watermark)
+        if banner_overlay:
+            frame.paste(banner_overlay, (0, 0), banner_overlay)
+
+        proc.stdin.write(frame.convert('RGB').tobytes())
+
+    proc.stdin.close()
+    proc.wait()
+
 def make_product_card_4k(lang):
     card_w_4k = 800
     card_h_4k = 1000
@@ -425,6 +538,51 @@ lang_configs = {
     }
 }
 
+def build_sfx_track(lang, durs, total_dur):
+    sfx_out = os.path.join(DRAFT_DIR, f'sfx_track_{lang}.wav')
+    t_s1 = 0.0
+    t_flare = 3.8
+    t_s3 = round(durs[0] + durs[1], 2)
+    t_s4 = round(t_s3 + durs[2], 2)
+    t_s5 = round(t_s4 + durs[3], 2)
+    t_s6 = round(t_s5 + durs[4] + 1.2, 2)
+    t_s7 = round(t_s5 + durs[4] + durs[5], 2)
+
+    ms_s1 = int(t_s1 * 1000)
+    ms_flare = int(t_flare * 1000)
+    ms_s3 = int(t_s3 * 1000)
+    ms_s4 = int(t_s4 * 1000)
+    ms_s5 = int(t_s5 * 1000)
+    ms_s6 = int(t_s6 * 1000)
+    ms_s7 = int(t_s7 * 1000)
+
+    f_sfx = (
+        f"[0:a]adelay={ms_s1}|{ms_s1},volume=0.32[a0];"
+        f"[1:a]adelay={ms_flare}|{ms_flare},volume=0.18[a1];"
+        f"[2:a]adelay={ms_s3}|{ms_s3},volume=0.55[a2];"
+        f"[3:a]adelay={ms_s4}|{ms_s4},volume=0.25[a3];"
+        f"[4:a]adelay={ms_s5}|{ms_s5},lowpass=f=280,volume=0.22[a4];"
+        f"[5:a]adelay={ms_s6}|{ms_s6},volume=0.12[a5];"
+        f"[6:a]adelay={ms_s7}|{ms_s7},volume=0.18[a6];"
+        f"[a0][a1][a2][a3][a4][a5][a6]amix=inputs=7:normalize=0,apad=whole_dur={total_dur}[sfxout]"
+    )
+    cmd_sfx = [
+        FFMPEG, '-y',
+        '-i', 'scratch/sfx_s1_wind.wav',
+        '-i', 'scratch/sfx_s1_flare.wav',
+        '-i', 'scratch/sfx_s3_saw.wav',
+        '-i', 'scratch/sfx_s4_hall.wav',
+        '-i', 'scratch/sfx_s4_hall.wav',
+        '-i', 'scratch/sfx_s1_flare.wav',
+        '-i', 'scratch/sfx_s7_fsc.wav',
+        '-filter_complex', f_sfx,
+        '-map', '[sfxout]',
+        '-t', str(total_dur),
+        sfx_out
+    ]
+    run_cmd(cmd_sfx)
+    return sfx_out
+
 def build_corporate_video(lang):
     cfg = lang_configs[lang]
     total_dur = cfg['total_dur']
@@ -536,18 +694,15 @@ def build_corporate_video(lang):
     # --- Scene 6: B2B Maatwerk Producten (durs[5]) ---
     s6_dur = durs[5]
     s6_path = os.path.join(lang_dir, 's6.mp4')
-    prod_card_base = make_product_card_4k(lang)
     logo_wm_prod = watermark_im.resize((int(watermark_im.width * 0.9), int(watermark_im.height * 0.9)), Image.Resampling.LANCZOS)
     s6_banner = make_static_banner_overlay(cfg['s6'][0], cfg['s6'][1], cfg['s6'][2])
-    render_subpixel_ken_burns(
-        base_img_4k=prod_card_base,
+    render_animated_product_cards(
+        lang=lang,
         duration=s6_dur,
         out_path=s6_path,
-        zoom_start=1.0,
-        zoom_end=1.03,
+        banner_overlay=s6_banner,
         watermark=logo_wm_prod,
-        wm_pos=(60, 45),
-        banner_overlay=s6_banner
+        wm_pos=(60, 45)
     )
 
     # --- Scene 7: FSC Certificering & Kwaliteit (durs[6]) ---
@@ -600,14 +755,16 @@ def build_corporate_video(lang):
 
     # --- Seamless Concatenation & Audio Mix ---
     print(f"\n--- Concatenating 9 scenes & Mixing Audio for {lang.upper()} ---")
+    sfx_file = build_sfx_track(lang, durs, total_dur)
     fade_start = round(total_dur - 3.5, 2)
     concat_inputs = "".join(f"[{i}:v]" for i in range(9))
     adelay_val = cfg.get('adelay_ms', 800)
     filter_complex = (
         f"{concat_inputs}concat=n=9:v=1:a=0[vcat];"
         f"[9:a]adelay={adelay_val}|{adelay_val},volume=1.25,apad=whole_dur={total_dur}[vo];"
-        f"[10:a]volume=0.13,atrim=0:{total_dur},afade=t=out:st={fade_start}:d=3.5[bgm];"
-        f"[vo][bgm]amix=inputs=2:duration=first:dropout_transition=2[aout]"
+        f"[10:a]volume=0.12,atrim=0:{total_dur},afade=t=out:st={fade_start}:d=3.5[bgm];"
+        f"[11:a]volume=0.75,atrim=0:{total_dur}[sfx];"
+        f"[vo][bgm][sfx]amix=inputs=3:duration=first:dropout_transition=2[aout]"
     )
 
     out_file = os.path.abspath(f'public/images/palrom-corporate-video-{lang}.mp4')
@@ -624,6 +781,7 @@ def build_corporate_video(lang):
         '-i', s9_path,
         '-i', os.path.abspath(cfg['vo_file']),
         '-i', BGM_AUDIO,
+        '-i', sfx_file,
         '-filter_complex', filter_complex,
         '-map', '[vcat]',
         '-map', '[aout]',
