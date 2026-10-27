@@ -310,18 +310,14 @@ def make_product_card_4k(lang):
 
     return base_4k
 
-def make_fsc_card_4k(header_text):
+def make_fsc_card_4k(header_text=None):
     fsc_base_4k = Image.new('RGB', (3840, 2160), (41, 41, 41))
     fsc_logo_im = Image.open(FSC_LOGO_PATH).convert('RGBA')
-    fw_4k = 800
+    # Use sharp 4K vector raster sized cleanly and centered
+    fw_4k = 960
     fh_4k = int(fw_4k * fsc_logo_im.height / fsc_logo_im.width)
     fsc_logo_scaled = fsc_logo_im.resize((fw_4k, fh_4k), Image.Resampling.LANCZOS)
-    fsc_base_4k.paste(fsc_logo_scaled, ((3840 - fw_4k) // 2, (2160 - fh_4k) // 2 - 120), fsc_logo_scaled)
-
-    draw_fsc = ImageDraw.Draw(fsc_base_4k)
-    f_head_4k = ImageFont.truetype(FONT_BOLD, 76)
-    bbox_head = draw_fsc.textbbox((0, 0), header_text, font=f_head_4k)
-    draw_fsc.text(((3840 - (bbox_head[2] - bbox_head[0])) // 2, 360), header_text, font=f_head_4k, fill=(231, 177, 36))
+    fsc_base_4k.paste(fsc_logo_scaled, ((3840 - fw_4k) // 2, (2160 - fh_4k) // 2 - 40), fsc_logo_scaled)
     return fsc_base_4k
 
 def make_outro_card_4k(title_text, sub_text):
