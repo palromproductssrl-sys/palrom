@@ -346,9 +346,18 @@ lang_configs = {
         'vo_file': 'scratch/voiceover_nl_full.mp3'
     },
     'en': {
-        'total_dur': 49.0,
-        # Speech groups: G1 (0.8-8.5s), G2 (9.0-13.0s), G3 (13.8-18.8s), G4 (19.6-26.2s), G5 (27.0-34.6s), G6 (35.4-41.2s), G7 (42.0-45.2s)
-        'durs': [8.2, 4.8, 5.8, 3.4, 3.8, 8.6, 2.5, 4.1, 7.8],
+        'total_dur': 56.0,
+        # S1: 8.6s (voice 0.20 - 8.38s) -> Forest ascend, sunburst, factory reveal
+        # S2: 2.8s (voice 8.80 - 10.84s: "From carefully selected logs...") -> truck fullscreen push-in
+        # S3: 3.8s (voice 11.60 - 14.53s: "...to automated primary cutting lines in our modern sawmill.") -> saw machine
+        # S4: 6.8s (voice 15.40 - 21.70s: "Combining European machinery with generations of Romanian craftsmanship...") -> drone through hall
+        # S5: 8.6s (voice 22.20 - 30.04s: "Natural air drying and conditioned storage ensure optimal stabilization of the beechwood, ready for high-precision manufacturing.") -> Nardi droogkamers ECHT SLOW-MOTION
+        # S6: 10.0s (voice 30.80 - 39.24s: "We produce premium blanks, planed slats, smooth dowels...") -> 4 product cards
+        # S7: 3.0s (voice 40.80 - 43.44s: "One hundred percent FSC-certified...") -> FSC certification
+        # S8: 5.0s (voice 43.80 - 48.06s: "...backed by an experienced team dedicated to quality and reliable delivery.") -> Team photo
+        # S9: 7.4s (voice 49.00 - 52.66s: "Palrom Products. Your trusted partner in sustainable beechwood.") -> Outro
+        'durs': [8.6, 2.8, 3.8, 6.8, 8.6, 10.0, 3.0, 5.0, 7.4],
+        'adelay_ms': 0,
         's1': ('Palrom Products', 'FSC® Certified Beechwood Manufacturer • Brad, Romania', 1200),
         's2': ('Sustainable Harvest & Log Storage', 'Locally harvested beech logs arriving at our extensive yard', 1250),
         's3': ('Precision Milling in Action', 'Advanced European sawing technology & Romanian craftsmanship', 1250),
@@ -363,9 +372,18 @@ lang_configs = {
         'vo_file': 'scratch/voiceover_en_full.mp3'
     },
     'de': {
-        'total_dur': 62.0,
-        # Speech groups: G1 (0.8-9.2s), G2 (9.8-16.8s), G3 (17.7-23.9s), G4 (24.7-31.8s), G5 (32.8-42.7s), G6 (43.5-51.2s), G7 (52.0-57.5s)
-        'durs': [9.0, 7.6, 7.1, 3.6, 4.5, 10.9, 2.8, 5.5, 11.0],
+        'total_dur': 61.0,
+        # S1: 9.2s (voice 0.25 - 8.92s) -> Forest ascend, sunburst, factory reveal
+        # S2: 3.0s (voice 9.45 - 11.85s: "Von sorgfältig ausgewählten Rundhölzern...") -> truck fullscreen push-in
+        # S3: 5.4s (voice 12.45 - 17.31s: "...bis hin zu automatisierten Sägelinien in unserem modernen Sägewerk.") -> saw machine
+        # S4: 7.4s (voice 17.85 - 24.62s: "Wir verbinden europäische Maschinentechnologie mit Generationen rumänischer Handwerkskunst...") -> drone through hall
+        # S5: 10.0s (voice 25.25 - 34.52s: "Natürliche Freilufttrocknung und konditionierte Lagerung sorgen für eine optimale Stabilisierung des Buchenholzes, bereit für höchste Ansprüche.") -> Nardi droogkamers ECHT SLOW-MOTION
+        # S6: 10.5s (voice 35.25 - 44.68s: "Wir fertigen erstklassige Kanteln, gehobelte Leisten, Rundstäbe...") -> 4 product cards
+        # S7: 3.2s (voice 45.75 - 48.57s: "Einhundert Prozent FSC-zertifiziert...") -> FSC certification
+        # S8: 5.6s (voice 48.95 - 54.04s: "...getragen von einem engagierten Team für garantierte Qualität und zuverlässige Lieferung.") -> Team photo
+        # S9: 6.7s (voice 54.60 - 59.43s: "Palrom Products. Ihr verlässlicher B2B-Partner für nachhaltiges Buchenholz.") -> Outro
+        'durs': [9.2, 3.0, 5.4, 7.4, 10.0, 10.5, 3.2, 5.6, 6.7],
+        'adelay_ms': 0,
         's1': ('Palrom Products', 'FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien', 1200),
         's2': ('Nachhaltiger Holzeinschlag & Rundholzlager', 'Ausgewählte Buchenstämme auf unserem weitläufigen Werksgelände', 1280),
         's3': ('Präzisionsverarbeitung in Aktion', 'Fortschrittliche europäische Technologie & rumänische Handwerkskunst', 1280),
@@ -380,9 +398,18 @@ lang_configs = {
         'vo_file': 'scratch/voiceover_de_full.mp3'
     },
     'ro': {
-        'total_dur': 56.0,
-        # Speech groups: G1 (0.8-9.0s), G2 (9.5-15.2s), G3 (15.8-22.1s), G4 (22.8-28.8s), G5 (29.4-39.6s), G6 (40.1-47.6s), G7 (48.3-51.7s)
-        'durs': [8.8, 6.2, 6.9, 3.4, 3.5, 10.8, 2.7, 4.9, 8.8],
+        'total_dur': 57.0,
+        # S1: 8.6s (voice 0.25 - 8.45s) -> Forest ascend, sunburst, factory reveal
+        # S2: 3.0s (voice 8.85 - 11.31s: "De la bușteni selectați cu grijă...") -> truck fullscreen push-in
+        # S3: 4.6s (voice 11.85 - 15.93s: "...până la linii automate de debitare primară în fabrica noastră modernă.") -> saw machine
+        # S4: 7.4s (voice 16.45 - 23.37s: "Îmbinăm utilajele europene de ultimă generație cu măiestria tradițională românească...") -> drone through hall
+        # S5: 10.4s (voice 23.85 - 33.65s: "Uscarea naturală la aer și depozitarea condiționată asigură stabilizarea optimă a lemnului de fag, pregătit pentru prelucrări de înaltă precizie.") -> Nardi droogkamers ECHT SLOW-MOTION
+        # S6: 8.6s (voice 34.25 - 41.67s: "Producem elemente din fag, șipci rindeluite, tije rotunde...") -> 4 product cards
+        # S7: 2.8s (voice 42.85 - 45.12s: "Certificat sută la sută FSC...") -> FSC certification
+        # S8: 4.8s (voice 45.65 - 49.86s: "...susținut de o echipă dedicată calității și livrărilor sigure.") -> Team photo
+        # S9: 6.8s (voice 50.50 - 55.18s: "Palrom Products. Partenerul dumneavoastră de încredere în lemn de fag sustenabil.") -> Outro
+        'durs': [8.6, 3.0, 4.6, 7.4, 10.4, 8.6, 2.8, 4.8, 6.8],
+        'adelay_ms': 0,
         's1': ('Palrom Products', 'Producător de Lemn de Fag Certificat FSC® • Brad, România', 1220),
         's2': ('Recoltare Sustenabilă & Depozit Bușteni', 'Bușteni de fag din surse locale sosiți în depozitele noastre', 1250),
         's3': ('Prelucrare de Precizie în Acțiune', 'Tehnologie europeană de top și măiestrie românească dedicată', 1250),
