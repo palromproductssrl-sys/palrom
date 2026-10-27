@@ -523,7 +523,7 @@ export default function About() {
               >
                 <video
                   ref={videoRef}
-                  key={videoLang}
+                  key={`${videoLang}-v5.10.59`}
                   className="gallery-video"
                   src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.59`}
                   autoPlay
