@@ -53,7 +53,7 @@ export default function Blanks() {
       ro: 'Frize din fag tăiate fin'
     },
     descText1: {
-      nl: 'Kwalitatief fijnbezaagde blanks en gezaagde planken van geselecteerd Roemeens beukenhout. Uitermate geschikt voor verdere machinale verwerking en hoogwaardige componenten in de meubelindustrie.',
+      nl: 'Kwalitatief fijnbezaagde blanks en gezaagde planken van geselecteerd Roemeens beukenhout. Uitermate geschikt voor verdere machinale verwerking en eersteklas componenten in de meubelindustrie.',
       en: 'High-quality fine-sawn blanks and timber cut from selected Romanian beechwood. Perfectly suited for further mechanical processing and premium components in the furniture industry.',
       de: 'Hochwertige feingesägte Kanteln und Schnittholz aus ausgewähltem rumänischem Buchenholz. Bestens geeignet für die weitere maschinelle Verarbeitung und Komponenten in der Möbelindustrie.',
       ro: 'Frize de înaltă calitate tăiate fin și cherestea debitată din lemn de fag românesc selecționat. Perfect potrivite pentru prelucrări mecanice ulterioare și componente în industria mobilei.'

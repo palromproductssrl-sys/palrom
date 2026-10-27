@@ -317,7 +317,7 @@ export default function About() {
     },
     videoTitle: { nl: 'Ons Verwerkingsproces', en: 'Our Milling Process', de: 'Unser Fräsprozess', ro: 'Procesul Nostru de Frezare' },
     videoDesc: {
-      nl: "Ervaar de precisie van houtbewerking. Onze ultramoderne zagerij combineert generaties Roemeens vakmanschap met geavanceerde Europese zaagtechnologieën, waarbij elke snede tot op de micrometer nauwkeurig wordt gekalibreerd voor hoogwaardige, duurzame beukenhouten componenten.",
+      nl: "Ervaar de precisie van houtbewerking. Onze ultramoderne zagerij combineert generaties Roemeens vakmanschap met geavanceerde Europese zaagtechnologieën, waarbij elke snede tot op de micrometer nauwkeurig wordt gekalibreerd voor eersteklas, duurzame beukenhouten componenten.",
       en: "Experience the precision of wood transformation. Our state-of-the-art milling facility combines generations of Romanian craftsmanship with advanced European sawing technologies, calibrating every cut to micron-level perfection for premium, sustainable beechwood components.",
       de: "Erleben Sie die Präzision der Holzverwandlung. Unsere hochmoderne Fräsanlage verbindet Generationen rumänischer Handwerkskunst mit fortschrittlichen europäischen Sägetechnologien und kalibriert jeden Schnitt bis zur Perfektion auf Mikrometer-Ebene für erstklassige, nachhaltige Buchenholzkomponenten.",
       ro: "Experimentați precizia transformării lemnului. Unitatea noastră de frezare de ultimă generație îmbină generații de meșteșug românesc cu tehnologii europene avansate de tăiere, calibrând fiecare tăietură la perfecțiune la nivel de microni pentru componente premium și durabile din lemn de fag."
@@ -523,9 +523,9 @@ export default function About() {
               >
                 <video
                   ref={videoRef}
-                  key={`${videoLang}-v5.10.61`}
+                  key={`${videoLang}-v5.10.67`}
                   className="gallery-video"
-                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.61`}
+                  src={`/images/palrom-corporate-video-${videoLang}.mp4?v=5.10.67`}
                   autoPlay
                   loop
                   muted={isVideoMuted}
