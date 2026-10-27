@@ -172,7 +172,7 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Certified Beechwood Manufacturer • Brad, Romania', 'w': 1180},
             {'title': 'Sustainable Harvesting & Raw Timber', 'sub': 'Locally sourced beech logs arriving at our extensive storage yards', 'w': 1250},
             {'title': 'Precision Milling in Action', 'sub': 'Advanced European technology & dedicated Romanian craftsmanship', 'w': 1250},
-            {'title': 'Conditioned Storage & Air Drying', 'sub': 'Natural air drying (Air Dried - AD) and conditioned timber stabilization', 'w': 1280},
+            {'title': 'Modern Manufacturing Facility', 'sub': 'Advanced processing lines and dedicated Romanian craftsmanship', 'w': 1280},
             {'title': 'Custom B2B Products', 'sub': 'Blanks, planed slats, smooth dowels, and tailored profiles', 'w': 1250}
         ]
     },
@@ -191,7 +191,7 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Gecertificeerde Beukenhoutproducent • Brad, Roemenië', 'w': 1200},
             {'title': 'Duurzame Oogst & Houtopslag', 'sub': 'Lokaal geoogste beukenstammen arriveren op onze ruime voorraadwerf', 'w': 1250},
             {'title': 'Precisiebewerking in Actie', 'sub': 'Geavanceerde Europese machines & Roemeens vakmanschap', 'w': 1220},
-            {'title': 'Geconditioneerde Opslag & Luchtdroging', 'sub': 'Natuurlijke luchtdroging (Air Dried - AD) en geconditioneerde houtopslag', 'w': 1280},
+            {'title': 'Moderne Verwerkingshal', 'sub': 'Geavanceerde zaaglijnen en vakmanschap in onze fabriek', 'w': 1250},
             {'title': 'B2B Maatwerk Producten', 'sub': 'Blanks, geschaafde latten, gladde stokken en maatwerk profielen', 'w': 1260}
         ]
     },
@@ -210,7 +210,7 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'FSC® Zertifizierter Buchenholzhersteller • Brad, Rumänien', 'w': 1200},
             {'title': 'Nachhaltiger Holzeinschlag & Rundholzlager', 'sub': 'Ausgewählte Buchenstämme auf unserem weitläufigen Werksgelände', 'w': 1280},
             {'title': 'Präzisionsverarbeitung in Aktion', 'sub': 'Fortschrittliche europäische Technologie & rumänische Handwerkskunst', 'w': 1280},
-            {'title': 'Konditionierte Lagerung & Freilufttrocknung', 'sub': 'Natürliche Freilufttrocknung (Air Dried - AD) und optimale Holzlagerung', 'w': 1280},
+            {'title': 'Moderne Fertigungshalle', 'sub': 'Hochmoderne Produktionslinien und rumänische Handwerkskunst', 'w': 1280},
             {'title': 'Individuelle B2B-Holzprodukte', 'sub': 'Kanteln, gehobelte Leisten, Rundstäbe und Sonderprofile', 'w': 1250}
         ]
     },
@@ -229,7 +229,7 @@ scenes_config = {
             {'title': 'Palrom Products', 'sub': 'Producător de Lemn de Fag Certificat FSC® • Brad, România', 'w': 1220},
             {'title': 'Recoltare Sustenabilă & Depozitul de Bușteni', 'sub': 'Bușteni de fag din surse locale sosiți în depozitele noastre moderne', 'w': 1250},
             {'title': 'Prelucrare de Precizie în Acțiune', 'sub': 'Tehnologie europeană de top și măiestrie românească dedicată', 'w': 1250},
-            {'title': 'Depozitare Condiționată & Uscare Naturală', 'sub': 'Uscare naturală la aer (Air Dried - AD) și depozitare condiționată', 'w': 1280},
+            {'title': 'Hala Modernă de Producție', 'sub': 'Linii avansate de debitare și măiestrie dedicată calității', 'w': 1250},
             {'title': 'Produse B2B la Comandă', 'sub': 'Elemente, șipci rindeluite, tije netede și profile personalizate', 'w': 1250}
         ]
     }
@@ -353,19 +353,13 @@ def ensure_drone_clips():
 
 ensure_drone_clips()
 
-def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=1250):
-    # Scene 2: Authentic Palrom raw beech logs flight (0:06.2) seamlessly transitioning to factory hall entry (0:42.0)
+def render_scene_stammen_shot(title, subtitle, duration, out_path, w_box=1250):
+    # Scene 2: Authentic Palrom raw beech logs flight - drone sweeping low directly over log stacks (0:06.0)
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
-    d1 = min(3.2, round(duration * 0.44, 2))
-    d2 = round(duration - d1 + 0.3, 2)
-    offset = round(d1 - 0.3, 2)
     s_filter = (
-        f"[0:v]trim=start=6.2:duration={d1},setpts=PTS-STARTPTS,fps=30,"
-        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[v0];"
-        f"[0:v]trim=start=42.0:duration={d2},setpts=PTS-STARTPTS,fps=30,"
-        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[v1];"
-        f"[v0][v1]xfade=transition=fade:duration=0.3:offset={offset}[base];"
+        f"[0:v]trim=start=6.0:duration={duration},setpts=PTS-STARTPTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
@@ -374,6 +368,7 @@ def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=125
     )
     run_cmd([
         FFMPEG, '-y',
+        '-ss', '6.0', '-t', str(duration),
         '-i', DRONE_SOURCE,
         '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_filter,
@@ -412,16 +407,12 @@ def render_scene_saw_machine_cut(title, subtitle, duration, out_path, w_box=1250
         out_path
     ])
 
-def render_scene_droogkamers_slowmo(title, subtitle, duration, out_path, w_box=1260):
-    # Scene 4: Nardi drying kilns in cinematic SLOW MOTION, breaking off at the last door (no covered stacks)
+def render_scene_fabriekshal_drone(title, subtitle, duration, out_path, w_box=1260):
+    # Scene 4: Authentic Palrom factory fly-in entering hall from 0:42 and flying between active lines
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
-    start_time = 101.8
-    end_time = 107.8 # Breaks off at the last door before the covered lumber stacks!
-    raw_dur = round(end_time - start_time, 2) # 6.0 seconds
-    slowmo_factor = duration / raw_dur
     s_filter = (
-        f"[0:v]setpts={slowmo_factor}*PTS,fps=30,"
+        f"[0:v]trim=start=42.0:duration={duration},setpts=PTS-STARTPTS,fps=30,"
         f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
@@ -431,7 +422,7 @@ def render_scene_droogkamers_slowmo(title, subtitle, duration, out_path, w_box=1
     )
     run_cmd([
         FFMPEG, '-y',
-        '-ss', str(start_time), '-t', str(raw_dur),
+        '-ss', '42.0', '-t', str(duration),
         '-i', DRONE_SOURCE,
         '-i', WATERMARK_SHARP_PATH,
         '-filter_complex', s_filter,
@@ -641,17 +632,17 @@ for lang in target_langs:
     else:
         render_scene_base('public/images/hero_bg.jpg', scenes[0]['title'], scenes[0]['sub'], durs[0], s1_out, scenes[0]['w'])
     
-    # 2. Scene 2: Authentic Palrom factory fly-in entering hall from 0:42
+    # 2. Scene 2: Stammen shot (Authentic drone flight over raw beech log stacks from 0:06)
     s2_out = os.path.join(SCRATCH, f's2_{lang}.mp4')
-    render_scene_factory_flyin_42(scenes[1]['title'], scenes[1]['sub'], durs[1], s2_out, scenes[1]['w'])
+    render_scene_stammen_shot(scenes[1]['title'], scenes[1]['sub'], durs[1], s2_out, scenes[1]['w'])
     
-    # 3. Scene 3: Authentic Live Saw Machine cutting beechwood FULL SCREEN (starts at 2.0s, shows whole cut)
+    # 3. Scene 3: Authentic Live Saw Machine cutting beechwood FULL SCREEN
     s3_out = os.path.join(SCRATCH, f's3_{lang}.mp4')
     render_scene_saw_machine_cut(scenes[2]['title'], scenes[2]['sub'], durs[2], s3_out, scenes[2]['w'])
     
-    # 4. Scene 4: Authentic Drone shot of Droogkamers in SLOW MOTION (breaking off at the last door)
+    # 4. Scene 4: Fabriekshal Drone Fly-Through (drone entering hall from 0:42 and flying past active lines)
     s4_out = os.path.join(SCRATCH, f's4_{lang}.mp4')
-    render_scene_droogkamers_slowmo(scenes[3]['title'], scenes[3]['sub'], durs[3], s4_out, scenes[3]['w'])
+    render_scene_fabriekshal_drone(scenes[3]['title'], scenes[3]['sub'], durs[3], s4_out, scenes[3]['w'])
     
     # 5. Scene 5 (Products Showcase Card)
     s5_out = os.path.join(SCRATCH, f's5_{lang}.mp4')
