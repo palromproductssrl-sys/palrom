@@ -354,12 +354,18 @@ def ensure_drone_clips():
 ensure_drone_clips()
 
 def render_scene_factory_flyin_42(title, subtitle, duration, out_path, w_box=1250):
-    # Scene 2: Authentic Palrom factory fly-in entering hall from 0:42
+    # Scene 2: Authentic Palrom raw beech logs flight (0:06.2) seamlessly transitioning to factory hall entry (0:42.0)
     esc_t = escape_txt(title)
     esc_s = escape_txt(subtitle)
+    d1 = min(3.2, round(duration * 0.44, 2))
+    d2 = round(duration - d1 + 0.3, 2)
+    offset = round(d1 - 0.3, 2)
     s_filter = (
-        f"[0:v]trim=start={s2_start}:duration={duration},setpts=PTS-STARTPTS,fps=30,"
-        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[base];"
+        f"[0:v]trim=start=6.2:duration={d1},setpts=PTS-STARTPTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[v0];"
+        f"[0:v]trim=start=42.0:duration={d2},setpts=PTS-STARTPTS,fps=30,"
+        f"scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080[v1];"
+        f"[v0][v1]xfade=transition=fade:duration=0.3:offset={offset}[base];"
         f"[base][1:v]overlay=52:37[with_logo];"
         f"[with_logo]drawbox=x=60:y=880:w={w_box}:h=130:color={COLOR_ANTHRACITE_BOX}:t=fill,"
         f"drawbox=x=60:y=880:w=6:h=130:color={COLOR_GOLD}:t=fill,"
