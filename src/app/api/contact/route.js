@@ -306,7 +306,7 @@ export async function POST(request) {
             careers: 'Sollicitatie / Werken bij',
           },
           en: {
-            dowels: 'Beechwood dowels / sticks',
+            dowels: 'Round and grooved rods',
             planed: 'Beechwood planed slats',
             profiles: 'Beechwood profiles',
             specials: 'Beechwood specials',

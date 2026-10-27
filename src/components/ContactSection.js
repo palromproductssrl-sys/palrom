@@ -308,7 +308,7 @@ export default function ContactSection() {
     },
     interestDowels: {
       nl: 'Beukenhouten stokken',
-      en: 'Beechwood sticks',
+      en: 'Round and grooved rods',
       de: 'Buchenholzstäbe',
       ro: 'Tije și bare cilindrice din fag'
     },

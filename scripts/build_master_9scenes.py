@@ -137,7 +137,7 @@ product_items_dict = {
         'items': [
             ('beechwood_blanks.png', 'Beechwood Blanks', 'Thickness 20–67mm • Width 45–95mm'),
             ('planed_wood.png', 'Planed Lumber & Slats', '4-side planed • Millimeter precision'),
-            ('dowels.png', 'Smooth & Fluted Dowels', 'Diameter 3–60mm • Custom lengths'),
+            ('dowels.png', 'Round & Grooved Rods', 'Diameter 3–60mm • Custom lengths'),
             ('profiles.png', 'Tailored Profiles', 'Baseboards, moldings & custom profiles')
         ]
     },
@@ -472,7 +472,7 @@ lang_configs = {
         's3': ('Precision Milling in Action', 'Advanced European sawing technology & Romanian craftsmanship', 1250),
         's4': ('Modern Processing Hall & Storage', 'Advanced production lines and finished sawn timber storage', 1260),
         's5': ('Advanced Drying Kilns', 'Computer-controlled Nardi drying chambers for stabilized moisture control', 1280),
-        's6': ('Custom B2B Products', 'Blanks, planed slats, smooth dowels, and tailored profiles', 1250),
+        's6': ('Custom B2B Products', 'Blanks, planed slats, round and grooved rods, and tailored profiles', 1280),
         's7_head': 'SUSTAINABILITY & QUALITY',
         's7': ('FSC® 100% Certified', 'Guaranteed sustainable and responsibly harvested beechwood', 1220),
         's8': ('Our Dedicated Team', 'Decades of woodworking expertise & dependable European delivery', 1250),

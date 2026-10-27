@@ -1700,10 +1700,10 @@ export default function OpenChatConfigurator() {
       subcatName = names[specificSubcat || subCategoryProfiles] || 'Semiround Profile';
     } else if (cat === 'dowels') {
       const names = {
-        'dowel-smooth': 'Smooth Dowel Rods',
-        'dowel-rilled': 'Spiral Rilled Pins (6 to 20 mm)',
+        'dowel-smooth': 'Round Smooth Rods',
+        'dowel-rilled': 'Grooved Rods',
       };
-      subcatName = names[specificSubcat || subCategoryDowels] || 'Smooth Dowel Rods';
+      subcatName = names[specificSubcat || subCategoryDowels] || 'Round Smooth Rods';
     } else if (cat === 'planed') {
       const names = {
         'planed-rect': 'Planed Rectangular',

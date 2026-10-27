@@ -30,7 +30,7 @@ const categoryNames = {
   },
   dowels: {
     nl: 'Beukenhouten stokken',
-    en: 'Beechwood sticks',
+    en: 'Round and grooved rods',
     de: 'Buchenholzstäbe',
     ro: 'Tije și bare cilindrice din fag'
   },
@@ -56,7 +56,7 @@ const categoryNames = {
 
 const dowelSubcategories = [
   { id: 'dowel-smooth', name: { nl: 'Glad', en: 'Smooth', de: 'Glatt', ro: 'Neted' } },
-  { id: 'dowel-rilled', name: { nl: 'Gerild', en: 'Rilled', de: 'Geriffelt', ro: 'Canelat' } },
+  { id: 'dowel-rilled', name: { nl: 'Gerild', en: 'Grooved', de: 'Geriffelt', ro: 'Canelat' } },
 ];
 
 const profileSubcategories = [

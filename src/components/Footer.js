@@ -43,7 +43,7 @@ export default function Footer() {
       de: "Unser Angebot",
       ro: "Oferta Noastră"
     },
-    dowels: { nl: "Beukenhouten stokken", en: "Beechwood sticks", de: "Buchenholzstäbe", ro: "Tije și bare cilindrice din fag" },
+    dowels: { nl: "Beukenhouten stokken", en: "Round and grooved rods", de: "Buchenholzstäbe", ro: "Tije și bare cilindrice din fag" },
     planed: { nl: "Beukenhouten latten", en: "Beechwood slats", de: "Buchenholzleisten", ro: "Șipci din lemn de fag" },
     profiles: { nl: "Beukenhouten profielen", en: "Beechwood profiles", de: "Buchenholzprofile", ro: "Profile decorative din fag" },
     specials: { nl: "Beukenhouten bestekken", en: "Beechwood specials", de: "Buchenholz-Zuschnitte", ro: "Elemente dimensionate din fag" },
