@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ContactSection from '@/components/ContactSection';
 import CorporateVideoSection from '@/components/CorporateVideoSection';
+import PalAssistantWidget from '@/components/PalAssistantWidget';
 import { useInquiry } from '@/components/InquiryContext';
 
 export default function Home() {
@@ -618,6 +619,9 @@ export default function Home() {
 
       {/* Reusable Contact & Team Section */}
       <ContactSection />
+
+      {/* Floating PAL AI Assistant Widget */}
+      <PalAssistantWidget />
     </>
   );
 }
