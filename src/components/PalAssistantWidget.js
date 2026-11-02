@@ -151,37 +151,48 @@ const translations = {
   },
   quickChips: {
     nl: [
-      { text: '🪵 Houtproducten', query: 'Welke houtproducten maken jullie?' },
-      { text: '📝 Offerte aanvragen', query: 'Hoe kan ik een offerte aanvragen voor maatwerk beukenhout?' },
-      { text: '⏱️ Minimale afname (MOQ)', query: 'Wat is jullie minimale bestelhoeveelheid (MOQ)?' },
-      { text: '📍 Fabriek in Brad', query: 'Waar is jullie fabriek en zagerij gevestigd?' }
+      { icon: 'fa-solid fa-shapes', text: 'Houtproducten', query: 'Welke houtproducten maken jullie?' },
+      { icon: 'fa-solid fa-file-invoice', text: 'Offerte aanvragen', query: 'Hoe kan ik een offerte aanvragen voor maatwerk beukenhout?' },
+      { icon: 'fa-solid fa-boxes-stacked', text: 'Minimale afname (MOQ)', query: 'Wat is jullie minimale bestelhoeveelheid (MOQ)?' },
+      { icon: 'fa-solid fa-industry', text: 'Fabriek in Brad', query: 'Waar is jullie fabriek en zagerij gevestigd?' }
     ],
     en: [
-      { text: '🪵 Timber Products', query: 'What timber products do you manufacture?' },
-      { text: '📝 Request a Quote', query: 'How can I request a quote for custom beechwood?' },
-      { text: '⏱️ Minimum Order (MOQ)', query: 'What is your minimum order quantity (MOQ)?' },
-      { text: '📍 Factory in Brad', query: 'Where is your sawmill and factory located?' }
+      { icon: 'fa-solid fa-shapes', text: 'Timber Products', query: 'What timber products do you manufacture?' },
+      { icon: 'fa-solid fa-file-invoice', text: 'Request a Quote', query: 'How can I request a quote for custom beechwood?' },
+      { icon: 'fa-solid fa-boxes-stacked', text: 'Minimum Order (MOQ)', query: 'What is your minimum order quantity (MOQ)?' },
+      { icon: 'fa-solid fa-industry', text: 'Factory in Brad', query: 'Where is your sawmill and factory located?' }
     ],
     de: [
-      { text: '🪵 Holzprodukte', query: 'Welche Holzprodukte stellen Sie her?' },
-      { text: '📝 Angebot anfordern', query: 'Wie kann ich ein Angebot für Buchenholz anfordern?' },
-      { text: '⏱️ Mindestbestellmenge', query: 'Wie hoch ist die Mindestbestellmenge?' },
-      { text: '📍 Werk in Brad', query: 'Wo befindet sich Ihr Sägewerk und Werk?' }
+      { icon: 'fa-solid fa-shapes', text: 'Holzprodukte', query: 'Welche Holzprodukte stellen Sie her?' },
+      { icon: 'fa-solid fa-file-invoice', text: 'Angebot anfordern', query: 'Wie kann ich ein Angebot für Buchenholz anfordern?' },
+      { icon: 'fa-solid fa-boxes-stacked', text: 'Mindestbestellmenge', query: 'Wie hoch ist die Mindestbestellmenge?' },
+      { icon: 'fa-solid fa-industry', text: 'Werk in Brad', query: 'Wo befindet sich Ihr Sägewerk und Werk?' }
     ],
     ro: [
-      { text: '🪵 Produse din lemn', query: 'Ce produse din lemn produceți?' },
-      { text: '📝 Solicită ofertă', query: 'Cum pot solicita o ofertă de preț pentru lemn de fag?' },
-      { text: '⏱️ Comandă minimă (MOQ)', query: 'Care este cantitatea minimă pe care o puteți livra?' },
-      { text: '📍 Fabrica din Brad', query: 'Unde se află fabrica și gaterul vostru?' }
+      { icon: 'fa-solid fa-shapes', text: 'Produse din lemn', query: 'Ce produse din lemn produceți?' },
+      { icon: 'fa-solid fa-file-invoice', text: 'Solicită ofertă', query: 'Cum pot solicita o ofertă de preț pentru lemn de fag?' },
+      { icon: 'fa-solid fa-boxes-stacked', text: 'Comandă minimă (MOQ)', query: 'Care este cantitatea minimă pe care o puteți livra?' },
+      { icon: 'fa-solid fa-industry', text: 'Fabrica din Brad', query: 'Unde se află fabrica și gaterul vostru?' }
     ]
   },
   welcomeMessage: {
-    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products. 🪵\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten blanks, stokken, latten en profielen, of een offerteaanvraag op maat.\n\nWaarmee kan ik u van dienst zijn?",
-    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products. 🪵\n\nI can help you with timber specifications, dimensions of our beechwood blanks, dowels, slats, and profiles, or a custom quote inquiry.\n\nHow can I help you today?",
-    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products. 🪵\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholz-Blanks, Rundstäbe, Leisten und Profile oder einem maßgeschneiderten Angebot.\n\nWie kann ich Ihnen helfen?",
-    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products. 🪵\n\nVă pot ajuta cu specificații, dimensiuni ale frizelor, tijelor, șipcilor și profilelor din lemn de fag, sau o solicitare de ofertă.\n\nCu ce vă pot ajuta?"
+    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products.\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten blanks, stokken, latten en profielen, of een offerteaanvraag op maat.\n\nWaarmee kan ik u van dienst zijn?",
+    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products.\n\nI can help you with timber specifications, dimensions of our beechwood blanks, dowels, slats, and profiles, or a custom quote inquiry.\n\nHow can I help you today?",
+    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products.\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholz-Blanks, Rundstäbe, Leisten und Profile oder einem maßgeschneiderten Angebot.\n\nWie kann ich Ihnen helfen?",
+    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products.\n\nVă pot ajuta cu specificații, dimensiuni ale frizelor, tijelor, șipcilor și profilelor din lemn de fag, sau o solicitare de ofertă.\n\nCu ce vă pot ajuta?"
   }
 };
+
+// Helper to get matching FontAwesome icon for action chips
+function getActionIcon(url, isExternal) {
+  if (url?.includes('wa.me')) return 'fa-brands fa-whatsapp';
+  if (url?.startsWith('mailto:')) return 'fa-solid fa-envelope';
+  if (url === '#contact') return 'fa-solid fa-paper-plane';
+  if (url?.includes('video')) return 'fa-solid fa-circle-play';
+  if (url?.includes('products') || url?.includes('dowels') || url?.includes('blanks')) return 'fa-solid fa-shapes';
+  if (isExternal) return 'fa-solid fa-arrow-up-right-from-square';
+  return 'fa-solid fa-arrow-right';
+}
 
 export default function PalAssistantWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -419,6 +430,7 @@ export default function PalAssistantWidget() {
                 {msg.actions && msg.actions.length > 0 && (
                   <div className="pal-bubble-actions">
                     {msg.actions.map((act, idx) => {
+                      const iconClass = getActionIcon(act.url, act.isExternal);
                       if (act.isExternal) {
                         return (
                           <a 
@@ -429,7 +441,7 @@ export default function PalAssistantWidget() {
                             className="pal-action-chip"
                           >
                             <span>{act.label}</span>
-                            <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i className={iconClass}></i>
                           </a>
                         );
                       }
@@ -445,7 +457,7 @@ export default function PalAssistantWidget() {
                           }}
                         >
                           <span>{act.label}</span>
-                          <i className="fa-solid fa-arrow-right"></i>
+                          <i className={iconClass}></i>
                         </Link>
                       );
                     })}
@@ -481,7 +493,8 @@ export default function PalAssistantWidget() {
               onClick={() => handleSendMessage(chip.query)}
               disabled={isLoading}
             >
-              {chip.text}
+              {chip.icon && <i className={`${chip.icon} pal-chip-icon`}></i>}
+              <span>{chip.text}</span>
             </button>
           ))}
         </div>
