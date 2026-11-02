@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useInquiry } from './InquiryContext';
 
-// Custom Wooden Robot Icon - Handcrafted Beechwood Robot for PAL
+// Custom Wooden Robot Icon - Handcrafted in Light European Beechwood for PAL
 export function WoodenRobotIcon({ size = 32, className = '' }) {
   return (
     <svg 
@@ -18,63 +18,90 @@ export function WoodenRobotIcon({ size = 32, className = '' }) {
       aria-hidden="true"
     >
       <defs>
-        {/* Warm Beechwood Gradients */}
-        <linearGradient id="palBeechWoodGrad" x1="10" y1="14" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#e8b16c" />
-          <stop offset="50%" stopColor="#cf9045" />
-          <stop offset="100%" stopColor="#ad6f2a" />
+        {/* Light Natural Beechwood Gradient */}
+        <linearGradient id="palLightBeechHead" x1="12" y1="12" x2="52" y2="58" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#faecd6" />
+          <stop offset="35%" stopColor="#f3ddbe" />
+          <stop offset="75%" stopColor="#e5c599" />
+          <stop offset="100%" stopColor="#cca36e" />
         </linearGradient>
-        <linearGradient id="palDowelGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#e0a457" />
-          <stop offset="100%" stopColor="#8d561d" />
+
+        {/* Light Beech Dowel Gradient for Ears & Antenna */}
+        <linearGradient id="palLightDowelGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fbedd8" />
+          <stop offset="50%" stopColor="#e2be8e" />
+          <stop offset="100%" stopColor="#b88950" />
         </linearGradient>
-        <linearGradient id="palVisorScreen" x1="18" y1="24" x2="46" y2="46" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#282828" />
-          <stop offset="100%" stopColor="#151515" />
+
+        {/* Subtle 3D Chamfer Highlight */}
+        <linearGradient id="palBevelHighlight" x1="12" y1="13" x2="52" y2="13" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2" />
+        </linearGradient>
+
+        {/* Dark Inset Visor Screen */}
+        <linearGradient id="palVisorScreen" x1="18" y1="23" x2="46" y2="47" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#2c2c2c" />
+          <stop offset="100%" stopColor="#141414" />
         </linearGradient>
       </defs>
 
-      {/* Wooden Dowel Peg Antenna with Gold Tip */}
-      <rect x="30" y="4" width="4" height="11" rx="2" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
-      <circle cx="32" cy="5" r="4.5" fill="#e7b124" stroke="#8d561d" strokeWidth="1.2" />
-      <circle cx="32" cy="5" r="1.5" fill="#ffffff" />
+      {/* Shadow underneath */}
+      <ellipse cx="32" cy="58" rx="20" ry="2.5" fill="#000000" opacity="0.3" />
 
-      {/* Left Wooden Dowel Ear (with grooved rilled rings like PALROM rods) */}
-      <rect x="4" y="27" width="8" height="12" rx="3" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
-      <line x1="7" y1="29" x2="7" y2="37" stroke="#6d3f11" strokeWidth="1" />
-      <line x1="9.5" y1="29" x2="9.5" y2="37" stroke="#6d3f11" strokeWidth="1" />
+      {/* Light Wooden Dowel Antenna with Golden Tip */}
+      <rect x="30" y="4" width="4" height="11" rx="2" fill="url(#palLightDowelGrad)" stroke="#9c703b" strokeWidth="0.8" />
+      <line x1="30.5" y1="9" x2="33.5" y2="9" stroke="#9c703b" strokeWidth="0.8" />
+      <circle cx="32" cy="5" r="4.5" fill="#e7b124" stroke="#a07238" strokeWidth="1" />
+      <circle cx="30.8" cy="3.8" r="1.5" fill="#ffffff" opacity="0.9" />
+
+      {/* Left Wooden Dowel Ear (Grooved Beech Dowel Stick) */}
+      <rect x="3.5" y="27" width="8.5" height="12" rx="3.5" fill="url(#palLightDowelGrad)" stroke="#9c703b" strokeWidth="0.8" />
+      <line x1="6.5" y1="29.5" x2="6.5" y2="36.5" stroke="#9c703b" strokeWidth="0.9" opacity="0.8" />
+      <line x1="9" y1="29.5" x2="9" y2="36.5" stroke="#9c703b" strokeWidth="0.9" opacity="0.8" />
 
       {/* Right Wooden Dowel Ear */}
-      <rect x="52" y="27" width="8" height="12" rx="3" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
-      <line x1="54.5" y1="29" x2="54.5" y2="37" stroke="#6d3f11" strokeWidth="1" />
-      <line x1="57" y1="29" x2="57" y2="37" stroke="#6d3f11" strokeWidth="1" />
+      <rect x="52" y="27" width="8.5" height="12" rx="3.5" fill="url(#palLightDowelGrad)" stroke="#9c703b" strokeWidth="0.8" />
+      <line x1="55" y1="29.5" x2="55" y2="36.5" stroke="#9c703b" strokeWidth="0.9" opacity="0.8" />
+      <line x1="57.5" y1="29.5" x2="57.5" y2="36.5" stroke="#9c703b" strokeWidth="0.9" opacity="0.8" />
 
-      {/* Main Wooden Head Block */}
-      <rect x="10" y="14" width="44" height="42" rx="10" fill="url(#palBeechWoodGrad)" stroke="#6d3f11" strokeWidth="1.5" />
+      {/* Main Wooden Head Block in Light Natural Beech */}
+      <rect x="10" y="14" width="44" height="42" rx="10" fill="url(#palLightBeechHead)" stroke="#9c703b" strokeWidth="1.2" />
 
-      {/* Handcrafted Beech Wood Grain Lines */}
-      <path d="M 13 22 Q 32 19 51 23" stroke="#b4782f" strokeWidth="1.1" fill="none" opacity="0.65" />
-      <path d="M 12 36 Q 32 39 52 35" stroke="#995f1f" strokeWidth="1" fill="none" opacity="0.45" />
-      <path d="M 14 50 Q 32 46 50 51" stroke="#885017" strokeWidth="1.1" fill="none" opacity="0.55" />
+      {/* Top Edge 3D Wood Chamfer Highlight */}
+      <path d="M 18 15 L 46 15" stroke="url(#palBevelHighlight)" strokeWidth="1.2" strokeLinecap="round" />
 
-      {/* Wooden Corner Joint Dowel Pins */}
-      <circle cx="15.5" cy="19" r="1.8" fill="#754110" />
-      <circle cx="48.5" cy="19" r="1.8" fill="#754110" />
-      <circle cx="15.5" cy="51" r="1.8" fill="#754110" />
-      <circle cx="48.5" cy="51" r="1.8" fill="#754110" />
+      {/* Fine Light Beech Wood Grain Waves */}
+      <path d="M 12 21 Q 32 18 52 22" stroke="#cca472" strokeWidth="1" fill="none" opacity="0.45" />
+      <path d="M 11 35 Q 32 38 53 34" stroke="#bf925b" strokeWidth="0.9" fill="none" opacity="0.35" />
+      <path d="M 13 49 Q 32 46 51 50" stroke="#b08047" strokeWidth="1" fill="none" opacity="0.4" />
 
-      {/* Dark Visor Display Panel */}
-      <rect x="17" y="23" width="30" height="23" rx="6" fill="url(#palVisorScreen)" stroke="#55300b" strokeWidth="1.2" />
+      {/* Wooden Joinery Corner Pins */}
+      <circle cx="15.5" cy="19" r="1.8" fill="#a07238" />
+      <circle cx="15.5" cy="19" r="0.8" fill="#5c3912" />
+      <circle cx="48.5" cy="19" r="1.8" fill="#a07238" />
+      <circle cx="48.5" cy="19" r="0.8" fill="#5c3912" />
+      <circle cx="15.5" cy="51" r="1.8" fill="#a07238" />
+      <circle cx="15.5" cy="51" r="0.8" fill="#5c3912" />
+      <circle cx="48.5" cy="51" r="1.8" fill="#a07238" />
+      <circle cx="48.5" cy="51" r="0.8" fill="#5c3912" />
+
+      {/* Inset Visor Display Panel */}
+      <rect x="17" y="23" width="30" height="23" rx="6" fill="url(#palVisorScreen)" stroke="#805624" strokeWidth="1" />
 
       {/* Friendly Glowing Robot Eyes */}
-      <circle cx="25" cy="32" r="3.5" fill="#e7b124" />
-      <circle cx="24" cy="31" r="1.2" fill="#ffffff" />
+      <circle cx="25" cy="32" r="3.8" fill="#e7b124" />
+      <circle cx="23.8" cy="30.8" r="1.3" fill="#ffffff" />
 
-      <circle cx="39" cy="32" r="3.5" fill="#e7b124" />
-      <circle cx="38" cy="31" r="1.2" fill="#ffffff" />
+      <circle cx="39" cy="32" r="3.8" fill="#e7b124" />
+      <circle cx="37.8" cy="30.8" r="1.3" fill="#ffffff" />
 
-      {/* Robot Friendly Smile */}
-      <path d="M 27.5 39.5 Q 32 43.5 36.5 39.5" stroke="#e7b124" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      {/* Friendly Smile */}
+      <path d="M 27 39.5 Q 32 43.5 37 39.5" stroke="#e7b124" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      
+      {/* Subtle Rosy Wooden Cheeks */}
+      <circle cx="21" cy="40" r="1.5" fill="#e7b124" opacity="0.35" />
+      <circle cx="43" cy="40" r="1.5" fill="#e7b124" opacity="0.35" />
     </svg>
   );
 }
