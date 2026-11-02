@@ -132,10 +132,10 @@ const translations = {
     ro: 'Închide'
   },
   inputPlaceholder: {
-    nl: 'Stel een vraag over blanks, stokken, levertijden...',
-    en: 'Ask a question about blanks, dowels, delivery...',
-    de: 'Fragen Sie nach Blanks, Rundstäben, Lieferzeiten...',
-    ro: 'Întrebați despre frize, tije cilindrice, livrare...'
+    nl: 'Stel PAL een vraag over ons hout...',
+    en: 'Ask PAL a question about our timber...',
+    de: 'Frage an PAL zu Buchenholz...',
+    ro: 'Întrebați-l pe PAL despre lemn...'
   },
   sendAria: {
     nl: 'Verstuur bericht',
@@ -151,35 +151,35 @@ const translations = {
   },
   quickChips: {
     nl: [
-      { text: '🪵 Welke houtproducten maken jullie?', query: 'Welke houtproducten maken jullie?' },
-      { text: '📝 Hoe vraag ik een offerte aan?', query: 'Hoe kan ik een offerte aanvragen voor maatwerk beukenhout?' },
-      { text: '⏱️ Wat is de minimale afname (MOQ)?', query: 'Wat is jullie minimale bestelhoeveelheid (MOQ)?' },
-      { text: '📍 Waar staat jullie fabriek?', query: 'Waar is jullie fabriek en zagerij gevestigd?' }
+      { text: '🪵 Houtproducten', query: 'Welke houtproducten maken jullie?' },
+      { text: '📝 Offerte aanvragen', query: 'Hoe kan ik een offerte aanvragen voor maatwerk beukenhout?' },
+      { text: '⏱️ Minimale afname (MOQ)', query: 'Wat is jullie minimale bestelhoeveelheid (MOQ)?' },
+      { text: '📍 Fabriek in Brad', query: 'Waar is jullie fabriek en zagerij gevestigd?' }
     ],
     en: [
-      { text: '🪵 What wood products do you make?', query: 'What timber products do you manufacture?' },
-      { text: '📝 How do I request a quote?', query: 'How can I request a quote for custom beechwood?' },
-      { text: '⏱️ What is the minimum order quantity (MOQ)?', query: 'What is your minimum order quantity (MOQ)?' },
-      { text: '📍 Where is your factory located?', query: 'Where is your sawmill and factory located?' }
+      { text: '🪵 Timber Products', query: 'What timber products do you manufacture?' },
+      { text: '📝 Request a Quote', query: 'How can I request a quote for custom beechwood?' },
+      { text: '⏱️ Minimum Order (MOQ)', query: 'What is your minimum order quantity (MOQ)?' },
+      { text: '📍 Factory in Brad', query: 'Where is your sawmill and factory located?' }
     ],
     de: [
-      { text: '🪵 Welche Holzprodukte stellen Sie her?', query: 'Welche Holzprodukte stellen Sie her?' },
+      { text: '🪵 Holzprodukte', query: 'Welche Holzprodukte stellen Sie her?' },
       { text: '📝 Angebot anfordern', query: 'Wie kann ich ein Angebot für Buchenholz anfordern?' },
-      { text: '⏱️ Mindestbestellmenge (MOQ)', query: 'Wie hoch ist die Mindestbestellmenge?' },
-      { text: '📍 Wo befindet sich das Sägewerk?', query: 'Wo befindet sich Ihr Sägewerk und Werk?' }
+      { text: '⏱️ Mindestbestellmenge', query: 'Wie hoch ist die Mindestbestellmenge?' },
+      { text: '📍 Werk in Brad', query: 'Wo befindet sich Ihr Sägewerk und Werk?' }
     ],
     ro: [
-      { text: '🪵 Ce produse din lemn fabricați?', query: 'Ce produse din lemn produceți?' },
-      { text: '📝 Cum solicit o ofertă?', query: 'Cum pot solicita o ofertă de preț pentru lemn de fag?' },
-      { text: '⏱️ Cantitate minimă de comandă (MOQ)', query: 'Care este cantitatea minimă pe care o puteți livra?' },
-      { text: '📍 Unde este fabrica voastră?', query: 'Unde se află fabrica și gaterul vostru?' }
+      { text: '🪵 Produse din lemn', query: 'Ce produse din lemn produceți?' },
+      { text: '📝 Solicită ofertă', query: 'Cum pot solicita o ofertă de preț pentru lemn de fag?' },
+      { text: '⏱️ Comandă minimă (MOQ)', query: 'Care este cantitatea minimă pe care o puteți livra?' },
+      { text: '📍 Fabrica din Brad', query: 'Unde se află fabrica și gaterul vostru?' }
     ]
   },
   welcomeMessage: {
-    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products. 🪵\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten producten (blanks, deuvels, latten, profielen), droging (KD 8-12%) of het opstellen van een offerteaanvraag op maat.\n\nWaarmee kan ik u van dienst zijn?",
-    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products. 🪵\n\nI can help you with timber specifications, dimensions of our beechwood products (blanks, dowels, slats, profiles), kiln-drying (KD 8-12%), or setting up a custom quote request.\n\nHow can I help you today?",
-    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products. 🪵\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholzprodukte (Blanks, Rundstäbe, Leisten, Profile), Kammertrocknung (KD 8-12%) oder bei einer maßgeschneiderten Angebotsanfrage.\n\nWie kann ich Ihnen behilflich sein?",
-    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products. 🪵\n\nVă pot ajuta cu specificații, dimensiuni ale produselor din lemn de fag (frize, tije cilindrice, șipci, profile), uscare în uscător (KD 8-12%) sau solicitarea unei oferte.\n\nCu ce vă pot fi de folos?"
+    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products. 🪵\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten blanks, stokken, latten en profielen, of een offerteaanvraag op maat.\n\nWaarmee kan ik u van dienst zijn?",
+    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products. 🪵\n\nI can help you with timber specifications, dimensions of our beechwood blanks, dowels, slats, and profiles, or a custom quote inquiry.\n\nHow can I help you today?",
+    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products. 🪵\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholz-Blanks, Rundstäbe, Leisten und Profile oder einem maßgeschneiderten Angebot.\n\nWie kann ich Ihnen helfen?",
+    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products. 🪵\n\nVă pot ajuta cu specificații, dimensiuni ale frizelor, tijelor, șipcilor și profilelor din lemn de fag, sau o solicitare de ofertă.\n\nCu ce vă pot ajuta?"
   }
 };
 
@@ -194,6 +194,7 @@ export default function PalAssistantWidget() {
   const activeLang = lang || 'nl';
   
   const chatMessagesEndRef = useRef(null);
+  const chatBodyRef = useRef(null);
   const widgetRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -214,21 +215,30 @@ export default function PalAssistantWidget() {
     }
   }, [activeLang, hasInteracted]);
 
-  // Auto-scroll to bottom of chat
+  // Auto-scroll ONLY when user has interacted and a new message arrives.
+  // On initial open, ensure we stay scrolled to the top so greeting is completely visible!
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && hasInteracted) {
       chatMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else if (isOpen && !hasInteracted && chatBodyRef.current) {
+      chatBodyRef.current.scrollTop = 0;
     }
-  }, [messages, isLoading, isOpen]);
+  }, [messages, isLoading, isOpen, hasInteracted]);
 
-  // Focus input on open
+  // Focus input and ensure scroll is at top on open
   useEffect(() => {
     if (isOpen) {
+      if (!hasInteracted && chatBodyRef.current) {
+        chatBodyRef.current.scrollTop = 0;
+      }
       setTimeout(() => {
+        if (!hasInteracted && chatBodyRef.current) {
+          chatBodyRef.current.scrollTop = 0;
+        }
         inputRef.current?.focus();
-      }, 250);
+      }, 100);
     }
-  }, [isOpen]);
+  }, [isOpen, hasInteracted]);
 
   // Handle clicking outside to close
   useEffect(() => {
@@ -388,7 +398,7 @@ export default function PalAssistantWidget() {
         </div>
 
         {/* Message Stream */}
-        <div className="pal-chat-body">
+        <div className="pal-chat-body" ref={chatBodyRef}>
           {messages.map((msg) => (
             <div key={msg.id} className={`pal-message-bubble ${msg.role}`}>
               {msg.role === 'bot' && (
