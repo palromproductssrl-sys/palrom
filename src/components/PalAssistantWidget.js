@@ -50,34 +50,34 @@ const translations = {
   quickChips: {
     nl: [
       { text: '🪵 Welke houtproducten maken jullie?', query: 'Welke houtproducten maken jullie?' },
-      { text: '📐 Help mij een offerte samenstellen', query: 'Ik wil graag een offerte samenstellen voor maatwerk hout.' },
+      { text: '📝 Hoe vraag ik een offerte aan?', query: 'Hoe kan ik een offerte aanvragen voor maatwerk beukenhout?' },
       { text: '⏱️ Wat is de minimale afname (MOQ)?', query: 'Wat is jullie minimale bestelhoeveelheid (MOQ)?' },
       { text: '📍 Waar staat jullie fabriek?', query: 'Waar is jullie fabriek en zagerij gevestigd?' }
     ],
     en: [
       { text: '🪵 What wood products do you make?', query: 'What timber products do you manufacture?' },
-      { text: '📐 Help me configure a quote', query: 'I would like to configure a custom quote for timber products.' },
+      { text: '📝 How do I request a quote?', query: 'How can I request a quote for custom beechwood?' },
       { text: '⏱️ What is the minimum order quantity (MOQ)?', query: 'What is your minimum order quantity (MOQ)?' },
       { text: '📍 Where is your factory located?', query: 'Where is your sawmill and factory located?' }
     ],
     de: [
       { text: '🪵 Welche Holzprodukte stellen Sie her?', query: 'Welche Holzprodukte stellen Sie her?' },
-      { text: '📐 Angebot zusammenstellen', query: 'Ich möchte ein Angebot für Buchenholz zusammenstellen.' },
+      { text: '📝 Angebot anfordern', query: 'Wie kann ich ein Angebot für Buchenholz anfordern?' },
       { text: '⏱️ Mindestbestellmenge (MOQ)', query: 'Wie hoch ist die Mindestbestellmenge?' },
       { text: '📍 Wo befindet sich das Sägewerk?', query: 'Wo befindet sich Ihr Sägewerk und Werk?' }
     ],
     ro: [
       { text: '🪵 Ce produse din lemn fabricați?', query: 'Ce produse din lemn produceți?' },
-      { text: '📐 Configurează o ofertă', query: 'Doresc să configurez o ofertă de preț pentru produse din fag.' },
+      { text: '📝 Cum solicit o ofertă?', query: 'Cum pot solicita o ofertă de preț pentru lemn de fag?' },
       { text: '⏱️ Cantitate minimă de comandă (MOQ)', query: 'Care este cantitatea minimă pe care o puteți livra?' },
       { text: '📍 Unde este fabrica voastră?', query: 'Unde se află fabrica și gaterul vostru?' }
     ]
   },
   welcomeMessage: {
-    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products. 🪵\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten producten (blanks, deuvels, latten, profielen), droging (KD 8-12%) of het opstellen van een offerte op maat.\n\nWaarmee kan ik u van dienst zijn?",
-    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products. 🪵\n\nI can help you with timber specifications, dimensions of our beechwood products (blanks, dowels, slats, profiles), kiln-drying (KD 8-12%), or setting up a custom quote.\n\nHow can I help you today?",
-    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products. 🪵\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholzprodukte (Blanks, Rundstäbe, Leisten, Profile), Kammertrocknung (KD 8-12%) oder bei der Erstellung eines Angebots.\n\nWie kann ich Ihnen behilflich sein?",
-    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products. 🪵\n\nVă pot ajuta cu specificații, dimensiuni ale produselor din lemn de fag (frize, tije cilindrice, șipci, profile), uscare în uscător (KD 8-12%) sau configurarea unei oferte.\n\nCu ce vă pot fi de folos?"
+    nl: "Hallo! Ik ben **PAL**, uw virtuele B2B-assistent voor PALROM Products. 🪵\n\nIk help u graag met specificaties, afmetingen van onze beukenhouten producten (blanks, deuvels, latten, profielen), droging (KD 8-12%) of het opstellen van een offerteaanvraag op maat.\n\nWaarmee kan ik u van dienst zijn?",
+    en: "Hello! I am **PAL**, your virtual B2B advisor for PALROM Products. 🪵\n\nI can help you with timber specifications, dimensions of our beechwood products (blanks, dowels, slats, profiles), kiln-drying (KD 8-12%), or setting up a custom quote request.\n\nHow can I help you today?",
+    de: "Hallo! Ich bin **PAL**, Ihr virtueller B2B-Berater für PALROM Products. 🪵\n\nIch helfe Ihnen gerne bei Spezifikationen, Maßen unserer Buchenholzprodukte (Blanks, Rundstäbe, Leisten, Profile), Kammertrocknung (KD 8-12%) oder bei einer maßgeschneiderten Angebotsanfrage.\n\nWie kann ich Ihnen behilflich sein?",
+    ro: "Bună ziua! Sunt **PAL**, consilierul dvs. virtual B2B pentru PALROM Products. 🪵\n\nVă pot ajuta cu specificații, dimensiuni ale produselor din lemn de fag (frize, tije cilindrice, șipci, profile), uscare în uscător (KD 8-12%) sau solicitarea unei oferte.\n\nCu ce vă pot fi de folos?"
   }
 };
 
@@ -104,7 +104,7 @@ export default function PalAssistantWidget() {
           role: 'bot',
           text: translations.welcomeMessage[activeLang] || translations.welcomeMessage.nl,
           actions: [
-            { label: activeLang === 'nl' ? 'Start Offerte Configurator' : (activeLang === 'de' ? 'Angebotskonfigurator' : (activeLang === 'ro' ? 'Configurator Oferte' : 'Start Configurator')), url: '/configurator' },
+            { label: activeLang === 'nl' ? 'Offerte aanvragen' : (activeLang === 'de' ? 'Angebot anfordern' : (activeLang === 'ro' ? 'Solicită o ofertă' : 'Request a Quote')), url: '#contact' },
             { label: activeLang === 'nl' ? 'Bekijk Houtproducten' : (activeLang === 'de' ? 'Produkte ansehen' : (activeLang === 'ro' ? 'Catalog Produse' : 'View Wood Products')), url: '/#products' }
           ]
         }
@@ -195,9 +195,9 @@ export default function PalAssistantWidget() {
           id: 'bot-err-' + Date.now(),
           role: 'bot',
           text: activeLang === 'nl'
-            ? 'Excuses, er trad een kleine verbindingsfout op. U kunt direct mailen naar **office@palromproducts.ro** of onze configurator openen.'
-            : 'Apologies, a temporary connection error occurred. Please contact us at **office@palromproducts.ro** or use our configurator.',
-          actions: [{ label: 'Start Configurator', url: '/configurator' }]
+            ? 'Excuses, er trad een kleine verbindingsfout op. U kunt direct mailen naar **office@palromproducts.ro** of contact opnemen via het formulier.'
+            : 'Apologies, a temporary connection error occurred. Please contact us at **office@palromproducts.ro** or via the contact form.',
+          actions: [{ label: activeLang === 'nl' ? 'Neem contact op' : 'Contact Us', url: '#contact' }]
         }
       ]);
     } finally {
@@ -213,7 +213,7 @@ export default function PalAssistantWidget() {
         role: 'bot',
         text: translations.welcomeMessage[activeLang] || translations.welcomeMessage.nl,
         actions: [
-          { label: activeLang === 'nl' ? 'Start Offerte Configurator' : 'Start Configurator', url: '/configurator' },
+          { label: activeLang === 'nl' ? 'Offerte aanvragen' : 'Request a Quote', url: '#contact' },
           { label: activeLang === 'nl' ? 'Bekijk Houtproducten' : 'View Products', url: '/#products' }
         ]
       }
