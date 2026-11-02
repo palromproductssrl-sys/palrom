@@ -4,6 +4,81 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useInquiry } from './InquiryContext';
 
+// Custom Wooden Robot Icon - Handcrafted Beechwood Robot for PAL
+export function WoodenRobotIcon({ size = 32, className = '' }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 64 64" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+      aria-hidden="true"
+    >
+      <defs>
+        {/* Warm Beechwood Gradients */}
+        <linearGradient id="palBeechWoodGrad" x1="10" y1="14" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#e8b16c" />
+          <stop offset="50%" stopColor="#cf9045" />
+          <stop offset="100%" stopColor="#ad6f2a" />
+        </linearGradient>
+        <linearGradient id="palDowelGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#e0a457" />
+          <stop offset="100%" stopColor="#8d561d" />
+        </linearGradient>
+        <linearGradient id="palVisorScreen" x1="18" y1="24" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#282828" />
+          <stop offset="100%" stopColor="#151515" />
+        </linearGradient>
+      </defs>
+
+      {/* Wooden Dowel Peg Antenna with Gold Tip */}
+      <rect x="30" y="4" width="4" height="11" rx="2" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
+      <circle cx="32" cy="5" r="4.5" fill="#e7b124" stroke="#8d561d" strokeWidth="1.2" />
+      <circle cx="32" cy="5" r="1.5" fill="#ffffff" />
+
+      {/* Left Wooden Dowel Ear (with grooved rilled rings like PALROM rods) */}
+      <rect x="4" y="27" width="8" height="12" rx="3" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
+      <line x1="7" y1="29" x2="7" y2="37" stroke="#6d3f11" strokeWidth="1" />
+      <line x1="9.5" y1="29" x2="9.5" y2="37" stroke="#6d3f11" strokeWidth="1" />
+
+      {/* Right Wooden Dowel Ear */}
+      <rect x="52" y="27" width="8" height="12" rx="3" fill="url(#palDowelGrad)" stroke="#6d3f11" strokeWidth="1" />
+      <line x1="54.5" y1="29" x2="54.5" y2="37" stroke="#6d3f11" strokeWidth="1" />
+      <line x1="57" y1="29" x2="57" y2="37" stroke="#6d3f11" strokeWidth="1" />
+
+      {/* Main Wooden Head Block */}
+      <rect x="10" y="14" width="44" height="42" rx="10" fill="url(#palBeechWoodGrad)" stroke="#6d3f11" strokeWidth="1.5" />
+
+      {/* Handcrafted Beech Wood Grain Lines */}
+      <path d="M 13 22 Q 32 19 51 23" stroke="#b4782f" strokeWidth="1.1" fill="none" opacity="0.65" />
+      <path d="M 12 36 Q 32 39 52 35" stroke="#995f1f" strokeWidth="1" fill="none" opacity="0.45" />
+      <path d="M 14 50 Q 32 46 50 51" stroke="#885017" strokeWidth="1.1" fill="none" opacity="0.55" />
+
+      {/* Wooden Corner Joint Dowel Pins */}
+      <circle cx="15.5" cy="19" r="1.8" fill="#754110" />
+      <circle cx="48.5" cy="19" r="1.8" fill="#754110" />
+      <circle cx="15.5" cy="51" r="1.8" fill="#754110" />
+      <circle cx="48.5" cy="51" r="1.8" fill="#754110" />
+
+      {/* Dark Visor Display Panel */}
+      <rect x="17" y="23" width="30" height="23" rx="6" fill="url(#palVisorScreen)" stroke="#55300b" strokeWidth="1.2" />
+
+      {/* Friendly Glowing Robot Eyes */}
+      <circle cx="25" cy="32" r="3.5" fill="#e7b124" />
+      <circle cx="24" cy="31" r="1.2" fill="#ffffff" />
+
+      <circle cx="39" cy="32" r="3.5" fill="#e7b124" />
+      <circle cx="38" cy="31" r="1.2" fill="#ffffff" />
+
+      {/* Robot Friendly Smile */}
+      <path d="M 27.5 39.5 Q 32 43.5 36.5 39.5" stroke="#e7b124" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
+
 const translations = {
   launcherTooltip: {
     nl: 'Chat met PAL (AI)',
@@ -237,10 +312,7 @@ export default function PalAssistantWidget() {
           {isOpen ? (
             <i className="fa-solid fa-xmark"></i>
           ) : (
-            <>
-              <i className="fa-solid fa-robot"></i>
-              <span className="pal-launcher-glow"></span>
-            </>
+            <WoodenRobotIcon size={38} className="pal-wooden-robot-launcher" />
           )}
         </div>
         
@@ -259,7 +331,7 @@ export default function PalAssistantWidget() {
         <div className="pal-chat-header">
           <div className="pal-header-profile">
             <div className="pal-avatar-wrap">
-              <i className="fa-solid fa-robot"></i>
+              <WoodenRobotIcon size={30} />
               <span className="pal-avatar-status"></span>
             </div>
             <div className="pal-header-titles">
@@ -294,7 +366,7 @@ export default function PalAssistantWidget() {
             <div key={msg.id} className={`pal-message-bubble ${msg.role}`}>
               {msg.role === 'bot' && (
                 <div className="pal-bubble-avatar">
-                  <i className="fa-solid fa-robot"></i>
+                  <WoodenRobotIcon size={22} />
                 </div>
               )}
               <div className="pal-bubble-content">
@@ -350,7 +422,7 @@ export default function PalAssistantWidget() {
           {isLoading && (
             <div className="pal-message-bubble bot pal-typing-row">
               <div className="pal-bubble-avatar">
-                <i className="fa-solid fa-robot"></i>
+                <WoodenRobotIcon size={22} />
               </div>
               <div className="pal-typing-bubble">
                 <span className="dot"></span>
